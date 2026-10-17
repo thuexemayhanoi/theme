@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 $nt_root = getenv( 'NT_WP_ROOT' );
 if ( ! $nt_root ) {
-	$sandbox = getenv( 'SANDBOX_DIR' ) ?: '/tmp/claude-0/-home-user-theme/d41765c8-2e4b-518d-a8b0-f498c16b692d/scratchpad/sandbox';
+	$sandbox = getenv( 'SANDBOX_DIR' ) ?: ( rtrim( (string) ( getenv( 'TMPDIR' ) ?: '/tmp' ), '/' ) . '/nguyentu-sandbox' );
 	$nt_root = $sandbox . '/wp';
 }
 if ( ! is_file( $nt_root . '/wp-load.php' ) ) {
