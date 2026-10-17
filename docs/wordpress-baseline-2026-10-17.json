@@ -1,0 +1,973 @@
+{
+  "snapshot_date": "2026-10-17",
+  "site": "https://thuexemaynguyentu.com",
+  "purpose": "READ-ONLY AUDIT REFERENCE; do not use to overwrite WordPress production; refresh before activation",
+  "wordpress": {
+    "version": "7.1.3",
+    "php_version": "8.2.34",
+    "active_theme": {
+      "stylesheet": "flatsome-child",
+      "parent": "flatsome",
+      "name": "Flatsome Child",
+      "child_version": "3.0",
+      "parent_version": "3.18.7"
+    },
+    "home_page_id": 562,
+    "show_on_front": "page",
+    "page_for_posts": 0,
+    "permalink_structure": "/%postname%/"
+  },
+  "baseline_counts": {
+    "published_posts": 160,
+    "published_pages": 10,
+    "published_products": 13,
+    "published_featured_items": 15,
+    "attachments": 123,
+    "post_categories": 26,
+    "main_menu_items": 36,
+    "product_categories": 5,
+    "featured_terms": 4
+  },
+  "menus": {
+    "main_menu_id": 67,
+    "secondary_menu_id": 66,
+    "locations": [
+      {
+        "location": "primary",
+        "description": "Menu chính",
+        "assigned_menu": "Main chính"
+      },
+      {
+        "location": "primary_mobile",
+        "description": "Menu chính - Di động",
+        "assigned_menu": "Main chính"
+      },
+      {
+        "location": "secondary",
+        "description": "Menu phụ",
+        "assigned_menu": ""
+      },
+      {
+        "location": "footer",
+        "description": "Menu chân trang",
+        "assigned_menu": "Secondary"
+      },
+      {
+        "location": "top_bar_nav",
+        "description": "Menu thanh trên cùng",
+        "assigned_menu": "Secondary"
+      },
+      {
+        "location": "my_account",
+        "description": "Menu tài khoản của tôi",
+        "assigned_menu": ""
+      },
+      {
+        "location": "vertical",
+        "description": "Menu dọc",
+        "assigned_menu": ""
+      }
+    ],
+    "main_items": [
+      {
+        "db_id": 964,
+        "type": "post_type",
+        "object": "page",
+        "object_id": 562,
+        "title": "Trang Chủ",
+        "link": "https://thuexemaynguyentu.com/",
+        "position": 1,
+        "parent": 0
+      },
+      {
+        "db_id": 3914,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3914,
+        "title": "Hướng dẫn thuê xe",
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/",
+        "position": 2,
+        "parent": 374
+      },
+      {
+        "db_id": 3915,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3915,
+        "title": "Thủ tục và giao nhận",
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+        "position": 3,
+        "parent": 3914
+      },
+      {
+        "db_id": 3916,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3916,
+        "title": "Chi phí thuê xe",
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+        "position": 4,
+        "parent": 3914
+      },
+      {
+        "db_id": 3917,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3917,
+        "title": "Sử dụng xe thuê 50cc",
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+        "position": 5,
+        "parent": 3914
+      },
+      {
+        "db_id": 3918,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3918,
+        "title": "Xe đạp điện",
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/xe-dap-dien/",
+        "position": 6,
+        "parent": 2336
+      },
+      {
+        "db_id": 3919,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3919,
+        "title": "Pin và sạc",
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/pin-va-sac/",
+        "position": 7,
+        "parent": 2336
+      },
+      {
+        "db_id": 3920,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3920,
+        "title": "Công nghệ xe điện",
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/cong-nghe-xe-dien/",
+        "position": 8,
+        "parent": 2336
+      },
+      {
+        "db_id": 3921,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3921,
+        "title": "Điện hóa và hạ tầng",
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/dien-hoa-va-ha-tang/",
+        "position": 9,
+        "parent": 2336
+      },
+      {
+        "db_id": 3922,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3922,
+        "title": "Chăm sóc xe máy",
+        "link": "https://thuexemaynguyentu.com/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+        "position": 10,
+        "parent": 2337
+      },
+      {
+        "db_id": 3923,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3923,
+        "title": "Giấy phép và giấy tờ",
+        "link": "https://thuexemaynguyentu.com/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+        "position": 11,
+        "parent": 2338
+      },
+      {
+        "db_id": 3924,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3924,
+        "title": "Khám phá Hà Nội",
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/kham-pha-ha-noi/",
+        "position": 12,
+        "parent": 937
+      },
+      {
+        "db_id": 3925,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3925,
+        "title": "Hành trình Việt Nam",
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/hanh-trinh-viet-nam/",
+        "position": 13,
+        "parent": 937
+      },
+      {
+        "db_id": 3926,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3926,
+        "title": "Ẩm thực và văn hóa",
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/am-thuc-va-van-hoa/",
+        "position": 14,
+        "parent": 937
+      },
+      {
+        "db_id": 3927,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3927,
+        "title": "Lập kế hoạch chuyến đi",
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/lap-ke-hoach-chuyen-di/",
+        "position": 15,
+        "parent": 936
+      },
+      {
+        "db_id": 3928,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3928,
+        "title": "Di chuyển đô thị",
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/di-chuyen-do-thi/",
+        "position": 16,
+        "parent": 936
+      },
+      {
+        "db_id": 3929,
+        "type": "custom",
+        "object": "custom",
+        "object_id": 3929,
+        "title": "Du lịch xanh",
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/du-lich-xanh/",
+        "position": 17,
+        "parent": 936
+      },
+      {
+        "db_id": 316,
+        "type": "post_type",
+        "object": "page",
+        "object_id": 310,
+        "title": "Giới Thiệu",
+        "link": "https://thuexemaynguyentu.com/gioi-thieu/",
+        "position": 18,
+        "parent": 0
+      },
+      {
+        "db_id": 430,
+        "type": "post_type",
+        "object": "page",
+        "object_id": 424,
+        "title": "Về Chúng Tôi",
+        "link": "https://thuexemaynguyentu.com/gioi-thieu/ve-chung-toi/",
+        "position": 19,
+        "parent": 316
+      },
+      {
+        "db_id": 438,
+        "type": "post_type",
+        "object": "page",
+        "object_id": 432,
+        "title": "Sứ Mệnh Tầm Nhìn",
+        "link": "https://thuexemaynguyentu.com/gioi-thieu/su-menh-tam-nhin/",
+        "position": 20,
+        "parent": 316
+      },
+      {
+        "db_id": 374,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 69,
+        "title": "Blog",
+        "link": "https://thuexemaynguyentu.com/blog/",
+        "position": 21,
+        "parent": 0
+      },
+      {
+        "db_id": 936,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 127,
+        "title": "Chia Sẻ",
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/",
+        "position": 22,
+        "parent": 374
+      },
+      {
+        "db_id": 937,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 126,
+        "title": "Điểm Đến",
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/",
+        "position": 23,
+        "parent": 374
+      },
+      {
+        "db_id": 375,
+        "type": "taxonomy",
+        "object": "product_cat",
+        "object_id": 70,
+        "title": "Loại Xe",
+        "link": "https://thuexemaynguyentu.com/danh-muc-san-pham/loai-xe/",
+        "position": 24,
+        "parent": 0
+      },
+      {
+        "db_id": 378,
+        "type": "taxonomy",
+        "object": "product_cat",
+        "object_id": 71,
+        "title": "Xe Số",
+        "link": "https://thuexemaynguyentu.com/danh-muc-san-pham/loai-xe/xe-so/",
+        "position": 25,
+        "parent": 375
+      },
+      {
+        "db_id": 377,
+        "type": "taxonomy",
+        "object": "product_cat",
+        "object_id": 72,
+        "title": "Xe Ga",
+        "link": "https://thuexemaynguyentu.com/danh-muc-san-pham/loai-xe/xe-ga/",
+        "position": 26,
+        "parent": 375
+      },
+      {
+        "db_id": 376,
+        "type": "taxonomy",
+        "object": "product_cat",
+        "object_id": 73,
+        "title": "Xe Điện",
+        "link": "https://thuexemaynguyentu.com/danh-muc-san-pham/loai-xe/xe-dien/",
+        "position": 27,
+        "parent": 375
+      },
+      {
+        "db_id": 469,
+        "type": "taxonomy",
+        "object": "featured_item_category",
+        "object_id": 77,
+        "title": "Bảng Giá",
+        "link": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+        "position": 28,
+        "parent": 0
+      },
+      {
+        "db_id": 470,
+        "type": "taxonomy",
+        "object": "featured_item_category",
+        "object_id": 78,
+        "title": "Thuê Ngày",
+        "link": "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/",
+        "position": 29,
+        "parent": 469
+      },
+      {
+        "db_id": 472,
+        "type": "taxonomy",
+        "object": "featured_item_category",
+        "object_id": 79,
+        "title": "Thuê Tuần",
+        "link": "https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/",
+        "position": 30,
+        "parent": 469
+      },
+      {
+        "db_id": 471,
+        "type": "taxonomy",
+        "object": "featured_item_category",
+        "object_id": 80,
+        "title": "Thuê Tháng",
+        "link": "https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/",
+        "position": 31,
+        "parent": 469
+      },
+      {
+        "db_id": 379,
+        "type": "post_type",
+        "object": "page",
+        "object_id": 372,
+        "title": "Liên Hệ",
+        "link": "https://thuexemaynguyentu.com/lien-he/",
+        "position": 32,
+        "parent": 0
+      },
+      {
+        "db_id": 2335,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 156,
+        "title": "Đánh Giá & So Sánh Xe",
+        "link": "https://thuexemaynguyentu.com/blog/danh-gia-so-sanh-xe/",
+        "position": 33,
+        "parent": 374
+      },
+      {
+        "db_id": 2336,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 157,
+        "title": "Xe Điện",
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/",
+        "position": 34,
+        "parent": 374
+      },
+      {
+        "db_id": 2337,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 158,
+        "title": "Kỹ Thuật & Bảo Dưỡng",
+        "link": "https://thuexemaynguyentu.com/blog/ky-thuat-bao-duong/",
+        "position": 35,
+        "parent": 374
+      },
+      {
+        "db_id": 2338,
+        "type": "taxonomy",
+        "object": "category",
+        "object_id": 159,
+        "title": "Pháp Lý & Kinh Nghiệm",
+        "link": "https://thuexemaynguyentu.com/blog/phap-ly-kinh-nghiem/",
+        "position": 36,
+        "parent": 374
+      }
+    ]
+  },
+  "taxonomies": {
+    "category": [
+      {
+        "id": 174,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/am-thuc-va-van-hoa/",
+        "name": "Ẩm thực và văn hóa",
+        "slug": "am-thuc-va-van-hoa",
+        "parent": 126
+      },
+      {
+        "id": 161,
+        "count": 6,
+        "link": "https://thuexemaynguyentu.com/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "name": "An toàn khi di chuyển",
+        "slug": "an-toan-khi-di-chuyen",
+        "parent": 159
+      },
+      {
+        "id": 69,
+        "count": 24,
+        "link": "https://thuexemaynguyentu.com/blog/",
+        "name": "Blog",
+        "slug": "blog",
+        "parent": 0
+      },
+      {
+        "id": 160,
+        "count": 1,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/cham-soc-xe-dien/",
+        "name": "Chăm sóc xe điện",
+        "slug": "cham-soc-xe-dien",
+        "parent": 157
+      },
+      {
+        "id": 170,
+        "count": 8,
+        "link": "https://thuexemaynguyentu.com/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+        "name": "Chăm sóc xe máy",
+        "slug": "cham-soc-xe-may",
+        "parent": 158
+      },
+      {
+        "id": 164,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+        "name": "Chi phí thuê xe",
+        "slug": "chi-phi-thue-xe",
+        "parent": 162
+      },
+      {
+        "id": 127,
+        "count": 11,
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/",
+        "name": "Chia Sẻ",
+        "slug": "chia-se",
+        "parent": 69
+      },
+      {
+        "id": 168,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/cong-nghe-xe-dien/",
+        "name": "Công nghệ xe điện",
+        "slug": "cong-nghe-xe-dien",
+        "parent": 157
+      },
+      {
+        "id": 156,
+        "count": 22,
+        "link": "https://thuexemaynguyentu.com/blog/danh-gia-so-sanh-xe/",
+        "name": "Đánh Giá &amp; So Sánh Xe",
+        "slug": "danh-gia-so-sanh-xe",
+        "parent": 69
+      },
+      {
+        "id": 176,
+        "count": 3,
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/di-chuyen-do-thi/",
+        "name": "Di chuyển đô thị",
+        "slug": "di-chuyen-do-thi",
+        "parent": 127
+      },
+      {
+        "id": 126,
+        "count": 3,
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/",
+        "name": "Điểm Đến",
+        "slug": "diem-den",
+        "parent": 69
+      },
+      {
+        "id": 169,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/dien-hoa-va-ha-tang/",
+        "name": "Điện hóa và hạ tầng",
+        "slug": "dien-hoa-va-ha-tang",
+        "parent": 157
+      },
+      {
+        "id": 177,
+        "count": 1,
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/du-lich-xanh/",
+        "name": "Du lịch xanh",
+        "slug": "du-lich-xanh",
+        "parent": 127
+      },
+      {
+        "id": 171,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+        "name": "Giấy phép và giấy tờ",
+        "slug": "giay-phep-va-giay-to",
+        "parent": 159
+      },
+      {
+        "id": 173,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/hanh-trinh-viet-nam/",
+        "name": "Hành trình Việt Nam",
+        "slug": "hanh-trinh-viet-nam",
+        "parent": 126
+      },
+      {
+        "id": 162,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/",
+        "name": "Hướng dẫn thuê xe",
+        "slug": "huong-dan-thue-xe",
+        "parent": 69
+      },
+      {
+        "id": 172,
+        "count": 1,
+        "link": "https://thuexemaynguyentu.com/blog/diem-den/kham-pha-ha-noi/",
+        "name": "Khám phá Hà Nội",
+        "slug": "kham-pha-ha-noi",
+        "parent": 126
+      },
+      {
+        "id": 158,
+        "count": 18,
+        "link": "https://thuexemaynguyentu.com/blog/ky-thuat-bao-duong/",
+        "name": "Kỹ Thuật &amp; Bảo Dưỡng",
+        "slug": "ky-thuat-bao-duong",
+        "parent": 69
+      },
+      {
+        "id": 175,
+        "count": 3,
+        "link": "https://thuexemaynguyentu.com/blog/chia-se/lap-ke-hoach-chuyen-di/",
+        "name": "Lập kế hoạch chuyến đi",
+        "slug": "lap-ke-hoach-chuyen-di",
+        "parent": 127
+      },
+      {
+        "id": 159,
+        "count": 21,
+        "link": "https://thuexemaynguyentu.com/blog/phap-ly-kinh-nghiem/",
+        "name": "Pháp Lý &amp; Kinh Nghiệm",
+        "slug": "phap-ly-kinh-nghiem",
+        "parent": 69
+      },
+      {
+        "id": 167,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/pin-va-sac/",
+        "name": "Pin và sạc",
+        "slug": "pin-va-sac",
+        "parent": 157
+      },
+      {
+        "id": 165,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+        "name": "Sử dụng xe thuê 50cc",
+        "slug": "su-dung-xe-thue-50cc",
+        "parent": 162
+      },
+      {
+        "id": 163,
+        "count": 1,
+        "link": "https://thuexemaynguyentu.com/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+        "name": "Thủ tục và giao nhận",
+        "slug": "thu-tuc-va-giao-nhan",
+        "parent": 162
+      },
+      {
+        "id": 1,
+        "count": 3,
+        "link": "https://thuexemaynguyentu.com/uncategorized/",
+        "name": "Uncategorized",
+        "slug": "uncategorized",
+        "parent": 0
+      },
+      {
+        "id": 166,
+        "count": 0,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/xe-dap-dien/",
+        "name": "Xe đạp điện",
+        "slug": "xe-dap-dien",
+        "parent": 157
+      },
+      {
+        "id": 157,
+        "count": 35,
+        "link": "https://thuexemaynguyentu.com/blog/xe-dien/",
+        "name": "Xe Điện",
+        "slug": "xe-dien",
+        "parent": 69
+      }
+    ],
+    "product_cat": [
+      {
+        "term_id": 70,
+        "name": "Loại Xe",
+        "slug": "loai-xe",
+        "count": 13,
+        "parent": 0
+      },
+      {
+        "term_id": 15,
+        "name": "Uncategorized",
+        "slug": "uncategorized",
+        "count": 0,
+        "parent": 0
+      },
+      {
+        "term_id": 73,
+        "name": "Xe Điện",
+        "slug": "xe-dien",
+        "count": 3,
+        "parent": 70
+      },
+      {
+        "term_id": 72,
+        "name": "Xe Ga",
+        "slug": "xe-ga",
+        "count": 6,
+        "parent": 70
+      },
+      {
+        "term_id": 71,
+        "name": "Xe Số",
+        "slug": "xe-so",
+        "count": 4,
+        "parent": 70
+      }
+    ],
+    "featured_item_category": [
+      {
+        "term_id": 77,
+        "name": "Bảng Giá",
+        "slug": "bang-gia",
+        "count": 15,
+        "parent": 0
+      },
+      {
+        "term_id": 78,
+        "name": "Thuê Ngày",
+        "slug": "thue-ngay",
+        "count": 5,
+        "parent": 77
+      },
+      {
+        "term_id": 80,
+        "name": "Thuê Tháng",
+        "slug": "thue-thang",
+        "count": 5,
+        "parent": 77
+      },
+      {
+        "term_id": 79,
+        "name": "Thuê Tuần",
+        "slug": "thue-tuan",
+        "count": 5,
+        "parent": 77
+      }
+    ]
+  },
+  "pages": [
+    {
+      "ID": 3040,
+      "post_title": "Cửa hàng",
+      "post_name": "shop",
+      "post_status": "publish"
+    },
+    {
+      "ID": 562,
+      "post_title": "Cho Thuê Xe Máy ở Hà Nội – Giao Tận Nơi, Cọc Nhẹ | Nguyễn Tú",
+      "post_name": "cho-thue-xe-may-ha-noi-3",
+      "post_status": "publish"
+    },
+    {
+      "ID": 494,
+      "post_title": "Bộ Sưu Tập",
+      "post_name": "bo-suu-tap",
+      "post_status": "publish"
+    },
+    {
+      "ID": 484,
+      "post_title": "FAQ",
+      "post_name": "faq",
+      "post_status": "publish"
+    },
+    {
+      "ID": 449,
+      "post_title": "Điều Khoản Sử Dụng",
+      "post_name": "dieu-khoan-su-dung",
+      "post_status": "publish"
+    },
+    {
+      "ID": 432,
+      "post_title": "Sứ Mệnh Tầm Nhìn",
+      "post_name": "su-menh-tam-nhin",
+      "post_status": "publish"
+    },
+    {
+      "ID": 424,
+      "post_title": "Về Chúng Tôi",
+      "post_name": "ve-chung-toi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 372,
+      "post_title": "Liên Hệ",
+      "post_name": "lien-he",
+      "post_status": "publish"
+    },
+    {
+      "ID": 326,
+      "post_title": "Chính sách bảo mật",
+      "post_name": "chinh-sach-bao-mat",
+      "post_status": "publish"
+    },
+    {
+      "ID": 310,
+      "post_title": "Giới Thiệu",
+      "post_name": "gioi-thieu",
+      "post_status": "publish"
+    }
+  ],
+  "products": [
+    {
+      "ID": 680,
+      "post_title": "Xe Số Honda Blade",
+      "post_name": "xe-so-honda-blade",
+      "post_status": "publish"
+    },
+    {
+      "ID": 678,
+      "post_title": "Yamaha Mio Classico",
+      "post_name": "yamaha-mio-classico",
+      "post_status": "publish"
+    },
+    {
+      "ID": 676,
+      "post_title": "Honda Click",
+      "post_name": "honda-click",
+      "post_status": "publish"
+    },
+    {
+      "ID": 674,
+      "post_title": "Honda Air Blade",
+      "post_name": "honda-air-blade",
+      "post_status": "publish"
+    },
+    {
+      "ID": 669,
+      "post_title": "Thuê Xe Ga 50cc Hà Nội",
+      "post_name": "xe-ga-50cc",
+      "post_status": "publish"
+    },
+    {
+      "ID": 667,
+      "post_title": "Yamaha Mio Ultimo",
+      "post_name": "yamaha-mio-ultimo",
+      "post_status": "publish"
+    },
+    {
+      "ID": 662,
+      "post_title": "Honda Cub",
+      "post_name": "honda-cub",
+      "post_status": "publish"
+    },
+    {
+      "ID": 659,
+      "post_title": "Yamaha Sirius",
+      "post_name": "yamaha-sirius",
+      "post_status": "publish"
+    },
+    {
+      "ID": 651,
+      "post_title": "Bảng giá thuê xe điện",
+      "post_name": "bang-gia-thue-xe-dien",
+      "post_status": "publish"
+    },
+    {
+      "ID": 647,
+      "post_title": "Xe Đạp Điện",
+      "post_name": "xe-dap-dien",
+      "post_status": "publish"
+    },
+    {
+      "ID": 422,
+      "post_title": "Thuê Xe Máy Điện Hà Nội",
+      "post_name": "xe-may-dien",
+      "post_status": "publish"
+    },
+    {
+      "ID": 412,
+      "post_title": "Honda Vision",
+      "post_name": "honda-vision",
+      "post_status": "publish"
+    },
+    {
+      "ID": 410,
+      "post_title": "Honda Wave",
+      "post_name": "honda-wave",
+      "post_status": "publish"
+    }
+  ],
+  "featured_items": [
+    {
+      "ID": 811,
+      "post_title": "Bảng giá thuê xe máy Hà Nội hàng tháng – Nhiều xe, giao nhanh, tiện lợi",
+      "post_name": "cho-thue-xe-may-thang-ha-noi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 809,
+      "post_title": "Cho thuê xe máy các loại theo tháng Hà Nội – Tiện lợi, giá tốt",
+      "post_name": "cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot",
+      "post_status": "publish"
+    },
+    {
+      "ID": 802,
+      "post_title": "Dịch vụ thuê xe máy 1 tháng Hà Nội Nguyễn Tú - Lựa chọn hàng đầu",
+      "post_name": "dich-vu-thue-xe-may-1-thang",
+      "post_status": "publish"
+    },
+    {
+      "ID": 795,
+      "post_title": "Thuê xe máy Hà Nội hàng tháng – Giao xe tận nơi, cọc nhẹ, tiện lợi",
+      "post_name": "thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 793,
+      "post_title": "Dịch vụ thuê xe máy tháng Hà Nội – Thuận tiện, an toàn, uy tín",
+      "post_name": "dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin",
+      "post_status": "publish"
+    },
+    {
+      "ID": 710,
+      "post_title": "Bảng Giá Thuê Các Loại Xe Máy 1 Tuần Hà Nội – Giao Xe Tận Nơi",
+      "post_name": "bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 708,
+      "post_title": "Thuê xe máy Hà Nội 1 tuần – Thủ tục nhanh, cọc nhẹ, dịch vụ tốt",
+      "post_name": "thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot",
+      "post_status": "publish"
+    },
+    {
+      "ID": 705,
+      "post_title": "Thuê xe máy mỗi tuần Hà Nội – Tiết kiệm, thuận tiện, giao tận nơi",
+      "post_name": "thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 703,
+      "post_title": "Dịch vụ thuê xe máy 1 tuần tại Hà Nội – Tiện lợi, an toàn, cọc nhẹ",
+      "post_name": "dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe",
+      "post_status": "publish"
+    },
+    {
+      "ID": 701,
+      "post_title": "Thuê xe máy Hà Nội theo tuần – Giá ưu đãi, giao xe nhanh",
+      "post_name": "thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh",
+      "post_status": "publish"
+    },
+    {
+      "ID": 696,
+      "post_title": "Bảng giá thuê xe máy theo ngày Hà Nội – Giao tận nơi, nhiều lựa chọn",
+      "post_name": "thue-xe-may",
+      "post_status": "publish"
+    },
+    {
+      "ID": 693,
+      "post_title": "Thuê xe máy 1 ngày Hà Nội – Giao xe tận nơi, thủ tục đơn giản",
+      "post_name": "thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian",
+      "post_status": "publish"
+    },
+    {
+      "ID": 686,
+      "post_title": "Thuê Xe Máy Theo Ngày Hà Nội – Đặt Xe Nhanh, Cọc Nhẹ",
+      "post_name": "thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe",
+      "post_status": "publish"
+    },
+    {
+      "ID": 682,
+      "post_title": "Dịch vụ thuê xe máy mỗi ngày Hà Nội – Tiện lợi và giá rẻ",
+      "post_name": "dich-vu-thue-xe-may-moi-ngay-ha-noi",
+      "post_status": "publish"
+    },
+    {
+      "ID": 587,
+      "post_title": "Thuê xe máy Hà Nội 1 ngày – Dịch vụ nhanh, giao tận nơi Nguyễn Tú",
+      "post_name": "thue-xe-may-ha-noi-1-ngay",
+      "post_status": "publish"
+    }
+  ],
+  "protected": {
+    "homepage_id": 562,
+    "main_menu_id": 67,
+    "secondary_menu_id": 66,
+    "blog_category_id": 69,
+    "featured_taxonomy_term_ids": [
+      77,
+      78,
+      79,
+      80
+    ],
+    "product_category_id": 70,
+    "homepage_contains_flatsome_shortcodes": true,
+    "homepage_raw_post_content_bytes": 40656
+  },
+  "plugins_to_check": [
+    "woocommerce",
+    "wordpress-seo",
+    "wordpress-seo-premium",
+    "motoai-chat-widget",
+    "moto-quickcall-flatsome-safe-v4",
+    "wp-contact-form-7",
+    "gtranslate",
+    "litespeed-cache",
+    "insert-headers-and-footers"
+  ]
+}
