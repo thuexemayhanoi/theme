@@ -144,6 +144,52 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-eyebrow::before { content: ""; width: 22px; height: 2px; background: currentcolor; border-radius: 2px; }
 .nt-icon { flex: none; vertical-align: middle; }
 
+/* ---------- Prose (editor content) ---------- */
+.nt-prose { font-size: 1.0625rem; line-height: 1.75; }
+.nt-prose > :first-child { margin-top: 0; }
+.nt-prose > :last-child { margin-bottom: 0; }
+.nt-prose :where(h2) { margin: 2.2em 0 .6em; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+.nt-prose :where(h3) { margin: 1.8em 0 .5em; font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); }
+.nt-prose :where(h4) { margin: 1.5em 0 .4em; font-size: 1.125rem; }
+.nt-prose :where(a) { color: var(--nt-navy); text-decoration-color: rgb(210 56 31 / 55%); }
+.nt-prose :where(a):hover { text-decoration-color: currentcolor; }
+.nt-prose :where(ul), .nt-prose :where(ol) { margin: 0 0 1.2em; padding-left: 1.4em; }
+.nt-prose :where(li) { margin-bottom: .45em; }
+.nt-prose :where(li)::marker { color: var(--nt-accent); font-weight: 700; }
+.nt-prose :where(img) { border-radius: var(--nt-radius); }
+.nt-prose :where(figure) { margin: 1.8em 0; }
+.nt-prose :where(figcaption), .wp-caption-text { margin-top: .6em; font-size: .875rem; color: var(--nt-muted); text-align: center; }
+.nt-prose :where(blockquote) {
+	margin: 1.8em 0; padding: 1.1em 1.4em;
+	font-size: 1.125rem; font-weight: 500;
+	background: var(--nt-paper);
+	border-left: 4px solid var(--nt-accent); border-radius: 0 var(--nt-radius) var(--nt-radius) 0;
+}
+.nt-prose :where(blockquote p:last-child) { margin: 0; }
+.nt-prose :where(pre), .nt-prose :where(code) { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+.nt-prose :where(pre) { padding: 1em; overflow-x: auto; color: #e8edf6; background: var(--nt-navy-900); border-radius: var(--nt-radius); }
+.nt-prose :where(:not(pre) > code) { padding: .15em .4em; background: var(--nt-sand); border-radius: 6px; }
+.nt-prose .alignwide { margin-inline: -6%; }
+.nt-prose .alignfull { margin-inline: calc(-1 * var(--nt-gutter)); }
+.nt-prose .alignleft { float: left; margin: .3em 1.4em 1em 0; max-width: 50%; }
+.nt-prose .alignright { float: right; margin: .3em 0 1em 1.4em; max-width: 50%; }
+.nt-prose .aligncenter { margin-inline: auto; }
+.nt-prose .wp-block-image img, .nt-prose .wp-block-gallery img { max-width: 100%; height: auto; }
+.nt-prose :where(iframe) { max-width: 100%; }
+.nt-prose .wp-block-embed__wrapper { position: relative; }
+.nt-prose::after { content: ""; display: table; clear: both; }
+
+.nt-table-wrap { margin: 1.6em 0; overflow-x: auto; border: 1px solid var(--nt-line); border-radius: var(--nt-radius); background: var(--nt-paper); }
+.nt-table-wrap:focus-visible { outline-offset: 0; }
+.nt-prose :where(table), .nt-table { font-size: .9688rem; }
+.nt-prose :where(th), .nt-prose :where(td) { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--nt-line); vertical-align: top; }
+.nt-prose :where(thead th) { color: #fff; background: var(--nt-navy); border-bottom: 0; }
+.nt-prose :where(tbody tr:nth-child(even)) { background: #fcfaf5; }
+.nt-prose :where(tbody tr:last-child td, tbody tr:last-child th) { border-bottom: 0; }
+.nt-prose .wp-block-table { margin: 1.6em 0; }
+.nt-prose .wp-block-table .nt-table-wrap { margin: 0; }
+
+
 /* ---------- Buttons ---------- */
 .nt-btn {
 	display: inline-flex; align-items: center; justify-content: center; gap: .55em;
@@ -500,56 +546,16 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-ctabar__btn--call { background: var(--nt-accent); }
 .nt-ctabar__btn--zalo { background: var(--nt-zalo); }
 body.nt-has-chat .nt-ctabar { padding-right: 84px; }
+body.nt-has-chat .nt-footer__bottom { padding-right: 84px; }
+@media (max-width: 767.98px) {
+	/* The QuickCall plugin draws its own fixed bar: keep the last footer line clear of it. */
+	body.nt-has-quickcall .nt-footer__bottom { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+}
 body.nt-has-cta-bar { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
 @media (min-width: 768px) {
 	.nt-ctabar { display: none; }
 	body.nt-has-cta-bar { padding-bottom: 0; }
 }
-
-/* ---------- Prose (editor content) ---------- */
-.nt-prose { font-size: 1.0625rem; line-height: 1.75; }
-.nt-prose > :first-child { margin-top: 0; }
-.nt-prose > :last-child { margin-bottom: 0; }
-.nt-prose h2 { margin: 2.2em 0 .6em; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
-.nt-prose h3 { margin: 1.8em 0 .5em; font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); }
-.nt-prose h4 { margin: 1.5em 0 .4em; font-size: 1.125rem; }
-.nt-prose a { color: var(--nt-navy); text-decoration-color: rgb(210 56 31 / 55%); }
-.nt-prose a:hover { text-decoration-color: currentcolor; }
-.nt-prose ul, .nt-prose ol { margin: 0 0 1.2em; padding-left: 1.4em; }
-.nt-prose li { margin-bottom: .45em; }
-.nt-prose li::marker { color: var(--nt-accent); font-weight: 700; }
-.nt-prose img { border-radius: var(--nt-radius); }
-.nt-prose figure { margin: 1.8em 0; }
-.nt-prose figcaption, .wp-caption-text { margin-top: .6em; font-size: .875rem; color: var(--nt-muted); text-align: center; }
-.nt-prose blockquote {
-	margin: 1.8em 0; padding: 1.1em 1.4em;
-	font-size: 1.125rem; font-weight: 500;
-	background: var(--nt-paper);
-	border-left: 4px solid var(--nt-accent); border-radius: 0 var(--nt-radius) var(--nt-radius) 0;
-}
-.nt-prose blockquote p:last-child { margin: 0; }
-.nt-prose pre, .nt-prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
-.nt-prose pre { padding: 1em; overflow-x: auto; color: #e8edf6; background: var(--nt-navy-900); border-radius: var(--nt-radius); }
-.nt-prose :not(pre) > code { padding: .15em .4em; background: var(--nt-sand); border-radius: 6px; }
-.nt-prose .alignwide { margin-inline: -6%; }
-.nt-prose .alignfull { margin-inline: calc(-1 * var(--nt-gutter)); }
-.nt-prose .alignleft { float: left; margin: .3em 1.4em 1em 0; max-width: 50%; }
-.nt-prose .alignright { float: right; margin: .3em 0 1em 1.4em; max-width: 50%; }
-.nt-prose .aligncenter { margin-inline: auto; }
-.nt-prose .wp-block-image img, .nt-prose .wp-block-gallery img { max-width: 100%; height: auto; }
-.nt-prose iframe { max-width: 100%; }
-.nt-prose .wp-block-embed__wrapper { position: relative; }
-.nt-prose::after { content: ""; display: table; clear: both; }
-
-.nt-table-wrap { margin: 1.6em 0; overflow-x: auto; border: 1px solid var(--nt-line); border-radius: var(--nt-radius); background: var(--nt-paper); }
-.nt-table-wrap:focus-visible { outline-offset: 0; }
-.nt-prose table, .nt-table { font-size: .9688rem; }
-.nt-prose th, .nt-prose td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--nt-line); vertical-align: top; }
-.nt-prose thead th { color: #fff; background: var(--nt-navy); border-bottom: 0; }
-.nt-prose tbody tr:nth-child(even) { background: #fcfaf5; }
-.nt-prose tbody tr:last-child td, .nt-prose tbody tr:last-child th { border-bottom: 0; }
-.nt-prose .wp-block-table { margin: 1.6em 0; }
-.nt-prose .wp-block-table .nt-table-wrap { margin: 0; }
 
 /* ---------- Empty state / hubs ---------- */
 .nt-empty { max-width: 760px; margin: 2rem auto; text-align: center; }

@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "status": "UNVERIFIED",
+    "reason": "The build container's egress policy returns HTTP 403 at CONNECT for thuexemaynguyentu.com (see docs/AUDIT.md section 1). No live request was made, so no live SEO field is recorded here and none may be assumed.",
+    "tool": "tools/seo/snapshot.mjs",
+    "base": "https://thuexemaynguyentu.com",
+    "mode": "live",
+    "generated_at": "2026-10-17",
+    "how_to_capture": [
+      "GitHub Actions: run the manual workflow 'SEO snapshot (live, read-only, manual)' and download the artifact seo-before",
+      "or from a network that can reach the site: node tools/seo/discover.mjs --base https://thuexemaynguyentu.com --out reports/seo-urls.full.csv && node tools/seo/snapshot.mjs --base https://thuexemaynguyentu.com --urls reports/seo-urls.full.csv --out reports/seo-before.json --sitemap-out reports/sitemap-urls-before.json --delay 600 --mode live"
+    ],
+    "protected_url_inventory": "reports/seo-urls.csv"
+  },
+  "robots": null,
+  "sitemap": null,
+  "urls": []
+}

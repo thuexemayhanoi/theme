@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+/**
+ * Maps a PHPUnit JUnit file to release gates (by test class / name) and records them.
+ *   node tools/qa/junit-gates.mjs reports/results/integration-junit.xml
+ */
+import { readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+
+const xml = await readFile(process.argv[2], 'utf8');
+const cases = [...xml.matchAll(/<testcase\b([^>]*?)(\/>|>([\s\S]*?)<\/testcase>)/g)].map((m) => {
+	const attrs = Object.fromEntries([...m[1].matchAll(/(\w+)="([^"]*)"/g)].map((a) => [a[1], a[2]]));
+	const body = m[3] ?? '';
+	return { cls: attrs.class ?? attrs.classname ?? '', name: attrs.name, failed: /<(failure|error)\b/.test(body), skipped: /<skipped\b/.test(body), message: body.match(/<(?:failure|error)[^>]*>([\s\S]*?)<\/(?:failure|error)>/)?.[1]?.trim().slice(0, 300) ?? '' };
+});
+
+const GATES = {
+	integration: () => true,
+	'menu-36': (c) => /MenuTest/.test(c.cls),
+	'categories-26': (c) => /TaxonomyTest/.test(c.cls) && /26_blog|category_urls|blog_root/.test(c.name),
+	'product-terms': (c) => /TaxonomyTest/.test(c.cls) && /product_category/.test(c.name),
+	'featured-items-phpunit': (c) => (/TaxonomyTest/.test(c.cls) && /featured_item_terms/.test(c.name)) || (/ContentTest/.test(c.cls) && /featured|counts_match|products_and_featured/.test(c.name)),
+	'legacy-render': (c) => /LegacyRenderTest/.test(c.cls),
+};
+
+for (const [gate, pick] of Object.entries(GATES)) {
+	const set = cases.filter(pick);
+	const failed = set.filter((c) => c.failed);
+	const status = set.length === 0 ? 'NOT_TESTED' : failed.length ? 'FAIL' : 'PASS';
+	const detail = set.length === 0 ? 'no matching tests in the JUnit file' : failed.length ? `${failed.length}/${set.length} failed: ${failed.map((f) => `${f.cls.split('\\').pop()}::${f.name}: ${f.message}`).join(' | ').slice(0, 400)}` : `${set.length} test(s) passed`;
+	execFileSync('node', ['tools/qa/record.mjs', gate, status, detail, process.argv[2]], { stdio: 'inherit' });
+}

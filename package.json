@@ -1,0 +1,32 @@
+{
+  "name": "nguyentu-editorial-commerce-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development tooling only (tests, SEO snapshot/diff, QA gates). The WordPress theme itself ships no JavaScript dependencies.",
+  "license": "GPL-2.0-or-later",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint:js": "eslint assets/js tools tests/e2e tests/node --no-warn-ignored",
+    "lint:css": "node tools/qa/css-check.mjs",
+    "qa:contrast": "node tools/qa/contrast.mjs",
+    "qa:budgets": "node tools/qa/budgets.mjs",
+    "test:node": "node --test \"tests/node/*.test.mjs\"",
+    "test:e2e": "playwright test",
+    "seo:snapshot": "node tools/seo/snapshot.mjs",
+    "seo:check": "node tools/seo/check.mjs",
+    "seo:diff": "node tools/seo/diff.mjs",
+    "qa:gates": "node tools/qa/release-gates.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@eslint/js": "^9.0.0",
+    "@playwright/test": "1.56.1",
+    "cheerio": "^1.0.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "lightningcss": "^1.27.0"
+  }
+}
