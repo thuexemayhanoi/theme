@@ -1,0 +1,54 @@
+name: SEO snapshot (live, read-only, manual)
+
+# Captures the "before" SEO baseline of the production site. It sends plain GET requests only:
+# no cookies, no authentication, no writes, polite delay. Trigger it by hand from the Actions tab.
+# The result is uploaded as an artifact; nothing is committed and nothing on the site changes.
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Site to read (GET only)
+        default: https://thuexemaynguyentu.com
+        required: true
+      delay_ms:
+        description: Delay between requests in milliseconds
+        default: '600'
+        required: true
+      sample_posts:
+        description: Number of blog posts to sample from the post sitemap
+        default: '12'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Discover URLs from the site's own sitemaps (GET)
+        run: >
+          node tools/seo/discover.mjs --base "${{ inputs.base_url }}" --urls reports/seo-urls.csv
+          --out reports/seo-urls.full.csv --posts "${{ inputs.sample_posts }}" --delay "${{ inputs.delay_ms }}"
+      - name: Snapshot (GET)
+        run: >
+          node tools/seo/snapshot.mjs --base "${{ inputs.base_url }}" --urls reports/seo-urls.full.csv
+          --out reports/seo-before.json --sitemap-out reports/sitemap-urls-before.json --delay "${{ inputs.delay_ms }}" --mode live
+      - name: Absolute SEO rules on production (informational)
+        run: node tools/seo/check.mjs reports/seo-before.json --out reports/seo-rules-before.json --md reports/seo-rules-before.md || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seo-before
+          path: |
+            reports/seo-before.json
+            reports/seo-urls.full.csv
+            reports/sitemap-urls-before.json
+            reports/seo-rules-before.*

@@ -1,0 +1,7 @@
+{
+  "gate": "js-lint",
+  "status": "FAIL",
+  "detail": "eslint —  No files matching the pattern \"tests/e2e\" were found. Please check for typing mistakes in the pattern. ",
+  "evidence": "",
+  "at": "2026-10-17T17:50:12.011Z"
+}

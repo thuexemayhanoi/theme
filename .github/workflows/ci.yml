@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Lint, unit tests, QA gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install PHP and Node tooling
+        run: |
+          composer install --no-interaction --no-progress
+          npm ci
+      - name: PHP lint, PHPCS, PHPUnit (unit)
+        run: bash tools/qa/run-all.sh
+      - name: Package theme and plugin
+        run: |
+          bash tools/build-theme-zip.sh
+          bash tools/build-plugin-zip.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: dist/*.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-results-static
+          path: reports/results/*.json
+
+  sandbox:
+    name: WordPress sandbox (integration, e2e, SEO rules)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: static
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli, gd, intl, mbstring, zip, curl
+          tools: composer
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install tooling
+        run: |
+          composer install --no-interaction --no-progress
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Build the disposable WordPress (core 7.1.3, WooCommerce, Yoast, MariaDB)
+        run: |
+          bash tools/sandbox/setup.sh
+          bash tools/sandbox/seed.sh
+      - name: Run sandbox gates
+        run: bash tools/qa/run-sandbox.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sandbox-reports
+          path: |
+            reports/screenshots
+            reports/seo-after.json
+            reports/seo-rules-after.*
+            reports/results/*.json
+            playwright-report
+            test-results
