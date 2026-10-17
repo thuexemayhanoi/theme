@@ -95,7 +95,10 @@ function nt_content_covers( string $section, string $html ): bool {
 		case 'local':
 			$phone = nt_business( 'phone_tel' );
 			$disp  = nt_business( 'phone_display' );
-			return ( false !== strpos( $text, $phone ) || false !== strpos( $text, $disp ) ) && false !== mb_stripos( $text, nt_business( 'street' ) );
+			$has_n = ( false !== strpos( $text, $phone ) || false !== strpos( $text, $disp ) ) && false !== mb_stripos( $text, nt_business( 'street' ) );
+			// Text alone is not enough: the local card also provides the map and contact buttons.
+			$has_m = false !== stripos( $html, 'maps.google' ) || false !== stripos( $html, 'google.com/maps' ) || false !== stripos( $html, 'nt-lg-map' ) || false !== stripos( $html, '<iframe' );
+			return $has_n && $has_m;
 		case 'quickfacts':
 			return false;
 		default:
