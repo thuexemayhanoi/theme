@@ -15,7 +15,7 @@ NT_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$NT_TOOLS_DIR/../.." && pwd)}"
 
 # ---- locations -------------------------------------------------------------
-SANDBOX_DIR="${SANDBOX_DIR:-/tmp/claude-0/-home-user-theme/d41765c8-2e4b-518d-a8b0-f498c16b692d/scratchpad/sandbox}"
+SANDBOX_DIR="${SANDBOX_DIR:-${TMPDIR:-/tmp}/nguyentu-sandbox}"
 WP_ROOT="${WP_ROOT:-$SANDBOX_DIR/wp}"
 DL_DIR="${DL_DIR:-$SANDBOX_DIR/downloads}"
 RUN_DIR="${RUN_DIR:-$SANDBOX_DIR/run}"
@@ -33,7 +33,7 @@ THEME_SLUG="${THEME_SLUG:-nguyentu-editorial-commerce}"
 PLUGIN_SLUG="${PLUGIN_SLUG:-nguyentu-legacy-compat}"
 SIM_FLATSOME="${SIM_FLATSOME:-1}"
 ADMIN_USER="${ADMIN_USER:-admin}"
-ADMIN_PASS="${ADMIN_PASS:-admin-sandbox-only}"   # sandbox only, never reuse
+ADMIN_PASS_FILE="${ADMIN_PASS_FILE:-$ETC_DIR/admin-password}"   # generated at install time (ADMIN_PASS env overrides)
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.invalid}"
 DEFAULT_THEME="${DEFAULT_THEME:-twentytwentyfive}"
 LEGACY_STYLESHEET="${LEGACY_STYLESHEET:-flatsome-child}"
@@ -75,6 +75,20 @@ need_cmd() {
 
 ensure_dirs() {
   mkdir -p "$SANDBOX_DIR" "$DL_DIR" "$RUN_DIR" "$LOG_DIR" "$SNAP_DIR" "$ETC_DIR" "$CACHE_DIR"
+}
+
+# Prints the wp-admin password: $ADMIN_PASS if set, else the generated one kept in $ADMIN_PASS_FILE
+# (created on first use, random, outside the repo).
+admin_password() {
+  if [ -n "${ADMIN_PASS:-}" ]; then
+    printf '%s' "$ADMIN_PASS"
+    return 0
+  fi
+  if [ ! -s "$ADMIN_PASS_FILE" ]; then
+    mkdir -p "$ETC_DIR"
+    (umask 077; od -An -N12 -tx1 /dev/urandom | tr -d ' \n' > "$ADMIN_PASS_FILE")
+  fi
+  cat "$ADMIN_PASS_FILE"
 }
 
 # Prints the DB password; generates a random one on first use (kept outside the repo).

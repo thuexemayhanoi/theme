@@ -8,8 +8,8 @@
 #   --reinstall  wipe WordPress root, database and snapshots (keeps the downloads cache), then install again
 #   --skip-apt   never call apt-get (fail instead if MariaDB/rsync are missing)
 #
-# Env (all optional): SANDBOX_DIR WP_ROOT PORT WP_VERSION WC_VERSION YOAST_VERSION WPCLI_VERSION
-#                     (each *_VERSION may be "latest"), ADMIN_USER ADMIN_PASS DB_PORT ...
+# Env (all optional): SANDBOX_DIR (default ${TMPDIR:-/tmp}/nguyentu-sandbox) WP_ROOT PORT WP_VERSION WC_VERSION
+#                     YOAST_VERSION WPCLI_VERSION (each *_VERSION may be "latest"), ADMIN_USER ADMIN_PASS DB_PORT ...
 #                     YOAST_SOURCE=release (default: official release zip) | dist (Yoast-dist git clone + composer dump-autoload)
 # Downloads: github.com (git clone / release assets) only. wordpress.org is blocked in this environment.
 # NOTE: a plain clone of Yoast-dist has no vendor/autoload.php (Composer generates it), so Yoast would silently
@@ -291,11 +291,13 @@ main() {
   if ! "$NT_TOOLS_DIR/wp.sh" core is-installed >/dev/null 2>&1; then
     "$NT_TOOLS_DIR/wp.sh" core install --url="$SITE_URL" \
       --title='Cho Thuê Xe Máy Nguyễn Tú' \
-      --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASS" --admin_email="$ADMIN_EMAIL" --skip-email
+      --admin_user="$ADMIN_USER" --admin_password="$(admin_password)" --admin_email="$ADMIN_EMAIL" --skip-email
     fresh=1
   else
     log "WordPress is already installed"
   fi
+  # keep the DB password in step with $ADMIN_PASS_FILE (older installs used a fixed password)
+  "$NT_TOOLS_DIR/wp.sh" user update "$ADMIN_USER" --user_pass="$(admin_password)" --skip-email >/dev/null
   step_end
 
   step "plugins: WooCommerce + Yoast SEO"
@@ -358,7 +360,7 @@ main() {
   printf '%s\n' "${TIMINGS[@]}" >&2
   log "total $(fmt_dur $(( $(now_s) - T_TOTAL0 )))"
   log "WordPress is installed at $WP_ROOT"
-  log "admin login: $ADMIN_USER / $ADMIN_PASS   (sandbox only)"
+  log "admin login: $ADMIN_USER / $(admin_password)   (sandbox only; password kept in $ADMIN_PASS_FILE)"
   log "next: ./seed.sh   then   ./serve.sh start   (site: $SITE_URL)"
 }
 

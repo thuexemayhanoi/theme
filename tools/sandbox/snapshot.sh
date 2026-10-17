@@ -60,6 +60,10 @@ SQL
     find "$UPLOADS_DIR" -mindepth 1 -delete
     tar -xf "$SNAP_DIR/$name.uploads.tar" -C "$UPLOADS_DIR"
   fi
+  # the admin password is sandbox infrastructure, not a fixture: keep it equal to $ADMIN_PASS_FILE
+  if [ -f "$WP_ROOT/wp-config.php" ]; then
+    "$NT_TOOLS_DIR/wp.sh" user update "$ADMIN_USER" --user_pass="$(admin_password)" --skip-email >/dev/null 2>&1 || warn "could not reset the admin password after restore"
+  fi
   log "restored snapshot '$name' in $(fmt_dur $(( $(now_s) - t0 )))"
 }
 
