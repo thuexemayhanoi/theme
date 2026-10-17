@@ -26,7 +26,7 @@ function nt_lg_wp_size( string $size ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_image( $atts ): string {
-	$a = nt_lg_atts(
+	$a   = nt_lg_atts(
 		array(
 			'id'         => '',
 			'image_size' => 'large',
@@ -57,7 +57,7 @@ function nt_lg_image( $atts ): string {
 	if ( '' !== $a['link'] ) {
 		$img = sprintf( '<a href="%s"%s>%s</a>', esc_url( $a['link'] ), nt_lg_link_attrs( $a['target'] ), $img );
 	}
-	$style = nt_css_style(
+	$style   = nt_css_style(
 		array(
 			'max-width' => preg_match( '/^\d{1,3}$/', $a['width'] ) ? $a['width'] . '%' : '',
 			'margin'    => nt_css_box( $a['margin'] ),
@@ -80,25 +80,25 @@ function nt_lg_image( $atts ): string {
  * @param string $content Text content.
  */
 function nt_lg_image_box( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a           = nt_lg_atts(
 		array(
-			'img'         => '',
-			'img_width'   => '',
-			'image_size'  => 'medium_large',
+			'img'          => '',
+			'img_width'    => '',
+			'image_size'   => 'medium_large',
 			'image_radius' => '',
-			'style'       => 'default',
-			'link'        => '',
-			'target'      => '',
-			'text_align'  => '',
+			'style'        => 'default',
+			'link'         => '',
+			'target'       => '',
+			'text_align'   => '',
 			'text_padding' => '',
-			'text_color'  => '',
-			'class'       => '',
-			'visibility'  => '',
+			'text_color'   => '',
+			'class'        => '',
+			'visibility'   => '',
 		),
 		$atts,
 		'ux_image_box'
 	);
-	$img = nt_lg_image_html(
+	$img         = nt_lg_image_html(
 		$a['img'],
 		array(
 			'size'  => nt_lg_wp_size( $a['image_size'] ),
@@ -124,9 +124,9 @@ function nt_lg_image_box( $atts, $content = '' ): string {
 			'border-radius' => nt_css_len( $a['image_radius'] ),
 		)
 	);
-	$media = '' !== $img ? '<div class="nt-lg-imagebox__media"' . ( '' !== $media_style ? ' style="' . esc_attr( $media_style ) . '"' : '' ) . '>' . $img . '</div>' : '';
-	$body  = '<div class="nt-lg-imagebox__text"' . ( '' !== nt_css_box( $a['text_padding'] ) ? ' style="padding:' . esc_attr( nt_css_box( $a['text_padding'] ) ) . '"' : '' ) . '>' . $text . '</div>';
-	$class = nt_lg_class( array_merge( $classes, nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) );
+	$media       = '' !== $img ? '<div class="nt-lg-imagebox__media"' . ( '' !== $media_style ? ' style="' . esc_attr( $media_style ) . '"' : '' ) . '>' . $img . '</div>' : '';
+	$body        = '<div class="nt-lg-imagebox__text"' . ( '' !== nt_css_box( $a['text_padding'] ) ? ' style="padding:' . esc_attr( nt_css_box( $a['text_padding'] ) ) . '"' : '' ) . '>' . $text . '</div>';
+	$class       = nt_lg_class( array_merge( $classes, nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) );
 
 	// One link around everything when the text has no links of its own (nested links are invalid).
 	if ( $has_link && ! $inner_links ) {
@@ -151,7 +151,7 @@ function nt_lg_image_box( $atts, $content = '' ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_gallery( $atts ): string {
-	$a = nt_lg_atts(
+	$a   = nt_lg_atts(
 		array(
 			'ids'        => '',
 			'columns'    => '3',
@@ -196,7 +196,7 @@ function nt_lg_gallery( $atts ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_video( $atts ): string {
-	$a = nt_lg_atts(
+	$a   = nt_lg_atts(
 		array(
 			'url'        => '',
 			'class'      => '',
@@ -261,7 +261,7 @@ function nt_lg_slider( $atts, $content = '' ): string {
  * @param string $content Address text.
  */
 function nt_lg_map( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a    = nt_lg_atts(
 		array(
 			'class'      => '',
 			'visibility' => '',

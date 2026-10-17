@@ -18,18 +18,54 @@ defined( 'ABSPATH' ) || exit;
  */
 function nt_settings_business_fields(): array {
 	return array(
-		'brand'         => array( 'label' => 'Tên thương hiệu', 'type' => 'text' ),
-		'phone_display' => array( 'label' => 'Số điện thoại hiển thị', 'type' => 'text' ),
-		'phone_tel'     => array( 'label' => 'Số điện thoại cho liên kết tel:', 'type' => 'tel' ),
-		'phone_intl'    => array( 'label' => 'Số điện thoại quốc tế (schema)', 'type' => 'tel' ),
-		'zalo_url'      => array( 'label' => 'Liên kết Zalo', 'type' => 'url' ),
-		'maps_url'      => array( 'label' => 'Liên kết Google Maps', 'type' => 'url' ),
-		'street'        => array( 'label' => 'Số nhà, đường', 'type' => 'text' ),
-		'ward'          => array( 'label' => 'Phường/Xã', 'type' => 'text' ),
-		'district'      => array( 'label' => 'Quận/Huyện', 'type' => 'text' ),
-		'city'          => array( 'label' => 'Tỉnh/Thành phố', 'type' => 'text' ),
-		'open'          => array( 'label' => 'Giờ mở cửa (HH:MM)', 'type' => 'text' ),
-		'close'         => array( 'label' => 'Giờ đóng cửa (HH:MM)', 'type' => 'text' ),
+		'brand'         => array(
+			'label' => 'Tên thương hiệu',
+			'type'  => 'text',
+		),
+		'phone_display' => array(
+			'label' => 'Số điện thoại hiển thị',
+			'type'  => 'text',
+		),
+		'phone_tel'     => array(
+			'label' => 'Số điện thoại cho liên kết tel:',
+			'type'  => 'tel',
+		),
+		'phone_intl'    => array(
+			'label' => 'Số điện thoại quốc tế (schema)',
+			'type'  => 'tel',
+		),
+		'zalo_url'      => array(
+			'label' => 'Liên kết Zalo',
+			'type'  => 'url',
+		),
+		'maps_url'      => array(
+			'label' => 'Liên kết Google Maps',
+			'type'  => 'url',
+		),
+		'street'        => array(
+			'label' => 'Số nhà, đường',
+			'type'  => 'text',
+		),
+		'ward'          => array(
+			'label' => 'Phường/Xã',
+			'type'  => 'text',
+		),
+		'district'      => array(
+			'label' => 'Quận/Huyện',
+			'type'  => 'text',
+		),
+		'city'          => array(
+			'label' => 'Tỉnh/Thành phố',
+			'type'  => 'text',
+		),
+		'open'          => array(
+			'label' => 'Giờ mở cửa (HH:MM)',
+			'type'  => 'text',
+		),
+		'close'         => array(
+			'label' => 'Giờ đóng cửa (HH:MM)',
+			'type'  => 'text',
+		),
 	);
 }
 
@@ -146,8 +182,8 @@ function nt_settings_select( string $name, string $current, array $options ): vo
  * @return array<int,array{label:string,ok:bool,detail:string}>
  */
 function nt_status_checks(): array {
-	$seo     = nt_seo_status();
-	$checks  = array();
+	$seo      = nt_seo_status();
+	$checks   = array();
 	$checks[] = array(
 		'label'  => 'Plugin SEO sở hữu thẻ <head>',
 		'ok'     => '' !== $seo['seo_plugin'],
@@ -174,8 +210,8 @@ function nt_status_checks(): array {
 		'detail' => nt_quickcall_active() ? 'Có: theme không vẽ thanh liên hệ cố định thứ hai' : 'Không có: theme tự hiển thị thanh liên hệ mobile',
 	);
 	foreach ( array( 'primary', 'primary_mobile', 'footer', 'top_bar_nav' ) as $location ) {
-		$id      = nt_resolve_menu_id( $location );
-		$count   = $id > 0 ? count( (array) wp_get_nav_menu_items( $id ) ) : 0;
+		$id       = nt_resolve_menu_id( $location );
+		$count    = $id > 0 ? count( (array) wp_get_nav_menu_items( $id ) ) : 0;
 		$checks[] = array(
 			'label'  => 'Vị trí menu: ' . $location,
 			'ok'     => 'footer' === $location || 'top_bar_nav' === $location ? true : $id > 0,
@@ -249,11 +285,67 @@ function nt_settings_page(): void {
 
 			<h2>Hiển thị</h2>
 			<table class="form-table" role="presentation"><tbody>
-				<tr><th scope="row">Thanh liên hệ cố định trên mobile</th><td><?php nt_settings_select( 'nguyentu_options[cta_bar]', (string) ( $opts['cta_bar'] ?? 'auto' ), array( 'auto' => 'Tự động (ẩn nếu có Moto QuickCall)', 'on' => 'Luôn bật', 'off' => 'Tắt' ) ); ?></td></tr>
-				<tr><th scope="row">Mục lục bài viết</th><td><?php nt_settings_select( 'nguyentu_options[toc]', (string) ( $opts['toc'] ?? 'auto' ), array( 'auto' => 'Tự động (khi có từ 3 tiêu đề H2/H3)', 'off' => 'Tắt' ) ); ?></td></tr>
-				<tr><th scope="row">Liên kết giỏ hàng trên header</th><td><?php nt_settings_select( 'nguyentu_options[header_cart]', (string) ( $opts['header_cart'] ?? 'auto' ), array( 'auto' => 'Tự động (chỉ khi giỏ có hàng)', 'off' => 'Tắt' ) ); ?></td></tr>
-				<tr><th scope="row">Khung liên hệ cuối bài viết</th><td><?php nt_settings_select( 'nguyentu_options[post_cta]', (string) ( $opts['post_cta'] ?? 'on' ), array( 'on' => 'Bật', 'off' => 'Tắt' ) ); ?></td></tr>
-				<tr><th scope="row">Nút chia sẻ</th><td><?php nt_settings_select( 'nguyentu_options[share]', (string) ( $opts['share'] ?? 'on' ), array( 'on' => 'Bật', 'off' => 'Tắt' ) ); ?></td></tr>
+				<tr><th scope="row">Thanh liên hệ cố định trên mobile</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[cta_bar]',
+					(string) ( $opts['cta_bar'] ?? 'auto' ),
+					array(
+						'auto' => 'Tự động (ẩn nếu có Moto QuickCall)',
+						'on'   => 'Luôn bật',
+						'off'  => 'Tắt',
+					)
+				);
+				?>
+																				</td></tr>
+				<tr><th scope="row">Mục lục bài viết</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[toc]',
+					(string) ( $opts['toc'] ?? 'auto' ),
+					array(
+						'auto' => 'Tự động (khi có từ 3 tiêu đề H2/H3)',
+						'off'  => 'Tắt',
+					)
+				);
+				?>
+																</td></tr>
+				<tr><th scope="row">Liên kết giỏ hàng trên header</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[header_cart]',
+					(string) ( $opts['header_cart'] ?? 'auto' ),
+					array(
+						'auto' => 'Tự động (chỉ khi giỏ có hàng)',
+						'off'  => 'Tắt',
+					)
+				);
+				?>
+																			</td></tr>
+				<tr><th scope="row">Khung liên hệ cuối bài viết</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[post_cta]',
+					(string) ( $opts['post_cta'] ?? 'on' ),
+					array(
+						'on'  => 'Bật',
+						'off' => 'Tắt',
+					)
+				);
+				?>
+																		</td></tr>
+				<tr><th scope="row">Nút chia sẻ</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[share]',
+					(string) ( $opts['share'] ?? 'on' ),
+					array(
+						'on'  => 'Bật',
+						'off' => 'Tắt',
+					)
+				);
+				?>
+														</td></tr>
 			</tbody></table>
 
 			<h2>SEO</h2>

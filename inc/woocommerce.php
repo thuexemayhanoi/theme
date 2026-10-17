@@ -87,7 +87,14 @@ function nt_wc_contact_box(): void {
 	?>
 	<div class="nt-wc-contact">
 		<p class="nt-wc-contact__title">Đặt xe nhanh</p>
-		<?php nt_cta_buttons( array( 'size' => 'md', 'maps' => false ) ); ?>
+		<?php
+		nt_cta_buttons(
+			array(
+				'size' => 'md',
+				'maps' => false,
+			)
+		);
+		?>
 		<p class="nt-note"><?php echo esc_html( nt_policy()['confirm'] ); ?></p>
 	</div>
 	<?php
@@ -117,7 +124,7 @@ function nt_wc_header_cart(): void {
 /**
  * Compact product card used by the home page and the legacy product grid shortcode.
  *
- * @param WC_Product $product Product.
+ * @param WC_Product          $product Product.
  * @param array<string,mixed> $args heading (h2|h3), eager (bool).
  */
 function nt_product_card( $product, array $args = array() ): void {
@@ -132,7 +139,17 @@ function nt_product_card( $product, array $args = array() ): void {
 		<a class="nt-card__media" href="<?php echo esc_url( (string) $link ); ?>" tabindex="-1" aria-hidden="true">
 			<?php
 			if ( $img_id ) {
-				echo wp_get_attachment_image( (int) $img_id, 'woocommerce_thumbnail', false, array( 'class' => 'nt-card__img', 'sizes' => '(min-width: 1024px) 280px, (min-width: 640px) 30vw, 46vw', 'loading' => ! empty( $args['eager'] ) ? 'eager' : 'lazy', 'decoding' => 'async' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core image helper.
+				echo wp_get_attachment_image(
+					(int) $img_id,
+					'woocommerce_thumbnail',
+					false,
+					array(
+						'class'    => 'nt-card__img',
+						'sizes'    => '(min-width: 1024px) 280px, (min-width: 640px) 30vw, 46vw',
+						'loading'  => ! empty( $args['eager'] ) ? 'eager' : 'lazy',
+						'decoding' => 'async',
+					)
+				); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core image helper.
 			} else {
 				echo '<span class="nt-card__placeholder">' . nt_icon( 'scooter', array( 'size' => 48 ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted icon markup.
 			}

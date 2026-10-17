@@ -51,7 +51,12 @@ get_header();
 				if ( '' !== $nt_period && ! nt_content_has_prices( $nt_content, 3 ) ) {
 					nt_featured_price_box( $nt_period );
 				}
-				nt_cta_buttons( array( 'size' => 'md', 'class' => 'nt-cta--center' ) );
+				nt_cta_buttons(
+					array(
+						'size'  => 'md',
+						'class' => 'nt-cta--center',
+					)
+				);
 				?>
 			</div>
 

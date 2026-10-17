@@ -42,10 +42,10 @@ function nt_lg_section( $atts, $content = '' ): string {
 		nt_css_classes( $a['class'] ),
 		nt_lg_visibility_classes( $a['visibility'] )
 	);
-	$style = nt_css_style(
+	$style   = nt_css_style(
 		array(
-			'--lg-pad'   => nt_css_len( $a['padding'] ),
-			'--lg-min-h' => nt_css_len( $a['height'] ),
+			'--lg-pad'         => nt_css_len( $a['padding'] ),
+			'--lg-min-h'       => nt_css_len( $a['height'] ),
 			'background-color' => nt_css_color( $a['bg_color'] ),
 		)
 	);
@@ -85,7 +85,7 @@ function nt_lg_section( $atts, $content = '' ): string {
  * @param string $content Inner content.
  */
 function nt_lg_row( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a      = nt_lg_atts(
 		array(
 			'style'      => '',
 			'width'      => '',
@@ -137,7 +137,7 @@ function nt_lg_row( $atts, $content = '' ): string {
  * @param string $content Inner content.
  */
 function nt_lg_col( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a    = nt_lg_atts(
 		array(
 			'span'       => '12',
 			'span__sm'   => '',
@@ -176,12 +176,12 @@ function nt_lg_col( $atts, $content = '' ): string {
 
 	$style = nt_css_style(
 		array(
-			'--lg-span'    => (string) $span,
-			'--lg-span-md' => (string) $md,
-			'--lg-span-sm' => (string) $sm,
-			'padding'      => nt_css_box( $a['padding'] ),
-			'margin'       => nt_css_box( $a['margin'] ),
-			'max-width'    => nt_css_len( $a['max_width'] ),
+			'--lg-span'        => (string) $span,
+			'--lg-span-md'     => (string) $md,
+			'--lg-span-sm'     => (string) $sm,
+			'padding'          => nt_css_box( $a['padding'] ),
+			'margin'           => nt_css_box( $a['margin'] ),
+			'max-width'        => nt_css_len( $a['max_width'] ),
 			'background-color' => nt_css_color( $a['bg_color'] ),
 			'border-radius'    => nt_css_len( $a['bg_radius'] ),
 		)
@@ -202,20 +202,20 @@ function nt_lg_col( $atts, $content = '' ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_gap( $atts ): string {
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
-			'height'   => '30px',
+			'height'     => '30px',
 			'height__sm' => '',
 			'height__md' => '',
-			'class'    => '',
+			'class'      => '',
 			'visibility' => '',
 		),
 		$atts,
 		'gap'
 	);
-	$h  = nt_css_len( $a['height'], '30px' );
-	$sm = nt_css_len( $a['height__sm'] );
-	$md = nt_css_len( $a['height__md'] );
+	$h     = nt_css_len( $a['height'], '30px' );
+	$sm    = nt_css_len( $a['height__sm'] );
+	$md    = nt_css_len( $a['height__md'] );
 	$style = nt_css_style(
 		array(
 			'--lg-gap'    => $h,
@@ -236,7 +236,7 @@ function nt_lg_gap( $atts ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_divider( $atts ): string {
-	$a = nt_lg_atts(
+	$a       = nt_lg_atts(
 		array(
 			'width'      => '',
 			'height'     => '',
@@ -249,8 +249,8 @@ function nt_lg_divider( $atts ): string {
 		$atts,
 		'divider'
 	);
-	$width = ( 'full' === $a['width'] || '100%' === $a['width'] ) ? '100%' : nt_css_len( $a['width'] );
-	$style = nt_css_style(
+	$width   = ( 'full' === $a['width'] || '100%' === $a['width'] ) ? '100%' : nt_css_len( $a['width'] );
+	$style   = nt_css_style(
 		array(
 			'width'            => $width,
 			'height'           => nt_css_len( $a['height'] ),
@@ -294,17 +294,17 @@ function nt_lg_title( $atts ): string {
 	if ( '' === trim( $a['text'] ) ) {
 		return '';
 	}
-	$tag = strtolower( $a['tag_name'] );
-	$tag = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p', 'span' ), true ) ? $tag : 'h3';
+	$tag        = strtolower( $a['tag_name'] );
+	$tag        = in_array( $tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p', 'span' ), true ) ? $tag : 'h3';
 	$style_name = preg_replace( '/[^a-z0-9\-]/', '', strtolower( $a['style'] ) ) ?: 'normal';
-	$size  = ( preg_match( '/^\d{2,3}$/', $a['size'] ) ) ? $a['size'] . '%' : '';
-	$style = nt_css_style(
+	$size       = ( preg_match( '/^\d{2,3}$/', $a['size'] ) ) ? $a['size'] . '%' : '';
+	$style      = nt_css_style(
 		array(
 			'font-size' => $size,
 			'color'     => nt_css_color( $a['color'] ),
 		)
 	);
-	$html = sprintf(
+	$html       = sprintf(
 		'<%1$s class="%2$s"%3$s><span class="nt-lg-title__text">%4$s</span>%5$s</%1$s>',
 		$tag,
 		nt_lg_class( array_merge( array( 'nt-lg-title', 'nt-lg-title--' . $style_name ), nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) ),
@@ -325,7 +325,7 @@ function nt_lg_title( $atts ): string {
  * @param string $content Inner content (text boxes, images, buttons).
  */
 function nt_lg_banner( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
 			'height'     => '300px',
 			'height__sm' => '',
@@ -344,14 +344,14 @@ function nt_lg_banner( $atts, $content = '' ): string {
 		$atts,
 		'ux_banner'
 	);
-	$h  = nt_css_len( $a['height'], '300px' );
-	$md = nt_css_len( $a['height__md'] );
-	$sm = nt_css_len( $a['height__sm'] );
+	$h     = nt_css_len( $a['height'], '300px' );
+	$md    = nt_css_len( $a['height__md'] );
+	$sm    = nt_css_len( $a['height__sm'] );
 	$style = nt_css_style(
 		array(
-			'--lg-h'    => $h,
-			'--lg-h-md' => '' !== $md ? $md : $h,
-			'--lg-h-sm' => '' !== $sm ? $sm : ( '' !== $md ? $md : $h ),
+			'--lg-h'           => $h,
+			'--lg-h-md'        => '' !== $md ? $md : $h,
+			'--lg-h-sm'        => '' !== $sm ? $sm : ( '' !== $md ? $md : $h ),
 			'background-color' => nt_css_color( $a['bg_color'] ),
 		)
 	);
@@ -410,29 +410,29 @@ function nt_lg_banner( $atts, $content = '' ): string {
  * @param string $content Inner content.
  */
 function nt_lg_text_box( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
-			'width'        => '50',
-			'width__sm'    => '',
-			'position_x'   => '50',
-			'position_y'   => '50',
+			'width'          => '50',
+			'width__sm'      => '',
+			'position_x'     => '50',
+			'position_y'     => '50',
 			'position_x__sm' => '',
 			'position_y__sm' => '',
-			'text_align'   => 'center',
-			'text_color'   => '',
-			'padding'      => '',
-			'class'        => '',
-			'visibility'   => '',
+			'text_align'     => 'center',
+			'text_color'     => '',
+			'padding'        => '',
+			'class'          => '',
+			'visibility'     => '',
 		),
 		$atts,
 		'text_box'
 	);
-	$w    = nt_css_int( $a['width'], 5, 100, 50 );
-	$wsm  = '' !== $a['width__sm'] ? nt_css_int( $a['width__sm'], 5, 100, 100 ) : 100;
-	$x    = nt_css_int( $a['position_x'], 0, 100, 50 );
-	$y    = nt_css_int( $a['position_y'], 0, 100, 50 );
-	$xsm  = '' !== $a['position_x__sm'] ? nt_css_int( $a['position_x__sm'], 0, 100, $x ) : $x;
-	$ysm  = '' !== $a['position_y__sm'] ? nt_css_int( $a['position_y__sm'], 0, 100, $y ) : $y;
+	$w     = nt_css_int( $a['width'], 5, 100, 50 );
+	$wsm   = '' !== $a['width__sm'] ? nt_css_int( $a['width__sm'], 5, 100, 100 ) : 100;
+	$x     = nt_css_int( $a['position_x'], 0, 100, 50 );
+	$y     = nt_css_int( $a['position_y'], 0, 100, 50 );
+	$xsm   = '' !== $a['position_x__sm'] ? nt_css_int( $a['position_x__sm'], 0, 100, $x ) : $x;
+	$ysm   = '' !== $a['position_y__sm'] ? nt_css_int( $a['position_y__sm'], 0, 100, $y ) : $y;
 	$align = in_array( $a['text_align'], array( 'left', 'center', 'right' ), true ) ? $a['text_align'] : 'center';
 
 	// Percent positions become start/center/end placement inside the banner grid, so a tall text
@@ -471,7 +471,7 @@ function nt_lg_text_box( $atts, $content = '' ): string {
  * @param string $content Inner content.
  */
 function nt_lg_text( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a       = nt_lg_atts(
 		array(
 			'font_size'   => '',
 			'text_align'  => '',

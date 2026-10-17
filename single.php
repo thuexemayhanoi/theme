@@ -71,7 +71,16 @@ get_header();
 					<?php endif; ?>
 
 					<?php if ( array() !== $nt_toc ) : ?>
-						<?php get_template_part( 'template-parts/content/toc', null, array( 'items' => $nt_toc, 'variant' => 'inline' ) ); ?>
+						<?php
+						get_template_part(
+							'template-parts/content/toc',
+							null,
+							array(
+								'items'   => $nt_toc,
+								'variant' => 'inline',
+							)
+						);
+						?>
 					<?php endif; ?>
 
 					<div class="nt-prose entry-content">
@@ -99,7 +108,16 @@ get_header();
 
 				<aside class="nt-article__aside" aria-label="Thông tin thêm">
 					<?php if ( array() !== $nt_toc ) : ?>
-						<?php get_template_part( 'template-parts/content/toc', null, array( 'items' => $nt_toc, 'variant' => 'sticky' ) ); ?>
+						<?php
+						get_template_part(
+							'template-parts/content/toc',
+							null,
+							array(
+								'items'   => $nt_toc,
+								'variant' => 'sticky',
+							)
+						);
+						?>
 					<?php endif; ?>
 					<?php if ( 'off' !== nt_toggle( 'post_cta' ) ) : ?>
 						<?php get_template_part( 'template-parts/content/cta-box' ); ?>

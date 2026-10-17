@@ -23,7 +23,10 @@ get_header();
 		the_post();
 		$nt_page     = get_post();
 		$nt_content  = nt_get_rendered_content();
-		$nt_hero     = $nt_page instanceof WP_Post ? nt_home_hero( $nt_page, $nt_content ) : array( 'content_has_h1' => false, 'h1' => get_the_title() );
+		$nt_hero     = $nt_page instanceof WP_Post ? nt_home_hero( $nt_page, $nt_content ) : array(
+			'content_has_h1' => false,
+			'h1'             => get_the_title(),
+		);
 		$nt_has_body = '' !== trim( wp_strip_all_tags( $nt_content ) ) || false !== stripos( $nt_content, '<img' );
 
 		if ( ! $nt_hero['content_has_h1'] ) {

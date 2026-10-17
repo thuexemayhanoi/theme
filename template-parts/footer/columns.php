@@ -20,7 +20,7 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 
 $nt_price_links = array();
 foreach ( array( 'bang-gia', 'thue-ngay', 'thue-tuan', 'thue-thang' ) as $nt_slug ) {
-	$nt_url = nt_featured_term_url( $nt_slug );
+	$nt_url  = nt_featured_term_url( $nt_slug );
 	$nt_term = '' !== $nt_url ? get_term_by( 'slug', $nt_slug, 'featured_item_category' ) : false;
 	if ( $nt_term instanceof WP_Term ) {
 		$nt_price_links[] = array(
@@ -41,7 +41,14 @@ $nt_footer_menu   = nt_resolve_menu_id( 'footer' );
 			<p><?php nt_the_icon( 'phone', array( 'size' => 18 ) ); ?><a href="<?php echo esc_url( nt_tel_url() ); ?>"><?php echo esc_html( nt_business( 'phone_display' ) ); ?></a> <span class="nt-footer__muted">(gọi / Zalo)</span></p>
 			<p><?php nt_the_icon( 'clock', array( 'size' => 18 ) ); ?><span>Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày</span></p>
 		</address>
-		<?php nt_cta_buttons( array( 'size' => 'sm', 'call_label' => 'Gọi ngay' ) ); ?>
+		<?php
+		nt_cta_buttons(
+			array(
+				'size'       => 'sm',
+				'call_label' => 'Gọi ngay',
+			)
+		);
+		?>
 	</section>
 
 	<?php if ( array() !== $nt_price_links || array() !== $nt_vehicle_links ) : ?>

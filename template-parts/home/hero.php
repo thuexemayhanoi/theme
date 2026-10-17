@@ -26,7 +26,14 @@ if ( '' === $nt_lead ) {
 			<p class="nt-eyebrow">Cho thuê xe máy Hà Nội &middot; Long Biên</p>
 			<h1 id="nt-hero-title" class="nt-hero__title"><?php echo esc_html( $nt_h1 ); ?></h1>
 			<p class="nt-hero__lead"><?php echo esc_html( $nt_lead ); ?></p>
-			<?php nt_cta_buttons( array( 'size' => 'lg', 'class' => 'nt-hero__cta' ) ); ?>
+			<?php
+			nt_cta_buttons(
+				array(
+					'size'  => 'lg',
+					'class' => 'nt-hero__cta',
+				)
+			);
+			?>
 			<?php if ( ! empty( $args['facts'] ) ) : ?>
 				<ul class="nt-hero__facts">
 					<li><?php nt_the_icon( 'clock', array( 'size' => 18 ) ); ?>Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày</li>

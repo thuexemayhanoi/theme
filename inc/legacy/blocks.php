@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * @param mixed $atts Attributes.
  */
 function nt_lg_button( $atts ): string {
-	$a = nt_lg_atts(
+	$a    = nt_lg_atts(
 		array(
 			'text'       => '',
 			'link'       => '',
@@ -81,7 +81,7 @@ function nt_lg_button( $atts ): string {
  * @param string $content Inner content.
  */
 function nt_lg_message_box( $atts, $content = '' ): string {
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
 			'bg_color'   => '',
 			'padding'    => '',
@@ -266,7 +266,7 @@ function nt_lg_lightbox( $atts, $content = '' ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_follow( $atts ): string {
-	$a = nt_lg_atts(
+	$a      = nt_lg_atts(
 		array(
 			'facebook'  => '',
 			'instagram' => '',
@@ -288,7 +288,7 @@ function nt_lg_follow( $atts ): string {
 		'linkedin'  => 'LinkedIn',
 		'pinterest' => 'Pinterest',
 	);
-	$items = '';
+	$items  = '';
 	foreach ( $labels as $key => $label ) {
 		$url = esc_url( $a[ $key ] );
 		if ( '' !== $url ) {

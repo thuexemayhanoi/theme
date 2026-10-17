@@ -83,15 +83,15 @@ function nt_render_menu( string $location, array $extra = array() ): bool {
 	}
 	$args = array_merge(
 		array(
-			'menu'            => $menu_id,
-			'theme_location'  => $location,
-			'container'       => false,
-			'fallback_cb'     => false,
-			'depth'           => 0,
-			'menu_class'      => 'nt-menu',
-			'menu_id'         => 'nt-menu-' . $location,
-			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-			'walker'          => new NT_Walker_Nav(),
+			'menu'           => $menu_id,
+			'theme_location' => $location,
+			'container'      => false,
+			'fallback_cb'    => false,
+			'depth'          => 0,
+			'menu_class'     => 'nt-menu',
+			'menu_id'        => 'nt-menu-' . $location,
+			'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+			'walker'         => new NT_Walker_Nav(),
 		),
 		$extra
 	);
@@ -163,9 +163,9 @@ function nt_map_legacy_menus_on_switch(): void {
 	update_option(
 		'nt_activation_log',
 		array(
-			'time'            => gmdate( 'c' ),
-			'menu_locations'  => $changed,
-			'theme_version'   => NT_VERSION,
+			'time'           => gmdate( 'c' ),
+			'menu_locations' => $changed,
+			'theme_version'  => NT_VERSION,
 		),
 		false
 	);

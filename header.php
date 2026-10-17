@@ -45,7 +45,14 @@ defined( 'ABSPATH' ) || exit;
 					<div class="nt-nav__mobile-only"><?php nt_render_menu( 'primary_mobile' ); ?></div>
 				<?php endif; ?>
 				<div class="nt-nav__foot">
-					<?php nt_cta_buttons( array( 'size' => 'md', 'class' => 'nt-cta--stack' ) ); ?>
+					<?php
+					nt_cta_buttons(
+						array(
+							'size'  => 'md',
+							'class' => 'nt-cta--stack',
+						)
+					);
+					?>
 					<address class="nt-nav__nap">
 						<strong><?php echo esc_html( nt_business( 'brand' ) ); ?></strong><br>
 						<?php echo esc_html( nt_address() ); ?><br>

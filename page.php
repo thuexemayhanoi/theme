@@ -41,7 +41,16 @@ get_header();
 			if ( 'lien-he' === get_post_field( 'post_name' ) && ! nt_content_covers( 'local', $nt_content ) ) :
 				?>
 				<div class="nt-container nt-container--narrow">
-					<?php get_template_part( 'template-parts/home/local', null, array( 'heading_id' => 'nt-contact-nap', 'title' => 'Thông tin liên hệ' ) ); ?>
+					<?php
+					get_template_part(
+						'template-parts/home/local',
+						null,
+						array(
+							'heading_id' => 'nt-contact-nap',
+							'title'      => 'Thông tin liên hệ',
+						)
+					);
+					?>
 				</div>
 			<?php endif; ?>
 		</article>

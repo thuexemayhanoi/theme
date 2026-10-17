@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * @param array<string,mixed> $args size (sm|md|lg), class, zalo (bool), maps (bool), call_label.
  */
 function nt_cta_buttons( array $args = array() ): void {
-	$args = wp_parse_args(
+	$args  = wp_parse_args(
 		$args,
 		array(
 			'size'       => 'md',

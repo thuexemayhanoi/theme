@@ -79,6 +79,7 @@ function nt_featured_sibling_ids( int $post_id, int $limit = 4 ): array {
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded by posts_per_page and a single taxonomy filter.
 			'tax_query'              => array(
 				array(
 					'taxonomy'         => 'featured_item_category',

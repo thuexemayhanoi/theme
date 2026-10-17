@@ -33,6 +33,13 @@ $nt_vehicle = nt_home_vehicle_categories();
 	<?php endif; ?>
 	<div class="nt-hubs__col">
 		<h3 class="nt-hubs__title">Cần xe ngay?</h3>
-		<?php nt_cta_buttons( array( 'size' => 'md', 'class' => 'nt-cta--stack' ) ); ?>
+		<?php
+		nt_cta_buttons(
+			array(
+				'size'  => 'md',
+				'class' => 'nt-cta--stack',
+			)
+		);
+		?>
 	</div>
 </div>

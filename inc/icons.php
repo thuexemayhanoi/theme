@@ -12,8 +12,8 @@ require_once __DIR__ . '/icons-data.php';
 /**
  * Return an inline, decorative SVG icon.
  *
- * @param string               $name Icon key from icons-data.php.
- * @param array<string,mixed>  $args size (px), class (extra classes).
+ * @param string              $name Icon key from icons-data.php.
+ * @param array<string,mixed> $args size (px), class (extra classes).
  */
 function nt_icon( string $name, array $args = array() ): string {
 	$data = nt_icons_data();

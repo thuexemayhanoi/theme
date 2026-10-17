@@ -38,31 +38,31 @@ function nt_lg_products( $atts ): string {
 	if ( ! function_exists( 'wc_get_products' ) ) {
 		return '<!-- nt-legacy: [ux_products] needs WooCommerce -->';
 	}
-	$a = nt_lg_atts(
+	$a               = nt_lg_atts(
 		array(
-			'products'   => '8',
-			'columns'    => '4',
+			'products'    => '8',
+			'columns'     => '4',
 			'columns__sm' => '2',
-			'cat'        => '',
-			'ids'        => '',
-			'orderby'    => 'normal',
-			'order'      => 'ASC',
-			'show'       => '',
-			'offset'     => '0',
-			'class'      => '',
-			'visibility' => '',
+			'cat'         => '',
+			'ids'         => '',
+			'orderby'     => 'normal',
+			'order'       => 'ASC',
+			'show'        => '',
+			'offset'      => '0',
+			'class'       => '',
+			'visibility'  => '',
 		),
 		$atts,
 		'ux_products'
 	);
-	$limit = nt_css_int( $a['products'], 1, 24, 8 );
-	$args  = array(
+	$limit           = nt_css_int( $a['products'], 1, 24, 8 );
+	$args            = array(
 		'status' => 'publish',
 		'limit'  => $limit,
 		'offset' => nt_css_int( $a['offset'], 0, 200, 0 ),
 		'return' => 'objects',
 	);
-	$order_map = array(
+	$order_map       = array(
 		'normal' => 'menu_order',
 		'sales'  => 'popularity',
 		'rand'   => 'rand',
@@ -116,7 +116,7 @@ function nt_lg_product_categories( $atts ): string {
 	if ( ! taxonomy_exists( 'product_cat' ) ) {
 		return '<!-- nt-legacy: [ux_product_categories] needs WooCommerce -->';
 	}
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
 			'ids'        => '',
 			'number'     => '8',
@@ -137,7 +137,7 @@ function nt_lg_product_categories( $atts ): string {
 		'orderby'    => in_array( $a['orderby'], array( 'name', 'id', 'count', 'menu_order' ), true ) ? $a['orderby'] : 'name',
 		'exclude'    => array( (int) get_option( 'default_product_cat' ) ),
 	);
-	$ids = array_filter( array_map( 'intval', explode( ',', $a['ids'] ) ) );
+	$ids   = array_filter( array_map( 'intval', explode( ',', $a['ids'] ) ) );
 	if ( array() !== $ids ) {
 		$query['include'] = $ids;
 		$query['exclude'] = array();
@@ -155,8 +155,8 @@ function nt_lg_product_categories( $atts ): string {
 		if ( ! is_string( $link ) ) {
 			continue;
 		}
-		$thumb = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
-		$img   = $thumb > 0 ? nt_lg_image_html(
+		$thumb  = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
+		$img    = $thumb > 0 ? nt_lg_image_html(
 			(string) $thumb,
 			array(
 				'size'  => 'medium',
@@ -185,7 +185,7 @@ function nt_lg_product_categories( $atts ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_blog_posts( $atts ): string {
-	$a = nt_lg_atts(
+	$a    = nt_lg_atts(
 		array(
 			'posts'      => '6',
 			'columns'    => '3',
@@ -245,7 +245,7 @@ function nt_lg_portfolio( $atts ): string {
 	if ( ! nt_featured_available() ) {
 		return '<!-- nt-legacy: [ux_portfolio] needs the featured_item post type (plugin nguyentu-legacy-compat) -->';
 	}
-	$a = nt_lg_atts(
+	$a    = nt_lg_atts(
 		array(
 			'cat'        => '',
 			'posts'      => '12',
@@ -286,6 +286,7 @@ function nt_lg_portfolio( $atts ): string {
 				'include_children' => false,
 			);
 		}
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded by posts_per_page and a single taxonomy.
 		$args['tax_query'] = array_merge( array( 'relation' => 'OR' ), $tax );
 	}
 	$query = new WP_Query( $args );

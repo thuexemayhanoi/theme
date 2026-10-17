@@ -125,11 +125,11 @@ class NT_Walker_Nav extends Walker_Nav_Menu {
 		$this->last_item_id = $item_id;
 		++$this->rendered;
 
-		$sub_levels  = $this->subtree_depth[ $item_id ] ?? 0;
-		$has_sub     = $sub_levels > 0;
-		$classes     = array_filter( array_map( 'sanitize_html_class', (array) $item->classes ) );
-		$classes[]   = 'nt-menu__item';
-		$classes[]   = 'nt-menu__item--d' . $depth;
+		$sub_levels = $this->subtree_depth[ $item_id ] ?? 0;
+		$has_sub    = $sub_levels > 0;
+		$classes    = array_filter( array_map( 'sanitize_html_class', (array) $item->classes ) );
+		$classes[]  = 'nt-menu__item';
+		$classes[]  = 'nt-menu__item--d' . $depth;
 		if ( $has_sub ) {
 			$classes[] = 'nt-has-sub';
 		}

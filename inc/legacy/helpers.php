@@ -106,8 +106,8 @@ function nt_lg_claim_lcp( bool $claim = true ): bool {
  * Alt text is whatever the media library holds; nothing is rewritten. Decorative background
  * images pass $decorative = true and get an empty alt.
  *
- * @param string               $ref  Attachment id or URL.
- * @param array<string,mixed>  $args size, class, sizes, decorative, eager.
+ * @param string              $ref  Attachment id or URL.
+ * @param array<string,mixed> $args size, class, sizes, decorative, eager.
  */
 function nt_lg_image_html( string $ref, array $args = array() ): string {
 	$args = wp_parse_args(
@@ -222,19 +222,19 @@ function nt_lg_font_size( string $value ): string {
 function nt_lg_icon_key( string $icon ): string {
 	$icon = strtolower( trim( $icon ) );
 	$map  = array(
-		'icon-phone'          => 'phone',
-		'icon-phone-call'     => 'phone-call',
-		'icon-whatsapp'       => 'chat',
-		'icon-chat'           => 'chat',
-		'icon-angle-right'    => 'arrow-right',
-		'icon-arrow-right'    => 'arrow-right',
+		'icon-phone'            => 'phone',
+		'icon-phone-call'       => 'phone-call',
+		'icon-whatsapp'         => 'chat',
+		'icon-chat'             => 'chat',
+		'icon-angle-right'      => 'arrow-right',
+		'icon-arrow-right'      => 'arrow-right',
 		'icon-long-arrow-right' => 'arrow-right',
-		'icon-map-pin-fill'   => 'pin',
-		'icon-map-pin'        => 'pin',
-		'icon-clock'          => 'clock',
-		'icon-envelop'        => 'mail',
-		'icon-checkmark'      => 'check',
-		'icon-search'         => 'search',
+		'icon-map-pin-fill'     => 'pin',
+		'icon-map-pin'          => 'pin',
+		'icon-clock'            => 'clock',
+		'icon-envelop'          => 'mail',
+		'icon-checkmark'        => 'check',
+		'icon-search'           => 'search',
 	);
 	return $map[ $icon ] ?? '';
 }

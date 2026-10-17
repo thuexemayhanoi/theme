@@ -120,10 +120,10 @@ class NT_CLI {
 				if ( ! isset( $handlers[ $tag ] ) && ! in_array( $tag, $stripped, true ) && 0 !== strpos( $tag, 'ux_' ) && ! shortcode_exists( $tag ) ) {
 					continue; // Plain bracketed text, not a shortcode.
 				}
-				$tags[ $tag ]['count']                 = ( $tags[ $tag ]['count'] ?? 0 ) + 1;
-				$tags[ $tag ]['posts'][ $post_id ]     = true;
-				$pages[ $post_id ][ $tag ]             = ( $pages[ $post_id ][ $tag ] ?? 0 ) + 1;
-				$parsed                                = shortcode_parse_atts( trim( $hit[2] ) );
+				$tags[ $tag ]['count']             = ( $tags[ $tag ]['count'] ?? 0 ) + 1;
+				$tags[ $tag ]['posts'][ $post_id ] = true;
+				$pages[ $post_id ][ $tag ]         = ( $pages[ $post_id ][ $tag ] ?? 0 ) + 1;
+				$parsed                            = shortcode_parse_atts( trim( $hit[2] ) );
 				foreach ( is_array( $parsed ) ? array_keys( $parsed ) : array() as $attr ) {
 					if ( is_string( $attr ) ) {
 						$tags[ $tag ]['attrs'][ $attr ] = ( $tags[ $tag ]['attrs'][ $attr ] ?? 0 ) + 1;
