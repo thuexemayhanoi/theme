@@ -1,5 +1,8 @@
 # CLAUDE.md — Nguyễn Tú WordPress independent theme
 
+**SEO HULK is a P0 mandatory workstream.** Read and implement `docs/SEO-HULK.md` in full before coding: preserve live Yoast metadata, canonical, robots, XML sitemap, indexability, one meaningful H1, schema graph, internal link/navigation graph, WooCommerce/featured-item URLs, Core Web Vitals, local entity NAP and crawl integrity. Record real before/after SEO snapshots, automated tests and release gates. Implement SEO into templates and CI; do not just write a plan. Never claim rankings, scores or schema without proof.
+
+
 This repository is the **new primary-site theme** for https://thuexemaynguyentu.com/, NOT the blog.rentbikehanoi.com theme. Read README.md in full, then docs/wordpress-baseline-2026-10-17.json before doing anything. Every fact and ID in the snapshot is from a read-only audit, dated 2026-10-17; refresh observations when tools allow. Do not assume a current static snapshot is authoritative for a moving publisher.
 
 ## Working contract
