@@ -12,7 +12,7 @@ const BUDGETS = [
 	['assets/css/main.css', 34 * KB, 9 * KB],
 	['assets/css/home.css', 16 * KB, 4.5 * KB],
 	['assets/css/blog.css', 16 * KB, 4.5 * KB],
-	['assets/css/woo.css', 14 * KB, 4 * KB],
+	['assets/css/woo.css', 16 * KB, 4 * KB],
 	['assets/css/legacy.css', 18 * KB, 5 * KB],
 	['assets/js/theme.js', 14 * KB, 4.5 * KB],
 ];

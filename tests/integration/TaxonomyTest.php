@@ -57,4 +57,13 @@ final class TaxonomyTest extends TestCase {
 			$this->assertSame( '/bo-suu-tap/' . $term['slug'] . '/', nt_it_path( (string) $link ), "URL of featured term {$term['slug']}" );
 		}
 	}
+
+	public function test_hub_chip_totals_include_descendant_terms(): void {
+		$hub  = get_term( 162, 'category' ); // "Hướng dẫn thuê xe": no direct posts, one post in a child term.
+		$leaf = get_term( 170, 'category' ); // "Chăm sóc xe máy": a leaf with its own posts.
+		$this->assertInstanceOf( WP_Term::class, $hub );
+		$this->assertSame( 0, (int) $hub->count, 'core counts direct posts only' );
+		$this->assertSame( 1, nt_term_total( $hub ), 'the hub total includes the child term' );
+		$this->assertSame( (int) $leaf->count, nt_term_total( $leaf ), 'a leaf keeps its own count without an extra query' );
+	}
 }

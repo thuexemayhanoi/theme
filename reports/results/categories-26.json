@@ -1,0 +1,7 @@
+{
+  "gate": "categories-26",
+  "status": "PASS",
+  "detail": "3 test(s) passed",
+  "evidence": "reports/results/raw/integration-junit.xml",
+  "at": "2026-10-17T18:10:30.606Z"
+}

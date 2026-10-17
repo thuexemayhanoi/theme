@@ -112,6 +112,17 @@ function nt_legacy_stripped_tags(): array {
 }
 
 /**
+ * Tags whose output is complete, generated markup with no author text inside: parked while the
+ * late wpautop runs (see nt_lg_protect()). Containers that hold author text are not listed, they
+ * need that paragraphing.
+ *
+ * @return string[]
+ */
+function nt_legacy_parked_tags(): array {
+	return array( 'ux_products', 'ux_product_categories', 'blog_posts', 'ux_portfolio', 'search', 'ux_gallery', 'share', 'follow', 'ux_video' );
+}
+
+/**
  * Whether the bridge registered its handlers in this request (false while the previous theme
  * or another plugin already provides the shortcodes).
  */
@@ -131,7 +142,11 @@ function nt_legacy_register(): void {
 		if ( shortcode_exists( $tag ) || ! is_callable( $callback ) ) {
 			continue;
 		}
-		add_shortcode( $tag, $callback );
+		$handler = $callback;
+		if ( in_array( $tag, nt_legacy_parked_tags(), true ) ) {
+			$handler = static fn ( $atts = array(), $content = '', $name = '' ): string => nt_lg_protect( (string) $callback( $atts, $content, $name ) );
+		}
+		add_shortcode( $tag, $handler );
 		$registered[] = $tag;
 	}
 	$GLOBALS['nt_legacy_registered'] = array() !== $registered;
@@ -178,27 +193,38 @@ function nt_legacy_needs_css(): bool {
  * @param string $content Content before filters at priority 9.
  */
 function nt_legacy_prepare_content( string $content ): string {
-	if ( ! nt_legacy_active() || ! nt_legacy_has_shortcodes( $content ) ) {
-		return $content;
-	}
-	if ( false !== has_filter( 'the_content', 'wpautop' ) ) {
+	$legacy = nt_legacy_active() && nt_legacy_has_shortcodes( $content );
+	$autop  = false;
+	if ( $legacy && false !== has_filter( 'the_content', 'wpautop' ) ) {
 		remove_filter( 'the_content', 'wpautop' );
 		add_filter( 'the_content', 'nt_legacy_late_autop', 12 );
+		$autop = true;
 	}
-	$GLOBALS['nt_legacy_wrap'] = true;
+	nt_legacy_frame(
+		'push',
+		array(
+			'wrap'  => $legacy,
+			'autop' => $autop,
+		)
+	);
 	return $content;
 }
 add_filter( 'the_content', 'nt_legacy_prepare_content', 9 );
 
 /**
- * One-shot wpautop after do_shortcode; restores the default filter for the next call.
+ * Late wpautop, after do_shortcode. Only the run that took wpautop over gives it back; a run nested
+ * inside it (which finds wpautop missing) simply gets the formatting it would have had.
  *
  * @param string $content Content after shortcodes.
  */
 function nt_legacy_late_autop( string $content ): string {
-	remove_filter( 'the_content', 'nt_legacy_late_autop', 12 );
-	add_filter( 'the_content', 'wpautop' );
-	return wpautop( $content );
+	if ( ! empty( nt_legacy_frame()['autop'] ) ) {
+		remove_filter( 'the_content', 'nt_legacy_late_autop', 12 );
+		add_filter( 'the_content', 'wpautop' );
+	}
+	$out = wpautop( $content );
+	// A paragraph holding only HTML comments (a marker line at the top of the content) is just noise.
+	return preg_replace( '#<p>\s*((?:<!--.*?-->\s*)+)</p>#s', '$1', $out ) ?? $out;
 }
 
 /**
@@ -208,6 +234,7 @@ function nt_legacy_late_autop( string $content ): string {
  * @param string $content Content after shortcodes.
  */
 function nt_legacy_finish_content( string $content ): string {
+	$frame = nt_legacy_frame( 'pop' );
 	if ( false !== strpos( $content, '[' ) ) {
 		$pattern = '/\[(\/?)(' . nt_legacy_tag_pattern() . '|ux_[a-z0-9_]+)(?:\s[^\]]*)?\]/i';
 		$content = (string) preg_replace_callback(
@@ -223,9 +250,12 @@ function nt_legacy_finish_content( string $content ): string {
 			$content
 		);
 	}
-	if ( ! empty( $GLOBALS['nt_legacy_wrap'] ) ) {
-		$GLOBALS['nt_legacy_wrap'] = false;
-		$content                   = '<div class="nt-legacy">' . $content . '</div>';
+	$content = nt_lg_restore( $content );
+	if ( 1 === $frame['depth'] ) {
+		$GLOBALS['nt_lg_parked'] = array(); // outermost run finished: nothing is parked any more.
+	}
+	if ( $frame['wrap'] ) {
+		$content = '<div class="nt-legacy">' . $content . '</div>';
 	}
 	return $content;
 }

@@ -48,6 +48,24 @@ function nt_cta_buttons( array $args = array() ): void {
 }
 
 /**
+ * Excerpt for cards and search results, built without running the_content: a manual excerpt as
+ * written, else the start of the stored content. Core's get_the_excerpt() applies the_content to
+ * the whole post for every card, which is slow, re-enters the legacy bridge while a page is being
+ * rendered and lets unrelated plugins' content filters run for text nobody sees.
+ *
+ * @param WP_Post|int|null $post  Post (default: current).
+ * @param int              $words Word limit.
+ */
+function nt_excerpt( $post = null, int $words = 24 ): string {
+	$post = get_post( $post );
+	if ( ! $post instanceof WP_Post || post_password_required( $post ) ) {
+		return '';
+	}
+	$text = '' !== trim( (string) $post->post_excerpt ) ? nt_plain_text( (string) $post->post_excerpt ) : nt_content_to_text( (string) $post->post_content );
+	return nt_trim_words( $text, $words );
+}
+
+/**
  * Thumbnail markup for a card, or a decorative placeholder when the post has no image.
  *
  * Uses only the image sizes WordPress already generated for existing media (no custom sizes,
@@ -200,6 +218,36 @@ function nt_archive_heading(): array {
 		'title'       => (string) $title,
 		'description' => (string) $description,
 	);
+}
+
+/**
+ * Published posts in a category including its descendants. Core's term count is direct only, so a
+ * hub whose posts live in child terms would read "0" next to a page that lists them.
+ *
+ * @param WP_Term $term Term.
+ */
+function nt_term_total( WP_Term $term ): int {
+	if ( 'category' !== $term->taxonomy || array() === get_term_children( $term->term_id, $term->taxonomy ) ) {
+		return (int) $term->count;
+	}
+	$key   = 'total_' . $term->term_id . '_' . wp_cache_get_last_changed( 'posts' );
+	$found = wp_cache_get( $key, 'nguyentu' );
+	if ( false === $found ) {
+		$query = new WP_Query(
+			array(
+				'cat'                    => $term->term_id,
+				'post_status'            => 'publish',
+				'posts_per_page'         => 1,
+				'fields'                 => 'ids',
+				'ignore_sticky_posts'    => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+		$found = (int) $query->found_posts;
+		wp_cache_set( $key, $found, 'nguyentu', HOUR_IN_SECONDS );
+	}
+	return (int) $found;
 }
 
 /**

@@ -1,0 +1,7 @@
+{
+  "gate": "featured-roundtrip",
+  "status": "FAIL",
+  "detail": "see reports/compat-roundtrip.md",
+  "evidence": "reports/compat-roundtrip.md",
+  "at": "2026-10-17T18:10:50.833Z"
+}

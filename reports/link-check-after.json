@@ -1,0 +1,2545 @@
+{
+  "meta": {
+    "base": "http://127.0.0.1:8088",
+    "checked": 235,
+    "bad": 0,
+    "generated_at": "2026-10-17T18:12:48.958Z",
+    "snapshot": "reports/seo-after.json"
+  },
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2025/10/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2025/11/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2025/12/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/01/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/02/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/03/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/04/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/05/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/06/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/07/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/08/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/09/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/2026/10/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/an-toan-khi-di-xe-trong-dieu-kien-thieu-sang/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/author/nguyentu-editor/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/"
+      ],
+      "source_count": 12
+    },
+    {
+      "path": "/ban-ghi-nho-giay-to-nen-mang-theo-trong-chuyen-di/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/bang-so-sanh-nhanh-cac-dong-xe-tay-ga-nho-gon/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/bao-hiem-xe-may-hieu-dung-de-yen-tam-hon/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/",
+        "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/binh-xang-voi-phun-va-nhung-dieu-co-ban/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/blog/ky-thuat-bao-duong/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/"
+      ],
+      "source_count": 15
+    },
+    {
+      "path": "/blog/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/chia-se/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/chia-se/di-chuyen-do-thi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/chia-se/du-lich-xanh/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/chia-se/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/danh-gia-so-sanh-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/danh-gia-so-sanh-xe/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/danh-gia-so-sanh-xe/page/3/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/diem-den/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/diem-den/am-thuc-va-van-hoa/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/diem-den/hanh-trinh-viet-nam/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/diem-den/kham-pha-ha-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/huong-dan-thue-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/ky-thuat-bao-duong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/ky-thuat-bao-duong/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/ky-thuat-bao-duong/page/3/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/page/16/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/phap-ly-kinh-nghiem/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/phap-ly-kinh-nghiem/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/phap-ly-kinh-nghiem/page/3/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/xe-dien/cham-soc-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/xe-dien/cong-nghe-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/xe-dien/dien-hoa-va-ha-tang/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/xe-dien/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/xe-dien/page/4/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/blog/xe-dien/pin-va-sac/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/blog/xe-dien/xe-dap-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/bo-suu-tap/bang-gia/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/bo-suu-tap/bang-gia/page/2/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/bang-gia/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/bo-suu-tap/thue-ngay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/bo-suu-tap/thue-thang/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/bo-suu-tap/thue-tuan/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/boi-tron-cac-diem-quan-trong-tren-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/bugi-xe-may-vai-tro-va-dau-hieu-can-thay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-bat-dau-mot-chuyen-di-cuoi-tuan-it-ton-kem/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-chia-ngan-sach-cho-mot-chuyen-di-ngan-ngay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/cach-de-xe-dung-cho-giup-xe-ben-hon/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-doc-bang-gia-thue-xe-sao-cho-de-hieu/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-doc-dong-ho-taplo-cho-nguoi-moi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-doc-thong-so-tren-bang-dieu-khien-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/blog/xe-dien/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/"
+      ],
+      "source_count": 15
+    },
+    {
+      "path": "/cach-ghi-chep-chi-phi-phat-sinh-khi-thue-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/",
+        "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/cach-sac-xe-dien-an-toan-tai-nha/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cach-ve-sinh-xe-dien-dung-cach/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/hieu-ve-cong-suat-dong-co-xe-dien/",
+        "/cach-ve-sinh-xe-dien-dung-cach/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/cach-xu-ly-khi-gap-mat-duong-tron-truot/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cap-nhat-website-giao-dien-moi-dang-duoc-thu-nghiem/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/uncategorized/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cau-chuyen-tu-nhung-vi-khach-dau-tien-cua-tiem-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/cham-soc-xe-dien-hang-tuan-danh-sach-viec-nen-lam/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cham-soc-xe-may-sau-mua-mua/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cham-soc-xe-may-trong-mua-nong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/cham-soc-yen-xe-va-nhua-op-ben-ngoai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/chao-mung-den-voi-blog-thue-xe-may-nguyen-tu/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/uncategorized/",
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/chia-se-cach-len-ke-hoach-ngan-sach-cho-chuyen-di/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/",
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/chia-se-kinh-nghiem-di-xe-may-qua-pho-dong-nguoi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/",
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/chinh-sach-bao-mat/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/chon-tuyen-duong-de-tranh-un-tac/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/blog/chia-se/di-chuyen-do-thi/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=674",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-ga/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-ga/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/?add-to-cart=674",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-ga/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-ga/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-ga/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-ga/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-so/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/danh-muc-san-pham/loai-xe/xe-so/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/danh-muc-san-pham/loai-xe/xe-so/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/day-curoa-tren-xe-ga-nhung-dau-hieu-can-luu-y/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/di-chuyen-trong-noi-do-gio-cao-diem-kinh-nghiem-thuc-te/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/blog/chia-se/di-chuyen-do-thi/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/di-xe-may-ket-hop-phuong-tien-cong-cong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/di-chuyen-do-thi/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/di-xe-may-mua-mua-o-ha-noi-can-luu-y-gi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/",
+        "/hieu-ve-cong-suat-dong-co-xe-dien/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/diem-den-yen-tinh-cho-nguoi-thich-nhip-song-cham/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/diem-den/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/dieu-gi-lam-nen-mot-trai-nghiem-thue-xe-de-chiu/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/quy-trinh-tra-xe-nhanh-gon-trong-vai-phut/",
+        "/dieu-gi-lam-nen-mot-trai-nghiem-thue-xe-de-chiu/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/dieu-khoan-su-dung/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/doi-mu-bao-hiem-dung-cach/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/du-lich-xanh-bang-phuong-tien-hai-banh-bat-dau-tu-dau/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/blog/chia-se/du-lich-xanh/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/faq/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-tuan/",
+        "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+        "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/thue-thang/",
+        "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+        "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+        "/featured_item/dich-vu-thue-xe-may-1-thang/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/featured_item/cho-thue-xe-may-thang-ha-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/thue-thang/",
+        "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+        "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+        "/featured_item/dich-vu-thue-xe-may-1-thang/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/featured_item/dich-vu-thue-xe-may-1-thang/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/thue-thang/",
+        "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+        "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+        "/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-tuan/",
+        "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+        "/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-ngay/",
+        "/?s=thue+xe+may",
+        "/featured_item/thue-xe-may-ha-noi-1-ngay/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/thue-thang/",
+        "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+        "/featured_item/dich-vu-thue-xe-may-1-thang/",
+        "/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/featured_item/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-ngay/",
+        "/?s=thue+xe+may",
+        "/featured_item/thue-xe-may-ha-noi-1-ngay/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/featured_item/thue-xe-may-ha-noi-1-ngay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-ngay/",
+        "/?s=thue+xe+may",
+        "/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/featured_item/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-tuan/",
+        "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+        "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/thue-thang/",
+        "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+        "/featured_item/dich-vu-thue-xe-may-1-thang/",
+        "/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-tuan/",
+        "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+        "/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-tuan/",
+        "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+        "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/featured_item/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-ngay/",
+        "/?s=thue+xe+may",
+        "/featured_item/thue-xe-may-ha-noi-1-ngay/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/featured_item/thue-xe-may/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/bo-suu-tap/",
+        "/bo-suu-tap/bang-gia/",
+        "/bo-suu-tap/thue-ngay/",
+        "/featured_item/thue-xe-may-ha-noi-1-ngay/",
+        "/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/ghi-chu-nho-cho-nguoi-thue-xe-theo-tuan/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/giam-xoc-va-do-em-khi-di-duong-xau/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/gioi-thieu/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/gioi-thieu/su-menh-tam-nhin/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/gioi-thieu/ve-chung-toi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/giu-khoang-cach-an-toan-khi-di-trong-gio-cao-diem/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/goc-nhin-cua-nguoi-moi-thue-xe-may-co-kho-khong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/goi-y-diem-den-cuoi-tuan-cach-trung-tam-mot-quang-ngan/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/diem-den/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/hieu-ve-cong-suat-dong-co-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/",
+        "/hieu-ve-cong-suat-dong-co-xe-dien/",
+        "/cach-ve-sinh-xe-dien-dung-cach/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/hoi-dap-nhanh-ve-dich-vu-cho-thue-xe-may/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/honda-air-blade-dang-the-thao-co-dang-thue-khong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/honda-blade-so-voi-wave-ve-cam-giac-lai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/honda-click-lua-chon-gon-nhe-cho-quang-duong-ngan/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/honda-cub-net-co-dien-co-phu-hop-de-di-du-lich/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/kham-pha-ha-noi-qua-nam-con-pho-nho/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/diem-den/",
+        "/blog/diem-den/kham-pha-ha-noi/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/kiem-tra-lop-va-vanh-dinh-ky/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/kiem-tra-xe-nhanh-truoc-khi-lan-banh-danh-sach-ngan-gon/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/kinh-nghiem-doc-ky-dieu-khoan-truoc-khi-ky/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/kinh-nghiem-thoa-thuan-thoi-gian-thue-dai-ngay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/",
+        "/kinh-nghiem-nho-nguoi-than-dung-ra-thue-xe/",
+        "/khach-nuoc-ngoai-thue-xe-giay-to-thuong-duoc-hoi/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/kinh-nghiem-xu-ly-khi-xe-gap-su-co-nho/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/blog/phap-ly-kinh-nghiem/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/"
+      ],
+      "source_count": 15
+    },
+    {
+      "path": "/lap-ke-hoach-chuyen-di-tung-buoc/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+        "/danh-sach-viec-can-lam-truoc-ngay-khoi-hanh/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/lien-he/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/meo-keo-dai-tuoi-tho-pin-khi-dung-hang-ngay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/",
+        "/hieu-ve-cong-suat-dong-co-xe-dien/",
+        "/cach-ve-sinh-xe-dien-dung-cach/"
+      ],
+      "source_count": 5
+    },
+    {
+      "path": "/nhat-ky-chuyen-di-tu-long-bien-ra-ho-tay/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/dieu-gi-lam-nen-mot-trai-nghiem-thue-xe-de-chiu/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/nhung-cau-hoi-thuong-gap-khi-dat-xe-qua-dien-thoai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 14
+    },
+    {
+      "path": "/nhung-cau-hoi-thuong-gap-truoc-khi-thue-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/nhung-diem-den-nen-ghe-khi-co-mot-ngay-ranh-o-ha-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/diem-den/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/nhung-dieu-hoc-duoc-sau-moi-chuyen-di-xa/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/nhung-mon-do-nho-nhung-huu-ich-khi-di-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/nhung-thoi-quen-giup-chuyen-di-an-toan-hon/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/page/2/?s=thue+xe+may",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/page/9/?s=thue+xe+may",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/pin-xe-dien-di-duoc-bao-xa-cach-uoc-luong-thuc-te/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/blog/xe-dien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/quy-tac-an-toan-co-ban-khi-lai-xe-may-trong-pho/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/quy-trinh-tra-xe-nhanh-gon-trong-vai-phut/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/quy-trinh-tra-xe-nhanh-gon-trong-vai-phut/",
+        "/dieu-gi-lam-nen-mot-trai-nghiem-thue-xe-de-chiu/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/rua-xe-may-tai-nha-nhung-buoc-co-ban/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/bang-gia-thue-xe-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-dien/",
+        "/san-pham/bang-gia-thue-xe-dien/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/honda-air-blade/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/yamaha-mio-classico/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/honda-air-blade/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-air-blade/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-air-blade/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-air-blade/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-air-blade/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-air-blade/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-click/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/san-pham/honda-click/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-click/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-click/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-cub/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-so/",
+        "/san-pham/xe-so-honda-blade/",
+        "/san-pham/honda-cub/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/honda-cub/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-cub/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-vision/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/yamaha-mio-classico/",
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 9
+    },
+    {
+      "path": "/san-pham/honda-vision/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-vision/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-vision/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-vision/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-vision/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/honda-vision/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/honda-wave/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-so/",
+        "/san-pham/xe-so-honda-blade/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/san-pham/xe-dap-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-dien/",
+        "/san-pham/bang-gia-thue-xe-dien/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/xe-ga-50cc/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/yamaha-mio-classico/",
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 9
+    },
+    {
+      "path": "/san-pham/xe-ga-50cc/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/xe-ga-50cc/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/xe-ga-50cc/?add-to-cart=674",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/xe-ga-50cc/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/xe-ga-50cc/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/xe-ga-50cc/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/xe-may-dien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-dien/",
+        "/san-pham/bang-gia-thue-xe-dien/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/xe-so-honda-blade/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-so/",
+        "/san-pham/xe-so-honda-blade/",
+        "/san-pham/honda-cub/"
+      ],
+      "source_count": 7
+    },
+    {
+      "path": "/san-pham/xe-so-honda-blade/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/xe-so-honda-blade/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-classico/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/yamaha-mio-classico/"
+      ],
+      "source_count": 9
+    },
+    {
+      "path": "/san-pham/yamaha-mio-classico/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-classico/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-classico/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-classico/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-classico/?add-to-cart=674",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-classico/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-ultimo/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-ga/",
+        "/san-pham/yamaha-mio-classico/",
+        "/san-pham/honda-click/"
+      ],
+      "source_count": 9
+    },
+    {
+      "path": "/san-pham/yamaha-mio-ultimo/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-ultimo/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-ultimo/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-ultimo/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-ultimo/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-ultimo/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-mio-ultimo/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-mio-ultimo/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/san-pham/yamaha-sirius/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/shop/",
+        "/danh-muc-san-pham/loai-xe/",
+        "/danh-muc-san-pham/loai-xe/xe-so/",
+        "/san-pham/xe-so-honda-blade/"
+      ],
+      "source_count": 8
+    },
+    {
+      "path": "/san-pham/yamaha-sirius/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/yamaha-sirius/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/san-pham/xe-so-honda-blade/",
+        "/san-pham/yamaha-mio-classico/",
+        "/san-pham/honda-click/",
+        "/san-pham/honda-air-blade/",
+        "/san-pham/xe-ga-50cc/"
+      ],
+      "source_count": 13
+    },
+    {
+      "path": "/shop/?add-to-cart=410",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/?add-to-cart=412",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/?add-to-cart=669",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/?add-to-cart=674",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/?add-to-cart=676",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/shop/?add-to-cart=678",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/shop/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/so-sanh-air-blade-va-vision-ve-do-thoai-mai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 3
+    },
+    {
+      "path": "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/so-sanh-mio-classico-va-mio-ultimo/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/so-sanh-xe-may-dien-va-xe-xang-khi-thue-o-ha-noi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/so-sanh-xe-so-va-xe-ga-chon-loai-nao-cho-chuyen-di/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/so-tay-cham-soc-xe-may-danh-cho-nguoi-moi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/thoi-quen-tot-cua-nguoi-di-xe-may-tu-tin/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/chia-se/",
+        "/chia-se-lo-trinh-an-sang-quanh-khu-vuc-long-bien/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/thong-bao-nho-ve-lich-lam-viec-trong-dip-le/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/uncategorized/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/thu-tuc-nhan-xe-va-giao-xe-quy-trinh-tung-buoc/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/huong-dan-thue-xe/",
+        "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/thue-xe-cho-nhom-ai-dung-ten-hop-dong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/thue-xe-dien-theo-ngay-co-dang-khong/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/"
+      ],
+      "source_count": 2
+    },
+    {
+      "path": "/thue-xe-may-cho-nhom-ban-nen-chia-lich-the-nao/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/thue-xe-may-ha-noi-lan-dau-nhung-dieu-can-chuan-bi/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/thue-xe-may-theo-thang-ai-nen-can-nhac/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/?s=thue+xe+may"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/tong-hop-tieu-chi-chon-xe-thue-theo-tung-nhu-cau/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/trach-nhiem-cua-nguoi-thue-trong-thoi-gian-su-dung-xe/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/phap-ly-kinh-nghiem/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/tu-kiem-tra-xe-sau-mot-chuyen-di-dai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/ky-thuat-bao-duong/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/uncategorized/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/diem-den/am-thuc-va-van-hoa/",
+        "/blog/phap-ly-kinh-nghiem/an-toan-khi-di-chuyen/",
+        "/blog/",
+        "/blog/xe-dien/cham-soc-xe-dien/"
+      ],
+      "source_count": 86
+    },
+    {
+      "path": "/xe-dap-dien-hoat-dong-ra-sao/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/xe-dien-di-duoi-mua-nhung-dieu-can-biet/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/xe-dien-leo-doc-dieu-can-biet/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/",
+        "/blog/xe-dien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/",
+        "/dia-diem-sac-xe-dien-cach-lap-ke-hoach/",
+        "/hieu-ve-cong-suat-dong-co-xe-dien/"
+      ],
+      "source_count": 6
+    },
+    {
+      "path": "/xe-dien-va-nhung-lam-tuong-thuong-gap/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/xe-dien-va-tieng-on-loi-the-khi-di-qua-khu-dan-cu/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/cach-ve-sinh-xe-dien-dung-cach/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/xe-may-dien-la-gi-va-phu-hop-voi-ai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/xe-dien/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/xich-va-nhong-tren-xe-so-bao-duong-co-ban/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/",
+        "/blog/",
+        "/blog/ky-thuat-bao-duong/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/thue-xe-dien-theo-ngay-co-dang-khong/"
+      ],
+      "source_count": 15
+    },
+    {
+      "path": "/yamaha-mio-ultimo-nho-gon-va-de-dieu-khien/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/"
+      ],
+      "source_count": 1
+    },
+    {
+      "path": "/yamaha-sirius-xe-so-ben-bi-cho-chuyen-di-dai/",
+      "status": 200,
+      "location": "",
+      "sources": [
+        "/blog/danh-gia-so-sanh-xe/",
+        "/so-sanh-cam-giac-ngoi-sau-tren-cac-dong-xe-pho-bien/",
+        "/honda-blade-so-voi-wave-ve-cam-giac-lai/"
+      ],
+      "source_count": 3
+    }
+  ]
+}

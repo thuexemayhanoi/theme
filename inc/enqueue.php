@@ -59,7 +59,14 @@ function nt_enqueue_assets(): void {
 		wp_enqueue_style( 'nt-blog', nt_asset_uri( 'assets/css/blog.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/blog.css' ) );
 	}
 	if ( nt_is_shop_context() ) {
-		wp_enqueue_style( 'nt-woo', nt_asset_uri( 'assets/css/woo.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/woo.css' ) );
+		// Load after WooCommerce's own sheets so the resets in woo.css win at equal specificity.
+		$nt_woo_deps = array( 'nt-main' );
+		foreach ( array( 'woocommerce-layout', 'woocommerce-smallscreen', 'woocommerce-general' ) as $nt_handle ) {
+			if ( wp_style_is( $nt_handle, 'registered' ) ) {
+				$nt_woo_deps[] = $nt_handle;
+			}
+		}
+		wp_enqueue_style( 'nt-woo', nt_asset_uri( 'assets/css/woo.css' ), $nt_woo_deps, nt_asset_ver( 'assets/css/woo.css' ) );
 	}
 	if ( function_exists( 'nt_legacy_needs_css' ) && nt_legacy_needs_css() ) {
 		wp_enqueue_style( 'nt-legacy', nt_asset_uri( 'assets/css/legacy.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/legacy.css' ) );
@@ -80,7 +87,7 @@ function nt_enqueue_assets(): void {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'nt_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'nt_enqueue_assets', 20 ); // after WooCommerce registers its styles (priority 10).
 
 /**
  * Tell CSS that scripting is available (enables the off-canvas menu) before first paint.

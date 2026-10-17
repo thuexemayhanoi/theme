@@ -3,18 +3,28 @@ import { test, expect } from '@playwright/test';
 test.describe('blog templates', () => {
 	test.use({ viewport: { width: 1440, height: 900 } });
 
-	test('nested category: H1 is the term, breadcrumb shows ancestry, description is real or absent', async ({ page }) => {
-		await page.goto('/blog/xe-dien/xe-dap-dien/');
-		await expect(page.locator('h1')).toHaveText('Xe đạp điện');
+	// The first crumb is Yoast's configurable "home" label (default "Home"); the theme never renames it.
+	test('nested category: H1 is the term, breadcrumb shows ancestry, posts are listed', async ({ page }) => {
+		await page.goto('/blog/ky-thuat-bao-duong/cham-soc-xe-may/');
+		await expect(page.locator('h1')).toHaveText('Chăm sóc xe máy');
 		const crumbs = (await page.locator('.nt-breadcrumb').innerText()).replace(/\s+/g, ' ');
-		expect(crumbs).toMatch(/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/);
+		expect(crumbs).toMatch(/(Trang chủ|Home).*Blog.*Kỹ Thuật & Bảo Dưỡng.*Chăm sóc xe máy/);
 		expect(await page.locator('.nt-card--post').count()).toBeGreaterThan(0);
+	});
+
+	test('an existing but empty category answers 200 with one H1, an empty state and a way out', async ({ page }) => {
+		const res = await page.goto('/blog/xe-dien/xe-dap-dien/'); // 0 posts in the baseline
+		expect(res.status()).toBe(200);
+		await expect(page.locator('h1')).toHaveText('Xe đạp điện');
+		expect(await page.locator('.nt-card--post').count()).toBe(0);
+		await expect(page.locator('main .nt-empty')).toBeVisible();
+		await expect(page.locator('main .nt-empty a[href$="/blog/"], main .nt-empty a[href$="/blog/xe-dien/"]').first()).toBeVisible();
 	});
 
 	test('hub category lists child categories as chips with real links', async ({ page }) => {
 		await page.goto('/blog/xe-dien/');
 		const chips = page.locator('.nt-subcats a');
-		expect(await chips.count()).toBe(4);
+		expect(await chips.count()).toBe(5); // the 5 real child terms of "Xe Điện" (the menu lists 4 of them)
 		for (const href of await chips.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
 			expect(href).toMatch(/\/blog\/xe-dien\/[a-z0-9-]+\/$/);
 		}
@@ -31,13 +41,17 @@ test.describe('blog templates', () => {
 	});
 
 	test('single post: one H1, meta, TOC from real headings, related posts, prev/next, no duplicate hero', async ({ page }) => {
-		await page.goto('/blog/xe-dien/xe-dap-dien/');
+		await page.goto('/blog/ky-thuat-bao-duong/cham-soc-xe-may/');
 		const first = await page.locator('.nt-card--post .nt-card__title a').first().getAttribute('href');
 		await page.goto(first);
 		await expect(page.locator('h1.nt-article__title')).toHaveCount(1);
 		await expect(page.locator('.nt-article__meta time').first()).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}T/);
 		await expect(page.locator('.nt-article__meta a[rel="author"]')).toBeVisible();
-		await expect(page.locator('.nt-breadcrumb')).toContainText('Blog');
+		// Yoast owns the trail: with its default settings a post shows "Home » title"; the Blog › category path
+		// appears when Yoast's "taxonomy to show in breadcrumbs for posts" is set. Either way the last crumb is the post.
+		const title = (await page.locator('h1.nt-article__title').innerText()).trim();
+		await expect(page.locator('.nt-breadcrumb')).toContainText(/Home|Trang chủ/);
+		await expect(page.locator('.nt-breadcrumb')).toContainText(title);
 
 		const tocLinks = page.locator('.nt-toc--sticky a[data-nt-toc-link]');
 		const n = await tocLinks.count();
@@ -64,7 +78,7 @@ test.describe('blog templates', () => {
 	test('mobile single post shows the collapsible TOC and hides the sticky one', async ({ browser }) => {
 		const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
 		const page = await ctx.newPage();
-		await page.goto('/blog/xe-dien/xe-dap-dien/');
+		await page.goto('/blog/ky-thuat-bao-duong/cham-soc-xe-may/');
 		const first = await page.locator('.nt-card--post .nt-card__title a').first().getAttribute('href');
 		await page.goto(first);
 		await expect(page.locator('.nt-toc--inline')).toBeVisible();

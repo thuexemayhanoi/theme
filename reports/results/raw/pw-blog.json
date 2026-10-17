@@ -1,0 +1,428 @@
+{
+  "config": {
+    "configFile": "/home/user/theme/playwright.config.mjs",
+    "rootDir": "/home/user/theme/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/user/theme/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/user/theme/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 25000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "blog.spec.mjs",
+      "file": "blog.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "blog templates",
+          "file": "blog.spec.mjs",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "nested category: H1 is the term, breadcrumb shows ancestry, description is real or absent",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1177,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/\u001b[39m\nReceived string:  \u001b[31m\"Home » Blog » Xe Điện » Xe đạp điện\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/\u001b[39m\nReceived string:  \u001b[31m\"Home » Blog » Xe Điện » Xe đạp điện\"\u001b[39m\n    at /home/user/theme/tests/e2e/blog.spec.mjs:10:18",
+                        "location": {
+                          "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                          "column": 18,
+                          "line": 10
+                        },
+                        "snippet": "   8 | \t\tawait expect(page.locator('h1')).toHaveText('Xe đạp điện');\n   9 | \t\tconst crumbs = (await page.locator('.nt-breadcrumb').innerText()).replace(/\\s+/g, ' ');\n> 10 | \t\texpect(crumbs).toMatch(/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/);\n     | \t\t               ^\n  11 | \t\texpect(await page.locator('.nt-card--post').count()).toBeGreaterThan(0);\n  12 | \t});\n  13 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                            "column": 18,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/\u001b[39m\nReceived string:  \u001b[31m\"Home » Blog » Xe Điện » Xe đạp điện\"\u001b[39m\n\n   8 | \t\tawait expect(page.locator('h1')).toHaveText('Xe đạp điện');\n   9 | \t\tconst crumbs = (await page.locator('.nt-breadcrumb').innerText()).replace(/\\s+/g, ' ');\n> 10 | \t\texpect(crumbs).toMatch(/Trang chủ.*Blog.*Xe Điện.*Xe đạp điện/);\n     | \t\t               ^\n  11 | \t\texpect(await page.locator('.nt-card--post').count()).toBeGreaterThan(0);\n  12 | \t});\n  13 |\n    at /home/user/theme/tests/e2e/blog.spec.mjs:10:18"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:28:38.480Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-nested-c05e2-scription-is-real-or-absent-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-nested-c05e2-scription-is-real-or-absent-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-nested-c05e2-scription-is-real-or-absent-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                        "column": 18,
+                        "line": 10
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-5356a82159c4090063a7",
+              "file": "blog.spec.mjs",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "hub category lists child categories as chips with real links",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1171,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m5\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m5\u001b[39m\n    at /home/user/theme/tests/e2e/blog.spec.mjs:17:31",
+                        "location": {
+                          "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                          "column": 31,
+                          "line": 17
+                        },
+                        "snippet": "  15 | \t\tawait page.goto('/blog/xe-dien/');\n  16 | \t\tconst chips = page.locator('.nt-subcats a');\n> 17 | \t\texpect(await chips.count()).toBe(4);\n     | \t\t                            ^\n  18 | \t\tfor (const href of await chips.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {\n  19 | \t\t\texpect(href).toMatch(/\\/blog\\/xe-dien\\/[a-z0-9-]+\\/$/);\n  20 | \t\t}"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                            "column": 31,
+                            "line": 17
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m5\u001b[39m\n\n  15 | \t\tawait page.goto('/blog/xe-dien/');\n  16 | \t\tconst chips = page.locator('.nt-subcats a');\n> 17 | \t\texpect(await chips.count()).toBe(4);\n     | \t\t                            ^\n  18 | \t\tfor (const href of await chips.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {\n  19 | \t\t\texpect(href).toMatch(/\\/blog\\/xe-dien\\/[a-z0-9-]+\\/$/);\n  20 | \t\t}\n    at /home/user/theme/tests/e2e/blog.spec.mjs:17:31"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:28:40.755Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-hub-ca-e0bc8-es-as-chips-with-real-links-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-hub-ca-e0bc8-es-as-chips-with-real-links-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-hub-ca-e0bc8-es-as-chips-with-real-links-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                        "column": 31,
+                        "line": 17
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-0111df3eb4228539e978",
+              "file": "blog.spec.mjs",
+              "line": 14,
+              "column": 2
+            },
+            {
+              "title": "blog root paginates with real URLs and keeps the right post set",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2441,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:28:42.999Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-5c7781a3185f423796ff",
+              "file": "blog.spec.mjs",
+              "line": 23,
+              "column": 2
+            },
+            {
+              "title": "single post: one H1, meta, TOC from real headings, related posts, prev/next, no duplicate hero",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 25156,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                            "column": 80,
+                            "line": 35
+                          },
+                          "message": "Error: locator.getAttribute: Test timeout of 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.nt-card--post .nt-card__title a').first()\u001b[22m\n\n\n  33 | \ttest('single post: one H1, meta, TOC from real headings, related posts, prev/next, no duplicate hero', async ({ page }) => {\n  34 | \t\tawait page.goto('/blog/xe-dien/xe-dap-dien/');\n> 35 | \t\tconst first = await page.locator('.nt-card--post .nt-card__title a').first().getAttribute('href');\n     | \t\t                                                                             ^\n  36 | \t\tawait page.goto(first);\n  37 | \t\tawait expect(page.locator('h1.nt-article__title')).toHaveCount(1);\n  38 | \t\tawait expect(page.locator('.nt-article__meta time').first()).toHaveAttribute('datetime', /^\\d{4}-\\d{2}-\\d{2}T/);\n    at /home/user/theme/tests/e2e/blog.spec.mjs:35:80"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:28:45.573Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-single-fb79d-prev-next-no-duplicate-hero-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-single-fb79d-prev-next-no-duplicate-hero-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-single-fb79d-prev-next-no-duplicate-hero-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-82978f517ba77107272d",
+              "file": "blog.spec.mjs",
+              "line": 33,
+              "column": 2
+            },
+            {
+              "title": "mobile single post shows the collapsible TOC and hides the sticky one",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 25038,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 25000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/blog.spec.mjs",
+                            "column": 80,
+                            "line": 68
+                          },
+                          "message": "Error: locator.getAttribute: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('.nt-card--post .nt-card__title a').first()\u001b[22m\n\n\n  66 | \t\tconst page = await ctx.newPage();\n  67 | \t\tawait page.goto('/blog/xe-dien/xe-dap-dien/');\n> 68 | \t\tconst first = await page.locator('.nt-card--post .nt-card__title a').first().getAttribute('href');\n     | \t\t                                                                             ^\n  69 | \t\tawait page.goto(first);\n  70 | \t\tawait expect(page.locator('.nt-toc--inline')).toBeVisible();\n  71 | \t\tawait expect(page.locator('.nt-toc--sticky')).toBeHidden();\n    at /home/user/theme/tests/e2e/blog.spec.mjs:68:80"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:29:11.673Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-mobile-a9f8c-OC-and-hides-the-sticky-one-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-mobile-a9f8c-OC-and-hides-the-sticky-one-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/blog-blog-templates-mobile-a9f8c-OC-and-hides-the-sticky-one-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-977111c92dedbc6d6981",
+              "file": "blog.spec.mjs",
+              "line": 64,
+              "column": 2
+            },
+            {
+              "title": "tables in posts scroll inside their own region instead of the page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 25000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 834,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:29:37.948Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "43aa5e8f82eb1cbd4110-8ea36e272352cc4845ef",
+              "file": "blog.spec.mjs",
+              "line": 77,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-17T18:28:37.568Z",
+    "duration": 61425.274,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}

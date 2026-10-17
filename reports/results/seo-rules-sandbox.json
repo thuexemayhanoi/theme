@@ -1,0 +1,7 @@
+{
+  "gate": "seo-rules-sandbox",
+  "status": "FAIL",
+  "detail": "P0 rule failures, see reports/seo-rules-after.md",
+  "evidence": "reports/seo-rules-after.md",
+  "at": "2026-10-17T18:12:01.003Z"
+}

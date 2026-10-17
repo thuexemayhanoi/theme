@@ -33,7 +33,7 @@ if ( is_array( $nt_terms ) ) {
 			<div class="nt-card__chips"><span class="nt-chip"><?php echo esc_html( $nt_chip ); ?></span></div>
 		<?php endif; ?>
 		<<?php echo esc_html( $nt_heading ); ?> class="nt-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo esc_html( $nt_heading ); ?>>
-		<p class="nt-card__excerpt"><?php echo esc_html( nt_trim_words( wp_strip_all_tags( get_the_excerpt() ), 24 ) ); ?></p>
+		<p class="nt-card__excerpt"><?php echo esc_html( nt_excerpt( null, 24 ) ); ?></p>
 		<p class="nt-card__more"><a class="nt-link-arrow" href="<?php the_permalink(); ?>">Xem chi tiết <?php nt_the_icon( 'arrow-right', array( 'size' => 16 ) ); ?></a></p>
 	</div>
 </article>

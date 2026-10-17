@@ -1,0 +1,11 @@
+{
+  "verified": false,
+  "summary": {
+    "compared": 0,
+    "p0": 0,
+    "p1": 0,
+    "p2": 0
+  },
+  "findings": [],
+  "reason": "The build container's egress policy returns HTTP 403 at CONNECT for thuexemaynguyentu.com (see docs/AUDIT.md section 1). No live request was made, so no live SEO field is recorded here and none may be assumed."
+}

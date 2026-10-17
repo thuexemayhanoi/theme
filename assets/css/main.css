@@ -274,6 +274,19 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-brand__name { font-size: 1.1875rem; font-weight: 800; letter-spacing: -.02em; }
 .nt-brand__tag { display: none; margin-top: 3px; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--nt-muted); }
 .nt-header__call-text { white-space: nowrap; }
+@media (max-width: 639.98px) {
+	.nt-header__inner { gap: 8px; }
+	.nt-header__actions { gap: 2px; }
+	.nt-brand__link { gap: 8px; }
+	.nt-brand__mark { width: 36px; height: 36px; border-radius: 10px; }
+	.nt-brand__name { font-size: 1.0625rem; }
+	/* Call stays one tap away as an icon-only button; the label remains the accessible name. */
+	.nt-header__call { width: 44px; height: 44px; padding: 0; gap: 0; justify-content: center; border-radius: 50%; }
+	.nt-header__call-text { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+}
+@media (max-width: 349.98px) {
+	.nt-header__call { display: none; }
+}
 
 /* ---------- Navigation: off-canvas below 1024px ---------- */
 .nt-nav {
@@ -290,7 +303,8 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-nav.is-open { transform: none; visibility: visible; transition-delay: 0s; }
 .nt-nav__head { display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 8px var(--nt-gutter); border-bottom: 1px solid var(--nt-line); }
 .nt-nav__title { font-weight: 800; letter-spacing: -.01em; }
-.nt-nav__scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 8px var(--nt-gutter) 32px; }
+.nt-nav__scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 8px var(--nt-gutter) calc(32px + var(--nt-fixed-bars, 0px)); }
+body.nt-has-quickcall, body.nt-has-chat { --nt-fixed-bars: 76px; }
 .nt-nav__foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--nt-line); }
 .nt-nav__nap { margin-top: 16px; font-size: .875rem; color: var(--nt-muted); }
 .nt-nav__empty { padding: 16px 0; color: var(--nt-muted); }
@@ -392,7 +406,6 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 		transition: opacity .16s ease, transform .16s ease, visibility 0s linear .16s;
 	}
 	.nt-menu__item--d0:hover > .nt-sub,
-	.nt-menu__item--d0:focus-within > .nt-sub,
 	.nt-menu__item--d0.is-open > .nt-sub { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 	.nt-sub .nt-menu__link { padding: 8px 12px; min-height: 40px; border-radius: 10px; font-weight: 600; }
 	.nt-sub .nt-menu__link:hover { background: var(--nt-navy-100); color: var(--nt-navy); }
@@ -489,6 +502,8 @@ a.nt-chip:hover { background: var(--nt-navy); color: #fff; }
 .nt-breadcrumb a:hover { color: var(--nt-accent-700); text-decoration: underline; }
 .nt-breadcrumb [aria-current="page"], .nt-breadcrumb .breadcrumb_last { color: var(--nt-ink); font-weight: 600; }
 .nt-breadcrumb--yoast a { color: var(--nt-muted); }
+.nt-pagecrumbs { padding: 14px 0 0; }
+.nt-pagecrumbs .nt-breadcrumb { margin-bottom: 0; }
 
 /* ---------- Pagination ---------- */
 .nt-pagination, .navigation.pagination { margin: 3rem 0 0; }
@@ -519,7 +534,12 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__col--brand .nt-cta { margin-top: 18px; }
 .nt-footer__col--brand .nt-btn--ghost { color: #fff; border-color: rgb(255 255 255 / 45%); background: transparent; }
 .nt-footer__col--brand .nt-btn--ghost:hover { background: #fff; color: var(--nt-navy); }
-.nt-footer__widgets { padding-bottom: 24px; }
+.nt-footer__widgets { display: grid; gap: 0 40px; padding-bottom: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.nt-footer .nt-widget { margin: 0 0 20px; padding: 0; color: inherit; background: transparent; border: 0; border-radius: 0; }
+.nt-footer .nt-widget :is(.nt-widget__title, .wp-block-heading, h2, h3) { margin: 0 0 12px; font-size: 1rem; letter-spacing: .02em; color: #fff; }
+.nt-footer .nt-widget a { color: #fff; }
+.nt-footer .nt-widget ul { margin: 0; padding: 0; list-style: none; }
+.nt-footer .nt-widget li { margin-bottom: 6px; }
 .nt-footer__bottom { padding: 20px 0 28px; font-size: .8125rem; color: #9fb0cd; border-top: 1px solid rgb(255 255 255 / 12%); }
 .nt-footer__bottom p { margin: 0; }
 @media (min-width: 640px) {
@@ -531,7 +551,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 
 /* ---------- Mobile contact bar (only when no QuickCall plugin is active) ---------- */
 .nt-ctabar {
-	position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
+	position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
 	display: flex; gap: 8px;
 	padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
 	background: rgb(255 255 255 / 96%);

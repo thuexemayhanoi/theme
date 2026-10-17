@@ -1,0 +1,710 @@
+{
+  "config": {
+    "configFile": "/home/user/theme/playwright.config.mjs",
+    "rootDir": "/home/user/theme/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/user/theme/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/user/theme/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "layout.spec.mjs",
+      "file": "layout.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "layout @ 1440px",
+          "file": "layout.spec.mjs",
+          "line": 5,
+          "column": 7,
+          "specs": [
+            {
+              "title": "home: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2065,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:24:56.728Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-6678f658d92d35ca845b",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "about: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1788,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:24:58.903Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-32bbc1c75e44799c824e",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "contact: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1693,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:00.714Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-ad83d4e2a3bdb8c86804",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "faq: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1681,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:02.422Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-096ac65e0f9d5696d652",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "collection: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1595,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:04.116Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-19e45fd6ce239fbf0cc3",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "shop: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1598,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:05.725Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-b035276ec285ef177f40",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "blog: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1631,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:07.335Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-b1e90e03d64e4bcb0e3d",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "category-nested: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1543,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:08.983Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-0cd518313ce7602bd526",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "category-hub: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1689,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:10.542Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-e0fdf3b73688f75375cd",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "product-priced: no horizontal overflow, no console errors, single H1/main",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1726,
+                      "error": {
+                        "message": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                        "stack": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /home/user/theme/tests/e2e/layout.spec.mjs:15:79",
+                        "location": {
+                          "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                          "column": 79,
+                          "line": 15
+                        },
+                        "snippet": "  13 |\n  14 | \t\t\t\tawait noHorizontalScroll(page);\n> 15 | \t\t\t\texpect(await overflowOffenders(page), 'elements wider than the viewport').toEqual([]);\n     | \t\t\t\t                                                                          ^\n  16 |\n  17 | \t\t\t\texpect(await page.locator('h1').count(), 'exactly one <h1>').toBe(1);\n  18 | \t\t\t\texpect(await page.locator('main').count(), 'exactly one <main>').toBe(1);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                            "column": 79,
+                            "line": 15
+                          },
+                          "message": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  13 |\n  14 | \t\t\t\tawait noHorizontalScroll(page);\n> 15 | \t\t\t\texpect(await overflowOffenders(page), 'elements wider than the viewport').toEqual([]);\n     | \t\t\t\t                                                                          ^\n  16 |\n  17 | \t\t\t\texpect(await page.locator('h1').count(), 'exactly one <h1>').toBe(1);\n  18 | \t\t\t\texpect(await page.locator('main').count(), 'exactly one <main>').toBe(1);\n    at /home/user/theme/tests/e2e/layout.spec.mjs:15:79"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:12.245Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-b67a9-nsole-errors-single-H1-main-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-b67a9-nsole-errors-single-H1-main-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-b67a9-nsole-errors-single-H1-main-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                        "column": 79,
+                        "line": 15
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-03855eef450a2912be2f",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "product-unpriced: no horizontal overflow, no console errors, single H1/main",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1787,
+                      "error": {
+                        "message": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                        "stack": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /home/user/theme/tests/e2e/layout.spec.mjs:15:79",
+                        "location": {
+                          "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                          "column": 79,
+                          "line": 15
+                        },
+                        "snippet": "  13 |\n  14 | \t\t\t\tawait noHorizontalScroll(page);\n> 15 | \t\t\t\texpect(await overflowOffenders(page), 'elements wider than the viewport').toEqual([]);\n     | \t\t\t\t                                                                          ^\n  16 |\n  17 | \t\t\t\texpect(await page.locator('h1').count(), 'exactly one <h1>').toBe(1);\n  18 | \t\t\t\texpect(await page.locator('main').count(), 'exactly one <main>').toBe(1);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                            "column": 79,
+                            "line": 15
+                          },
+                          "message": "Error: elements wider than the viewport\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"img.zoomImg right=1720 left=120 vw=1440\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  13 |\n  14 | \t\t\t\tawait noHorizontalScroll(page);\n> 15 | \t\t\t\texpect(await overflowOffenders(page), 'elements wider than the viewport').toEqual([]);\n     | \t\t\t\t                                                                          ^\n  16 |\n  17 | \t\t\t\texpect(await page.locator('h1').count(), 'exactly one <h1>').toBe(1);\n  18 | \t\t\t\texpect(await page.locator('main').count(), 'exactly one <main>').toBe(1);\n    at /home/user/theme/tests/e2e/layout.spec.mjs:15:79"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:15.039Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-433db-nsole-errors-single-H1-main-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-433db-nsole-errors-single-H1-main-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-produ-433db-nsole-errors-single-H1-main-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                        "column": 79,
+                        "line": 15
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-8c5b7933540a1bc77497",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "product-cat: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1725,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:17.998Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-d7b2beb64577295fa7b2",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "featured-term: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1499,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:19.878Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-e0d622f3fe491a38812a",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "search: no horizontal overflow, no console errors, single H1/main",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1523,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:21.394Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-be502f3080d32cf003ed",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            },
+            {
+              "title": "not-found: no horizontal overflow, no console errors, single H1/main",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1580,
+                      "error": {
+                        "message": "Error: console errors / failed requests\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"console: Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                        "stack": "Error: console errors / failed requests\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"console: Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /home/user/theme/tests/e2e/layout.spec.mjs:29:58",
+                        "location": {
+                          "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                          "column": 58,
+                          "line": 29
+                        },
+                        "snippet": "  27 | \t\t\t\texpect(bad, 'images without alt').toEqual([]);\n  28 |\n> 29 | \t\t\t\texpect(problems, 'console errors / failed requests').toEqual([]);\n     | \t\t\t\t                                                     ^\n  30 | \t\t\t});\n  31 | \t\t}\n  32 | \t});"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                            "column": 58,
+                            "line": 29
+                          },
+                          "message": "Error: console errors / failed requests\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"console: Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  27 | \t\t\t\texpect(bad, 'images without alt').toEqual([]);\n  28 |\n> 29 | \t\t\t\texpect(problems, 'console errors / failed requests').toEqual([]);\n     | \t\t\t\t                                                     ^\n  30 | \t\t\t});\n  31 | \t\t}\n  32 | \t});\n    at /home/user/theme/tests/e2e/layout.spec.mjs:29:58"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-17T18:25:22.941Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-not-f-f2f4f-nsole-errors-single-H1-main-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-not-f-f2f4f-nsole-errors-single-H1-main-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/user/theme/test-results/layout-layout-1440px-not-f-f2f4f-nsole-errors-single-H1-main-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/theme/tests/e2e/layout.spec.mjs",
+                        "column": 58,
+                        "line": 29
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d98756a4c30587bf4905-47b925fd53f99f713dff",
+              "file": "layout.spec.mjs",
+              "line": 9,
+              "column": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-17T18:24:55.696Z",
+    "duration": 28985.154000000002,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

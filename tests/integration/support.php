@@ -50,6 +50,7 @@ function nt_it_xpath( string $html ): DOMXPath {
  */
 function nt_it_render( int $post_id ): string {
 	global $post, $wp_query;
+	nt_lg_claim_lcp( false, true ); // every render stands for one request: the first banner is the LCP candidate again.
 	$post = get_post( $post_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	setup_postdata( $post );
 	$wp_query->in_the_loop = true;
@@ -57,4 +58,13 @@ function nt_it_render( int $post_id ): string {
 	$wp_query->in_the_loop = false;
 	wp_reset_postdata();
 	return $html;
+}
+
+/**
+ * XPath predicate matching one class token (contains(@class,"x") also matches BEM children).
+ *
+ * @param string $class Class token.
+ */
+function nt_it_has_class( string $class ): string {
+	return "contains(concat(' ', normalize-space(@class), ' '), ' {$class} ')";
 }

@@ -28,6 +28,7 @@
 	width: min(100% - 2 * var(--nt-gutter), var(--nt-container)); margin-inline: auto;
 }
 .nt-lg-section__inner > .nt-lg-row, .nt-lg-row .nt-lg-row { width: 100%; }
+.nt-lg-section__inner > .nt-lg-row + .nt-lg-row { margin-top: 20px; }
 .nt-lg-row--collapse { --lg-gap: 0px; }
 .nt-lg-row--small { --lg-gap: 12px; }
 .nt-lg-row--large { --lg-gap: 44px; }
@@ -54,6 +55,7 @@
 .nt-lg-valign-bottom { align-self: flex-end; }
 .nt-lg-col > :first-child, .nt-lg-text > :first-child { margin-top: 0; }
 .nt-lg-col > :last-child, .nt-lg-text > :last-child { margin-bottom: 0; }
+.nt-lg-col > .nt-lg-title:last-child { margin-bottom: .4em; } /* a section title keeps some air above the row below it */
 
 .nt-lg-gap { height: var(--lg-gap-sm, 30px); }
 @media (min-width: 550px) { .nt-lg-gap { height: var(--lg-gap-md, 30px); } }
@@ -86,7 +88,7 @@
 .nt-lg-banner__link { position: absolute; inset: 0; z-index: 2; }
 .nt-lg-banner__layers {
 	position: relative; z-index: 3;
-	display: grid; flex: 1;
+	display: grid; flex: 0 1 auto; /* not "flex: 1": a flex-basis of 0 would override the width and the text would touch the screen edge */
 	width: min(100% - 2 * var(--nt-gutter), var(--nt-container)); margin-inline: auto;
 	padding-block: 24px;
 	pointer-events: none;
@@ -103,6 +105,9 @@
 .nt-lg-textbox :is(h1, h2, h3) { color: inherit; text-shadow: 0 2px 18px rgb(0 0 0 / 22%); }
 .nt-lg-textbox h1 { font-size: clamp(2rem, 1.3rem + 3vw, 3.4rem); line-height: 1.1; }
 .nt-lg-textbox.nt-lg-dark p { color: #fff; }
+/* Buttons authored on separate lines: wpautop turns the line break into <br>, so they would always stack. */
+.nt-legacy .nt-btn + br { display: none; }
+.nt-legacy p > .nt-btn { margin: 0 10px 10px 0; }
 
 /* ---------- Images ---------- */
 .nt-lg-image { margin: 0 0 1em; }
@@ -110,7 +115,9 @@
 .nt-lg-image a { display: block; }
 .nt-lg-imagebox { position: relative; overflow: hidden; background: var(--nt-paper); border: 1px solid var(--nt-line); border-radius: var(--nt-radius); transition: transform .2s ease, box-shadow .2s ease; }
 .nt-lg-imagebox:hover { transform: translateY(-3px); box-shadow: var(--nt-shadow); }
-.nt-lg-imagebox__link { display: block; color: inherit; text-decoration: none; }
+.nt-lg-imagebox__hit { position: absolute; inset: 0; z-index: 2; }
+.nt-lg-imagebox__link { display: block; width: 100%; height: 100%; color: inherit; text-decoration: none; }
+.nt-lg-imagebox__link:focus-visible { outline-offset: -4px; border-radius: var(--nt-radius); }
 .nt-lg-imagebox__media { overflow: hidden; margin-inline: auto; }
 .nt-lg-imagebox__img { width: 100%; height: auto; border-radius: 0; transition: transform .5s ease; }
 .nt-lg-imagebox:hover .nt-lg-imagebox__img { transform: scale(1.04); }

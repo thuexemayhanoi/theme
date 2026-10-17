@@ -23,6 +23,8 @@ defined( 'ABSPATH' ) || exit;
 <?php get_template_part( 'template-parts/header/topbar' ); ?>
 
 <header id="site-header" class="nt-header">
+	<?php // The scrim lives inside the header's stacking context so the drawer (z-index above it) is not covered by it. ?>
+	<div class="nt-scrim" data-nt-scrim hidden></div>
 	<div class="nt-container nt-header__inner">
 		<?php get_template_part( 'template-parts/header/brand' ); ?>
 
@@ -87,4 +89,3 @@ defined( 'ABSPATH' ) || exit;
 		<div class="nt-container"><?php get_search_form(); ?></div>
 	</div>
 </header>
-<div class="nt-scrim" data-nt-scrim hidden></div>

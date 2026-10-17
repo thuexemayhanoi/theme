@@ -171,8 +171,9 @@ final class NT_Compat_CLI {
 	 * featured_item and featured_item_category sitemaps. Every one must be served by the current
 	 * registration; this is the check against the real site.
 	 *
-	 * [--http]
-	 * : Also request every URL and require HTTP 200.
+	 * [--probe]
+	 * : Also request every URL over HTTP and require 200. (Not named --http: that is a WP-CLI global
+	 *   flag meant for the wp-cli/restful package.)
 	 *
 	 * @param array<int,string>    $args       Positional args.
 	 * @param array<string,string> $assoc_args Associative args.
@@ -191,7 +192,7 @@ final class NT_Compat_CLI {
 				++$fail;
 				WP_CLI::warning( sprintf( 'FAIL  %s %s  %s  ->  %s', $row['type'], $row['id'], $row['path'], wp_json_encode( $vars ) ) );
 			}
-			if ( $ok && isset( $assoc_args['http'] ) ) {
+			if ( $ok && isset( $assoc_args['probe'] ) ) {
 				$code = (int) wp_remote_retrieve_response_code(
 					wp_remote_get(
 						home_url( $row['path'] ),

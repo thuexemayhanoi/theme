@@ -39,7 +39,9 @@ function nt_lg_inner( string $content ): string {
 	// Leading/trailing <br> or empty paragraphs are never intentional.
 	$html = preg_replace( '#^(?:\s|<br\s*/?>|<p>\s*</p>)+#i', '', $html ) ?? $html;
 	$html = preg_replace( '#(?:\s|<br\s*/?>|<p>\s*</p>)+$#i', '', $html ) ?? $html;
-	return $html;
+	// A blank line on each side: wpautop does not start a new chunk after an opening block tag, so
+	// "<div>\ntext" comes out as "<div>\ntext</p>" (dangling </p>) unless a blank line follows the tag.
+	return '' === $html ? '' : "\n\n" . $html . "\n\n";
 }
 
 /**
@@ -85,12 +87,90 @@ function nt_lg_id_attr( string $id ): string {
 }
 
 /**
- * Whether the page's first hero image has already been marked as the LCP candidate.
+ * State of one the_content run. It is a stack because rendering one item can run the_content for
+ * another (card excerpts, widgets, a plugin printing a related page) while the outer run is still
+ * inside do_shortcode; a single flag would be consumed by the inner run.
  *
- * @param bool $claim Claim the slot (returns true once per request).
+ * @param string|null        $op    "push", "pop" or null to read the current frame.
+ * @param array<string,bool> $frame Frame to push.
+ * @return array<string,bool|int> wrap, autop, and depth (number of runs in progress, before a pop).
  */
-function nt_lg_claim_lcp( bool $claim = true ): bool {
+function nt_legacy_frame( ?string $op = null, array $frame = array() ): array {
+	static $stack = array();
+	if ( 'push' === $op ) {
+		$stack[] = $frame;
+		return $frame + array(
+			'wrap'  => false,
+			'autop' => false,
+			'depth' => count( $stack ),
+		);
+	}
+	$depth   = count( $stack );
+	$current = array(
+		'wrap'  => false,
+		'autop' => false,
+		'depth' => $depth,
+	);
+	if ( 0 === $depth ) {
+		return $current;
+	}
+	$top = 'pop' === $op ? array_pop( $stack ) : end( $stack );
+	if ( ! is_array( $top ) ) {
+		return $current;
+	}
+	return array(
+		'wrap'  => (bool) ( $top['wrap'] ?? false ),
+		'autop' => (bool) ( $top['autop'] ?? false ),
+		'depth' => $depth,
+	);
+}
+
+/**
+ * Park generated markup (cards built from templates, forms, lists) so the late wpautop cannot
+ * reformat it: wpautop inserts <br /> between inline elements and splits "<article><a>..</a><div>"
+ * into "<p><article><a>..</a></p>". A placeholder block stands in until nt_lg_restore().
+ * Outside a the_content run (a direct do_shortcode() call) nothing is parked.
+ *
+ * @param string $html Final markup produced by a handler.
+ */
+function nt_lg_protect( string $html ): string {
+	if ( '' === trim( $html ) || 0 === nt_legacy_frame()['depth'] ) {
+		return $html;
+	}
+	$GLOBALS['nt_lg_parked'][] = $html;
+	return '<div data-nt-parked="' . (int) array_key_last( $GLOBALS['nt_lg_parked'] ) . '"></div>';
+}
+
+/**
+ * Put parked markup back (the placeholder may have been wrapped in <p> by wpautop).
+ *
+ * @param string $content Content after wpautop.
+ */
+function nt_lg_restore( string $content ): string {
+	if ( empty( $GLOBALS['nt_lg_parked'] ) || false === strpos( $content, 'data-nt-parked' ) ) {
+		return $content;
+	}
+	$parked = (array) $GLOBALS['nt_lg_parked'];
+	return (string) preg_replace_callback(
+		'#(?:<p>\s*)?<div data-nt-parked="(\d+)"></div>(?:\s*</p>)?#',
+		static fn ( array $m ): string => (string) ( $parked[ (int) $m[1] ] ?? '' ),
+		$content
+	);
+}
+
+/**
+ * Whether the page's first hero image can still be marked as the LCP candidate. True once per
+ * request; a reset starts a new "request" (tests render several pages in one process).
+ *
+ * @param bool $claim Claim the slot.
+ * @param bool $reset Release the slot instead of claiming it.
+ */
+function nt_lg_claim_lcp( bool $claim = true, bool $reset = false ): bool {
 	static $taken = false;
+	if ( $reset ) {
+		$taken = false;
+		return true;
+	}
 	if ( $taken ) {
 		return false;
 	}
@@ -151,6 +231,34 @@ function nt_lg_image_html( string $ref, array $args = array() ): string {
 		$args['decorative'] ? '' : '',
 		$args['eager'] ? 'eager' : 'lazy'
 	);
+}
+
+/**
+ * Accessible name for a link that covers a whole card: the card's first heading, else its first
+ * words, else the image's alt text, else the last path segment of the target.
+ *
+ * @param string $html Card text HTML.
+ * @param string $img  Card image HTML (may be empty).
+ * @param string $url  Link target.
+ */
+function nt_lg_link_label( string $html, string $img, string $url ): string {
+	if ( preg_match( '#<h[1-6][^>]*>(.*?)</h[1-6]>#is', $html, $m ) ) {
+		$label = nt_plain_text( $m[1] );
+		if ( '' !== $label ) {
+			return $label;
+		}
+	}
+	$label = nt_trim_words( nt_plain_text( $html ), 8, '' );
+	if ( '' !== $label ) {
+		return $label;
+	}
+	if ( preg_match( '/\balt="([^"]+)"/', $img, $m ) && '' !== trim( $m[1] ) ) {
+		return nt_plain_text( $m[1] );
+	}
+	$path = preg_replace( '#^[a-z][a-z0-9+.\-]*://[^/]*#i', '', $url );
+	$path = trim( (string) strtok( (string) $path, '?#' ), '/' );
+	$slug = '' === $path ? '' : basename( $path );
+	return '' === $slug ? 'Xem chi tiết' : ucfirst( str_replace( '-', ' ', rawurldecode( $slug ) ) );
 }
 
 /**

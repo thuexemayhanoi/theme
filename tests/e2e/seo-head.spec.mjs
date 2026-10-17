@@ -67,7 +67,7 @@ test.describe('Yoast stays the single source of head and schema', () => {
 		expect(res.status()).toBe(404);
 		expect((await head(page)).robots.join(' ')).toMatch(/noindex/);
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('.nt-search')).toHaveCount(1);
+		await expect(page.locator('main .nt-search')).toHaveCount(1);
 	});
 
 	test('robots.txt and the sitemap index are served and untouched by the theme', async ({ request }) => {

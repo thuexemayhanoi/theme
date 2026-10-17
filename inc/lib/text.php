@@ -49,6 +49,18 @@ function nt_plain_text( string $html ): string {
 }
 
 /**
+ * Plain text of stored post content for excerpts. Shortcode tokens are removed but the text
+ * between them is kept, which core's strip_shortcodes() would drop (it discards everything inside
+ * a layout shortcode such as [row][col]text[/col][/row]).
+ *
+ * @param string $content Stored post_content.
+ */
+function nt_content_to_text( string $content ): string {
+	$content = preg_replace( '/\[\/?[a-z][a-z0-9_-]*(?:\s[^\]]*)?\]/i', ' ', $content ) ?? $content;
+	return nt_plain_text( $content );
+}
+
+/**
  * Number of word-like tokens (Vietnamese syllables count as words).
  *
  * @param string $html HTML fragment.

@@ -42,11 +42,21 @@ export const RULES = [
 		test: (p) => ({ ok: p.titles.length === 1 && norm(p.titles[0]) !== '', message: `${p.titles.length} title tag(s)` }),
 	},
 	{
-		id: 'description',
+		// Two descriptions means the theme or a plugin prints a second one next to the SEO plugin's.
+		id: 'description-single',
 		severity: 'P0',
-		title: 'exactly one meta description (indexable pages)',
+		title: 'never more than one meta description',
 		applies: (p) => p.status === 200 && !NOINDEX_TYPES.has(p.type),
-		test: (p) => ({ ok: p.descriptions.length === 1 && norm(p.descriptions[0]) !== '', message: `${p.descriptions.length} description tag(s)` }),
+		test: (p) => ({ ok: p.descriptions.length <= 1, message: `${p.descriptions.length} description tags` }),
+	},
+	{
+		// The description text belongs to the SEO plugin (Yoast). Absent is reported, not blamed on the
+		// theme; whether the live site had one is decided by the before/after diff (tools/seo/diff.mjs).
+		id: 'description',
+		severity: 'P1',
+		title: 'a meta description is present (owned by the SEO plugin)',
+		applies: (p) => p.status === 200 && !NOINDEX_TYPES.has(p.type),
+		test: (p) => ({ ok: p.descriptions.length === 1 && norm(p.descriptions[0]) !== '', message: `${p.descriptions.length} description tag(s): set one in the SEO plugin` }),
 	},
 	{
 		id: 'canonical-one',

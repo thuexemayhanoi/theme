@@ -38,7 +38,7 @@ get_header();
 					<li class="nt-result">
 						<p class="nt-result__type"><?php echo esc_html( $nt_label ); ?></p>
 						<h2 class="nt-result__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-						<p class="nt-result__excerpt"><?php echo esc_html( nt_trim_words( wp_strip_all_tags( get_the_excerpt() ), 34 ) ); ?></p>
+						<p class="nt-result__excerpt"><?php echo esc_html( nt_excerpt( null, 34 ) ); ?></p>
 						<p class="nt-result__url"><?php echo esc_html( preg_replace( '#^https?://#', '', (string) get_permalink() ) ); ?></p>
 					</li>
 				<?php endwhile; ?>

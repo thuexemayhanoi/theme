@@ -14,7 +14,7 @@ Các mục dưới đây là phần **không thể kiểm tra trong môi trườ
 ## B. Sau khi kích hoạt theme mới trên staging
 
 - [ ] `wp rewrite flush` đúng một lần.
-- [ ] `wp nguyentu-compat verify --http` → "Mọi URL featured_item và term resolve đúng"; `compare featured-before.csv` → không MISSING/CHANGED.
+- [ ] `wp nguyentu-compat verify --probe` → "Mọi URL featured_item và term resolve đúng"; `compare featured-before.csv` → không MISSING/CHANGED.
 - [ ] `wp nguyentu status` không có dòng ATTENTION đáng ngại (Yoast hoạt động; 4 vị trí menu đã gán).
 - [ ] Menu: đủ 36 mục, đúng cha–con, đúng thứ tự (so `wp menu item list 67`).
 - [ ] `node tools/seo/snapshot.mjs --base <staging> ...` → `diff.mjs before after` → **P0 = 0** (xem `reports/seo-diff.md`).

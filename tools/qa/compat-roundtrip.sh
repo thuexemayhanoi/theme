@@ -49,7 +49,7 @@ $WP rewrite flush >/dev/null 2>&1
 step "2a simulator removed: the plugin now registers them itself (replay)" bash -c "$WP nguyentu-compat status --format=csv | tee /dev/stderr | grep -q 'replay_active,yes'"
 step "2b export URLs after" bash -c "$WP nguyentu-compat export-urls > $TMP/after.csv && cat $TMP/after.csv"
 step "3a compare: every URL path is identical" $WP nguyentu-compat compare "$TMP/before.csv"
-step "3b verify: rewrite rules resolve every URL to itself and HTTP answers 200" $WP nguyentu-compat verify --http
+step "3b verify: rewrite rules resolve every URL to itself and HTTP answers 200" $WP nguyentu-compat verify --probe
 step "3c a featured single and a term answer 200 over HTTP without the old theme" bash -c "
 	item=\$(grep '^item,' $TMP/after.csv | head -1 | cut -d, -f5); term=\$(grep '^term,' $TMP/after.csv | head -1 | cut -d, -f5)
 	for p in \"\$item\" \"\$term\"; do code=\$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:\${PORT:-8088}\$p); echo \"\$p -> \$code\"; test \"\$code\" = 200 || exit 1; done"

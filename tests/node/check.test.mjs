@@ -79,3 +79,15 @@ test('an unreachable URL is a failure, never a pass', () => {
 	const report = checkSnapshot(s);
 	assert.ok(report.results.at(-1).checks.some((c) => c.id === 'fetch' && !c.ok));
 });
+
+test('two meta descriptions are a P0 failure; none is only a P1 note (the text belongs to the SEO plugin)', () => {
+	const two = checkSnapshot(snapshotOf([{ html: page({ extraHead: '<meta name="description" content="Another one">' }) }]));
+	assert.ok(failing(two).includes('description-single'));
+	assert.ok(two.summary.p0_fail >= 1);
+
+	const none = checkSnapshot(snapshotOf([{ html: page({ description: null }) }]));
+	assert.ok(!failing(none).includes('description-single'));
+	assert.ok(failing(none).includes('description'));
+	assert.equal(none.summary.p0_fail, 0, 'absence is not blamed on the theme');
+	assert.ok(none.summary.p1_fail >= 1);
+});

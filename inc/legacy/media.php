@@ -128,15 +128,18 @@ function nt_lg_image_box( $atts, $content = '' ): string {
 	$body        = '<div class="nt-lg-imagebox__text"' . ( '' !== nt_css_box( $a['text_padding'] ) ? ' style="padding:' . esc_attr( nt_css_box( $a['text_padding'] ) ) . '"' : '' ) . '>' . $text . '</div>';
 	$class       = nt_lg_class( array_merge( $classes, nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) );
 
-	// One link around everything when the text has no links of its own (nested links are invalid).
+	// One link for the whole card when the text has no links of its own (nested links are invalid).
+	// It is a stretched link inside a block wrapper: an <a> wrapped around block elements is split
+	// by wpautop into "<p><a></p> ... <p></a>", which leaves an empty, nameless link.
 	if ( $has_link && ! $inner_links ) {
 		return sprintf(
-			'<div class="%s"><a class="nt-lg-imagebox__link" href="%s"%s>%s%s</a></div>',
+			'<div class="%s">%s%s<div class="nt-lg-imagebox__hit"><a class="nt-lg-imagebox__link" href="%s"%s aria-label="%s"></a></div></div>',
 			$class,
+			$media,
+			$body,
 			esc_url( $a['link'] ),
 			nt_lg_link_attrs( $a['target'] ),
-			$media,
-			$body
+			esc_attr( nt_lg_link_label( $text, $img, $a['link'] ) )
 		);
 	}
 	if ( $has_link ) {

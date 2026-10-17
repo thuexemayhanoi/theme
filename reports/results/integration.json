@@ -1,0 +1,7 @@
+{
+  "gate": "integration",
+  "status": "FAIL",
+  "detail": "4/52 failed: LegacyRenderTest::test_no_raw_shortcodes_reach_the_front_end with data set &quot;collection 494&quot;: LegacyRenderTest::test_no_raw_shortcodes_reach_the_front_end with data set \"collection 494\"\nFailed asserting that '&lt;!-- FIXTURE (synthetic): representative reconstruction of legacy UX-shortcode content. NOT production content. --&gt;\\n\n&lt;section class=\"nt-lg-section\" style=\"--lg-pad:40px;\"&g",
+  "evidence": "reports/results/raw/integration-junit.xml",
+  "at": "2026-10-17T18:10:30.505Z"
+}

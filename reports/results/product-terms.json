@@ -1,0 +1,7 @@
+{
+  "gate": "product-terms",
+  "status": "PASS",
+  "detail": "1 test(s) passed",
+  "evidence": "reports/results/raw/integration-junit.xml",
+  "at": "2026-10-17T18:10:30.655Z"
+}

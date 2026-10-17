@@ -13,6 +13,15 @@ nó đọc cú pháp shortcode công khai rồi sinh HTML ngữ nghĩa với cla
 4. **Giữ nguyên H1 và cấp heading.** `[title tag_name="h2"]` ra `<h2>`; mặc định `h3` như markup gốc. Nếu nội dung đã có `<h1>` thì theme không in H1 thứ hai.
 5. **Giá trị CSS qua danh sách trắng** (`inc/lib/css.php`): chỉ độ dài, màu, vị trí hợp lệ; mọi thứ khác bị bỏ.
 6. **wpautop chạy sau shortcode** cho nội dung có dùng cầu nối, để không sinh `<p>`/`<br>` thừa trong row/col.
+   Phát hiện từ lần chạy thật đầu tiên (đã sửa và có test):
+   - Mỗi lần chạy `the_content` có một *khung trạng thái* riêng (ngăn xếp). Khi một handler gọi `the_content` cho bài khác
+     (trích dẫn thẻ, widget) thì lần chạy lồng nhau không còn lấy mất khung `<div class="nt-legacy">` hay `wpautop` của lần chạy ngoài.
+   - Các tag chỉ sinh HTML hoàn chỉnh từ template (`ux_products`, `ux_product_categories`, `blog_posts`, `ux_portfolio`, `search`,
+     `ux_gallery`, `share`, `follow`, `ux_video`) được *đỗ tạm* trong lúc `wpautop` chạy rồi trả lại nguyên vẹn, vì `wpautop`
+     chèn `<br />` giữa phần tử inline và cắt `<article><a>…</a><div>` thành `<p><article><a>…</a></p>`.
+   - Nội dung bên trong container luôn có dòng trống hai phía để đoạn văn đầu tiên không mất thẻ `<p>` mở.
+   - Thẻ bao cả khối (`[ux_image_box link=…]`) dùng liên kết phủ (`aria-label` lấy từ tiêu đề) thay vì bọc `<a>` quanh `<div>`.
+   - Trích dẫn thẻ (`nt_excerpt()`) không chạy `the_content`; text nằm trong shortcode bố cục vẫn được giữ.
 
 ## Tag được render
 

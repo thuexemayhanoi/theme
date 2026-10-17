@@ -35,7 +35,7 @@ $nt_id      = (int) get_the_ID();
 		}
 		?>
 		<<?php echo esc_html( $nt_heading ); ?> class="nt-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo esc_html( $nt_heading ); ?>>
-		<p class="nt-card__excerpt"><?php echo esc_html( nt_trim_words( wp_strip_all_tags( get_the_excerpt() ), $nt_lead ? 36 : 24 ) ); ?></p>
+		<p class="nt-card__excerpt"><?php echo esc_html( nt_excerpt( null, $nt_lead ? 36 : 24 ) ); ?></p>
 		<p class="nt-card__meta"><?php echo nt_date_html( $nt_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in helper. ?></p>
 	</div>
 </article>

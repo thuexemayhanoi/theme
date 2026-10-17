@@ -28,11 +28,18 @@ export const ROUTES = [
 	{ key: 'not-found', path: '/404-invalid-nonexistent/', status: 404 },
 ];
 
-/** Collect console errors and failed requests while a page loads. */
-export function watch(page) {
+/**
+ * Collect console errors and failed requests while a page loads.
+ * Chromium reports a 404 *document* as a console error ("Failed to load resource ... 404"); for a
+ * route that is expected to answer 404 pass its path as documentErrorPath so only that one
+ * message is ignored (a 404 for any other resource still counts).
+ */
+export function watch(page, { documentErrorPath } = {}) {
 	const problems = [];
 	page.on('console', (m) => {
-		if (m.type() === 'error') problems.push(`console: ${m.text()}`);
+		if (m.type() !== 'error') return;
+		if (documentErrorPath && /status of 404/.test(m.text()) && new URL(m.location().url || 'http://x/').pathname === documentErrorPath) return;
+		problems.push(`console: ${m.text()}`);
 	});
 	page.on('pageerror', (e) => problems.push(`pageerror: ${e.message}`));
 	page.on('requestfailed', (r) => {
@@ -54,6 +61,13 @@ export async function overflowOffenders(page) {
 			if (cs.position === 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') continue;
 			// Elements inside an intentionally scrollable region are fine.
 			if (el.closest('.nt-table-wrap, .nt-lg-slider, .nt-nav, pre, [data-nt-scroll]')) continue;
+			// So is anything clipped by an ancestor that hides its overflow (e.g. WooCommerce's zoom image).
+			let clipped = false;
+			for (let p = el.parentElement; p && p !== document.body && !clipped; p = p.parentElement) {
+				const o = getComputedStyle(p);
+				if (/(hidden|clip|auto|scroll)/.test(o.overflowX)) clipped = true;
+			}
+			if (clipped) continue;
 			const r = el.getBoundingClientRect();
 			if (r.width > 0 && (r.right > vw + 1 || r.left < -1)) {
 				out.push(`${el.tagName.toLowerCase()}.${String(el.className).split(' ').slice(0, 2).join('.')} right=${Math.round(r.right)} left=${Math.round(r.left)} vw=${vw}`);

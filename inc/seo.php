@@ -280,7 +280,7 @@ function nt_seo_fallback_head(): void {
 	if ( is_singular() ) {
 		$post = get_queried_object();
 		if ( $post instanceof WP_Post ) {
-			$desc = has_excerpt( $post ) ? get_the_excerpt( $post ) : nt_trim_words( nt_plain_text( strip_shortcodes( $post->post_content ) ), 28, '' );
+			$desc = has_excerpt( $post ) ? get_the_excerpt( $post ) : nt_trim_words( nt_content_to_text( (string) $post->post_content ), 28, '' );
 		}
 	} elseif ( is_category() || is_tag() || is_tax() ) {
 		$desc = nt_plain_text( term_description() );

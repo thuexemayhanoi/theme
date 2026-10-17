@@ -23,7 +23,7 @@ $nt_children = nt_child_terms();
 				<?php foreach ( $nt_children as $nt_child ) : ?>
 					<?php $nt_link = get_term_link( $nt_child ); ?>
 					<?php if ( is_string( $nt_link ) ) : ?>
-						<li><a class="nt-chip nt-chip--lg" href="<?php echo esc_url( $nt_link ); ?>"><?php echo esc_html( html_entity_decode( $nt_child->name, ENT_QUOTES, 'UTF-8' ) ); ?> <span class="nt-chip__count"><?php echo esc_html( (string) $nt_child->count ); ?></span></a></li>
+						<li><a class="nt-chip nt-chip--lg" href="<?php echo esc_url( $nt_link ); ?>"><?php echo esc_html( html_entity_decode( $nt_child->name, ENT_QUOTES, 'UTF-8' ) ); ?> <span class="nt-chip__count"><?php echo esc_html( (string) nt_term_total( $nt_child ) ); ?></span></a></li>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</ul>

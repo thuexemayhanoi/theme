@@ -52,7 +52,7 @@ wp theme activate nguyentu-editorial-commerce
 wp rewrite flush                       # đúng MỘT lần, có giám sát
 wp nguyentu status                     # kiểm tra Yoast, Woo, featured item, vị trí menu
 wp nguyentu-compat status              # replay_active: yes (Flatsome đã rời)
-wp nguyentu-compat verify --http       # 15 mục + 4 term resolve đúng và trả 200
+wp nguyentu-compat verify --probe       # 15 mục + 4 term resolve đúng và trả 200
 wp nguyentu-compat compare featured-before.csv   # không MISSING / CHANGED
 wp nguyentu legacy-scan --post-type=page,featured_item,product --format=markdown
 ```

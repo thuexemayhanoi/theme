@@ -106,7 +106,7 @@
 .nt-result__title a::after { content: ""; position: absolute; inset: 0; }
 .nt-result__title a:hover { color: var(--nt-accent-700); }
 .nt-result__excerpt { margin: 0 0 6px; color: var(--nt-muted); }
-.nt-result__url { margin: 0; font-size: .8125rem; color: #7b8499; word-break: break-all; }
+.nt-result__url { margin: 0; font-size: .8125rem; color: var(--nt-muted); word-break: break-all; }
 
 .nt-404 { padding-bottom: clamp(32px, 6vw, 72px); }
 .nt-404__back { text-align: center; }

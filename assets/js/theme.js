@@ -82,22 +82,23 @@
 	}
 	$$('[data-nt-sub-toggle]').forEach(function (btn) {
 		btn.addEventListener('click', function () {
-			var open = btn.getAttribute('aria-expanded') !== 'true';
+			var li = btn.closest('li');
+			var open = !(li && li.classList.contains('is-open'));
 			if (desktop.matches && open) { closeAllSubs(btn); }
 			setSub(btn, open);
 		});
 	});
-	// Keep aria-expanded truthful for hover/focus-driven desktop menus (CSS opens them).
-	$$('.nt-menu__item--d0.nt-has-sub').forEach(function (li) {
-		var btn = li.querySelector(':scope > [data-nt-sub-toggle]');
-		if (!btn) { return; }
-		li.addEventListener('pointerenter', function (e) { if (desktop.matches && e.pointerType === 'mouse') { btn.setAttribute('aria-expanded', 'true'); } });
-		li.addEventListener('pointerleave', function (e) { if (desktop.matches && e.pointerType === 'mouse' && !li.classList.contains('is-open')) { btn.setAttribute('aria-expanded', 'false'); } });
-		li.addEventListener('focusin', function () { if (desktop.matches) { btn.setAttribute('aria-expanded', 'true'); } });
-		li.addEventListener('focusout', function (e) {
-			if (desktop.matches && !li.contains(e.relatedTarget) && !li.classList.contains('is-open')) { btn.setAttribute('aria-expanded', 'false'); }
-		});
-	});
+	// Desktop panels open on mouse hover (CSS) or when the disclosure button is activated; keyboard
+	// focus passing by never opens them, so Tab moves straight to the next top-level link.
+	// aria-expanded therefore always mirrors the button state. A click or focus moving elsewhere closes it.
+	function closeIfOutside(e) {
+		if (!desktop.matches) { return; }
+		var openBtn = $('[data-nt-sub-toggle][aria-expanded="true"]');
+		var top = openBtn && openBtn.closest('.nt-menu__item--d0');
+		if (top && !top.contains(e.target)) { closeAllSubs(); }
+	}
+	doc.addEventListener('click', closeIfOutside);
+	doc.addEventListener('focusin', closeIfOutside);
 	doc.addEventListener('keydown', function (e) {
 		if (e.key !== 'Escape') { return; }
 		if (nav && nav.classList.contains('is-open') && !desktop.matches) { setMenu(false); return; }

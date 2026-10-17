@@ -44,8 +44,8 @@ final class LegacyRenderTest extends TestCase {
 		$this->assertFalse( nt_should_print_h1( $html ), 'the theme must not add a second H1' );
 
 		$xp = nt_it_xpath( $html );
-		$this->assertSame( 1, $xp->query( '//*[contains(@class,"nt-lg-banner")]' )->length );
-		$this->assertSame( 3, $xp->query( '//*[contains(@class,"nt-lg-imagebox")]' )->length );
+		$this->assertSame( 1, $xp->query( '//*[' . nt_it_has_class( 'nt-lg-banner' ) . ']' )->length );
+		$this->assertSame( 3, $xp->query( '//*[' . nt_it_has_class( 'nt-lg-imagebox' ) . ']' )->length );
 		$this->assertGreaterThanOrEqual( 8, $xp->query( '//ul[contains(@class,"nt-lg-products")]/li' )->length, '[ux_products products=8 cat=70] lists the catalogue' );
 		$this->assertSame( 1, $xp->query( '//a[@href="tel:0942467674"]' )->length );
 		$this->assertSame( 1, $xp->query( '//a[starts-with(@href,"https://zalo.me/0942467674")]' )->length );
@@ -57,7 +57,7 @@ final class LegacyRenderTest extends TestCase {
 	public function test_first_banner_image_is_the_eager_high_priority_lcp_candidate(): void {
 		$html = nt_it_render( 562 );
 		$xp   = nt_it_xpath( $html );
-		$img  = $xp->query( '//*[contains(@class,"nt-lg-banner")]//img' )->item( 0 );
+		$img  = $xp->query( '//*[' . nt_it_has_class( 'nt-lg-banner' ) . ']//img' )->item( 0 );
 		$this->assertNotNull( $img, 'banner background image rendered as a real <img>' );
 		$this->assertSame( 'high', $img->getAttribute( 'fetchpriority' ) );
 		$this->assertSame( 'eager', $img->getAttribute( 'loading' ) );
@@ -71,6 +71,7 @@ final class LegacyRenderTest extends TestCase {
 		$html = nt_it_render( 562 );
 		$this->assertDoesNotMatchRegularExpression( '#<div class="nt-lg-row[^"]*"[^>]*>\s*<br#', $html );
 		$this->assertDoesNotMatchRegularExpression( '#<p>\s*</p>#', $html, 'no empty paragraphs' );
+		$this->assertDoesNotMatchRegularExpression( '#<p>\s*(?:<!--.*?-->\s*)+</p>#s', $html, 'no paragraphs that only hold comments' );
 		$this->assertDoesNotMatchRegularExpression( '#<p>\s*<(?:div|section)\b#', $html, 'block containers are not wrapped in <p>' );
 	}
 
@@ -120,10 +121,66 @@ final class LegacyRenderTest extends TestCase {
 	public function test_links_and_alt_text_of_images_are_preserved(): void {
 		$id   = (int) get_post_thumbnail_id( (int) nt_it_baseline()['products'][0]['ID'] );
 		$alt  = 'Xe cho thuê alt kiểm thử';
+		$was  = get_post_meta( $id, '_wp_attachment_image_alt', true );
 		update_post_meta( $id, '_wp_attachment_image_alt', $alt );
 		$html = do_shortcode( '[ux_image id="' . $id . '" link="/lien-he/"]' );
-		delete_post_meta( $id, '_wp_attachment_image_alt' );
+		update_post_meta( $id, '_wp_attachment_image_alt', $was ); // leave the sandbox exactly as it was.
 		$this->assertStringContainsString( 'alt="' . $alt . '"', $html );
 		$this->assertStringContainsString( 'href="/lien-he/"', $html );
+	}
+
+	public function test_nested_the_content_runs_do_not_steal_the_outer_wrapper_or_formatting(): void {
+		add_shortcode(
+			'nt_test_nested',
+			static function (): string {
+				return wp_strip_all_tags( apply_filters( 'the_content', 'Bên trong' ) ); // what a card excerpt does.
+			}
+		);
+		$out = apply_filters( 'the_content', "[section][row][col span=\"12\"]Đoạn một\n\nĐoạn hai [nt_test_nested][/col][/row][/section]" );
+		remove_shortcode( 'nt_test_nested' );
+		$this->assertStringStartsWith( '<div class="nt-legacy">', $out, 'the outer run keeps its wrapper' );
+		$this->assertStringContainsString( '<p>Đoạn một</p>', $out, 'the outer run still gets its late wpautop' );
+		$this->assertStringContainsString( 'Bên trong', $out );
+		$this->assertSame( 10, has_filter( 'the_content', 'wpautop' ), 'wpautop is given back after the run' );
+		$this->assertFalse( has_filter( 'the_content', 'nt_legacy_late_autop' ), 'no leftover late-autop filter' );
+		$this->assertSame( 0, nt_legacy_frame()['depth'], 'frame stack is balanced' );
+	}
+
+	/**
+	 * @return array<string,array{0:int}>
+	 */
+	public static function legacy_pages(): array {
+		return array( 'home 562' => array( 562 ), 'about 310' => array( 310 ), 'contact 372' => array( 372 ), 'who 424' => array( 424 ), 'mission 432' => array( 432 ), 'collection 494' => array( 494 ) );
+	}
+
+	#[DataProvider( 'legacy_pages' )]
+	public function test_every_link_has_an_accessible_name_and_markup_is_not_split_by_autop( int $id ): void {
+		$html = nt_it_render( $id );
+		$xp   = nt_it_xpath( $html );
+		$bad  = array();
+		foreach ( $xp->query( '//a[@href][not(@aria-hidden="true")]' ) as $a ) { // aria-hidden duplicates (card media links) are hidden from assistive tech on purpose.
+			$named = '' !== trim( $a->textContent ) || '' !== trim( $a->getAttribute( 'aria-label' ) ) || $xp->query( './/img[string-length(@alt) > 0]', $a )->length > 0;
+			if ( ! $named ) {
+				$bad[] = $a->getAttribute( 'href' );
+			}
+		}
+		$this->assertSame( array(), $bad, "links without an accessible name in page {$id}" );
+		$this->assertDoesNotMatchRegularExpression( '#<a\b[^>]*>\s*</p>#', $html, 'wpautop must not close a paragraph right after an opening <a>' );
+		$this->assertDoesNotMatchRegularExpression( '#<p>\s*</a>#', $html, 'wpautop must not open a paragraph right before a closing </a>' );
+	}
+
+	public function test_card_excerpts_keep_text_inside_layout_shortcodes_without_running_the_content_filter(): void {
+		$runs    = 0;
+		$counter = static function ( string $c ) use ( &$runs ): string {
+			++$runs;
+			return $c;
+		};
+		add_filter( 'the_content', $counter, 1 );
+		$excerpt = nt_excerpt( 562, 40 );
+		remove_filter( 'the_content', $counter, 1 );
+		$this->assertSame( 0, $runs, 'building an excerpt must not run the_content' );
+		$this->assertNotSame( '', $excerpt );
+		$this->assertStringNotContainsString( '[', $excerpt, 'no shortcode token in the excerpt' );
+		$this->assertStringContainsString( 'Cho Thuê Xe Máy Hà Nội', $excerpt, 'text inside [ux_banner]/[text_box] is kept' );
 	}
 }

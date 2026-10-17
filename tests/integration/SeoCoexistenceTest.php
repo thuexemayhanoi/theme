@@ -65,15 +65,28 @@ final class SeoCoexistenceTest extends TestCase {
 	}
 
 	public function test_breadcrumb_trail_for_a_nested_category_post_has_full_ancestry(): void {
-		$ids = get_posts( array( 'numberposts' => 1, 'fields' => 'ids', 'category' => 166 ) );
-		$this->assertNotEmpty( $ids, 'sandbox has a post in blog/xe-dien/xe-dap-dien' );
+		// A leaf category that actually has posts and at least two ancestors (xe-dap-dien is empty in the baseline).
+		$leaf = null;
+		foreach ( get_terms( array( 'taxonomy' => 'category', 'hide_empty' => true ) ) as $term ) {
+			if ( count( get_ancestors( $term->term_id, 'category' ) ) >= 2 ) {
+				$leaf = $term;
+				break;
+			}
+		}
+		$this->assertInstanceOf( WP_Term::class, $leaf, 'the sandbox has a non-empty category nested two levels deep' );
+		$ids = get_posts( array( 'numberposts' => 1, 'fields' => 'ids', 'category' => $leaf->term_id ) );
+		$this->assertNotEmpty( $ids );
 		global $wp_query;
 		$wp_query = new WP_Query( array( 'p' => $ids[0] ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$wp_query->get_posts();
-		$trail = nt_breadcrumb_trail();
+		$trail  = nt_breadcrumb_trail();
 		$labels = array_column( $trail, 'label' );
+		$names  = array_map(
+			static fn ( int $id ): string => html_entity_decode( (string) get_term( $id, 'category' )->name, ENT_QUOTES, 'UTF-8' ),
+			array_merge( array_reverse( get_ancestors( $leaf->term_id, 'category' ) ), array( $leaf->term_id ) )
+		);
 		$this->assertSame( 'Trang chủ', $labels[0] );
-		$this->assertSame( array( 'Blog', 'Xe Điện', 'Xe đạp điện' ), array_slice( $labels, 1, 3 ) );
+		$this->assertSame( $names, array_slice( $labels, 1, count( $names ) ), 'ancestors, top first, then the leaf category' );
 		$this->assertSame( '', end( $trail )['url'], 'current page is not a link' );
 		wp_reset_query(); // phpcs:ignore WordPress.WP.DiscouragedFunctions.wp_reset_query_wp_reset_query
 	}

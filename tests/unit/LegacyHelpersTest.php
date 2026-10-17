@@ -51,8 +51,58 @@ final class LegacyHelpersTest extends TestCase {
 		$this->assertSame( '', nt_lg_link_attrs( '' ) );
 	}
 
-	public function test_lcp_slot_is_claimed_once(): void {
+	protected function tearDown(): void {
+		while ( nt_legacy_frame()['depth'] > 0 ) {
+			nt_legacy_frame( 'pop' ); // a failed assertion must not leak frames into the next test.
+		}
+		$GLOBALS['nt_lg_parked'] = array();
+		parent::tearDown();
+	}
+
+	public function test_lcp_slot_is_claimed_once_until_reset(): void {
+		nt_lg_claim_lcp( false, true );
 		$this->assertTrue( nt_lg_claim_lcp() );
 		$this->assertFalse( nt_lg_claim_lcp() );
+		nt_lg_claim_lcp( false, true );
+		$this->assertTrue( nt_lg_claim_lcp(), 'a reset starts a new request' );
+		nt_lg_claim_lcp( false, true );
+	}
+
+	public function test_content_frames_are_a_stack_so_nested_runs_do_not_consume_the_outer_state(): void {
+		$this->assertSame( array( 'wrap' => false, 'autop' => false, 'depth' => 0 ), nt_legacy_frame(), 'empty stack reads as defaults' );
+		nt_legacy_frame( 'push', array( 'wrap' => true, 'autop' => true ) );
+		nt_legacy_frame( 'push', array( 'wrap' => false, 'autop' => false ) );
+		$this->assertSame( array( 'wrap' => false, 'autop' => false, 'depth' => 2 ), nt_legacy_frame( 'pop' ), 'inner run pops its own frame' );
+		$this->assertSame( array( 'wrap' => true, 'autop' => true, 'depth' => 1 ), nt_legacy_frame(), 'outer frame is intact' );
+		$this->assertSame( array( 'wrap' => true, 'autop' => true, 'depth' => 1 ), nt_legacy_frame( 'pop' ) );
+		$this->assertSame( array( 'wrap' => false, 'autop' => false, 'depth' => 0 ), nt_legacy_frame( 'pop' ), 'popping an empty stack is harmless' );
+	}
+
+	public function test_generated_markup_is_parked_inside_a_run_and_restored_even_when_wpautop_wrapped_the_placeholder(): void {
+		$card = "<article>\n\t<a href=\"/x/\">\n\t\t<img alt=\"\">\n\t</a>\n\t<div>Thân</div>\n</article>";
+		$this->assertSame( $card, nt_lg_protect( $card ), 'outside a the_content run nothing is parked (direct do_shortcode)' );
+
+		nt_legacy_frame( 'push', array( 'wrap' => true, 'autop' => true ) );
+		$placeholder = nt_lg_protect( $card );
+		$this->assertStringNotContainsString( 'article', $placeholder );
+		$this->assertStringContainsString( 'data-nt-parked', $placeholder );
+		$this->assertSame( '  ', nt_lg_protect( '  ' ), 'blank output is returned as is, nothing is parked' );
+		$this->assertSame( "<div>a</div>\n" . $card . "\n<div>b</div>", nt_lg_restore( "<div>a</div>\n<p>" . $placeholder . "</p>\n<div>b</div>" ), 'the paragraph wpautop added around the placeholder is dropped' );
+		$this->assertSame( 'plain', nt_lg_restore( 'plain' ) );
+		nt_legacy_frame( 'pop' );
+		$GLOBALS['nt_lg_parked'] = array();
+	}
+
+	public function test_card_link_label_prefers_heading_then_text_then_alt_then_url(): void {
+		$this->assertSame( 'Xe số', nt_lg_link_label( '<h3>Xe <em>số</em></h3><p>Honda Wave</p>', '<img alt="x">', '/danh-muc/xe-so/' ) );
+		$this->assertSame( 'Honda Wave Blade Sirius Cub và nhiều xe', nt_lg_link_label( '<p>Honda Wave Blade Sirius Cub và nhiều xe khác nữa ở đây</p>', '', '/x/' ) );
+		$this->assertSame( 'Ảnh Wave', nt_lg_link_label( '', '<img alt="Ảnh Wave" src="a">', '/x/' ) );
+		$this->assertSame( 'Xe ga', nt_lg_link_label( '', '', 'https://example.test/danh-muc-san-pham/loai-xe/xe-ga/?a=1#b' ) );
+		$this->assertSame( 'Xem chi tiết', nt_lg_link_label( '', '', '/' ) );
+	}
+
+	public function test_content_to_text_keeps_text_between_shortcodes_for_excerpts(): void {
+		$text = nt_content_to_text( '<!-- wp:paragraph --><p>Xin chào [button text="Gọi" link="x"]Gọi ngay[/button] thế giới</p><!-- /wp:paragraph -->[row][col span="4"]Nội dung <b>đậm</b>[/col][/row] [Cập nhật 2026]' );
+		$this->assertSame( 'Xin chào Gọi ngay thế giới Nội dung đậm [Cập nhật 2026]', $text );
 	}
 }
