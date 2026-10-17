@@ -1,0 +1,21 @@
+/*
+Theme Name: Nguyễn Tú Editorial Commerce
+Theme URI: https://thuexemaynguyentu.com/
+Author: Nguyễn Tú
+Author URI: https://thuexemaynguyentu.com/
+Description: Theme WordPress độc lập (không phải child theme, không phụ thuộc Flatsome) cho Cho Thuê Xe Máy Nguyễn Tú: giao diện tạp chí + thương mại, ưu tiên mobile, SEO kỹ thuật (Yoast là nguồn sự thật duy nhất cho metadata và schema), WooCommerce, menu nhiều cấp truy cập được và cầu nối hiển thị nội dung shortcode cũ.
+Version: 1.0.0
+Requires at least: 7.1
+Tested up to: 7.1.3
+Requires PHP: 8.2
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: nguyentu
+Tags: blog, e-commerce, custom-menu, featured-images, threaded-comments, translation-ready, accessibility-ready, one-column, two-columns, wide-blocks, block-styles
+
+Nguyễn Tú Editorial Commerce, (C) 2026 Nguyễn Tú. Phát hành theo GPL-2.0-or-later.
+Font Plus Jakarta Sans: SIL Open Font License 1.1 (assets/fonts/OFL-LICENSE.txt).
+
+Toàn bộ CSS thật nằm trong assets/css/ và được nạp bằng wp_enqueue_style (xem inc/enqueue.php).
+Tệp này chỉ giữ phần khai báo theme theo yêu cầu của WordPress.
+*/
