@@ -1,5 +1,8 @@
 # NGUYỄN TÚ — INDEPENDENT WORDPRESS THEME FACTORY
 
+> **SEO HULK — BẮT BUỘC, ƯU TIÊN P0:** Đọc và thực hiện toàn bộ [docs/SEO-HULK.md](docs/SEO-HULK.md) cùng README và CLAUDE.md. Giao diện đẹp thôi chưa đủ: bảo vệ canonical, robots, Yoast metadata/JSON-LD, sitemap, H1, category hierarchy, WooCommerce, Local SEO, internal links, Core Web Vitals và mọi URL cũ bằng báo cáo diff + kiểm thử. Không tự thay SEO cũ, không tạo schema trùng, không bịa score/ranking, không deploy live khi chưa đạt P0.
+
+
 > Chủ dự án: website chính https://thuexemaynguyentu.com/ (không phải blog.rentbikehanoi.com). Tài liệu nguồn cho Claude/ChatGPT Work làm theme độc lập thay Flatsome + Flatsome Child. Viết mã thật, kiểm thử, commit và push; KHÔNG chuyển theme sản xuất trong đêm nếu chưa có thử nghiệm trên staging và phê duyệt go-live.
 
 ## 1. Mục tiêu
