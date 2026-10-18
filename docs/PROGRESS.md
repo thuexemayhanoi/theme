@@ -160,3 +160,7 @@ Tiếp theo: CI static/integration/e2e, đối chiếu HTML thực, sửa lỗi;
 Báo cáo trước/preview: `autopilot-live-before.json`, `autopilot-preview-diff.json`, `autopilot-page-coverage.json`. 5 mẫu giữ toàn bộ metadata/H1; /bo-suu-tap/thue-ngay/ thay từ trang404 sang danh mục thật là sửa chủ ý. Graph liên kết `autopilot-internal-links.csv`: 416 cạnh, coverage6URL, HTTP status chưa được connector cung cấp; không coi là kiểm tra HTTP toàn site.
 
 Search Console đọc được khoảng13–15/10/2026 cho homepage: 11 click,259 impression,CTR4,25%, vị trí trung bình12,60. Đây là baseline trước bản nâng cấp, không phải kết quả hoặc điểm SEO của theme mới.
+
+### Hiệu năng thực trước triển khai
+
+PageSpeed Insights mobile homepage: Performance64, Accessibility89, BestPractices96, SEO100; LCP6,3s, CLS0, TBT20ms, FCP4,6s. Không có CrUX field data; đây là lab, không phải kết luận SEO tổng thể. Phát hiện cụ thể: LiteSpeed thay src banner eager/high bằng placeholder/data-src, khiến banner còn phụ thuộc JS. Bổ sung data-no-lazy cho ảnh ưu tiên trong helper chung và banner, preview xác nhận src WebP thật giữ nguyên, không bị chuyển thành placeholder. Các ảnh dưới màn hình vẫn lazy. Không hứa điểm mới khi chưa đo lại.

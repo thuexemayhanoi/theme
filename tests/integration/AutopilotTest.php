@@ -35,6 +35,12 @@ final class AutopilotTest extends TestCase {
             $this->assertTrue(nt_wc_show_page_title(true));
         } finally { wp_update_post(array('ID'=>$id,'post_content'=>$original)); wp_reset_query(); }
     }
+    public function test_first_screen_images_are_excluded_from_cache_lazy_loading(): void {
+        $html=nt_lg_image_html('https://example.test/banner.webp',array('eager'=>true));
+        $this->assertStringContainsString('fetchpriority="high"',$html);
+        $this->assertStringContainsString('data-no-lazy="1"',$html);
+        $this->assertStringNotContainsString('data-no-lazy',nt_lg_image_html('https://example.test/other.webp',array('eager'=>false)));
+    }
     public function test_verified_prices_and_followup(): void {
         $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
         $this->assertSame('prices', $answer['intent']);
