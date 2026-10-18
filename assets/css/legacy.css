@@ -109,7 +109,7 @@
 .nt-legacy .nt-btn + br { display: none; }
 .nt-legacy p > .nt-btn { margin: 0 10px 10px 0; }
 
-/* Nguyen Tu homepage: show the entire 1200×800 uploaded artwork on every viewport.
+/* Nguyen Tu homepage: render the complete 1200x800 uploaded artwork at all responsive viewports.
  * The old Flatsome banner uses object-fit: cover and crops baked-in title/address.
  * All selectors are restricted to the one homepage banner; other legacy banners are unchanged.
  */
