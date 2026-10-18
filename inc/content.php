@@ -36,12 +36,40 @@ function nt_filter_the_content( string $content ): string {
 		return $content;
 	}
 	$post_id = (int) get_the_ID();
+	$content = nt_prepare_map_embeds( $content );
 	$content = nt_html_wrap_tables( $content );
 	$result  = nt_html_headings_with_ids( $content, 2, 3 );
 	nt_toc_registry( $post_id, $result['items'] );
 	return $result['html'];
 }
 add_filter( 'the_content', 'nt_filter_the_content', 20 );
+
+/**
+ * Add missing accessibility and loading hints to authored Google Maps embeds.
+ * Existing attributes, URLs, dimensions and all non-map frames are preserved.
+ * This changes rendered HTML only; stored WordPress content is never rewritten.
+ *
+ * @param string $content Rendered content.
+ */
+function nt_prepare_map_embeds( string $content ): string {
+	if ( false === stripos( $content, '<iframe' ) || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
+		return $content;
+	}
+	$tags = new WP_HTML_Tag_Processor( $content );
+	while ( $tags->next_tag( 'iframe' ) ) {
+		$src = $tags->get_attribute( 'src' );
+		if ( ! is_string( $src ) || ! preg_match( '#^https://(?:www\.)?google\.com/maps/embed(?:[/?]|$)#i', $src ) ) {
+			continue;
+		}
+		if ( null === $tags->get_attribute( 'loading' ) ) {
+			$tags->set_attribute( 'loading', 'lazy' );
+		}
+		if ( null === $tags->get_attribute( 'title' ) ) {
+			$tags->set_attribute( 'title', 'Bản đồ Google Maps' );
+		}
+	}
+	return $tags->get_updated_html();
+}
 
 /**
  * Render the current post's body exactly as the_content() would, but return it.
