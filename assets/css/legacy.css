@@ -109,6 +109,47 @@
 .nt-legacy .nt-btn + br { display: none; }
 .nt-legacy p > .nt-btn { margin: 0 10px 10px 0; }
 
+/* Nguyen Tu homepage: show the entire 1200×800 uploaded artwork on every viewport.
+ * The old Flatsome banner uses object-fit: cover and crops baked-in title/address.
+ * All selectors are restricted to the one homepage banner; other legacy banners are unchanged.
+ */
+.nt-home .nt-lg-banner--nguyentu-home-photo {
+	display: block;
+	min-height: 0;
+	height: auto;
+	background: #071725;
+}
+.nt-home .nt-lg-banner--nguyentu-home-photo > .nt-lg-bg {
+	position: relative;
+	inset: auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	line-height: 0;
+}
+.nt-home .nt-lg-banner--nguyentu-home-photo > .nt-lg-bg > .nt-lg-bg__img {
+	display: block;
+	width: 100%;
+	max-width: 1200px;
+	height: auto;
+	aspect-ratio: 3 / 2;
+	object-fit: contain;
+	object-position: center;
+}
+.nt-home .nt-lg-banner--nguyentu-home-photo > .nt-lg-banner__layers {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+@media (max-width: 549px) {
+	.nt-home .nt-lg-banner--nguyentu-home-photo {
+		max-width: 100%;
+		overflow: hidden;
+	}
+}
+
 /* ---------- Images ---------- */
 .nt-lg-image { margin: 0 0 1em; }
 .nt-lg-img { width: 100%; height: auto; border-radius: var(--nt-radius); }
