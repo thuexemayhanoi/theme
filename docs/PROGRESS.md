@@ -135,3 +135,20 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 - **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
+
+
+## SEO Autopilot — checkpoint 18/10/2026 (website đã chạy theme)
+
+Phạm vi phiên này: website chính, /theme và /wp-writer. Đã đọc GSC hai kỳ 28 ngày độc lập, OpenSEO đầy đủ, SiteGuru và WordPress. Quét 389 URL HTML cùng 19 đích canonical liên quan; phát hiện 18 URL cũ 404 (15 mục và ba danh mục thời hạn thuê). Không đổi canonical, redirect, H1, title hoặc URL bảo vệ.
+
+**LIVE CONTENT CHANGED:** sửa giờ trong trang chủ #562 và sản phẩm #412, #674, #680, #678, #676, #651, #410, #659 thành 09:00–21:00; sửa nút Google Maps không có đích trên trang chủ. Cả 9 URL đã mở lại 200 và không còn chuỗi giờ cũ trong nội dung hiển thị. Bản gốc/đoạn thay thế, ledger và dữ liệu công khai được giữ trong gói bằng chứng của phiên Work.
+
+**THEME LIVE UNCHANGED:** code tại commit 56e30d21643433726176540b288e50f5bf216475 trong PR #3 chỉ sửa mục lục lấy cả heading trong comment (tái hiện tại Ocean Park #880), thêm title/loading còn thiếu cho Google Maps iframe, thêm khung 844×390 và sửa một căn dấu bằng có sẵn trong banner. Không khôi phục nội dung bị comment che ở #880 vì còn giá/điều kiện/pháp lý cũ cần rà soát.
+
+Kiểm thử: 83 PHP unit / 1.815 assertions; 30 Node tests; PHP lint, PHPCS, JS/CSS, dung lượng, độ tương phản PASS. CI https://github.com/thuexemayhanoi/theme/actions/runs/39146136776: static và sandbox hoàn thành thành công; log ghi e2e-layout 107, menu 16, contact 7, Woo 13, blog 7, SEO head 11, axe 20, search/404 18 ca PASS. Có ca chụp ảnh bị skip; không gọi skip là PASS.
+
+Bộ cổng cũ vẫn ghi NOT READY FOR GO-LIVE vì seo-diff-live, quickcall-real, motoai-real và flatsome-real-content chưa đủ bằng chứng. Do đó **chưa merge/deploy mã theme** trong phiên này; không dùng job xanh để bỏ các cổng này. Không đổi cơ chế cổng.
+
+Mobile lab (WPVibe, một lần): Performance 63, Accessibility 89, Best Practices 96, SEO 100; LCP 7,4s, CLS 0, TBT 30ms; không có CrUX. Chưa tuyên bố đạt Core Web Vitals. Header WPCode còn giờ cũ và graph WebSite/WebPage trùng; plugin chặn ghi thẳng vào storage mã, bản sửa giờ đã chuẩn bị nhưng chưa kích hoạt. /llms.txt còn dữ liệu demo.
+
+Tiếp tục: xem báo cáo và JSON trong PR https://github.com/thuexemayhanoi/wp-writer/pull/53, xác minh lại trạng thái mới nhất. Lấy duyệt cho 18 URL cũ và hai H1 trùng (/shop/, danh mục xe điện); kiểm chứng bốn cổng thật trước deploy theme. Không lặp sửa giờ/nút đã thành công; không tạo bài Hoàn Kiếm hoặc xe đạp điện tháng trùng intent; không thay flags/lease/ledger của Writer.
