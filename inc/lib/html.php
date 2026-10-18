@@ -69,7 +69,9 @@ function nt_html_headings_with_ids( string $html, int $min_level = 2, int $max_l
 	$used  = array();
 	$min   = max( 1, min( 6, $min_level ) );
 	$max   = max( $min, min( 6, $max_level ) );
-	$re    = '#<h([' . $min . '-' . $max . '])\b([^>]*)>(.*?)</h\1>#is';
+	// Hidden markup must not create TOC links; an unfinished comment hides the rest of the fragment.
+	$inert = '<!--.*?(?:-->|$)|<(?:script|style|template|noscript)\b[^>]*>.*?</(?:script|style|template|noscript)>';
+	$re    = '#(?:' . $inert . ')(*SKIP)(*F)|<h([' . $min . '-' . $max . '])\b([^>]*)>(.*?)</h\1>#is';
 
 	if ( preg_match_all( '/\sid\s*=\s*(["\'])(.*?)\1/i', $html, $existing ) ) {
 		foreach ( $existing[2] as $existing_id ) {

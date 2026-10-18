@@ -325,7 +325,7 @@ function nt_lg_title( $atts ): string {
  * @param string $content Inner content (text boxes, images, buttons).
  */
 function nt_lg_banner( $atts, $content = '' ): string {
-	$a     = nt_lg_atts(
+	$a = nt_lg_atts(
 		array(
 			'height'     => '300px',
 			'height__sm' => '',
