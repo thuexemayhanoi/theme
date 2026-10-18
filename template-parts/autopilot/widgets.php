@@ -4,6 +4,7 @@
  *
  * @package NguyenTu
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <div class="nt-tools" data-nt-tools>
@@ -12,8 +13,14 @@ defined( 'ABSPATH' ) || exit;
 		<summary>Liên hệ</summary>
 		<div class="nt-quickcall__links">
 			<a href="<?php echo esc_url( nt_tel_url() ); ?>"><?php nt_the_icon( 'phone', array( 'size' => 20 ) ); ?> Gọi <?php echo esc_html( nt_business( 'phone_display' ) ); ?></a>
-			<?php if ( nt_zalo_url() ) : ?><a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener">Zalo Nguyễn Tú</a><?php endif; ?>
-			<?php if ( nt_whatsapp_url() ) : ?><a href="<?php echo esc_url( nt_whatsapp_url() ); ?>" target="_blank" rel="noopener">WhatsApp</a><?php endif; ?>
+			<?php
+			if ( nt_zalo_url() ) :
+				?>
+				<a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener">Zalo Nguyễn Tú</a><?php endif; ?>
+			<?php
+			if ( nt_whatsapp_url() ) :
+				?>
+				<a href="<?php echo esc_url( nt_whatsapp_url() ); ?>" target="_blank" rel="noopener">WhatsApp</a><?php endif; ?>
 		</div>
 	</details>
 	<?php endif; ?>
@@ -25,7 +32,11 @@ defined( 'ABSPATH' ) || exit;
 		<p><?php echo nt_hours_badge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in helper. ?></p>
 		<div class="nt-assistant__messages" role="log" aria-live="polite" aria-relevant="additions" data-nt-messages><p>Khách muốn hỏi giá thuê, thủ tục hay tìm bài viết?</p></div>
 		<form data-nt-chat-form><label for="nt-question">Câu hỏi / Your question</label><div class="nt-assistant__input"><input id="nt-question" name="question" maxlength="300" autocomplete="off" required><button type="submit">Gửi</button></div></form>
-		<p class="nt-assistant__handoff"><a href="<?php echo esc_url( nt_tel_url() ); ?>">Gọi cửa hàng</a><?php if ( nt_zalo_url() ) : ?> · <a href="<?php echo esc_url( nt_zalo_url() ); ?>" rel="noopener" target="_blank">Nhắn Zalo</a><?php endif; ?></p>
+		<p class="nt-assistant__handoff"><a href="<?php echo esc_url( nt_tel_url() ); ?>">Gọi cửa hàng</a>
+		<?php
+		if ( nt_zalo_url() ) :
+			?>
+			· <a href="<?php echo esc_url( nt_zalo_url() ); ?>" rel="noopener" target="_blank">Nhắn Zalo</a><?php endif; ?></p>
 	</section>
 	<?php endif; ?>
 </div>

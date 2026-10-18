@@ -4,6 +4,7 @@
  *
  * @package NguyenTu
  */
+
 defined( 'ABSPATH' ) || exit;
 
 /** Current shop state from one configuration. */
@@ -20,19 +21,26 @@ add_shortcode( 'nguyentu_hours', 'nt_hours_badge' );
 
 /** REST routes never rely on a cached HTML page or device wall clock. */
 function nt_hours_route(): void {
-	register_rest_route( 'nguyentu/v1', '/hours', array(
-		'methods' => 'GET',
-		'permission_callback' => '__return_true',
-		'callback' => static function () {
-			$response = rest_ensure_response( nt_hours_state() );
-			$response->header( 'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0' );
-			return $response;
-		},
-	) );
+	register_rest_route(
+		'nguyentu/v1',
+		'/hours',
+		array(
+			'methods'             => 'GET',
+			'permission_callback' => '__return_true',
+			'callback'            => static function () {
+				$response = rest_ensure_response( nt_hours_state() );
+				$response->header( 'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0' );
+				return $response;
+			},
+		)
+	);
 }
 add_action( 'rest_api_init', 'nt_hours_route' );
 
-/** Add state on contact pages without altering stored content. */
+/** Add state on contact pages without altering stored content.
+ *
+ * @param string $content Rendered contact content.
+ */
 function nt_contact_hours( string $content ): string {
 	if ( is_page( 'lien-he' ) && in_the_loop() && is_main_query() ) {
 		$content .= '<p>' . nt_hours_badge() . '</p>';

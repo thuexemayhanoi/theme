@@ -38,7 +38,10 @@ function nt_settings_business_fields(): array {
 			'label' => 'Liên kết Zalo',
 			'type'  => 'url',
 		),
-		'whatsapp_url' => array( 'label' => 'WhatsApp đã xác minh (https://wa.me/...) — để trống nếu chưa xác minh', 'type' => 'url' ),
+		'whatsapp_url'  => array(
+			'label' => 'WhatsApp đã xác minh (https://wa.me/...) — để trống nếu chưa xác minh',
+			'type'  => 'url',
+		),
 		'maps_url'      => array(
 			'label' => 'Liên kết Google Maps',
 			'type'  => 'url',
@@ -135,25 +138,28 @@ function nt_sanitize_options( $input ): array {
 	$out['lean_woo_js'] = $toggle( $input['lean_woo_js'] ?? '', array( 'on', 'off' ), 'off' );
 	$out['schema']      = array( 'local_business' => empty( $input['schema']['local_business'] ) ? '0' : '1' );
 
-    $out['assistant'] = $toggle( $input['assistant'] ?? '', array( 'on', 'off' ), 'on' );
-    $out['hours']['closed_days'] = array_values( array_unique( array_filter( array_map( 'intval', (array) ( $input['hours']['closed_days'] ?? array() ) ), static fn( $day ) => $day >= 1 && $day <= 7 ) ) );
-    $out['hours']['exceptions'] = array();
-    $lines = explode( "\n", (string) ( $input['hours_exceptions'] ?? '' ) );
-    foreach ( array_slice( $lines, 0, 370 ) as $line ) {
-        $parts = array_map( 'trim', explode( '|', $line, 2 ) );
-        if ( 2 !== count( $parts ) || ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $parts[0] ) ) { continue; }
-        $date = DateTimeImmutable::createFromFormat( '!Y-m-d', $parts[0] );
-        if ( ! $date || $date->format( 'Y-m-d' ) !== $parts[0] ) { continue; }
-        $times = explode( '-', $parts[1] );
-        if ( 'closed' === $parts[1] || ( 2 === count( $times ) && nt_valid_time( $times[0] ) && nt_valid_time( $times[1] ) && $times[0] < $times[1] ) ) {
-            $out['hours']['exceptions'][ $parts[0] ] = $parts[1];
-        }
-    }
-    if ( ! empty( $out['business']['open'] ) && ! empty( $out['business']['close'] ) && $out['business']['open'] >= $out['business']['close'] ) {
-        $out['business']['open'] = ''; $out['business']['close'] = '';
-        add_settings_error( 'nguyentu', 'nt_hours', 'Giờ đóng cửa phải sau giờ mở cửa. Đã dùng lại 09:00–21:00.' );
-    }
-    return $out;
+	$out['assistant']            = $toggle( $input['assistant'] ?? '', array( 'on', 'off' ), 'on' );
+	$out['hours']['closed_days'] = array_values( array_unique( array_filter( array_map( 'intval', (array) ( $input['hours']['closed_days'] ?? array() ) ), static fn( $day ) => $day >= 1 && $day <= 7 ) ) );
+	$out['hours']['exceptions']  = array();
+	$lines                       = explode( "\n", (string) ( $input['hours_exceptions'] ?? '' ) );
+	foreach ( array_slice( $lines, 0, 370 ) as $line ) {
+		$parts = array_map( 'trim', explode( '|', $line, 2 ) );
+		if ( 2 !== count( $parts ) || ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $parts[0] ) ) {
+			continue; }
+		$date = DateTimeImmutable::createFromFormat( '!Y-m-d', $parts[0] );
+		if ( ! $date || $date->format( 'Y-m-d' ) !== $parts[0] ) {
+			continue; }
+		$times = explode( '-', $parts[1] );
+		if ( 'closed' === $parts[1] || ( 2 === count( $times ) && nt_valid_time( $times[0] ) && nt_valid_time( $times[1] ) && $times[0] < $times[1] ) ) {
+			$out['hours']['exceptions'][ $parts[0] ] = $parts[1];
+		}
+	}
+	if ( ! empty( $out['business']['open'] ) && ! empty( $out['business']['close'] ) && $out['business']['open'] >= $out['business']['close'] ) {
+		$out['business']['open']  = '';
+		$out['business']['close'] = '';
+		add_settings_error( 'nguyentu', 'nt_hours', 'Giờ đóng cửa phải sau giờ mở cửa. Đã dùng lại 09:00–21:00.' );
+	}
+	return $out;
 }
 
 /**
@@ -289,15 +295,30 @@ function nt_settings_page(): void {
 			</tbody></table>
 
 			<h2>Giờ làm việc tự động</h2>
-            <p>Múi giờ cố định: Asia/Ho_Chi_Minh. Chọn ngày nghỉ hằng tuần (1 = thứ Hai, 7 = Chủ nhật).</p>
-            <?php foreach ( range( 1, 7 ) as $day ) : ?>
-            <label><input type="checkbox" name="nguyentu_options[hours][closed_days][]" value="<?php echo esc_attr( (string) $day ); ?>" <?php checked( in_array( $day, (array) ( $opts['hours']['closed_days'] ?? array() ), true ) ); ?>> <?php echo esc_html( (string) $day ); ?></label>
-            <?php endforeach; ?>
-            <p><label for="nt-hours-exceptions">Ngày đặc biệt: mỗi dòng YYYY-MM-DD | closed hoặc YYYY-MM-DD | 10:00-18:00.</label></p>
-            <?php $exceptions = array(); foreach ( (array) ( $opts['hours']['exceptions'] ?? array() ) as $date => $hours ) { $exceptions[] = $date . ' | ' . $hours; } ?>
-            <textarea id="nt-hours-exceptions" name="nguyentu_options[hours_exceptions]" rows="5" class="large-text"><?php echo esc_textarea( implode( "\n", $exceptions ) ); ?></textarea>
-            <p>Trợ lý tra cứu kiến thức (không dùng API AI trả phí): <?php nt_settings_select( 'nguyentu_options[assistant]', (string) ( $opts['assistant'] ?? 'on' ), array( 'on' => 'Bật', 'off' => 'Tắt' ) ); ?></p>
-            <h2>Bảng giá tham khảo</h2>
+			<p>Múi giờ cố định: Asia/Ho_Chi_Minh. Chọn ngày nghỉ hằng tuần (1 = thứ Hai, 7 = Chủ nhật).</p>
+			<?php foreach ( range( 1, 7 ) as $day ) : ?>
+			<label><input type="checkbox" name="nguyentu_options[hours][closed_days][]" value="<?php echo esc_attr( (string) $day ); ?>" <?php checked( in_array( $day, (array) ( $opts['hours']['closed_days'] ?? array() ), true ) ); ?>> <?php echo esc_html( (string) $day ); ?></label>
+			<?php endforeach; ?>
+			<p><label for="nt-hours-exceptions">Ngày đặc biệt: mỗi dòng YYYY-MM-DD | closed hoặc YYYY-MM-DD | 10:00-18:00.</label></p>
+			<?php
+			$exceptions = array();
+			foreach ( (array) ( $opts['hours']['exceptions'] ?? array() ) as $date => $hours ) {
+				$exceptions[] = $date . ' | ' . $hours; }
+			?>
+			<textarea id="nt-hours-exceptions" name="nguyentu_options[hours_exceptions]" rows="5" class="large-text"><?php echo esc_textarea( implode( "\n", $exceptions ) ); ?></textarea>
+			<p>Trợ lý tra cứu kiến thức (không dùng API AI trả phí): 
+			<?php
+			nt_settings_select(
+				'nguyentu_options[assistant]',
+				(string) ( $opts['assistant'] ?? 'on' ),
+				array(
+					'on'  => 'Bật',
+					'off' => 'Tắt',
+				)
+			);
+			?>
+																		</p>
+			<h2>Bảng giá tham khảo</h2>
 			<p>Mỗi dòng một loại xe, các cột cách nhau bằng dấu <code>|</code>: <code>Loại xe | Theo ngày | Theo tuần | Theo tháng | Tiền cọc</code>. Dòng bắt đầu bằng <code>#</code> bị bỏ qua. Để trống để dùng bảng giá chuẩn của cửa hàng. Chỉ nhập giá đã công bố; giá xe điện chưa có thì ghi "Liên hệ".</p>
 			<textarea name="nguyentu_options[prices]" rows="9" class="large-text code" placeholder="<?php echo esc_attr( nt_format_price_lines( nt_price_defaults() ) ); ?>"><?php echo esc_textarea( (string) ( $opts['prices'] ?? '' ) ); ?></textarea>
 

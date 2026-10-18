@@ -2,6 +2,17 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 final class AutopilotTest extends TestCase {
+    public function test_captured_custom_rules_restore_old_urls_without_losing_aliases(): void {
+        $old = get_option('nguyentu_legacy_compat');
+        try {
+            update_option('nguyentu_legacy_compat', array('rules'=>array('bo-suu-tap/([^/]+)/?$'=>'index.php?featured_item_category=$matches[1]')));
+            $rules = nt_featured_captured_rules(array('featured_item_category/([^/]+)/?$'=>'index.php?featured_item_category=$matches[1]'));
+            $this->assertArrayHasKey('bo-suu-tap/([^/]+)/?$',$rules);
+            $this->assertArrayHasKey('featured_item_category/([^/]+)/?$',$rules);
+            $term = get_term_by('slug','thue-ngay','featured_item_category');
+            $this->assertStringContainsString('/bo-suu-tap/thue-ngay/', get_term_link($term));
+        } finally { update_option('nguyentu_legacy_compat',$old); }
+    }
     public function test_verified_prices_and_followup(): void {
         $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
         $this->assertSame('prices', $answer['intent']);

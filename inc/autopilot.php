@@ -4,6 +4,7 @@
  *
  * @package NguyenTu
  */
+
 defined( 'ABSPATH' ) || exit;
 
 /** Optional WhatsApp: empty until explicitly configured and verified by the owner. */
@@ -20,8 +21,26 @@ function nt_native_contact_enabled(): bool {
 /** Assets + same-origin endpoints, no third-party runtime. */
 function nt_autopilot_assets(): void {
 	wp_enqueue_style( 'nt-autopilot', nt_asset_uri( 'assets/css/autopilot.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/autopilot.css' ) );
-	wp_enqueue_script( 'nt-autopilot', nt_asset_uri( 'assets/js/autopilot.js' ), array(), nt_asset_ver( 'assets/js/autopilot.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
-	wp_add_inline_script( 'nt-autopilot', 'window.ntAutopilot=' . wp_json_encode( array( 'hours' => rest_url( 'nguyentu/v1/hours' ), 'assistant' => rest_url( 'nguyentu/v1/assistant' ) ) ) . ';', 'before' );
+	wp_enqueue_script(
+		'nt-autopilot',
+		nt_asset_uri( 'assets/js/autopilot.js' ),
+		array(),
+		nt_asset_ver( 'assets/js/autopilot.js' ),
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
+	wp_add_inline_script(
+		'nt-autopilot',
+		'window.ntAutopilot=' . wp_json_encode(
+			array(
+				'hours'     => rest_url( 'nguyentu/v1/hours' ),
+				'assistant' => rest_url( 'nguyentu/v1/assistant' ),
+			)
+		) . ';',
+		'before'
+	);
 }
 add_action( 'wp_enqueue_scripts', 'nt_autopilot_assets', 30 );
 
@@ -58,11 +77,11 @@ function nt_cluster_navigation(): void {
 	$seen = array();
 	foreach ( $terms as $term ) {
 		foreach ( array_merge( array_reverse( get_ancestors( $term->term_id, 'category' ) ), array( $term->term_id ) ) as $id ) {
-			if ( isset( $seen[ $id ] ) || (int) $id === (int) get_option( 'default_category' ) ) {
+			if ( isset( $seen[ $id ] ) || (int) get_option( 'default_category' ) === (int) $id ) {
 				continue;
 			}
 			$seen[ $id ] = true;
-			$url = get_category_link( $id );
+			$url         = get_category_link( $id );
 			if ( ! is_wp_error( $url ) ) {
 				printf( '<a href="%s">%s</a> ', esc_url( $url ), esc_html( get_cat_name( $id ) ) );
 			}

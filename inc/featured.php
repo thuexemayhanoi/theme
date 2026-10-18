@@ -130,3 +130,44 @@ function nt_featured_price_box( string $period ): void {
 	</section>
 	<?php
 }
+
+/**
+ * Restore captured custom permastruct rules that were applied AFTER CPT registration.
+ * The old theme registered generic arguments then changed its permastruct; replaying just
+ * registration arguments loses the public /bo-suu-tap/ URLs despite a valid snapshot.
+ *
+ * @param array $rules Generated WordPress rewrite rules.
+ * @return array
+ */
+function nt_featured_captured_rules( array $rules ): array {
+	$snapshot = get_option( 'nguyentu_legacy_compat', array() );
+	$captured = array();
+	foreach ( (array) ( $snapshot['rules'] ?? array() ) as $pattern => $query ) {
+		if ( is_string( $pattern ) && is_string( $query ) && str_starts_with( $pattern, 'bo-suu-tap/' ) && str_starts_with( $query, 'index.php?' ) && str_contains( $query, 'featured_item' ) ) {
+			$captured[ $pattern ] = $query;
+		}
+	}
+	return $captured + $rules;
+}
+add_filter( 'rewrite_rules_array', 'nt_featured_captured_rules', 30 );
+
+/**
+ * Use the proven captured term permastruct for links as well as request resolution.
+ * Existing aliases remain reachable; no term, slug or stored menu is rewritten.
+ *
+ * @param string  $url Generated URL.
+ * @param WP_Term $term Term object.
+ * @param string  $taxonomy Taxonomy name.
+ * @return string
+ */
+function nt_featured_captured_term_link( string $url, WP_Term $term, string $taxonomy ): string {
+	if ( 'featured_item_category' !== $taxonomy ) {
+		return $url;
+	}
+	$snapshot = get_option( 'nguyentu_legacy_compat', array() );
+	if ( isset( $snapshot['rules']['bo-suu-tap/([^/]+)/?$'] ) && 'index.php?featured_item_category=$matches[1]' === $snapshot['rules']['bo-suu-tap/([^/]+)/?$'] ) {
+		return home_url( user_trailingslashit( 'bo-suu-tap/' . $term->slug ) );
+	}
+	return $url;
+}
+add_filter( 'term_link', 'nt_featured_captured_term_link', 30, 3 );

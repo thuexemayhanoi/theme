@@ -1,0 +1,2047 @@
+Warning: truncated output (original token count: 49145)
+Total output lines: 4868
+
+{
+  "meta": {
+    "source": "WPVibe rendered HTML; HTTP status not exposed, 0 = unverified",
+    "coverage": "7 representative public URLs",
+    "capturedAt": "2026-10-18T07:48:51.310Z"
+  },
+  "urls": [
+    {
+      "url": "https://thuexemaynguyentu.com/",
+      "path": "/",
+      "type": "",
+      "status": 0,
+      "final_url": "https://thuexemaynguyentu.com/",
+      "html_bytes": 166073,
+      "headers": {
+        "content-type": "",
+        "cache-control": "",
+        "x-robots-tag": "",
+        "link": "",
+        "content-encoding": ""
+      },
+      "lang": "vi",
+      "titles": [
+        "Thuê Xe Máy Hà Nội – Theo Ngày, Tháng | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Thuê xe máy Hà Nội tại Nguyễn Tú với xe số, xe ga 50cc–125cc. Thuê theo ngày, tuần hoặc tháng; thủ tục đặt cọc nhanh, hỗ trợ giao xe theo thỏa thuận."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/"
+      ],
+      "viewport": [
+        "width=device-width, initial-scale=1"
+      ],
+      "social": {
+        "og": {
+          "og:locale": "vi_VN",
+          "og:type": "website",
+          "og:title": "Cho Thuê Xe Máy ở Hà Nội – Giao Tận Nơi, Cọc Nhẹ | Nguyễn Tú",
+          "og:description": "Cho Thuê Xe Máy ở Hà Nội – Giao Tận Nơi, Cọc Nhẹ | Nguyễn Tú",
+          "og:url": "https://thuexemaynguyentu.com/",
+          "og:site_name": "Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+          "og:image": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+          "og:image:width": "800",
+          "og:image:height": "800",
+          "og:image:type": "image/jpeg"
+        },
+        "twitter": {
+          "twitter:card": "summary_large_image",
+          "twitter:site": "@TunTNgu09127073"
+        }
+      },
+      "hreflang": [],
+      "prev_next": [],
+      "h1": [
+        "Thuê Xe Máy Hà Nội – Nguyễn Tú"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 12,
+        "h3": 45
+      },
+      "outline": [
+        {
+          "level": 1,
+          "text": "Thuê Xe Máy Hà Nội – Nguyễn Tú"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe máy Hà Nội theo nhu cầu"
+        },
+        {
+          "level": 2,
+          "text": "Giới Thiệu"
+        },
+        {
+          "level": 3,
+          "text": "Honda Wave"
+        },
+        {
+          "level": 3,
+          "text": "Honda Vision"
+        },
+        {
+          "level": 3,
+          "text": "Thuê Xe Máy Điện Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Xe Đạp Điện"
+        },
+        {
+          "level": 2,
+          "text": "Bảng Giá Thuê Xe Máy Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Thuê Xe Máy Ngày"
+        },
+        {
+          "level": 3,
+          "text": "Thuê Xe Máy Theo Tuần"
+        },
+        {
+          "level": 3,
+          "text": "Thuê Xe Máy Tháng"
+        },
+        {
+          "level": 3,
+          "text": "Giá Thuê Xe Máy Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Máy Honda Vision"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Ga Yamaha Mio Classico"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Tay Ga Honda Click"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe máy tay ga Yamaha Mio Ultimo"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Máy Điện Giá Rẻ"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Đạp Điện"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe đạp tại Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "FAQ"
+        },
+        {
+          "level": 2,
+          "text": "Các Loại Xe Máy Thuê Tại Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Xe Số"
+        },
+        {
+          "level": 3,
+          "text": "Xe Ga"
+        },
+        {
+          "level": 3,
+          "text": "Xe Điện"
+        },
+        {
+          "level": 2,
+          "text": "HỎI ĐÁP"
+        },
+        {
+          "level": 3,
+          "text": "Ngày"
+        },
+        {
+          "level": 3,
+          "text": "Tuần"
+        },
+        {
+          "level": 3,
+          "text": "Tháng"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe máy honda Wave"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe máy Yamaha Sirius"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe máy Honda Cub 50cc"
+        },
+        {
+          "level": 3,
+          "text": "Cho thuê xe ga Honda Air Blade"
+        },
+        {
+          "level": 3,
+          "text": "Thông tin Honda Air Blade"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Tay Ga 50cc"
+        },
+        {
+          "level": 3,
+          "text": "Cho Thuê Xe Máy Và Xe Điện Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Trụ Sở Chính Long Biên"
+        },
+        {
+          "level": 2,
+          "text": "Thủ tục thuê xe máy Hà Nội – Nguyễn Tú"
+        },
+        {
+          "level": 3,
+          "text": "Dịch Vụ Cho Thuê Xe Máy, Xe Điện, Xe Đạp Điện Tại Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "1. Bảng giá thuê xe máy"
+        },
+        {
+          "level": 3,
+          "text": "2. Điều kiện thuê xe máy"
+        },
+        {
+          "level": 3,
+          "text": "3. Thủ tục thuê xe máy"
+        },
+        {
+          "level": 3,
+          "text": "4. Quy định khi sử dụng"
+        },
+        {
+          "level": 3,
+          "text": "5. Lưu ý khi thuê xe tại Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "6. Giao xe máy tận nơi tại Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Chọn xe và đặt xe như thế nào?"
+        },
+        {
+          "level": 3,
+          "text": "Đánh Giá"
+        },
+        {
+          "level": 2,
+          "text": "Địa chỉ và giờ mở cửa"
+        },
+        {
+          "level": 2,
+          "text": "Bài viết mới trên blog"
+        },
+        {
+          "level": 3,
+          "text": "BMS trên pin xe máy điện: hệ thống quản lý pin giám sát và bảo vệ những gì?"
+        },
+        {
+          "level": 3,
+          "text": "Đọc thông số pin xe máy điện: V, Ah, Wh và kWh nói lên điều gì?"
+        },
+        {
+          "level": 3,
+          "text": "Cầu Long Biên đóng để sửa chữa: xe máy đi đường nào và cách theo dõi thông báo mở lại"
+        },
+        {
+          "level": 3,
+          "text": "Xe buýt miễn phí Vành đai 1 Hà Nội: tuyến nào áp dụng, vé điện tử hoàn tiền ra sao"
+        },
+        {
+          "level": 3,
+          "text": "Tràng An hay Tam Cốc: chọn chuyến thuyền nào khi chỉ có một ngày đi Ninh Bình từ Hà Nội"
+        },
+        {
+          "level": 3,
+          "text": "Hà Nội đi Ninh Bình bằng xe máy: một ngày hay hai ngày và cách xếp Hoa Lư, Tràng An, Hang Múa"
+        },
+        {
+          "level": 2,
+          "text": "Cho Thuê Xe Máy Nguyễn Tú"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe & bảng giá"
+        },
+        {
+          "level": 2,
+          "text": "Cẩm nang & blog"
+        },
+        {
+          "level": 2,
+          "text": "Thông tin"
+        }
+      ],
+      "landmarks": {
+        "main": 1,
+        "header": 2,
+        "nav": 4,
+        "footer": 1,
+        "aside": 0,
+        "role_main": 0
+      },
+      "skip_link": true,
+      "breadcrumb": false,
+      "jsonld": {
+        "blocks": 2,
+        "invalid": 0,
+        "graph_blocks": 2,
+        "type_counts": {
+          "AdministrativeArea": 12,
+          "Article": 1,
+          "BreadcrumbList": 1,
+          "EntryPoint": 1,
+          "GeoCoordinates": 1,
+          "ImageObject": 9,
+          "ListItem": 1,
+          "LocalBusiness": 1,
+          "MotorcycleDealer": 1,
+          "Offer": 1,
+          "OpeningHoursSpecification": 1,
+          "Person": 1,
+          "PostalAddress": 1,
+          "PropertyValueSpecification": 1,
+          "ReadAction": 1,
+          "SearchAction": 2,
+          "UnitPriceSpecification": 1,
+          "WebPage": 2,
+          "WebSite": 2
+        },
+        "top_level_type_counts": {
+          "Article": 1,
+          "BreadcrumbList": 1,
+          "ImageObject": 7,
+          "LocalBusiness": 1,
+          "MotorcycleDealer": 1,
+          "Person": 1,
+          "WebPage": 2,
+          "WebSite": 2
+        },
+        "duplicate_ids": [],
+        "has_aggregate_rating": false,
+        "has_review": false,
+        "hash": "d9fe9efc9caca0fd",
+        "blocks_raw": [
+          {
+            "ok": true,
+            "class": "yoast-schema-graph",
+            "data": {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Article",
+                  "@id": "https://thuexemaynguyentu.com/#article",
+                  "isPartOf": {
+                    "@id": "https://thuexemaynguyentu.com/"
+                  },
+                  "author": {
+                    "name": "taihanoi82@gmail.com",
+                    "@id": "https://thuexemaynguyentu.com/#/schema/person/db500a667b536743a4dfa427e14f150d"
+                  },
+                  "headline": "Cho Thuê Xe Máy ở Hà Nội – Giao Tận Nơi, Cọc Nhẹ | Nguyễn Tú",
+                  "datePublished": "2025-09-21T13:37:51+00:00",
+                  "dateModified": "2026-10-15T06:22:29+00:00",
+                  "mainEntityOfPage": {
+                    "@id": "https://thuexemaynguyentu.com/"
+                  },
+                  "wordCount": 6172,
+                  "image": {
+                    "@id": "https://thuexemaynguyentu.com/#primaryimage"
+                  },
+                  "thumbnailUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://thuexemaynguyentu.com/",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Thuê Xe Máy Hà Nội – Theo Ngày, Tháng | Nguyễn Tú",
+                  "isPartOf": {
+                    "@id": "https://thuexemaynguyentu.com/#website"
+                  },
+                  "primaryImageOfPage": {
+                    "@id": "https://thuexemaynguyentu.com/#primaryimage"
+                  },
+                  "image": {
+                    "@id": "https://thuexemaynguyentu.com/#primaryimage"
+                  },
+                  "thumbnailUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+                  "datePublished": "2025-09-21T13:37:51+00:00",
+                  "dateModified": "2026-10-15T06:22:29+00:00",
+                  "description": "Thuê xe máy Hà Nội tại Nguyễn Tú với xe số, xe ga 50cc–125cc. Thuê theo ngày, tuần hoặc tháng; thủ tục đặt cọc nhanh, hỗ trợ giao xe theo thỏa thuận.",
+                  "breadcrumb": {
+                    "@id": "https://thuexemaynguyentu.com/#breadcrumb"
+                  },
+                  "inLanguage": "vi",
+                  "potentialAction": [
+                    {
+                      "@type": "ReadAction",
+                      "target": [
+                        "https://thuexemaynguyentu.com/"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "inLanguage": "vi",
+                  "@id": "https://thuexemaynguyentu.com/#primaryimage",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+                  "width": 800,
+                  "height": 800,
+                  "caption": "Minh họa phụ nữ mặc áo dài vàng bên xe tay ga; cho thuê xe máy ở Hà Nội, 0942467674."
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "@id": "https://thuexemaynguyentu.com/#breadcrumb",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home"
+                    }
+                  ]
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://thuexemaynguyentu.com/#website",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+                  "description": "Cho thuê xe máy giá rẻ, uy tín, cọc nhẹ, giao tận nơi Hà Nội",
+                  "potentialAction": [
+                    {
+                      "@type": "SearchAction",
+                      "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://thuexemaynguyentu.com/?s={search_term_string}"
+                      },
+                      "query-input": {
+                        "@type": "PropertyValueSpecification",
+                        "valueRequired": true,
+                        "valueName": "search_term_string"
+                      }
+                    }
+                  ],
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "Person",
+                  "@id": "https://thuexemaynguyentu.com/#/schema/person/db500a667b536743a4dfa427e14f150d",
+                  "name": "taihanoi82@gmail.com",
+                  "image": {
+                    "@type": "ImageObject",
+                    "inLanguage": "vi",
+                    "@id": "https://thuexemaynguyentu.com/wp-content/litespeed/avatar/563ad3d0eaa9c63002e44bc4dcdc517e.jpg?ver=1788437271",
+                    "url": "https://thuexemaynguyentu.com/wp-content/litespeed/avatar/563ad3d0eaa9c63002e44bc4dcdc517e.jpg?ver=1788437271",
+                    "contentUrl": "https://thuexemaynguyentu.com/wp-content/litespeed/avatar/563ad3d0eaa9c63002e44bc4dcdc517e.jpg?ver=1788437271",
+                    "caption": "taihanoi82@gmail.com"
+                  },
+                  "description": "Chia sẻ thông tin về dịch vụ thuê xe máy Nguyễn Tú tại Hà Nội, các dòng xe và lưu ý trước khi thuê. Liên hệ 0942467674 để xác nhận xe còn sẵn, giá và điều kiện giao nhận. Giờ phục vụ 09:00–21:00; không giao xe máy ngoài giờ.",
+                  "sameAs": [
+                    "http://thuexemaynguyentu.com",
+                    "https://www.facebook.com/chothuexemaynguyentu/",
+                    "https://www.instagram.com/thuexemaynguyentu/",
+                    "https://www.pinterest.com/thuexemaynguyentu/",
+                    "https://www.youtube.com/@thuexemayhanoi",
+                    "https://soundcloud.com/chothuexemaynguyentu",
+                    "https://www.tumblr.com/thuexemaynguyentu"
+                  ],
+                  "honorificPrefix": "Cho Thuê Xe Máy Hà Nội",
+                  "honorificSuffix": "MD",
+                  "birthDate": "1982-02-24",
+                  "gender": "Nam",
+                  "knowsLanguage": [
+                    "Việt Nam"
+                  ],
+                  "jobTitle": "Cho Thuê Xe Máy Hà Nội",
+                  "worksFor": "Thuê Xe Máy Nguyễn Tú"
+                }
+              ]
+            }
+          },
+          {
+            "ok": true,
+            "class": "",
+            "data": {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://thuexemaynguyentu.com/#nguyen-tu-website",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Thuê xe máy Nguyễn Tú",
+                  "inLanguage": "vi",
+                  "image": [
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://thuexemaynguyentu.com/?s={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://thuexemaynguyentu.com/#webpage",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Thuê xe máy Nguyễn Tú - Thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ",
+                  "inLanguage": "vi",
+                  "isPartOf": {
+                    "@id": "https://thuexemaynguyentu.com/#nguyen-tu-website"
+                  },
+                  "description": "Thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ tại Thuê xe máy Nguyễn Tú. Giao xe nhanh các khu vực Long Biên, Gia Lâm, Hoàn Kiếm, Phố cổ, Ba Đình, Tây Hồ.",
+                  "about": {
+                    "@id": "https://thuexemaynguyentu.com/#localbusiness"
+                  },
+                  "mainEntity": {
+                    "@id": "https://thuexemaynguyentu.com/#localbusiness"
+                  },
+                  "primaryImageOfPage": {
+                    "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage"
+                  },
+                  "image": [
+                    {
+                      "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage"
+                    },
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "keywords": [
+                    "thuê xe máy Nguyễn Tú",
+                    "thuê xe máy Hà Nội",
+                    "thuê xe máy giao tận nơi",
+                    "thuê xe máy Hà Nội đặt cọc nhẹ"
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                  "caption": "Thuê xe máy Nguyễn Tú tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": [
+                    "LocalBusiness",
+                    "MotorcycleDealer"
+                  ],
+                  "@id": "https://thuexemaynguyentu.com/#localbusiness",
+                  "name": "Thuê xe máy Nguyễn Tú",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "inLanguage": "vi",
+                  "description": "Dịch vụ thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ. Xe số, xe ga, xe 50cc, xe điện, bảo trì định kỳ, phục vụ thân thiện.",
+                  "telephone": "+84942467674",
+                  "email": "nguyentuantu8x@gmail.com",
+                  "priceRange": "150000-200000 VND/ngày",
+                  "image": [
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "caption": "Logo Thuê xe máy Nguyễn Tú"
+                  },
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "112 Nguyễn Văn Cừ, Bồ Đề",
+                    "addressLocality": "Long Biên",
+                    "addressRegion": "Hà Nội",
+                    "postalCode": "11813",
+                    "addressCountry": "VN"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 21.0410461,
+                    "longitude": 105.8691575
+                  },
+                  "areaServed": [
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Long Biên"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Gia Lâm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Hoàn Kiếm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Phố cổ"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Ba Đình"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Tây Hồ"
+                    }
+                  ],
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ],
+                      "opens": "08:00",
+                      "closes": "21:30"
+                    }
+                  ],
+                  "hasMap": "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                  "sameAs": [
+                    "https://m.facebook.com/chothuexemaynguyentu/",
+                    "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                    "https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Nguyen_Tu_Motorbike_Rental-Long_Bien_Hanoi.html",
+                    "https://www.instagram.com/thuexemaynguyentu/",
+                    "https://www.tumblr.com/thuexemaynguyentu"
+                  ],
+                  "keywords": [
+                    "thuê xe máy Nguyễn Tú",
+                    "thuê xe máy Hà Nội",
+                    "thuê xe máy giao tận nơi",
+                    "thuê xe máy Hà Nội đặt cọc nhẹ"
+                  ],
+                  "makesOffer": [
+                    {
+                      "@type": "Offer",
+                      "name": "Thuê xe máy theo ngày tại Hà Nội",
+                      "description": "Thuê xe máy theo ngày, giá từ 150.000 đến 200.000 đồng mỗi ngày tùy loại xe và thời gian thuê.",
+                      "priceCurrency": "VND",
+                      "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "priceCurrency": "VND",
+                        "minPrice": 150000,
+                        "maxPrice": 200000,
+                        "unitText": "day"
+                      },
+                      "areaServed": [
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Long Biên"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Gia Lâm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Hoàn Kiếm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Phố cổ"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Ba Đình"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Tây Hồ"
+                        }
+                      ],
+                      "availability": "https://schema.org/InStock"
+                    }
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#price-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "caption": "Bảng giá thuê xe máy Hà Nội Nguyễn Tú",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#cub50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "caption": "Honda Cub 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#electric-bike-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "caption": "Cho thuê xe điện tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#scooter50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "caption": "Xe ga 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#vision-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "caption": "Honda Vision cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "links": {
+        "internal_count": 129,
+        "external_count": 17,
+        "nofollow_count": 0,
+        "internal_targets": [
+          "/",
+          "/blog/",
+          "/blog/chia-se/",
+          "/blog/chia-se/di-chuyen-do-thi/",
+          "/blog/chia-se/du-lich-xanh/",
+          "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+          "/blog/danh-gia-so-sanh-xe/",
+          "/blog/diem-den/",
+          "/blog/diem-den/am-thuc-va-van-hoa/",
+          "/blog/diem-den/hanh-trinh-viet-nam/",
+          "/blog/diem-den/kham-pha-ha-noi/",
+          "/blog/huong-dan-thue-xe/",
+          "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+          "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+          "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+          "/blog/ky-thuat-bao-duong/",
+          "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+          "/blog/phap-ly-kinh-nghiem/",
+          "/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+          "/blog/xe-dien/",
+          "/blog/xe-dien/cong-nghe-xe-dien/",
+          "/blog/xe-dien/dien-hoa-va-ha-tang/",
+          "/blog/xe-dien/pin-va-sac/",
+          "/blog/xe-dien/xe-dap-dien/",
+          "/bms-tren-pin-xe-may-dien-he-thong-quan-ly-pin-giam-sat-va-bao-ve-nhung-gi/",
+          "/bo-suu-tap/",
+          "/bo-suu-tap/thue-ngay/",
+          "/bo-suu-tap/thue-tuan/",
+          "/cau-long-bien-dong-de-sua-chua-xe-may-di-duong-nao-va-cach-theo-doi-thong-bao-mo-lai/",
+          "/chi-phi-giao-xe-may-tan-noi-ha-noi/",
+          "/chinh-sach-bao-mat/",
+          "/cho-thue-xe-dien-ha-noi/",
+          "/danh-muc-san-pham/loai-xe/",
+          "/danh-muc-san-pham/loai-xe/xe-dien/",
+          "/danh-muc-san-pham/loai-xe/xe-ga/",
+          "/danh-muc-san-pham/loai-xe/xe-so/",
+          "/dieu-khoan-su-dung/",
+          "/doc-thong-so-pin-xe-may-dien-v-ah-wh-va-kwh-noi-len-dieu-gi/",
+          "/faq/",
+          "/featured_item_category/bang-gia/",
+          "/featured_item_category/thue-ngay/",
+          "/featured_item_category/thue-thang/",
+          "/featured_item_category/thue-tuan/",
+          "/gioi-thieu/",
+          "/gioi-thieu/su-menh-tam-nhin/",
+          "/gioi-thieu/ve-chung-toi/",
+          "/ha-noi-di-ninh-binh-bang-xe-may-mot-ngay-hay-hai-ngay-va-cach-xep-hoa-lu-trang-an-hang-mua/",
+          "/huong-dan-thu-tuc-thue-xe-may-ha-noi-don-gian-tien-loi/",
+          "/kinh-nghiem-thue-xe-may-ha-noi/",
+          "/lien-he/",
+          "/san-pham/honda-air-blade/",
+          "/san-pham/honda-click/",
+          "/san-pham/honda-cub/",
+          "/san-pham/honda-vision/",
+          "/san-pham/honda-wave/",
+          "/san-pham/xe-dap-dien/",
+          "/san-pham/xe-ga-50cc/",
+          "/san-pham/xe-may-dien/",
+          "/san-pham/yamaha-mio-classico/",
+          "/san-pham/yamaha-mio-ultimo/",
+          "/san-pham/yamaha-sirius/",
+          "/thue-xe-may-50cc-ha-noi/",
+          "/thue-xe-may-ha-noi-gia-re/",
+          "/thue-xe-may-san-bay-noi-bai-giao-nhan-thuan-tien/",
+          "/thue-xe-may-theo-thang-ha-noi-gia-re-xe-ga-xe-so/",
+          "/trang-an-hay-tam-coc-chon-chuyen-thuyen-nao-khi-chi-co-mot-ngay-di-ninh-binh-tu-ha-noi/",
+          "/xe-50cc-co-can-bang-lai-khong-nhung-dieu-nguoi-dung-nen-biet/",
+          "/xe-buyt-mien-phi-vanh-dai-1-ha-noi-tuyen-nao-ap-dung-ve-dien-tu-hoan-tien-ra-sao/"
+        ],
+        "sample": [
+          {
+            "path": "/",
+            "text": "Nguyễn Tú Cho thuê xe máy Hà Nội"
+          },
+          {
+            "path": "/",
+            "text": "Trang Chủ"
+          },
+          {
+            "path": "/gioi-thieu/",
+            "text": "Giới Thiệu"
+          },
+          {
+            "path": "/gioi-thieu/ve-chung-toi/",
+            "text": "Về Chúng Tôi"
+          },
+          {
+            "path": "/gioi-thieu/su-menh-tam-nhin/",
+            "text": "Sứ Mệnh Tầm Nhìn"
+          },
+          {
+            "path": "/blog/",
+            "text": "Blog"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/",
+            "text": "Hướng dẫn thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+            "text": "Thủ tục và giao nhận"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+            "text": "Chi phí thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+            "text": "Sử dụng xe thuê 50cc"
+          },
+          {
+            "path": "/blog/chia-se/",
+            "text": "Chia Sẻ"
+          },
+          {
+            "path": "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+            "text": "Lập kế hoạch chuyến đi"
+          },
+          {
+            "path": "/blog/chia-se/di-chuyen-do-thi/",
+            "text": "Di chuyển đô thị"
+          },
+          {
+            "path": "/blog/chia-se/du-lich-xanh/",
+            "text": "Du lịch xanh"
+          },
+          {
+            "path": "/blog/diem-den/",
+            "text": "Điểm Đến"
+          },
+          {
+            "path": "/blog/diem-den/kham-pha-ha-noi/",
+            "text": "Khám phá Hà Nội"
+          },
+          {
+            "path": "/blog/diem-den/hanh-trinh-viet-nam/",
+            "text": "Hành trình Việt Nam"
+          },
+          {
+            "path": "/blog/diem-den/am-thuc-va-van-hoa/",
+            "text": "Ẩm thực và văn hóa"
+          },
+          {
+            "path": "/blog/danh-gia-so-sanh-xe/",
+            "text": "Đánh Giá & So Sánh Xe"
+          },
+          {
+            "path": "/blog/xe-dien/",
+            "text": "Xe Điện"
+          }
+        ]
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "forms": 1,
+      "iframes": [],
+      "scripts": {
+        "total": 34,
+        "inline": 27
+      },
+      "stylesheets": 1,
+      "word_count": 3920,
+      "text_hash": "ea31d724db1b2dae"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/blog/",
+      "path": "/blog/",
+      "type": "",
+      "status": 0,
+      "final_url": "https://thuexemaynguyentu.com/blog/",
+      "html_bytes": 89584,
+      "headers": {
+        "content-type": "",
+        "cache-control": "",
+        "x-robots-tag": "",
+        "link": "",
+        "content-encoding": ""
+      },
+      "lang": "vi",
+      "titles": [
+        "Blog xe máy và du lịch Hà Nội | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Khám phá kinh nghiệm thuê xe máy, chọn xe, bảo dưỡng và du lịch Hà Nội. Đọc hướng dẫn theo chủ đề để chuẩn bị giấy tờ, phương tiện và lịch trình phù hợp."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/blog/"
+      ],
+      "viewport": [
+        "width=device-width, initial-scale=1"
+      ],
+      "social": {
+        "og": {
+          "og:locale": "vi_VN",
+          "og:type": "article",
+          "og:title": "Blog Archives",
+          "og:description": "Khám phá kinh nghiệm thuê xe máy, chọn xe, bảo dưỡng và du lịch Hà Nội. Đọc hướng dẫn theo chủ đề để chuẩn bị giấy tờ, phương tiện và lịch trình phù hợp.",
+          "og:url": "https://thuexemaynguyentu.com/blog/",
+          "og:site_name": "Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+          "og:image": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Thue-xe-may.png",
+          "og:image:width": "1476",
+          "og:image:height": "675",
+          "og:image:type": "image/png"
+        },
+        "twitter": {
+          "twitter:card": "summary_large_image",
+          "twitter:site": "@TunTNgu09127073"
+        }
+      },
+      "hreflang": [],
+      "prev_next": [
+        "next:https://thuexemaynguyentu.com/blog/page/2/"
+      ],
+      "h1": [
+        "Blog"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 14
+      },
+      "outline": [
+        {
+          "level": 1,
+          "text": "Blog"
+        },
+        {
+          "level": 2,
+          "text": "Giữ thăng bằng khi đi chậm bằng xe máy: đường đông, ngõ hẹp, số thấp và tầm nhìn"
+        },
+        {
+          "level": 2,
+          "text": "Đổi cỡ lốp hoặc mâm xe máy: vì sao Michelin, Honda và Yamaha khuyên giữ thông số nguyên bản"
+        },
+        {
+          "level": 2,
+          "text": "Tay lái xe máy rung hoặc lắc: phân biệt rung, lắc và giật theo Michelin và việc nên làm ngay"
+        },
+        {
+          "level": 2,
+          "text": "Xe máy hụt ga hoặc tắt máy giữa đường: các nhóm nguyên nhân Yamaha nêu và việc cần làm ngay"
+        },
+        {
+          "level": 2,
+          "text": "Đèn báo FI trên xe tay ga: vì sao nên chờ đèn tắt rồi mới đề máy"
+        },
+        {
+          "level": 2,
+          "text": "Chợ Đồng Xuân bán gì: vị trí trong phố cổ, ba tầng, chợ Bắc Qua và khu ăn đêm"
+        },
+        {
+          "level": 2,
+          "text": "Phở Hà Nội di sản quốc gia: tri thức dân gian được ghi danh gồm những gì và phở ra đời thế nào"
+        },
+        {
+          "level": 2,
+          "text": "Nghị quyết 57/2025 về vùng phát thải thấp: lộ trình hạn chế xe máy xăng ở Hà Nội đến năm 2031"
+        },
+        {
+          "level": 2,
+          "text": "Bảo tàng Mỹ thuật Việt Nam: sắp xếp nửa buổi theo các bộ sưu tập và không gian cho trẻ em"
+        },
+        {
+          "level": 2,
+          "text": "Đi Tam Đảo bằng xe máy: nên chọn xe số hay xe tay ga cho đoạn đèo và cách xuống dốc giữ phanh"
+        },
+        {
+          "level": 2,
+          "text": "Cho Thuê Xe Máy Nguyễn Tú"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe & bảng giá"
+        },
+        {
+          "level": 2,
+          "text": "Cẩm nang & blog"
+        },
+        {
+          "level": 2,
+          "text": "Thông tin"
+        }
+      ],
+      "landmarks": {
+        "main": 1,
+        "header": 2,
+        "nav": 7,
+        "footer": 1,
+        "aside": 0,
+        "role_main": 0
+      },
+      "skip_link": true,
+      "breadcrumb": true,
+      "jsonld": {
+        "blocks": 2,
+        "invalid": 0,
+        "graph_blocks": 2,
+        "type_counts":…29145 tokens truncated…/thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "caption": "Logo Thuê xe máy Nguyễn Tú"
+                  },
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "112 Nguyễn Văn Cừ, Bồ Đề",
+                    "addressLocality": "Long Biên",
+                    "addressRegion": "Hà Nội",
+                    "postalCode": "11813",
+                    "addressCountry": "VN"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 21.0410461,
+                    "longitude": 105.8691575
+                  },
+                  "areaServed": [
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Long Biên"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Gia Lâm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Hoàn Kiếm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Phố cổ"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Ba Đình"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Tây Hồ"
+                    }
+                  ],
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ],
+                      "opens": "08:00",
+                      "closes": "21:30"
+                    }
+                  ],
+                  "hasMap": "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                  "sameAs": [
+                    "https://m.facebook.com/chothuexemaynguyentu/",
+                    "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                    "https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Nguyen_Tu_Motorbike_Rental-Long_Bien_Hanoi.html",
+                    "https://www.instagram.com/thuexemaynguyentu/",
+                    "https://www.tumblr.com/thuexemaynguyentu"
+                  ],
+                  "keywords": [
+                    "thuê xe máy Nguyễn Tú",
+                    "thuê xe máy Hà Nội",
+                    "thuê xe máy giao tận nơi",
+                    "thuê xe máy Hà Nội đặt cọc nhẹ"
+                  ],
+                  "makesOffer": [
+                    {
+                      "@type": "Offer",
+                      "name": "Thuê xe máy theo ngày tại Hà Nội",
+                      "description": "Thuê xe máy theo ngày, giá từ 150.000 đến 200.000 đồng mỗi ngày tùy loại xe và thời gian thuê.",
+                      "priceCurrency": "VND",
+                      "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "priceCurrency": "VND",
+                        "minPrice": 150000,
+                        "maxPrice": 200000,
+                        "unitText": "day"
+                      },
+                      "areaServed": [
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Long Biên"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Gia Lâm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Hoàn Kiếm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Phố cổ"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Ba Đình"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Tây Hồ"
+                        }
+                      ],
+                      "availability": "https://schema.org/InStock"
+                    }
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#price-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "caption": "Bảng giá thuê xe máy Hà Nội Nguyễn Tú",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#cub50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "caption": "Honda Cub 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#electric-bike-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "caption": "Cho thuê xe điện tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#scooter50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "caption": "Xe ga 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#vision-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "caption": "Honda Vision cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "links": {
+        "internal_count": 69,
+        "external_count": 10,
+        "nofollow_count": 0,
+        "internal_targets": [
+          "/",
+          "/blog/",
+          "/blog/chia-se/",
+          "/blog/chia-se/di-chuyen-do-thi/",
+          "/blog/chia-se/du-lich-xanh/",
+          "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+          "/blog/danh-gia-so-sanh-xe/",
+          "/blog/diem-den/",
+          "/blog/diem-den/am-thuc-va-van-hoa/",
+          "/blog/diem-den/hanh-trinh-viet-nam/",
+          "/blog/diem-den/kham-pha-ha-noi/",
+          "/blog/huong-dan-thue-xe/",
+          "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+          "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+          "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+          "/blog/ky-thuat-bao-duong/",
+          "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+          "/blog/phap-ly-kinh-nghiem/",
+          "/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+          "/blog/xe-dien/",
+          "/blog/xe-dien/cong-nghe-xe-dien/",
+          "/blog/xe-dien/dien-hoa-va-ha-tang/",
+          "/blog/xe-dien/pin-va-sac/",
+          "/blog/xe-dien/xe-dap-dien/",
+          "/bo-suu-tap/thue-ngay/?wpvibe_cb=1792309697361&wpvibe_preview=Tw1YcbHz53Bqqb2Y69LAkGbyklnF7gOl&wpvibe_stop_preview=1",
+          "/chinh-sach-bao-mat/",
+          "/danh-muc-san-pham/loai-xe/",
+          "/danh-muc-san-pham/loai-xe/xe-dien/",
+          "/danh-muc-san-pham/loai-xe/xe-ga/",
+          "/danh-muc-san-pham/loai-xe/xe-so/",
+          "/dieu-khoan-su-dung/",
+          "/faq/",
+          "/featured_item_category/bang-gia/",
+          "/featured_item_category/thue-ngay/",
+          "/featured_item_category/thue-thang/",
+          "/featured_item_category/thue-tuan/",
+          "/gioi-thieu/",
+          "/gioi-thieu/su-menh-tam-nhin/",
+          "/gioi-thieu/ve-chung-toi/",
+          "/lien-he/"
+        ],
+        "sample": [
+          {
+            "path": "/",
+            "text": "Nguyễn Tú Cho thuê xe máy Hà Nội"
+          },
+          {
+            "path": "/",
+            "text": "Trang Chủ"
+          },
+          {
+            "path": "/gioi-thieu/",
+            "text": "Giới Thiệu"
+          },
+          {
+            "path": "/gioi-thieu/ve-chung-toi/",
+            "text": "Về Chúng Tôi"
+          },
+          {
+            "path": "/gioi-thieu/su-menh-tam-nhin/",
+            "text": "Sứ Mệnh Tầm Nhìn"
+          },
+          {
+            "path": "/blog/",
+            "text": "Blog"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/",
+            "text": "Hướng dẫn thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+            "text": "Thủ tục và giao nhận"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+            "text": "Chi phí thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+            "text": "Sử dụng xe thuê 50cc"
+          },
+          {
+            "path": "/blog/chia-se/",
+            "text": "Chia Sẻ"
+          },
+          {
+            "path": "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+            "text": "Lập kế hoạch chuyến đi"
+          },
+          {
+            "path": "/blog/chia-se/di-chuyen-do-thi/",
+            "text": "Di chuyển đô thị"
+          },
+          {
+            "path": "/blog/chia-se/du-lich-xanh/",
+            "text": "Du lịch xanh"
+          },
+          {
+            "path": "/blog/diem-den/",
+            "text": "Điểm Đến"
+          },
+          {
+            "path": "/blog/diem-den/kham-pha-ha-noi/",
+            "text": "Khám phá Hà Nội"
+          },
+          {
+            "path": "/blog/diem-den/hanh-trinh-viet-nam/",
+            "text": "Hành trình Việt Nam"
+          },
+          {
+            "path": "/blog/diem-den/am-thuc-va-van-hoa/",
+            "text": "Ẩm thực và văn hóa"
+          },
+          {
+            "path": "/blog/danh-gia-so-sanh-xe/",
+            "text": "Đánh Giá & So Sánh Xe"
+          },
+          {
+            "path": "/blog/xe-dien/",
+            "text": "Xe Điện"
+          }
+        ]
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "forms": 3,
+      "iframes": [],
+      "scripts": {
+        "total": 36,
+        "inline": 30
+      },
+      "stylesheets": 1,
+      "word_count": 412,
+      "text_hash": "9bbd35c1db6701f9"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/featured_item_category/bang-gia/",
+      "path": "/featured_item_category/bang-gia/",
+      "type": "",
+      "status": 0,
+      "final_url": "https://thuexemaynguyentu.com/featured_item_category/bang-gia/",
+      "html_bytes": 96060,
+      "headers": {
+        "content-type": "",
+        "cache-control": "",
+        "x-robots-tag": "",
+        "link": "",
+        "content-encoding": ""
+      },
+      "lang": "vi",
+      "titles": [
+        "Bảng Giá xe máy Hà Nội | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Tìm hiểu Bảng Giá xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/"
+      ],
+      "viewport": [
+        "width=device-width, initial-scale=1"
+      ],
+      "social": {
+        "og": {
+          "og:locale": "vi_VN",
+          "og:type": "article",
+          "og:title": "Bảng Giá Archives",
+          "og:description": "Bảng Giá",
+          "og:url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+          "og:site_name": "Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+          "og:image": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Thue-xe-may.png",
+          "og:image:width": "1476",
+          "og:image:height": "675",
+          "og:image:type": "image/png"
+        },
+        "twitter": {
+          "twitter:card": "summary_large_image",
+          "twitter:site": "@TunTNgu09127073"
+        }
+      },
+      "hreflang": [],
+      "prev_next": [
+        "next:https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/page/2/"
+      ],
+      "h1": [
+        "Bảng Giá"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 14
+      },
+      "outline": [
+        {
+          "level": 1,
+          "text": "Bảng Giá"
+        },
+        {
+          "level": 2,
+          "text": "Bảng giá thuê xe máy Hà Nội hàng tháng – Nhiều xe, giao nhanh, tiện lợi"
+        },
+        {
+          "level": 2,
+          "text": "Cho thuê xe máy các loại theo tháng Hà Nội – Tiện lợi, giá tốt"
+        },
+        {
+          "level": 2,
+          "text": "Dịch vụ thuê xe máy 1 tháng Hà Nội Nguyễn Tú – Lựa chọn hàng đầu"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe máy Hà Nội hàng tháng – Giao xe tận nơi, cọc nhẹ, tiện lợi"
+        },
+        {
+          "level": 2,
+          "text": "Dịch vụ thuê xe máy tháng Hà Nội – Thuận tiện, an toàn, uy tín"
+        },
+        {
+          "level": 2,
+          "text": "Bảng Giá Thuê Các Loại Xe Máy 1 Tuần Hà Nội – Giao Xe Tận Nơi"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe máy Hà Nội 1 tuần – Thủ tục nhanh, cọc nhẹ, dịch vụ tốt"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe máy mỗi tuần Hà Nội – Tiết kiệm, thuận tiện, giao tận nơi"
+        },
+        {
+          "level": 2,
+          "text": "Dịch vụ thuê xe máy 1 tuần tại Hà Nội – Tiện lợi, an toàn, cọc nhẹ"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe máy Hà Nội theo tuần – Giá ưu đãi, giao xe nhanh"
+        },
+        {
+          "level": 2,
+          "text": "Cho Thuê Xe Máy Nguyễn Tú"
+        },
+        {
+          "level": 2,
+          "text": "Thuê xe & bảng giá"
+        },
+        {
+          "level": 2,
+          "text": "Cẩm nang & blog"
+        },
+        {
+          "level": 2,
+          "text": "Thông tin"
+        }
+      ],
+      "landmarks": {
+        "main": 1,
+        "header": 2,
+        "nav": 7,
+        "footer": 1,
+        "aside": 0,
+        "role_main": 0
+      },
+      "skip_link": true,
+      "breadcrumb": true,
+      "jsonld": {
+        "blocks": 2,
+        "invalid": 0,
+        "graph_blocks": 2,
+        "type_counts": {
+          "AdministrativeArea": 12,
+          "BreadcrumbList": 1,
+          "CollectionPage": 1,
+          "EntryPoint": 1,
+          "GeoCoordinates": 1,
+          "ImageObject": 8,
+          "ListItem": 2,
+          "LocalBusiness": 1,
+          "MotorcycleDealer": 1,
+          "Offer": 1,
+          "OpeningHoursSpecification": 1,
+          "PostalAddress": 1,
+          "PropertyValueSpecification": 1,
+          "SearchAction": 2,
+          "UnitPriceSpecification": 1,
+          "WebPage": 1,
+          "WebSite": 2
+        },
+        "top_level_type_counts": {
+          "BreadcrumbList": 1,
+          "CollectionPage": 1,
+          "ImageObject": 7,
+          "LocalBusiness": 1,
+          "MotorcycleDealer": 1,
+          "WebPage": 1,
+          "WebSite": 2
+        },
+        "duplicate_ids": [],
+        "has_aggregate_rating": false,
+        "has_review": false,
+        "hash": "a7198d2c31de8837",
+        "blocks_raw": [
+          {
+            "ok": true,
+            "class": "yoast-schema-graph",
+            "data": {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "CollectionPage",
+                  "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+                  "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+                  "name": "Bảng Giá xe máy Hà Nội | Nguyễn Tú",
+                  "isPartOf": {
+                    "@id": "https://thuexemaynguyentu.com/#website"
+                  },
+                  "primaryImageOfPage": {
+                    "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/#primaryimage"
+                  },
+                  "image": {
+                    "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/#primaryimage"
+                  },
+                  "thumbnailUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Cho-thue-xe-may-Ba-Dinh.jpg",
+                  "description": "Tìm hiểu Bảng Giá xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe.",
+                  "breadcrumb": {
+                    "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/#breadcrumb"
+                  },
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "inLanguage": "vi",
+                  "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/#primaryimage",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Cho-thue-xe-may-Ba-Dinh.jpg",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Cho-thue-xe-may-Ba-Dinh.jpg",
+                  "width": 600,
+                  "height": 400,
+                  "caption": "Cho thuê xe máy Ba Đình"
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "@id": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/#breadcrumb",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "https://thuexemaynguyentu.com/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Bảng Giá"
+                    }
+                  ]
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://thuexemaynguyentu.com/#website",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+                  "description": "Cho thuê xe máy giá rẻ, uy tín, cọc nhẹ, giao tận nơi Hà Nội",
+                  "potentialAction": [
+                    {
+                      "@type": "SearchAction",
+                      "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://thuexemaynguyentu.com/?s={search_term_string}"
+                      },
+                      "query-input": {
+                        "@type": "PropertyValueSpecification",
+                        "valueRequired": true,
+                        "valueName": "search_term_string"
+                      }
+                    }
+                  ],
+                  "inLanguage": "vi"
+                }
+              ]
+            }
+          },
+          {
+            "ok": true,
+            "class": "",
+            "data": {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://thuexemaynguyentu.com/#nguyen-tu-website",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Thuê xe máy Nguyễn Tú",
+                  "inLanguage": "vi",
+                  "image": [
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://thuexemaynguyentu.com/?s={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://thuexemaynguyentu.com/#webpage",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "name": "Thuê xe máy Nguyễn Tú - Thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ",
+                  "inLanguage": "vi",
+                  "isPartOf": {
+                    "@id": "https://thuexemaynguyentu.com/#nguyen-tu-website"
+                  },
+                  "description": "Thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ tại Thuê xe máy Nguyễn Tú. Giao xe nhanh các khu vực Long Biên, Gia Lâm, Hoàn Kiếm, Phố cổ, Ba Đình, Tây Hồ.",
+                  "about": {
+                    "@id": "https://thuexemaynguyentu.com/#localbusiness"
+                  },
+                  "mainEntity": {
+                    "@id": "https://thuexemaynguyentu.com/#localbusiness"
+                  },
+                  "primaryImageOfPage": {
+                    "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage"
+                  },
+                  "image": [
+                    {
+                      "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage"
+                    },
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "keywords": [
+                    "thuê xe máy Nguyễn Tú",
+                    "thuê xe máy Hà Nội",
+                    "thuê xe máy giao tận nơi",
+                    "thuê xe máy Hà Nội đặt cọc nhẹ"
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#nguyen-tu-primaryimage",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                  "caption": "Thuê xe máy Nguyễn Tú tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": [
+                    "LocalBusiness",
+                    "MotorcycleDealer"
+                  ],
+                  "@id": "https://thuexemaynguyentu.com/#localbusiness",
+                  "name": "Thuê xe máy Nguyễn Tú",
+                  "url": "https://thuexemaynguyentu.com/",
+                  "inLanguage": "vi",
+                  "description": "Dịch vụ thuê xe máy Hà Nội giao tận nơi, đặt cọc nhẹ. Xe số, xe ga, xe 50cc, xe điện, bảo trì định kỳ, phục vụ thân thiện.",
+                  "telephone": "+84942467674",
+                  "email": "nguyentuantu8x@gmail.com",
+                  "priceRange": "150000-200000 VND/ngày",
+                  "image": [
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                    "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png"
+                  ],
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cropped-Thue-xe-may-min-1-1.png",
+                    "caption": "Logo Thuê xe máy Nguyễn Tú"
+                  },
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "112 Nguyễn Văn Cừ, Bồ Đề",
+                    "addressLocality": "Long Biên",
+                    "addressRegion": "Hà Nội",
+                    "postalCode": "11813",
+                    "addressCountry": "VN"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 21.0410461,
+                    "longitude": 105.8691575
+                  },
+                  "areaServed": [
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Long Biên"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Gia Lâm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Hoàn Kiếm"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Phố cổ"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Ba Đình"
+                    },
+                    {
+                      "@type": "AdministrativeArea",
+                      "name": "Tây Hồ"
+                    }
+                  ],
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ],
+                      "opens": "08:00",
+                      "closes": "21:30"
+                    }
+                  ],
+                  "hasMap": "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                  "sameAs": [
+                    "https://m.facebook.com/chothuexemaynguyentu/",
+                    "https://maps.app.goo.gl/BajqqY38FYhiR2ob8?g_st=ipc",
+                    "https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Nguyen_Tu_Motorbike_Rental-Long_Bien_Hanoi.html",
+                    "https://www.instagram.com/thuexemaynguyentu/",
+                    "https://www.tumblr.com/thuexemaynguyentu"
+                  ],
+                  "keywords": [
+                    "thuê xe máy Nguyễn Tú",
+                    "thuê xe máy Hà Nội",
+                    "thuê xe máy giao tận nơi",
+                    "thuê xe máy Hà Nội đặt cọc nhẹ"
+                  ],
+                  "makesOffer": [
+                    {
+                      "@type": "Offer",
+                      "name": "Thuê xe máy theo ngày tại Hà Nội",
+                      "description": "Thuê xe máy theo ngày, giá từ 150.000 đến 200.000 đồng mỗi ngày tùy loại xe và thời gian thuê.",
+                      "priceCurrency": "VND",
+                      "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "priceCurrency": "VND",
+                        "minPrice": 150000,
+                        "maxPrice": 200000,
+                        "unitText": "day"
+                      },
+                      "areaServed": [
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Long Biên"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Gia Lâm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Hoàn Kiếm"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Phố cổ"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Ba Đình"
+                        },
+                        {
+                          "@type": "AdministrativeArea",
+                          "name": "Tây Hồ"
+                        }
+                      ],
+                      "availability": "https://schema.org/InStock"
+                    }
+                  ]
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#price-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Bang-gia-thue-xe-may.jpeg",
+                  "caption": "Bảng giá thuê xe máy Hà Nội Nguyễn Tú",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#cub50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Cub-50cc.jpeg",
+                  "caption": "Honda Cub 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#electric-bike-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-dap-dien-ha-noi.jpg",
+                  "caption": "Cho thuê xe điện tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#scooter50-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Xe-Ga-50cc.jpeg",
+                  "caption": "Xe ga 50cc cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                },
+                {
+                  "@type": "ImageObject",
+                  "@id": "https://thuexemaynguyentu.com/#vision-image",
+                  "contentUrl": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "url": "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Honda-Visinon.png",
+                  "caption": "Honda Vision cho thuê tại Hà Nội",
+                  "inLanguage": "vi"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "links": {
+        "internal_count": 94,
+        "external_count": 8,
+        "nofollow_count": 0,
+        "internal_targets": [
+          "/",
+          "/blog/",
+          "/blog/chia-se/",
+          "/blog/chia-se/di-chuyen-do-thi/",
+          "/blog/chia-se/du-lich-xanh/",
+          "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+          "/blog/danh-gia-so-sanh-xe/",
+          "/blog/diem-den/",
+          "/blog/diem-den/am-thuc-va-van-hoa/",
+          "/blog/diem-den/hanh-trinh-viet-nam/",
+          "/blog/diem-den/kham-pha-ha-noi/",
+          "/blog/huong-dan-thue-xe/",
+          "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+          "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+          "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+          "/blog/ky-thuat-bao-duong/",
+          "/blog/ky-thuat-bao-duong/cham-soc-xe-may/",
+          "/blog/phap-ly-kinh-nghiem/",
+          "/blog/phap-ly-kinh-nghiem/giay-phep-va-giay-to/",
+          "/blog/xe-dien/",
+          "/blog/xe-dien/cong-nghe-xe-dien/",
+          "/blog/xe-dien/dien-hoa-va-ha-tang/",
+          "/blog/xe-dien/pin-va-sac/",
+          "/blog/xe-dien/xe-dap-dien/",
+          "/chinh-sach-bao-mat/",
+          "/danh-muc-san-pham/loai-xe/",
+          "/danh-muc-san-pham/loai-xe/xe-dien/",
+          "/danh-muc-san-pham/loai-xe/xe-ga/",
+          "/danh-muc-san-pham/loai-xe/xe-so/",
+          "/dieu-khoan-su-dung/",
+          "/faq/",
+          "/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+          "/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+          "/featured_item/cho-thue-xe-may-thang-ha-noi/",
+          "/featured_item/dich-vu-thue-xe-may-1-thang/",
+          "/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+          "/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+          "/featured_item/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+          "/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+          "/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+          "/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+          "/featured_item_category/bang-gia/",
+          "/featured_item_category/bang-gia/?wpvibe_cb=1792309697306&wpvibe_preview=Tw1YcbHz53Bqqb2Y69LAkGbyklnF7gOl&wpvibe_stop_preview=1",
+          "/featured_item_category/bang-gia/page/2/?wpvibe_cb=1792309697306&wpvibe_preview=Tw1YcbHz53Bqqb2Y69LAkGbyklnF7gOl",
+          "/featured_item_category/thue-ngay/",
+          "/featured_item_category/thue-thang/",
+          "/featured_item_category/thue-tuan/",
+          "/gioi-thieu/",
+          "/gioi-thieu/su-menh-tam-nhin/",
+          "/gioi-thieu/ve-chung-toi/",
+          "/lien-he/"
+        ],
+        "sample": [
+          {
+            "path": "/",
+            "text": "Nguyễn Tú Cho thuê xe máy Hà Nội"
+          },
+          {
+            "path": "/",
+            "text": "Trang Chủ"
+          },
+          {
+            "path": "/gioi-thieu/",
+            "text": "Giới Thiệu"
+          },
+          {
+            "path": "/gioi-thieu/ve-chung-toi/",
+            "text": "Về Chúng Tôi"
+          },
+          {
+            "path": "/gioi-thieu/su-menh-tam-nhin/",
+            "text": "Sứ Mệnh Tầm Nhìn"
+          },
+          {
+            "path": "/blog/",
+            "text": "Blog"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/",
+            "text": "Hướng dẫn thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/thu-tuc-va-giao-nhan/",
+            "text": "Thủ tục và giao nhận"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/chi-phi-thue-xe/",
+            "text": "Chi phí thuê xe"
+          },
+          {
+            "path": "/blog/huong-dan-thue-xe/su-dung-xe-thue-50cc/",
+            "text": "Sử dụng xe thuê 50cc"
+          },
+          {
+            "path": "/blog/chia-se/",
+            "text": "Chia Sẻ"
+          },
+          {
+            "path": "/blog/chia-se/lap-ke-hoach-chuyen-di/",
+            "text": "Lập kế hoạch chuyến đi"
+          },
+          {
+            "path": "/blog/chia-se/di-chuyen-do-thi/",
+            "text": "Di chuyển đô thị"
+          },
+          {
+            "path": "/blog/chia-se/du-lich-xanh/",
+            "text": "Du lịch xanh"
+          },
+          {
+            "path": "/blog/diem-den/",
+            "text": "Điểm Đến"
+          },
+          {
+            "path": "/blog/diem-den/kham-pha-ha-noi/",
+            "text": "Khám phá Hà Nội"
+          },
+          {
+            "path": "/blog/diem-den/hanh-trinh-viet-nam/",
+            "text": "Hành trình Việt Nam"
+          },
+          {
+            "path": "/blog/diem-den/am-thuc-va-van-hoa/",
+            "text": "Ẩm thực và văn hóa"
+          },
+          {
+            "path": "/blog/danh-gia-so-sanh-xe/",
+            "text": "Đánh Giá & So Sánh Xe"
+          },
+          {
+            "path": "/blog/xe-dien/",
+            "text": "Xe Điện"
+          }
+        ]
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "forms": 2,
+      "iframes": [],
+      "scripts": {
+        "total": 36,
+        "inline": 30
+      },
+      "stylesheets": 1,
+      "word_count": 781,
+      "text_hash": "c27775b6470a4b18"
+    }
+  ]
+}

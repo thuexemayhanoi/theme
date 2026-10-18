@@ -67,7 +67,7 @@ defined( 'ABSPATH' ) || exit;
 		</nav>
 
 		<div class="nt-header__actions">
-            <label class="nt-mode-label"><span class="screen-reader-text">Chế độ hiển thị</span><select data-nt-mode aria-label="Chế độ hiển thị"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+			<label class="nt-mode-label"><span class="screen-reader-text">Chế độ hiển thị</span><select data-nt-mode aria-label="Chế độ hiển thị"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
 			<button type="button" class="nt-iconbtn" data-nt-search-toggle aria-expanded="false" aria-controls="nt-search-panel">
 				<?php nt_the_icon( 'search', array( 'size' => 22 ) ); ?>
 				<span class="screen-reader-text">Mở ô tìm kiếm</span>
