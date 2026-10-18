@@ -57,6 +57,22 @@ final class HtmlTest extends TestCase {
 		$this->assertCount( 1, $result['items'] );
 	}
 
+	public function test_toc_ignores_hidden_headings_and_preserves_their_source(): void {
+		$hidden = '<!-- <h2>Giá cũ</h2> -->'
+			. '<script>var sample="<h2>Script</h2>";</script>'
+			. '<template><h2>Mẫu</h2></template>';
+		$result = nt_html_headings_with_ids( '<h2>Giá thuê</h2>' . $hidden . '<h3 id="coc">Tiền cọc</h3>' );
+		$this->assertSame( array( 'gia-thue', 'coc' ), array_column( $result['items'], 'id' ) );
+		$this->assertStringContainsString( $hidden, $result['html'] );
+	}
+
+	public function test_toc_does_not_link_into_an_unclosed_legacy_comment(): void {
+		$hidden = '<!-- Bảng giá cũ <table></table><h2>Thủ tục</h2><h3>Giấy tờ</h3>';
+		$result = nt_html_headings_with_ids( '<h2>Giá thuê</h2>' . $hidden );
+		$this->assertCount( 1, $result['items'] );
+		$this->assertStringEndsWith( $hidden, $result['html'] );
+	}
+
 	public function test_tables_are_wrapped_once_in_a_focusable_scroll_region(): void {
 		$html = '<table><tr><td>1</td></tr></table><p>x</p><table><tr><td>2</td></tr></table>';
 		$out  = nt_html_wrap_tables( $html );

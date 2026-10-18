@@ -5,6 +5,28 @@ use PHPUnit\Framework\TestCase;
 
 final class ContentTest extends TestCase {
 
+	public function test_map_embeds_gain_missing_hints_without_changing_destinations(): void {
+		$map = '<iframe src="https://www.google.com/maps/embed?pb=verified" width="600" height="450" allowfullscreen></iframe>';
+		$out = nt_prepare_map_embeds( '<h1>Liên hệ</h1><p>0942 467 674</p>' . $map );
+		$tags = new WP_HTML_Tag_Processor( $out );
+		$this->assertTrue( $tags->next_tag( 'iframe' ) );
+		$this->assertSame( 'lazy', $tags->get_attribute( 'loading' ) );
+		$this->assertSame( 'Bản đồ Google Maps', $tags->get_attribute( 'title' ) );
+		$this->assertSame( 'https://www.google.com/maps/embed?pb=verified', $tags->get_attribute( 'src' ) );
+		$this->assertSame( '600', $tags->get_attribute( 'width' ) );
+		$this->assertSame( '450', $tags->get_attribute( 'height' ) );
+		$this->assertTrue( $tags->get_attribute( 'allowfullscreen' ) );
+		$this->assertStringContainsString( '<h1>Liên hệ</h1><p>0942 467 674</p>', $out );
+		$this->assertSame( $out, nt_prepare_map_embeds( $out ), 'rendering twice is idempotent' );
+	}
+
+	public function test_map_embed_hints_respect_authored_settings_and_other_providers(): void {
+		$html = '<iframe src="https://www.google.com/maps/embed?pb=verified" title="Điểm nhận xe" loading="eager"></iframe>'
+			. '<iframe src="https://www.youtube.com/embed/example"></iframe>'
+			. '<iframe src="https://google.com.example.org/maps/embed"></iframe>';
+		$this->assertSame( $html, nt_prepare_map_embeds( $html ) );
+	}
+
 	public function test_counts_match_the_baseline(): void {
 		$base  = nt_it_baseline()['baseline_counts'];
 		$posts = wp_count_posts( 'post' );
