@@ -1,0 +1,27 @@
+* text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.zip binary
+
+# `git archive` produces an installable theme: development material is excluded.
+/.github export-ignore
+/tests export-ignore
+/tools export-ignore
+/docs export-ignore
+/reports export-ignore
+/plugins export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/phpunit.xml.dist export-ignore
+/phpunit.integration.xml.dist export-ignore
+/phpcs.xml.dist export-ignore
+/eslint.config.mjs export-ignore
+/playwright.config.mjs export-ignore
+/.editorconfig export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
+/CLAUDE.md export-ignore
+/README.md export-ignore

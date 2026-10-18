@@ -1,0 +1,7 @@
+{
+  "gate": "product-terms",
+  "status": "PASS",
+  "detail": "1 test(s) passed",
+  "evidence": "reports/integration-results.md",
+  "at": "2026-10-18T02:53:00.969Z"
+}

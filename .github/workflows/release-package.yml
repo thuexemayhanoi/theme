@@ -1,0 +1,21 @@
+name: Release packages
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          bash tools/build-theme-zip.sh
+          bash tools/build-plugin-zip.sh
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          draft: true

@@ -1,0 +1,7 @@
+{
+  "gate": "integration",
+  "status": "PASS",
+  "detail": "62 test(s) passed",
+  "evidence": "reports/integration-results.md",
+  "at": "2026-10-18T02:53:00.793Z"
+}

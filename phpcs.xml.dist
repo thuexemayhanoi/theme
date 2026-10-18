@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset name="Nguyen Tu Editorial Commerce" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/PHPCSStandards/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>WordPress coding standards for the theme and the companion plugin.</description>
+
+	<!-- Registers the standards even when the Composer installer plugin is disabled (CI sandboxes). -->
+	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsextra,vendor/phpcsstandards/phpcsutils,vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp"/>
+
+	<file>.</file>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>tests/*</exclude-pattern>
+	<exclude-pattern>tools/*</exclude-pattern>
+	<exclude-pattern>reports/*</exclude-pattern>
+	<exclude-pattern>docs/*</exclude-pattern>
+	<exclude-pattern>dist/*</exclude-pattern>
+	<exclude-pattern>inc/icons-data.php</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="./"/>
+	<arg name="parallel" value="8"/>
+	<arg value="ps"/>
+
+	<config name="testVersion" value="8.2-"/>
+	<config name="minimum_supported_wp_version" value="7.1"/>
+
+	<rule ref="WordPress">
+		<!-- Short array syntax is used throughout; it is valid for PHP 8.2+. -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<!-- Theme file names follow the WordPress template hierarchy, not the class-file convention. -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<!-- Strict typing and modern PHP features are intentional. -->
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames"/>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="nguyentu"/>
+				<element value="nguyentu-legacy-compat"/>
+			</property>
+		</properties>
+	</rule>
+	<!--
+		PrefixAllGlobals is disabled on purpose: every global in this theme uses the "nt_" / "NT_"
+		prefix (plugin: "NT_Compat"), but the sniff refuses prefixes shorter than 3 characters and
+		would then flag all 300+ identifiers. tests/unit/PrefixTest.php enforces the convention instead.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<severity>0</severity>
+	</rule>
+</ruleset>

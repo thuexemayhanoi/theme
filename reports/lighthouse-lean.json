@@ -1,0 +1,56 @@
+{
+  "label": "lean: setting \"Script jQuery của WooCommerce\" = on",
+  "version": "12.8.2",
+  "generated_at": "2026-10-18T02:06:32.655Z",
+  "base": "http://127.0.0.1:8088",
+  "results": [
+    {
+      "page": "home",
+      "path": "/",
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcp": 2.25,
+      "cls": 0,
+      "tbt": 5,
+      "version": "12.8.2"
+    },
+    {
+      "page": "post",
+      "path": "/cach-doc-thong-so-tren-bang-dieu-khien-xe-dien/",
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 92,
+      "lcp": 2.26,
+      "cls": 0,
+      "tbt": 0,
+      "version": "12.8.2"
+    },
+    {
+      "page": "category",
+      "path": "/blog/xe-dien/",
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 92,
+      "lcp": 1.96,
+      "cls": 0,
+      "tbt": 0,
+      "version": "12.8.2"
+    },
+    {
+      "page": "product",
+      "path": "/san-pham/honda-wave/",
+      "performance": 79,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcp": 4.38,
+      "cls": 0,
+      "tbt": 13,
+      "version": "12.8.2"
+    }
+  ]
+}

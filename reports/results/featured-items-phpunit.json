@@ -1,0 +1,7 @@
+{
+  "gate": "featured-items-phpunit",
+  "status": "PASS",
+  "detail": "4 test(s) passed",
+  "evidence": "reports/integration-results.md",
+  "at": "2026-10-18T02:53:01.032Z"
+}

@@ -1,0 +1,7 @@
+{
+  "gate": "featured-roundtrip",
+  "status": "PASS",
+  "detail": "capture, replay, compare, verify and dormant checks passed",
+  "evidence": "reports/compat-roundtrip.md",
+  "at": "2026-10-18T02:53:27.281Z"
+}

@@ -1,0 +1,7 @@
+{
+  "gate": "php-runtime-log",
+  "status": "PASS",
+  "detail": "0 entries name a theme or plugin file (0 entries from WordPress, WooCommerce, WP-CLI or the sandbox harness are not blamed)",
+  "evidence": "reports/php-runtime-log.md",
+  "at": "2026-10-18T02:58:57.996Z"
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": false,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1200px"
+    },
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        { "slug": "cream", "name": "Kem", "color": "#faf7f0" },
+        { "slug": "paper", "name": "Trắng", "color": "#ffffff" },
+        { "slug": "sand", "name": "Cát", "color": "#f1ebdd" },
+        { "slug": "ink", "name": "Mực", "color": "#14213d" },
+        { "slug": "navy", "name": "Xanh navy", "color": "#1b2f5b" },
+        { "slug": "navy-soft", "name": "Navy nhạt", "color": "#e8edf6" },
+        { "slug": "accent", "name": "Đỏ nhấn", "color": "#d2381f" },
+        { "slug": "success", "name": "Xanh lá", "color": "#1b7f4b" }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "plus-jakarta",
+          "name": "Plus Jakarta Sans",
+          "fontFamily": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "name": "Nhỏ", "size": "0.875rem" },
+        { "slug": "normal", "name": "Thường", "size": "1.0625rem" },
+        { "slug": "large", "name": "Lớn", "size": "1.375rem", "fluid": { "min": "1.2rem", "max": "1.5rem" } },
+        { "slug": "x-large", "name": "Rất lớn", "size": "2rem", "fluid": { "min": "1.6rem", "max": "2.25rem" } }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "rem", "%"]
+    },
+    "border": { "radius": true }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--cream)",
+      "text": "var(--wp--preset--color--ink)"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--plus-jakarta)",
+      "fontSize": "var(--wp--preset--font-size--normal)",
+      "lineHeight": "1.65"
+    },
+    "elements": {
+      "link": {
+        "color": { "text": "var(--wp--preset--color--navy)" }
+      },
+      "h1": { "typography": { "fontWeight": "800", "lineHeight": "1.12" } },
+      "h2": { "typography": { "fontWeight": "800", "lineHeight": "1.22" } },
+      "h3": { "typography": { "fontWeight": "800", "lineHeight": "1.25" } }
+    }
+  }
+}

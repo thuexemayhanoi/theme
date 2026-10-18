@@ -1,0 +1,7 @@
+{
+  "gate": "legacy-render",
+  "status": "PASS",
+  "detail": "25 test(s) passed",
+  "evidence": "reports/integration-results.md",
+  "at": "2026-10-18T02:53:01.087Z"
+}
