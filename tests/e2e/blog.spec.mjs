@@ -1,4 +1,9 @@
+import { execFileSync } from 'node:child_process';
 import { test, expect } from '@playwright/test';
+import { noHorizontalScroll, overflowOffenders } from './helpers.mjs';
+
+/** WP-CLI of the disposable sandbox (tools/sandbox/wp.sh); only available when the suite runs against it. */
+const wp = (...args) => execFileSync('bash', ['tools/sandbox/wp.sh', ...args], { encoding: 'utf8' });
 
 test.describe('blog templates', () => {
 	test.use({ viewport: { width: 1440, height: 900 } });
@@ -88,18 +93,43 @@ test.describe('blog templates', () => {
 		await ctx.close();
 	});
 
-	test('tables in posts scroll inside their own region instead of the page', async ({ page }) => {
-		const html = await page.request.get('/blog/');
-		expect(html.ok()).toBeTruthy();
-		const links = await page.locator('.nt-card--post .nt-card__title a').evaluateAll((as) => as.map((a) => a.href));
-		let found = false;
-		for (const href of links.slice(0, 12)) {
-			const r = await page.request.get(href);
-			if ((await r.text()).includes('nt-table-wrap')) {
-				found = true;
-				break;
-			}
+	// None of the seeded posts holds a table, so the test publishes one (twelve long columns, far wider than a phone) and
+	// removes it again; the browser then loads the real post template and its stylesheet.
+	test('a wide table in a post scrolls inside its own region instead of the page', async ({ browser }) => {
+		test.setTimeout(120_000);
+		const cells = (tag) => Array.from({ length: 12 }, (_, i) => `<${tag}>Cột ${i + 1}: tiêu đề đủ dài để bảng rộng hơn màn hình</${tag}>`).join('');
+		const html = `<p>Đoạn mở đầu.</p><table><thead><tr>${cells('th')}</tr></thead><tbody><tr>${cells('td')}</tr></tbody></table><p>Đoạn kết.</p>`;
+		const b64 = Buffer.from(html, 'utf8').toString('base64');
+		let id = 0;
+		try {
+			id = Number(wp('eval', `echo wp_insert_post(array('post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'E2E bảng rộng (tạm thời)', 'post_content' => base64_decode('${b64}')));`).trim());
+			expect(id, 'the fixture post was created').toBeGreaterThan(0);
+			const path = new URL(wp('eval', `echo get_permalink(${id});`).trim()).pathname;
+
+			const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+			const page = await ctx.newPage();
+			const res = await page.goto(path);
+			expect(res.status()).toBe(200);
+
+			const region = page.locator('.nt-prose .nt-table-wrap');
+			await expect(region, 'the theme wraps the table once').toHaveCount(1);
+			await expect(region).toHaveAttribute('role', 'region');
+			await expect(region).toHaveAttribute('tabindex', '0');
+			const m = await region.evaluate((el) => ({ wider: el.scrollWidth > el.clientWidth + 50, overflowX: getComputedStyle(el).overflowX }));
+			expect(m.wider, 'the table is wider than its region').toBe(true);
+			expect(['auto', 'scroll']).toContain(m.overflowX);
+
+			await noHorizontalScroll(page);
+			expect(await overflowOffenders(page), 'nothing outside the region sticks out of the viewport').toEqual([]);
+
+			// keyboard users can scroll the focused region
+			await region.focus();
+			await page.keyboard.press('ArrowRight');
+			await expect.poll(() => region.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+			await noHorizontalScroll(page);
+			await ctx.close();
+		} finally {
+			if (id > 0) wp('eval', `wp_delete_post(${id}, true);`);
 		}
-		expect(found || true).toBeTruthy(); // seeded posts only some have tables; structure is asserted in unit tests
 	});
 });
