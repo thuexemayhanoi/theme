@@ -19,3 +19,5 @@ Font Plus Jakarta Sans: SIL Open Font License 1.1 (assets/fonts/OFL-LICENSE.txt)
 Toàn bộ CSS thật nằm trong assets/css/ và được nạp bằng wp_enqueue_style (xem inc/enqueue.php).
 Tệp này chỉ giữ phần khai báo theme theo yêu cầu của WordPress.
 */
+
+/* webhook-sync-test-20261018-01: deploy marker only; no visual or SEO changes. */
