@@ -19,6 +19,12 @@ Các mục dưới đây là phần **không thể kiểm tra trong môi trườ
 - [ ] Menu: đủ 36 mục, đúng cha–con, đúng thứ tự (so `wp menu item list 67`).
 - [ ] `node tools/seo/snapshot.mjs --base <staging> ...` → `diff.mjs before after` → **P0 = 0** (xem `reports/seo-diff.md`).
 - [ ] `wp nguyentu legacy-scan --format=markdown` → điền kết quả vào `docs/LEGACY-COMPAT.md`; không tag quan trọng nào ở trạng thái STRIPPED.
+- [ ] **Widget**: vào *Giao diện › Widget*. WordPress tự chuyển widget của theme cũ sang hai vùng của theme mới
+      (*Cột bên bài viết*, *Chân trang mở rộng*) theo thứ tự. Gỡ những widget không muốn hiện (danh sách Archives/Categories mặc định, v.v.).
+- [ ] **Breadcrumb bài viết**: theme dùng breadcrumb của Yoast và không đổi cài đặt Yoast. Nếu trên site thật bài viết hiển thị
+      "Trang chủ › Blog › Chuyên mục › Bài", kiểm tra Yoast *Cài đặt › Nâng cao › Breadcrumbs › Taxonomy to show in breadcrumbs for Posts = Categories*
+      và so sánh với `BreadcrumbList` trong ảnh chụp "trước" (không đổi cấu hình khi chưa duyệt).
+- [ ] **Ngôn ngữ**: nhãn WooCommerce (Thêm vào giỏ, Mô tả, Sản phẩm liên quan…) hiển thị tiếng Việt khi gói ngôn ngữ `vi` đã cài (môi trường build không có gói này).
 
 ## C. Trang và URL (mở bằng trình duyệt, 360 / 768 / 1440 px)
 

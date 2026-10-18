@@ -86,4 +86,31 @@ Dán vào mục "Kết quả đo trên staging" bên dưới và so ảnh chụp
 
 ### Kết quả đo trên staging
 
-_Chưa đo — cần bản sao DB production trên staging (cổng `flatsome-real-content` = NOT_TESTED)._
+_Chưa đo trên nội dung thật — cần bản sao DB production trên staging (cổng `flatsome-real-content` = NOT_TESTED)._
+
+#### Kết quả trên fixture của sandbox (MÔ PHỎNG, không phải nội dung production)
+
+Các trang 562/310/372/424/432/494 trong sandbox dùng `tests/fixtures/pages/*.html` do chúng tôi dựng lại từ cú pháp UX Builder công khai
+và danh sách tag trong README; kết quả dưới đây chỉ chứng minh công cụ quét và cầu nối hoạt động, **không** chứng minh độ phủ của nội dung thật.
+
+| Tag | Status | Uses | Post IDs | Attributes seen |
+| --- | --- | ---: | --- | --- |
+| `[button]` | RENDERED | 6 | 372,424,562 | text, link, radius, color, style, icon, target |
+| `[col]` | RENDERED | 16 | 310,372,424,432,494,562 | span, span__sm, span__md, align |
+| `[divider]` | RENDERED | 1 | 432 |  |
+| `[gap]` | RENDERED | 1 | 424 | height |
+| `[map]` | RENDERED | 1 | 372 |  |
+| `[message_box]` | RENDERED | 1 | 432 | bg_color |
+| `[row]` | RENDERED | 10 | 310,372,424,432,494,562 | style, v_align |
+| `[section]` | RENDERED | 7 | 310,372,494,562 | padding, bg_color, dark |
+| `[text_box]` | RENDERED | 1 | 562 | width, width__sm, position_x, position_x__sm, position_y, text_align, text_color |
+| `[title]` | RENDERED | 8 | 310,372,424,432,494,562 | text, tag_name, style |
+| `[ux_banner]` | RENDERED | 1 | 562 | height, height__sm, bg, bg_overlay, bg_pos |
+| `[ux_image]` | RENDERED | 3 | 310,424,562 | id, image_size |
+| `[ux_image_box]` | RENDERED | 3 | 562 | img, link, image_size, text_align |
+| `[ux_portfolio]` | RENDERED | 1 | 494 | cat, posts, columns |
+| `[ux_products]` | RENDERED | 1 | 562 | products, columns, columns__sm, cat, orderby |
+| `[woocommerce_cart]` | OTHER PLUGIN/CORE | 1 | 9001 |  |
+| `[woocommerce_checkout]` | OTHER PLUGIN/CORE | 1 | 9002 |  |
+| `[woocommerce_my_account]` | OTHER PLUGIN/CORE | 1 | 9003 |  |
+

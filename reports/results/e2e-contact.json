@@ -1,0 +1,7 @@
+{
+  "gate": "e2e-contact",
+  "status": "PASS",
+  "detail": "7 browser test(s) passed",
+  "evidence": "reports/e2e-results.md",
+  "at": "2026-10-17T19:11:37.019Z"
+}

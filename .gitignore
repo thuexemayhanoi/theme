@@ -6,6 +6,16 @@ composer.lock.bak
 .DS_Store
 Thumbs.db
 
+# Raw per-run tool output (JSON/JUnit); the compact gate records in reports/results/*.json are the evidence
+/reports/results/raw/
+/reports/seo-urls.sandbox.csv
+/reports/seo-after.json
+/reports/seo-rules-after.json
+/reports/link-check-after.json
+/reports/sitemap-urls-after.json
+/reports/seo-diff.json
+/playwright-report/
+
 # Local sandbox runtime, never committed (lives outside the repo by default)
 /.sandbox/
 /tests/e2e/.cache/

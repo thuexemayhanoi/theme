@@ -2,6 +2,6 @@
   "gate": "featured-items-phpunit",
   "status": "PASS",
   "detail": "4 test(s) passed",
-  "evidence": "reports/results/raw/integration-junit.xml",
-  "at": "2026-10-17T18:10:30.715Z"
+  "evidence": "reports/integration-results.md",
+  "at": "2026-10-17T19:11:36.730Z"
 }

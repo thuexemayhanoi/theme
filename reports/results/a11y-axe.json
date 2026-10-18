@@ -1,0 +1,7 @@
+{
+  "gate": "a11y-axe",
+  "status": "PASS",
+  "detail": "20 browser test(s) passed",
+  "evidence": "reports/e2e-results.md",
+  "at": "2026-10-17T19:11:37.223Z"
+}

@@ -10,7 +10,7 @@ key,value
 registered_by_other_component,yes
 replay_active,no
 snapshot_source,runtime
-snapshot_captured_at,2026-10-17T18:10:24+00:00
+snapshot_captured_at,2026-10-17T18:56:53+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"
@@ -58,7 +58,7 @@ key,value
 registered_by_other_component,no
 replay_active,yes
 snapshot_source,runtime
-snapshot_captured_at,2026-10-17T18:10:35+00:00
+snapshot_captured_at,2026-10-17T18:57:05+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"
@@ -100,10 +100,11 @@ Trước: 19 URL · Sau: 19 URL
 Success: Tất cả URL featured_item giữ nguyên (path giống hệt).
 ```
 
-## FAIL - 3b verify: rewrite rules resolve every URL to itself and HTTP answers 200
+## PASS - 3b verify: rewrite rules resolve every URL to itself and HTTP answers 200
 
 ```
-Error: RESTful WP-CLI needs to be installed. Try 'wp package install wp-cli/restful'.
+Đã kiểm tra 19 URL (featured_item + term).
+Success: Mọi URL featured_item và term resolve đúng về chính nó.
 ```
 
 ## PASS - 3c a featured single and a term answer 200 over HTTP without the old theme
@@ -120,7 +121,7 @@ key,value
 registered_by_other_component,yes
 replay_active,no
 snapshot_source,runtime
-snapshot_captured_at,2026-10-17T18:10:35+00:00
+snapshot_captured_at,2026-10-17T18:57:05+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"

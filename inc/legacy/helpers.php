@@ -129,12 +129,14 @@ function nt_legacy_frame( ?string $op = null, array $frame = array() ): array {
  * Park generated markup (cards built from templates, forms, lists) so the late wpautop cannot
  * reformat it: wpautop inserts <br /> between inline elements and splits "<article><a>..</a><div>"
  * into "<p><article><a>..</a></p>". A placeholder block stands in until nt_lg_restore().
- * Outside a the_content run (a direct do_shortcode() call) nothing is parked.
+ * Outside a the_content run (a direct do_shortcode() call, or a frame leaked by a filter that
+ * aborted the chain) nothing is parked, so a placeholder can never be left unresolved.
  *
  * @param string $html Final markup produced by a handler.
  */
 function nt_lg_protect( string $html ): string {
-	if ( '' === trim( $html ) || 0 === nt_legacy_frame()['depth'] ) {
+	$in_run = 0 < nt_legacy_frame()['depth'] && ( ! function_exists( 'doing_filter' ) || doing_filter( 'the_content' ) );
+	if ( '' === trim( $html ) || ! $in_run ) {
 		return $html;
 	}
 	$GLOBALS['nt_lg_parked'][] = $html;
