@@ -347,7 +347,7 @@ function nt_lg_banner( $atts, $content = '' ): string {
 	// Only the homepage legacy banner using attachment #369 changes. Stored page content stays untouched.
 	$nt_home_photo = is_front_page() && '369' === trim( (string) $a['bg'] );
 	if ( $nt_home_photo ) {
-		$a['bg'] = 'https://thuexemaynguyentu.com/wp-content/uploads/2026/10/banner-thue-xe-may-ha-noi-nguyen-tu.webp';
+		$a['bg'] = 'https://thuexemaynguyentu.com/wp-content/uploads/2026/10/banner-thue-xe-may-ha-noi-nguyen-tu-1.webp';
 	}
 
 	$h     = nt_css_len( $a['height'], '300px' );
