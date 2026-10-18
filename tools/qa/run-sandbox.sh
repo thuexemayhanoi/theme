@@ -30,6 +30,9 @@ bash $SB/serve.sh stop >/dev/null 2>&1 || true
 bash $SB/sync.sh --quiet
 bash $SB/serve.sh start >/dev/null
 
+# Both PHP logs start empty so the "php-runtime-log" gate describes this run only.
+for f in wp-debug php-error; do : > "$LOG_DIR/$f.log"; done
+
 echo "== supervised cut-over on the sandbox copy =="
 $WP plugin activate nguyentu-legacy-compat >/dev/null 2>&1 || true
 $WP nguyentu-compat capture --force
@@ -88,5 +91,7 @@ if [ "$E2E" = 1 ]; then
 	fi
 	node tools/qa/playwright-gates.mjs reports/results/raw/pw-main.json reports/results/raw/pw-sims-off.json
 fi
+
+node tools/qa/debug-log-gate.mjs || echo "PHP runtime log gate FAILED: see reports/php-runtime-log.md"
 
 node tools/qa/release-gates.mjs | tail -3

@@ -1,7 +1,7 @@
 {
   "gate": "e2e-woo",
   "status": "PASS",
-  "detail": "10 browser test(s) passed",
+  "detail": "13 browser test(s) passed",
   "evidence": "reports/e2e-results.md",
-  "at": "2026-10-17T19:11:37.076Z"
+  "at": "2026-10-18T02:13:33.847Z"
 }

@@ -73,6 +73,7 @@ const GATES = [
 	['legacy-render', 'Legacy shortcode pages render without raw shortcodes and keep the H1', true],
 	['seo-rules-sandbox', 'Absolute SEO rules on the sandbox snapshot (one canonical/H1/main, no duplicate schema, noindex only where intended, real 404)', true],
 	['seo-diff-live', 'SEO before/after diff against the LIVE site (title, description, canonical, robots, H1, schema, links, sitemap)', true],
+	['php-runtime-log', 'No PHP warning, notice or deprecation raised by theme or plugin code while the sandbox pipeline ran (WP_DEBUG_LOG)', true],
 	['e2e-layout', 'Playwright: 360/390/430/768/1280/1440 px, no horizontal overflow, no console errors', true],
 	['e2e-menu', 'Playwright: 36-item menu keyboard operation, drawer focus trap, aria-expanded', true],
 	['e2e-contact', 'Playwright: single contact bar, no overlap with chat bubble / QuickCall simulator', true],
