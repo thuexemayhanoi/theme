@@ -42,8 +42,13 @@ add_action( 'rest_api_init', 'nt_hours_route' );
  * @param string $content Rendered contact content.
  */
 function nt_contact_hours( string $content ): string {
+	// This exact legacy schedule was verified in the homepage business section.
+	// Render the shared component instead; preserve the stored page for rollback.
+	if ( is_front_page() && in_the_loop() && is_main_query() ) {
+		$content = str_replace( '08:00–21:30', nt_hours_badge(), $content );
+	}
 	if ( is_page( 'lien-he' ) && in_the_loop() && is_main_query() ) {
-		$content .= '<p>' . nt_hours_badge() . '</p>';
+		$content .= '<div class="nt-container nt-contact-status"><p>' . nt_hours_badge() . '</p></div>';
 	}
 	return $content;
 }

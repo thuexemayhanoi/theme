@@ -23,7 +23,7 @@ $nt_hid   = (string) ( $args['heading_id'] ?? 'nt-local-title' );
 					<p class="nt-local__name"><?php echo esc_html( nt_business( 'brand' ) ); ?></p>
 					<p><?php nt_the_icon( 'pin', array( 'size' => 20 ) ); ?><span><?php echo esc_html( nt_address() ); ?></span></p>
 					<p><?php nt_the_icon( 'phone', array( 'size' => 20 ) ); ?><span><a href="<?php echo esc_url( nt_tel_url() ); ?>"><?php echo esc_html( nt_business( 'phone_display' ) ); ?></a> (gọi / Zalo)</span></p>
-					<p><?php nt_the_icon( 'clock', array( 'size' => 20 ) ); ?><span>Mở cửa <?php echo esc_html( nt_hours_range() ); ?>, tất cả các ngày trong tuần</span></p>
+					<p><?php nt_the_icon( 'clock', array( 'size' => 20 ) ); ?><span>Giờ thường lệ <?php echo esc_html( nt_hours_range() ); ?>. <?php echo nt_hours_badge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- helper escapes. ?></span></p>
 				</address>
 				<?php nt_cta_buttons( array( 'size' => 'md' ) ); ?>
 			</div>

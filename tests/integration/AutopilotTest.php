@@ -41,6 +41,30 @@ final class AutopilotTest extends TestCase {
         $this->assertStringContainsString('data-no-lazy="1"',$html);
         $this->assertStringNotContainsString('data-no-lazy',nt_lg_image_html('https://example.test/other.webp',array('eager'=>false)));
     }
+    public function test_legacy_home_hours_render_shared_state_without_rewriting_content(): void {
+        global $wp_query,$wp_the_query;
+        $old_query=$wp_query; $old_main=$wp_the_query;
+        $raw='Điện thoại · 08:00–21:30 · Không giao xe ngoài giờ';
+        try {
+            $wp_query=new WP_Query(array('page_id'=>562)); $wp_the_query=$wp_query;
+            $wp_query->in_the_loop=true;
+            $result=nt_contact_hours($raw);
+            $this->assertStringContainsString('data-nt-hours',$result);
+            $this->assertStringNotContainsString('08:00–21:30',$result);
+            $this->assertStringContainsString('08:00–21:30',$raw);
+        } finally { $wp_query=$old_query; $wp_the_query=$old_main; }
+    }
+    public function test_contextual_commercial_link_never_points_to_draft_target(): void {
+        $target=wp_insert_post(array('post_title'=>'NT service fixture','post_name'=>'nt-service-fixture','post_status'=>'publish'));
+        $article=wp_insert_post(array('post_title'=>'NT article fixture','post_status'=>'publish','post_category'=>array(162)));
+        $filter=static function() { return array('huong-dan-thue-xe'=>array('slug'=>'nt-service-fixture','label'=>'Service')); };
+        add_filter('nguyentu_cluster_commercial_targets',$filter);
+        try {
+            $this->assertSame(get_permalink($target),nt_cluster_commercial_link($article)['url']);
+            wp_update_post(array('ID'=>$target,'post_status'=>'draft'));
+            $this->assertSame(array(),nt_cluster_commercial_link($article));
+        } finally { remove_filter('nguyentu_cluster_commercial_targets',$filter); wp_delete_post($article,true); wp_delete_post($target,true); }
+    }
     public function test_verified_prices_and_followup(): void {
         $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
         $this->assertSame('prices', $answer['intent']);

@@ -35,8 +35,9 @@ function nt_autopilot_assets(): void {
 		'nt-autopilot',
 		'window.ntAutopilot=' . wp_json_encode(
 			array(
-				'hours'     => nt_autopilot_endpoint( 'hours' ),
-				'assistant' => nt_autopilot_endpoint( 'assistant' ),
+				'hours'       => nt_autopilot_endpoint( 'hours' ),
+				'hours_label' => 'Giờ thường lệ ' . nt_hours_range() . ' — Liên hệ để xác nhận',
+				'assistant'   => nt_autopilot_endpoint( 'assistant' ),
 			)
 		) . ';',
 		'before'
@@ -87,8 +88,13 @@ function nt_cluster_navigation(): void {
 			}
 		}
 	}
+	$commercial = nt_cluster_commercial_link( get_the_ID() );
+	if ( $commercial ) {
+		printf( '<a class="nt-cluster__service" href="%s">%s</a>', esc_url( $commercial['url'] ), esc_html( $commercial['label'] ) );
+	}
 	echo '</nav>';
 }
+
 
 /**
  * Same-origin REST endpoint; draft previews carry their existing sandbox token.
@@ -101,4 +107,49 @@ function nt_autopilot_endpoint( string $route ): string {
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- token is validated by WPVibe, no mutation here.
 	$preview = isset( $_GET['wpvibe_preview'] ) ? sanitize_text_field( wp_unslash( $_GET['wpvibe_preview'] ) ) : '';
 	return '' !== $preview ? add_query_arg( 'wpvibe_preview', $preview, $url ) : $url;
+}
+
+/**
+ * Contextual commercial target for verified rental/electric clusters only.
+ * Targets must still exist, be published and have no password; travel clusters are not forced.
+ *
+ * @param int $post_id Supporting article ID.
+ * @return array
+ */
+function nt_cluster_commercial_link( int $post_id ): array {
+	$map = (array) apply_filters(
+		'nguyentu_cluster_commercial_targets',
+		array(
+			'su-dung-xe-thue-50cc' => array(
+				'slug'  => 'thue-xe-may-50cc-ha-noi',
+				'label' => 'Dịch vụ thuê xe 50cc',
+			),
+			'huong-dan-thue-xe'    => array(
+				'slug'  => 'thue-xe-may-ha-noi-gia-re',
+				'label' => 'Bảng giá và dịch vụ thuê xe',
+			),
+			'xe-dien'              => array(
+				'slug'  => 'cho-thue-xe-dien-ha-noi',
+				'label' => 'Dịch vụ thuê xe điện',
+			),
+		)
+	);
+	$ids = array();
+	foreach ( (array) get_the_category( $post_id ) as $term ) {
+		$ids = array_merge( $ids, array( $term->term_id ), get_ancestors( $term->term_id, 'category' ) );
+	}
+	foreach ( array_unique( $ids ) as $id ) {
+		$term = get_term( $id, 'category' );
+		if ( ! $term instanceof WP_Term || ! isset( $map[ $term->slug ] ) ) {
+			continue; }
+		$entry  = $map[ $term->slug ];
+		$target = get_page_by_path( $entry['slug'], OBJECT, array( 'post', 'page' ) );
+		if ( $target instanceof WP_Post && $target->ID !== $post_id && nt_knowledge_public( $target ) ) {
+			return array(
+				'url'   => get_permalink( $target ),
+				'label' => $entry['label'],
+			);
+		}
+	}
+	return array();
 }

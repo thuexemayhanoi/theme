@@ -42,3 +42,7 @@ Dựng lại index: trên staging/CLI thực: `wp option update nt_knowledge_cur
 `inc/schema.php` lọc duy nhất graph Header WPCode có ID `#nguyen-tu-website` đã xác minh là graph trùng; không xóa option và không đụng script khác. LocalBusiness được thêm vào chính graph Yoast nếu chưa có Organization/LocalBusiness, với dữ liệu cấu hình chung. Không tạo Offer/InStock hoặc rating giả. Ngày nghỉ và ngoại lệ được phản ánh trong giờ schema. Tắt theme/rollback sẽ phục hồi nguyên mã chèn cũ do dữ liệu không bị xóa.
 
 Báo cáo links-report.mjs thêm số outgoing/incoming trong mẫu crawl và hàng trang chưa có incoming trong mẫu, đề xuất xem xét thủ công theo chủ đề. Không coi mẫu crawl là bản đồ đầy đủ mọi URL.
+
+Giờ cũ 08:00–21:30 đã xác minh trong khối thông tin homepage được thay bằng component trạng thái chung trong lớp hiển thị; bản ghi gốc không sửa. Đổi giờ trong cấu hình cập nhật component ngay, rollback không cần khôi phục post_content.
+
+Bản đồ thương mại theo cụm ở `nt_cluster_commercial_link()` (inc/autopilot.php), mở rộng bằng filter `nguyentu_cluster_commercial_targets`. Chỉ nhóm hướng dẫn thuê, xe50cc và xeđiện có target đã xác minh; kiểm tra publish/password ở mỗi lần hiển thị, tối đa1link. Nhóm du lịch không bị ép gắn liên kết thương mại. Không sửa nội dung bài.

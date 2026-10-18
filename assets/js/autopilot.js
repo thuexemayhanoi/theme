@@ -39,7 +39,7 @@
       if (!response.ok) throw new Error('clock');
       showHours(await response.json());
     } catch {
-      document.querySelectorAll('[data-nt-hours]').forEach((node) => { node.textContent = 'Giờ thường lệ 09:00–21:00 — Liên hệ để xác nhận'; });
+      document.querySelectorAll('[data-nt-hours]').forEach((node) => { node.textContent = config.hours_label || 'Liên hệ cửa hàng để xác nhận giờ mở cửa'; });
       clearTimeout(timer);
       timer = setTimeout(refreshHours, 60000);
     }

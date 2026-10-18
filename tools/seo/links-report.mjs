@@ -11,6 +11,15 @@ import { parseArgs } from 'node:util';
 
 const { values: opt, positionals } = parseArgs({ options: { check: { type: 'string' } }, allowPositionals: true });
 const snap = JSON.parse(await readFile(positionals[0], 'utf8'));
+// Never export preview/session tokens or administrative preview-toolbar links.
+for (const page of snap.urls) {
+ if (!page.links?.sample) continue;
+ page.links.sample = page.links.sample.filter(link => !/wpvibe_stop_preview=/.test(link.path)).map(link => {
+  const url = new URL(link.path, 'https://example.invalid');
+  for (const key of [...url.searchParams.keys()]) if (/^(wpvibe_preview|wpvibe_stop_preview|_wpnonce)$/i.test(key)) url.searchParams.delete(key);
+  return {...link, path: url.pathname + url.search};
+ });
+}
 const status = new Map();
 for (const p of snap.urls) if (p.status !== null) status.set(p.path, p.status);
 if (opt.check) for (const r of JSON.parse(await readFile(opt.check, 'utf8')).results) status.set(r.path, r.status);

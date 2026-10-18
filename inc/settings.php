@@ -233,7 +233,7 @@ function nt_status_checks(): array {
 	$checks[] = array(
 		'label'  => 'Moto QuickCall',
 		'ok'     => true,
-		'detail' => nt_quickcall_active() ? 'Có: theme không vẽ thanh liên hệ cố định thứ hai' : 'Không có: theme tự hiển thị thanh liên hệ mobile',
+		'detail' => nt_quickcall_active() ? 'Có: theme không vẽ thanh liên hệ cố định thứ hai' : 'Không có: theme hiển thị nhóm liên hệ thu gọn',
 	);
 	foreach ( array( 'primary', 'primary_mobile', 'footer', 'top_bar_nav' ) as $location ) {
 		$id       = nt_resolve_menu_id( $location );
@@ -342,7 +342,7 @@ function nt_settings_page(): void {
 					(string) ( $opts['cta_bar'] ?? 'auto' ),
 					array(
 						'auto' => 'Tự động (ẩn nếu có Moto QuickCall)',
-						'on'   => 'Luôn bật',
+						'on'   => 'Bật khi không có QuickCall cũ',
 						'off'  => 'Tắt',
 					)
 				);
