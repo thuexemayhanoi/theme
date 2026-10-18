@@ -1,0 +1,65 @@
+{
+  "coverage": "6 representative URLs; HTTP status not exposed by connector. Known /bo-suu-tap/ 404 repair is intended.",
+  "results": [
+    {
+      "path": "/",
+      "metadataEqual": true,
+      "changes": [],
+      "h1": [
+        "Thuê Xe Máy Hà Nội – Nguyễn Tú"
+      ],
+      "rawShortcodes": []
+    },
+    {
+      "path": "/blog/",
+      "metadataEqual": true,
+      "changes": [],
+      "h1": [
+        "Blog"
+      ],
+      "rawShortcodes": []
+    },
+    {
+      "path": "/blog/xe-dien/",
+      "metadataEqual": true,
+      "changes": [],
+      "h1": [
+        "Xe Điện"
+      ],
+      "rawShortcodes": []
+    },
+    {
+      "path": "/lien-he/",
+      "metadataEqual": true,
+      "changes": [],
+      "h1": [
+        "Liên hệ thuê xe máy Nguyễn Tú"
+      ],
+      "rawShortcodes": []
+    },
+    {
+      "path": "/san-pham/honda-wave/",
+      "metadataEqual": true,
+      "changes": [],
+      "h1": [
+        "Honda Wave"
+      ],
+      "rawShortcodes": []
+    },
+    {
+      "path": "/bo-suu-tap/thue-ngay/",
+      "metadataEqual": false,
+      "changes": [
+        "titles",
+        "descriptions",
+        "robots",
+        "canonicals",
+        "h1"
+      ],
+      "h1": [
+        "Thuê Ngày"
+      ],
+      "rawShortcodes": []
+    }
+  ]
+}

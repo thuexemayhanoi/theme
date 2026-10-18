@@ -12,6 +12,7 @@
   --nt-navy-700: #c9dcff;
   --nt-navy-100: #253248;
   --nt-accent: #ffad99;
+  --nt-accent-700: #ffad99;
   --nt-focus: #a9ccff;
 }
 [data-nt-theme="dark"] .nt-btn--primary,
@@ -89,3 +90,8 @@ body.nt-has-quickcall:has(.nt-assistant-toggle) .nt-footer__bottom { padding-bot
 [data-nt-theme="dark"] .nt-search__btn { color: #111827; }
 [data-nt-theme="dark"] .woocommerce-product-details__short-description { color: var(--nt-muted); }
 [data-nt-theme="dark"] .nt-price-table__price { color: var(--nt-accent); }
+
+[data-nt-theme="dark"] .onsale,
+[data-nt-theme="dark"] .wpcf7 .wpcf7-submit,
+[data-nt-theme="dark"] .nt-brand__mark,
+[data-nt-theme="dark"] .skip-link { color: #111827; }

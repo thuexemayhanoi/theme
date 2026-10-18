@@ -12,7 +12,7 @@ import { parseArgs } from 'node:util';
 const { values: opt, positionals } = parseArgs({ options: { check: { type: 'string' } }, allowPositionals: true });
 const snap = JSON.parse(await readFile(positionals[0], 'utf8'));
 const status = new Map();
-for (const p of snap.urls) status.set(p.path, p.status);
+for (const p of snap.urls) if (p.status !== null) status.set(p.path, p.status);
 if (opt.check) for (const r of JSON.parse(await readFile(opt.check, 'utf8')).results) status.set(r.path, r.status);
 
 const silo = (path) => {

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 const SIMS = (process.env.NT_SIMS ?? 'on') === 'on';
 for (const width of [360,390,768,1440]) {
  test(`display preference and native assistant @ ${width}`, async ({page}) => {
@@ -7,6 +8,8 @@ for (const width of [360,390,768,1440]) {
   const mode=page.getByRole('combobox',{name:'Chế độ hiển thị'});
   await mode.selectOption('dark');
   await expect(page.locator('html')).toHaveAttribute('data-nt-theme','dark');
+  const headerAxe = await new AxeBuilder({page}).include('#site-header').withTags(['wcag2a','wcag2aa']).analyze();
+  expect(headerAxe.violations.filter(v => ['critical','serious'].includes(v.impact)).map(v=>v.id)).toEqual([]);
   await page.reload();
   await expect(mode).toHaveValue('dark');
   await page.emulateMedia({colorScheme:'light'});

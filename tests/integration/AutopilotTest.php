@@ -24,6 +24,17 @@ final class AutopilotTest extends TestCase {
         $this->assertSame($other,nt_deduplicate_legacy_header($legacy.$other));
         $this->assertStringContainsString('nguyen-tu-website',$legacy);
     }
+    public function test_shop_authored_h1_does_not_get_duplicate_generic_title(): void {
+        $id=wc_get_page_id('shop'); $post=get_post($id); $original=$post->post_content;
+        try {
+            wp_update_post(array('ID'=>$id,'post_content'=>'<h1>Shop authored title</h1>'));
+            $GLOBALS['wp_query']=new WP_Query(array('post_type'=>'product'));
+            $GLOBALS['wp_query']->is_post_type_archive=true;
+            $this->assertFalse(nt_wc_show_page_title(true));
+            $GLOBALS['wp_query']->is_paged=true;
+            $this->assertTrue(nt_wc_show_page_title(true));
+        } finally { wp_update_post(array('ID'=>$id,'post_content'=>$original)); wp_reset_query(); }
+    }
     public function test_verified_prices_and_followup(): void {
         $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
         $this->assertSame('prices', $answer['intent']);

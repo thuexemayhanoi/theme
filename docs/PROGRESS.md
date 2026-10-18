@@ -151,3 +151,12 @@ Tiếp theo: CI static/integration/e2e, đối chiếu HTML thực, sửa lỗi;
 - Preview dữ liệu thật: sửa /bo-suu-tap/thue-ngay/ từ 404 thành H1 Thuê Ngày; không đổi term/URL. Graph chỉ còn 1 của Yoast, 1 LocalBusiness, giờ09–21, không Offer InStock. Title trang chủ giữ nguyên.
 - Giao diện dark đã sửa nền header/pseudo-element và chữ menu. Form chat thực đã trả đúng giá Vision theo tháng, clock hiển thị Đang mở cửa. Preview REST mang token sandbox khi cache JS chưa thay.
 - Chưa merge/deploy main; plugin QuickCall cũ vẫn active, native sẽ tự nhận vị trí sau khi tắt đúng plugin được ủy quyền, sau test.
+
+
+### Mở rộng kiểm chứng thực tế
+
+Đọc đủ 10 trang tĩnh thật trong preview: không có shortcode thô. /shop/ có 2 H1 (H1 chung Woo + H1 biên tập); đã bổ sung filter chỉ ẩn H1 chung ở trang đầu khi nội dung có H1, giữ nguyên H1 biên tập, trang phân trang giữ title. Preview xác nhận còn 1 H1 "Chọn mẫu xe máy tại Nguyễn Tú". Thêm test tích hợp.
+
+Báo cáo trước/preview: `autopilot-live-before.json`, `autopilot-preview-diff.json`, `autopilot-page-coverage.json`. 5 mẫu giữ toàn bộ metadata/H1; /bo-suu-tap/thue-ngay/ thay từ trang404 sang danh mục thật là sửa chủ ý. Graph liên kết `autopilot-internal-links.csv`: 416 cạnh, coverage6URL, HTTP status chưa được connector cung cấp; không coi là kiểm tra HTTP toàn site.
+
+Search Console đọc được khoảng13–15/10/2026 cho homepage: 11 click,259 impression,CTR4,25%, vị trí trung bình12,60. Đây là baseline trước bản nâng cấp, không phải kết quả hoặc điểm SEO của theme mới.
