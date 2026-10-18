@@ -17,6 +17,7 @@ Các mục dưới đây là phần **không thể kiểm tra trong môi trườ
 - [ ] `wp nguyentu-compat verify --probe` → "Mọi URL featured_item và term resolve đúng"; `compare featured-before.csv` → không MISSING/CHANGED.
 - [ ] `wp nguyentu status` không có dòng ATTENTION đáng ngại (Yoast hoạt động; 4 vị trí menu đã gán).
 - [ ] Menu: đủ 36 mục, đúng cha–con, đúng thứ tự (so `wp menu item list 67`).
+- [ ] Nếu vị trí `primary_mobile` được gán một menu **khác** `primary`: ngăn kéo di động chỉ hiện menu di động, desktop chỉ hiện menu chính (mặc định cả hai cùng là menu #67 nên chỉ có một bản liên kết).
 - [ ] `node tools/seo/snapshot.mjs --base <staging> ...` → `diff.mjs before after` → **P0 = 0** (xem `reports/seo-diff.md`).
 - [ ] `wp nguyentu legacy-scan --format=markdown` → điền kết quả vào `docs/LEGACY-COMPAT.md`; không tag quan trọng nào ở trạng thái STRIPPED.
 - [ ] **Widget**: vào *Giao diện › Widget*. WordPress tự chuyển widget của theme cũ sang hai vùng của theme mới

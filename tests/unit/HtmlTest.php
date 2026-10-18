@@ -31,6 +31,21 @@ final class HtmlTest extends TestCase {
 		$this->assertSame( array( 2, 3, 2 ), array_column( $result['items'], 'level' ) );
 	}
 
+	public function test_a_generated_id_never_duplicates_an_authored_id_that_comes_later(): void {
+		$result = nt_html_headings_with_ids( '<h2>Foo</h2><p>a</p><h3 id="foo">Khác</h3><h2>Foo</h2>', 2, 3 );
+		$this->assertStringContainsString( '<h2 id="foo-2">Foo</h2>', $result['html'] );
+		$this->assertStringContainsString( '<h3 id="foo">Khác</h3>', $result['html'] );
+		$this->assertStringContainsString( '<h2 id="foo-3">Foo</h2>', $result['html'] );
+		$this->assertSame( array( 'foo-2', 'foo', 'foo-3' ), array_column( $result['items'], 'id' ) );
+		$this->assertSame( 3, count( array_unique( array_column( $result['items'], 'id' ) ) ), 'every TOC target is unique' );
+	}
+
+	public function test_generated_ids_also_avoid_ids_on_other_elements(): void {
+		$result = nt_html_headings_with_ids( '<h2>Giá thuê</h2><div id="gia-thue">x</div><a id=\'gia-thue-2\'></a>' );
+		$this->assertSame( array( 'gia-thue-3' ), array_column( $result['items'], 'id' ) );
+		$this->assertStringContainsString( '<div id="gia-thue">x</div>', $result['html'], 'authored markup is untouched' );
+	}
+
 	public function test_heading_ids_never_change_text_or_levels(): void {
 		$html   = '<h2 class="c">Bảng <strong>giá</strong></h2>';
 		$result = nt_html_headings_with_ids( $html );

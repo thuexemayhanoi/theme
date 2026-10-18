@@ -40,6 +40,7 @@ $nt_modules = array(
 	'lib/html',
 	'lib/css',
 	'lib/prices',
+	'lib/layout',
 	'icons',
 	'business',
 	'settings',

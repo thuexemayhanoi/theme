@@ -28,7 +28,9 @@ defined( 'ABSPATH' ) || exit;
 	<div class="nt-container nt-header__inner">
 		<?php get_template_part( 'template-parts/header/brand' ); ?>
 
-		<nav id="nt-nav" class="nt-nav" aria-label="Menu chính" data-nt-nav>
+		<?php // A separate menu on the mobile location replaces the main one in the drawer; the markup carries both, CSS shows one. ?>
+		<?php $nt_split_nav = nt_has_distinct_mobile_menu(); ?>
+		<nav id="nt-nav" class="nt-nav<?php echo $nt_split_nav ? ' nt-nav--split' : ''; ?>" aria-label="Menu chính" data-nt-nav>
 			<div class="nt-nav__head">
 				<span class="nt-nav__title">Menu</span>
 				<button type="button" class="nt-iconbtn nt-nav__close" data-nt-menu-close aria-label="Đóng menu">
@@ -43,7 +45,7 @@ defined( 'ABSPATH' ) || exit;
 					<?php
 				}
 				?>
-				<?php if ( nt_has_distinct_mobile_menu() ) : ?>
+				<?php if ( $nt_split_nav ) : ?>
 					<div class="nt-nav__mobile-only"><?php nt_render_menu( 'primary_mobile' ); ?></div>
 				<?php endif; ?>
 				<div class="nt-nav__foot">

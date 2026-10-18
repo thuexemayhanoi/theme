@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
 
 test.describe('desktop menu (1280px)', () => {
@@ -120,4 +121,35 @@ test('without JavaScript every menu stays reachable', async ({ browser }) => {
 	expect(await page.locator('a.nt-menu__link').count()).toBe(36);
 	await expect(page.locator('#nt-nav')).toBeVisible();
 	await ctx.close();
+});
+
+// A separate menu assigned to the mobile location replaces the main one in the drawer: the header markup carries both
+// (nav.nt-nav--split) and the stylesheet shows one. Checked against the real stylesheet on a minimal document, so no
+// site state (menu assignments) has to change while other specs run.
+test.describe('separate mobile menu: the drawer shows it instead of the main menu', () => {
+	const css = readFileSync('assets/css/main.css', 'utf8');
+	const nav = (cls) => `<header class="nt-header"><nav id="nt-nav" class="${cls}" data-nt-nav><div class="nt-nav__scroll">
+		<ul id="nt-menu-primary" class="nt-menu"><li class="nt-menu__item nt-menu__item--d0"><a class="nt-menu__link" href="#main-item">Main menu item</a></li></ul>
+		<div class="nt-nav__mobile-only"><ul id="nt-menu-primary_mobile" class="nt-menu"><li class="nt-menu__item nt-menu__item--d0"><a class="nt-menu__link" href="#mobile-item">Mobile menu item</a></li></ul></div>
+	</div></nav></header>`;
+	const shown = (page) => page.evaluate(() => ({
+		main: getComputedStyle(document.getElementById('nt-menu-primary')).display !== 'none',
+		mobile: getComputedStyle(document.querySelector('.nt-nav__mobile-only')).display !== 'none',
+	}));
+
+	for (const [label, width, expected] of [['phone 390 px', 390, { main: false, mobile: true }], ['tablet 768 px', 768, { main: false, mobile: true }], ['desktop 1280 px', 1280, { main: true, mobile: false }]]) {
+		test(`${label}: main menu ${expected.main ? 'shown' : 'hidden'}, mobile menu ${expected.mobile ? 'shown' : 'hidden'}`, async ({ browser }) => {
+			const page = await browser.newPage({ viewport: { width, height: 900 } });
+			await page.setContent(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${css}</style></head><body>${nav('nt-nav nt-nav--split')}</body></html>`);
+			expect(await shown(page)).toEqual(expected);
+			await page.close();
+		});
+	}
+
+	test('without a separate mobile menu the stylesheet does not hide the main menu on a phone', async ({ browser }) => {
+		const page = await browser.newPage({ viewport: { width: 390, height: 900 } });
+		await page.setContent(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>${css}</style></head><body>${nav('nt-nav')}</body></html>`);
+		expect((await shown(page)).main).toBe(true);
+		await page.close();
+	});
 });

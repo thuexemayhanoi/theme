@@ -337,6 +337,10 @@ body.nt-has-quickcall, body.nt-has-chat { --nt-fixed-bars: 76px; }
 .nt-nav__foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--nt-line); }
 .nt-nav__nap { margin-top: 16px; font-size: .875rem; color: var(--nt-muted); }
 .nt-nav__empty { padding: 16px 0; color: var(--nt-muted); }
+/* With a separate "mobile" menu assigned, the drawer shows that one instead of the main menu (desktop keeps the main one). */
+@media (max-width: 1023.98px) {
+	.nt-nav--split #nt-menu-primary, .nt-nav--split .nt-nav__empty { display: none; }
+}
 .nt-scrim { position: fixed; inset: 0; z-index: 60; background: rgb(12 26 51 / 55%); }
 .nt-scrim[hidden] { display: none; }
 

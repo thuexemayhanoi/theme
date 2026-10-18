@@ -55,7 +55,9 @@ function nt_html_first_h1_text( string $html ): string {
 /**
  * Add missing id attributes to headings and return the table-of-contents items.
  *
- * Existing ids are kept untouched (anchors that other pages link to must survive).
+ * Existing ids are kept untouched (anchors that other pages link to must survive). Every id the
+ * fragment already carries, on any element and wherever it appears, is reserved before a missing
+ * one is generated, so a generated id never duplicates an authored anchor that comes later.
  *
  * @param string $html      HTML fragment.
  * @param int    $min_level Lowest heading level to include (2 = h2).
@@ -68,6 +70,12 @@ function nt_html_headings_with_ids( string $html, int $min_level = 2, int $max_l
 	$min   = max( 1, min( 6, $min_level ) );
 	$max   = max( $min, min( 6, $max_level ) );
 	$re    = '#<h([' . $min . '-' . $max . '])\b([^>]*)>(.*?)</h\1>#is';
+
+	if ( preg_match_all( '/\sid\s*=\s*(["\'])(.*?)\1/i', $html, $existing ) ) {
+		foreach ( $existing[2] as $existing_id ) {
+			$used[ $existing_id ] = true;
+		}
+	}
 
 	$out = preg_replace_callback(
 		$re,

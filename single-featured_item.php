@@ -18,7 +18,7 @@ get_header();
 		$nt_id       = (int) get_the_ID();
 		$nt_content  = nt_get_rendered_content();
 		$nt_print_h1 = nt_should_print_h1( $nt_content );
-		$nt_is_wide  = (bool) preg_match( '/nt-lg-(?:section|banner|row)/', $nt_content );
+		$nt_is_wide  = nt_content_is_wide( $nt_content );
 		$nt_terms    = get_the_terms( $nt_id, 'featured_item_category' );
 		$nt_period   = '';
 		if ( is_array( $nt_terms ) ) {
@@ -29,7 +29,7 @@ get_header();
 		$nt_siblings = nt_featured_sibling_ids( $nt_id, 4 );
 		?>
 		<article id="post-<?php the_ID(); ?>" class="nt-pagebody">
-			<?php if ( $nt_print_h1 || ! $nt_is_wide ) : ?>
+			<?php if ( 'full' === nt_pagehead_mode( $nt_print_h1, $nt_is_wide ) ) : ?>
 				<header class="nt-pagehead">
 					<div class="nt-container nt-container--narrow">
 						<?php nt_breadcrumbs(); ?>
@@ -38,6 +38,11 @@ get_header();
 						<?php endif; ?>
 					</div>
 				</header>
+			<?php else : ?>
+				<?php // A wide body with its own H1: keep the visible breadcrumb (the bridge strips [ux_breadcrumbs]) without a second heading. ?>
+				<div class="nt-pagecrumbs">
+					<div class="nt-container"><?php nt_breadcrumbs(); ?></div>
+				</div>
 			<?php endif; ?>
 
 			<div class="nt-pagecontent<?php echo $nt_is_wide ? ' nt-pagecontent--wide' : ''; ?>">

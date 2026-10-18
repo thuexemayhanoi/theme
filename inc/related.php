@@ -64,19 +64,36 @@ function nt_related_post_ids( int $post_id, int $limit = 4 ): array {
 
 	$terms = nt_topic_terms( $post_id );
 	$ids   = array();
+	// Tier 1 is the post's own topic categories only. Tier 2 is the broader parent topic WITH its
+	// sub-categories: category__in matches direct assignments only, so a post that sits just in a
+	// sibling sub-category would never be found.
 	$tiers = array(
-		$terms['topic'],
-		array_diff( $terms['parents'], array() ),
+		array(
+			'terms'    => $terms['topic'],
+			'children' => false,
+		),
+		array(
+			'terms'    => $terms['parents'],
+			'children' => true,
+		),
 	);
-	foreach ( $tiers as $tier_terms ) {
-		if ( array() === $tier_terms || count( $ids ) >= $limit ) {
+	foreach ( $tiers as $tier ) {
+		if ( array() === $tier['terms'] || count( $ids ) >= $limit ) {
 			continue;
 		}
 		$query = new WP_Query(
 			array(
 				'post_type'              => 'post',
 				'post_status'            => 'publish',
-				'category__in'           => $tier_terms,
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- one bounded query per tier (posts_per_page), result cached.
+				'tax_query'              => array(
+					array(
+						'taxonomy'         => 'category',
+						'field'            => 'term_id',
+						'terms'            => $tier['terms'],
+						'include_children' => $tier['children'],
+					),
+				),
 				'post__not_in'           => array_merge( array( $post_id ), $ids ),
 				'posts_per_page'         => $limit - count( $ids ),
 				'orderby'                => 'date',

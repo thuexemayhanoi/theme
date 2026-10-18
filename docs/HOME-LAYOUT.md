@@ -23,6 +23,10 @@ Trang chủ là Page #562 với ~40 KB shortcode Flatsome. Yêu cầu P0: **khô
 
 Mục ở chế độ "Luôn hiện" sẽ hiển thị dù nội dung đã có; "Luôn ẩn" tắt hẳn.
 
+**Dải thông tin nhanh** (giờ mở cửa, loại xe, lời hứa xác nhận giá và cọc) nằm trong hero native. Khi nội dung trang tự có H1 và hero riêng:
+"Tự động" **không** thêm gì (giờ mở cửa đã có ở mục địa chỉ), "Luôn hiện" in dải này ngay dưới nội dung trang, "Luôn ẩn" tắt hẳn.
+Dải này không bao giờ thêm H1 (`nt_home_facts_placement()`, có unit test và e2e).
+
 ## Quy tắc nội dung
 
 - Không có tuyên bố chưa xác minh: không "miễn phí giao xe", không "không cần cọc", không "24/7", không số đánh giá/sao.

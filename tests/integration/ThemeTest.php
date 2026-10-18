@@ -64,6 +64,31 @@ final class ThemeTest extends TestCase {
 		}
 	}
 
+	public function test_related_posts_fall_back_to_the_whole_parent_topic_including_its_sub_categories(): void {
+		// Category 177 is a child of 127. Its only post has no other category, so the exact-topic tier is empty and every
+		// related post must come from the parent topic: its own posts AND the posts that sit only in sibling sub-categories.
+		$ids = get_posts( array( 'category__in' => array( 177 ), 'numberposts' => 1, 'fields' => 'ids' ) );
+		$this->assertNotEmpty( $ids, 'category 177 has a post in the sandbox' );
+		$post_id = (int) $ids[0];
+		$terms   = nt_topic_terms( $post_id );
+		$this->assertSame( array( 177 ), $terms['topic'] );
+		$this->assertSame( array( 127 ), $terms['parents'] );
+
+		$pool = static function ( array $category_ids ) use ( $post_id ): array {
+			return array_map( 'intval', get_posts( array( 'category__in' => $category_ids, 'post__not_in' => array( $post_id ), 'numberposts' => -1, 'fields' => 'ids', 'post_status' => 'publish' ) ) );
+		};
+		$with_children = $pool( array_merge( array( 127 ), get_term_children( 127, 'category' ) ) );
+		$direct_only   = $pool( array( 127 ) );
+		$limit         = 12;
+		$this->assertGreaterThan( min( $limit, count( $direct_only ) ), min( $limit, count( $with_children ) ), 'fixture check: posts that sit only in sibling sub-categories exist, so the two behaviours differ' );
+
+		$related = nt_related_post_ids( $post_id, $limit );
+		$this->assertCount( min( $limit, count( $with_children ) ), $related, 'the parent tier reaches the sibling sub-categories' );
+		$this->assertSame( array(), array_diff( $related, $with_children ), 'only posts of the parent topic' );
+		$this->assertNotContains( $post_id, $related );
+		$this->assertSame( count( $related ), count( array_unique( $related ) ), 'no post twice' );
+	}
+
 	public function test_url_localization_points_menu_links_at_the_current_host(): void {
 		$items = wp_get_nav_menu_items( 67 );
 		$this->assertNotEmpty( $items );

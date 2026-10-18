@@ -80,7 +80,7 @@ if ( ! function_exists( 'esc_url' ) ) {
 	}
 }
 
-foreach ( array( 'lib/text', 'lib/html', 'lib/css', 'lib/prices', 'business', 'legacy/helpers' ) as $nt_unit_file ) {
+foreach ( array( 'lib/text', 'lib/html', 'lib/css', 'lib/prices', 'lib/layout', 'business', 'legacy/helpers' ) as $nt_unit_file ) {
 	require_once NT_TEST_ROOT . '/inc/' . $nt_unit_file . '.php';
 }
 unset( $nt_unit_file );

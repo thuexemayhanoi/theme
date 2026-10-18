@@ -34,13 +34,11 @@ if ( '' === $nt_lead ) {
 				)
 			);
 			?>
-			<?php if ( ! empty( $args['facts'] ) ) : ?>
-				<ul class="nt-hero__facts">
-					<li><?php nt_the_icon( 'clock', array( 'size' => 18 ) ); ?>Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày</li>
-					<li><?php nt_the_icon( 'motorbike', array( 'size' => 18 ) ); ?>Xe số &middot; Xe ga &middot; Xe điện</li>
-					<li><?php nt_the_icon( 'shield', array( 'size' => 18 ) ); ?>Xác nhận giá và cọc trước khi ký</li>
-				</ul>
-			<?php endif; ?>
+			<?php
+			if ( ! empty( $args['facts'] ) ) {
+				get_template_part( 'template-parts/home/quickfacts' );
+			}
+			?>
 		</div>
 
 		<aside class="nt-hero__card" aria-label="Giá thuê tham khảo">
