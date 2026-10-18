@@ -267,7 +267,7 @@ function nt_faq_items(): array {
 		),
 		array(
 			'q' => 'Cửa hàng ở đâu và mở cửa lúc mấy giờ?',
-			'a' => nt_address() . '. Giờ hoạt động niêm yết: ' . nt_hours_range() . ', tất cả các ngày trong tuần.',
+			'a' => nt_address() . '. Giờ hoạt động thường lệ: ' . nt_hours_range() . '. Vui lòng xem trạng thái hoạt động để xác nhận lịch ngày nghỉ.',
 		),
 		array(
 			'q' => 'Có cho thuê xe máy điện và xe đạp điện không?',

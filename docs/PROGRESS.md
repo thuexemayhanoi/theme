@@ -135,3 +135,45 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 - **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
+
+## 9. MASTER WORK A–Z — 18/10/2026, checkpoint hiện hành
+
+Nhánh `feat/nguyentu-autopilot-az`, base `3df2bff`. Đã xác minh theme `theme` đang active thật (thông tin LIVE_UNCHANGED từ phiên migration trước chỉ mô tả phiên trước). Trong giai đoạn build này production code chưa đổi; WPVibe draft dùng để test, mã nguồn chính vẫn ở repo.
+
+Đã bổ sung giờ máy chủ + ngày nghỉ/ngoại lệ, sáng/tối/auto, native QuickCall, local rule/search assistant, chỉ mục incremental và graph outgoing, navigation cluster, tài liệu bảo trì độc lập công cụ AI. Không dùng API AI ngoài. Kiểm thử unit 85/1935 và Node 31 PASS; PHP syntax/JS/CSS/budget PASS. REST preview thử giá Vision tháng và clock thành công.
+
+Tiếp theo: CI static/integration/e2e, đối chiếu HTML thực, sửa lỗi; merge khi đạt; xác minh webhook; chuyển QuickCall sau test; sửa schema WPCode trùng đã tìm đúng nguồn và giờ cũ trong home bằng thay đoạn có đối chiếu. Chưa tuyên bố hoàn thành production. Chi tiết `reports/autopilot-audit-2026-10-18.md`, `docs/AUTOPILOT.md`, `AGENTS.md`.
+
+
+### Checkpoint kiểm thử preview
+
+- 8 cổng static local PASS; 85 unit test / 1940 assertions, 31 Node tests. CI static trên f0c6e4a PASS; sandbox đang dựng và phải chạy lại cho đầu nhánh cuối.
+- Preview dữ liệu thật: sửa /bo-suu-tap/thue-ngay/ từ 404 thành H1 Thuê Ngày; không đổi term/URL. Graph chỉ còn 1 của Yoast, 1 LocalBusiness, giờ09–21, không Offer InStock. Title trang chủ giữ nguyên.
+- Giao diện dark đã sửa nền header/pseudo-element và chữ menu. Form chat thực đã trả đúng giá Vision theo tháng, clock hiển thị Đang mở cửa. Preview REST mang token sandbox khi cache JS chưa thay.
+- Chưa merge/deploy main; plugin QuickCall cũ vẫn active, native sẽ tự nhận vị trí sau khi tắt đúng plugin được ủy quyền, sau test.
+
+
+### Mở rộng kiểm chứng thực tế
+
+Đọc đủ 10 trang tĩnh thật trong preview: không có shortcode thô. /shop/ có 2 H1 (H1 chung Woo + H1 biên tập); đã bổ sung filter chỉ ẩn H1 chung ở trang đầu khi nội dung có H1, giữ nguyên H1 biên tập, trang phân trang giữ title. Preview xác nhận còn 1 H1 "Chọn mẫu xe máy tại Nguyễn Tú". Thêm test tích hợp.
+
+Báo cáo trước/preview: `autopilot-live-before.json`, `autopilot-preview-diff.json`, `autopilot-page-coverage.json`. 5 mẫu giữ toàn bộ metadata/H1; /bo-suu-tap/thue-ngay/ thay từ trang404 sang danh mục thật là sửa chủ ý. Graph liên kết `autopilot-internal-links.csv`: coverage6URL, HTTP status chưa được connector cung cấp; không coi là kiểm tra HTTP toàn site.
+
+Search Console đọc được khoảng13–15/10/2026 cho homepage: 11 click,259 impression,CTR4,25%, vị trí trung bình12,60. Đây là baseline trước bản nâng cấp, không phải kết quả hoặc điểm SEO của theme mới.
+
+### Hiệu năng thực trước triển khai
+
+PageSpeed Insights mobile homepage: Performance64, Accessibility89, BestPractices96, SEO100; LCP6,3s, CLS0, TBT20ms, FCP4,6s. Không có CrUX field data; đây là lab, không phải kết luận SEO tổng thể. Phát hiện cụ thể: LiteSpeed thay src banner eager/high bằng placeholder/data-src, khiến banner còn phụ thuộc JS. Bổ sung data-no-lazy cho ảnh ưu tiên trong helper chung và banner, preview xác nhận src WebP thật giữ nguyên, không bị chuyển thành placeholder. Các ảnh dưới màn hình vẫn lazy. Không hứa điểm mới khi chưa đo lại.
+
+
+### Dọn mã preview khỏi báo cáo
+
+Phát hiện mã xem trước tạm thời trong báo cáo graph (tham số do WPVibe tự gắn vào link phân trang/toolbar). Đã xóa draft thử nghiệm do phiên này tạo để vô hiệu hóa token; dữ liệu và theme production không đổi. Mã nguồn draft đã nằm trong repo. Bổ sung bộ lọc báo cáo và test chống xuất tham số preview/nonce; bỏ các cạnh toolbar quản trị. Mã preview cũ trong lịch sử branch đã hết hiệu lực, không cấp quyền quản trị. Không đưa token mới vào báo cáo.
+
+
+### CI 39110403571 — phát hiện và sửa trước phát hành
+
+- Static PASS; integration71/939 PASS; trình duyệt160 PASS,6 FAIL cùng một nguyên nhân: nhãn giờ mới tại /lien-he/ được thêm ngoài container nên sát mép ở6widths. Đã bọc bằng nt-container chung, giữ nguyên kiểm tra gutter.
+- Nativecontact + trợ lý/Light-Dark-Auto:8/8 PASS trên360/390/768/1440; Woo13, menu16, blog7, SEOhead11, accessibility20 PASS;64 ảnh chụp đã tạo.
+- Runtime log có1 lỗi duplicate trong Yoast Indexable_Hierarchy_Repository, stack chỉ qua header/wp_head chuẩn, không qua hàm theme sửa schema. Trùng xuất hiện ngay khi crawler4worker chạm archive lạnh sau các fixture publish/draft/delete. Cho lượt crawl đầu chạy tuần tự (cùng coverageURL), giữ browser song song và giữ nguyên cổng runtime-log FAIL nếu còn lỗi. Đây là giả thuyết đã định vị theo trace, cần lượt CI kế tiếp xác minh; không sửa vendor hoặc giấu log.
+- Chưa merge main. Các báo cáo preview đã bỏ tham số phiên, draft đã dọn; runtime chỉ dùng WordPress/rules, không API AI trả phí.

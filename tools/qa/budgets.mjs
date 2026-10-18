@@ -9,6 +9,8 @@ import { gzipSync } from 'node:zlib';
 const root = new URL('../../', import.meta.url);
 const KB = 1024;
 const BUDGETS = [
+	['assets/css/autopilot.css', 12 * KB, 4 * KB],
+	['assets/js/autopilot.js', 10 * KB, 4 * KB],
 	['assets/css/main.css', 34 * KB, 9 * KB],
 	['assets/css/home.css', 16 * KB, 4.5 * KB],
 	['assets/css/blog.css', 16 * KB, 4.5 * KB],

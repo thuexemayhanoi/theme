@@ -11,8 +11,17 @@ import { parseArgs } from 'node:util';
 
 const { values: opt, positionals } = parseArgs({ options: { check: { type: 'string' } }, allowPositionals: true });
 const snap = JSON.parse(await readFile(positionals[0], 'utf8'));
+// Never export preview/session tokens or administrative preview-toolbar links.
+for (const page of snap.urls) {
+ if (!page.links?.sample) continue;
+ page.links.sample = page.links.sample.filter(link => !/wpvibe_stop_preview=/.test(link.path)).map(link => {
+  const url = new URL(link.path, 'https://example.invalid');
+  for (const key of [...url.searchParams.keys()]) if (/^(wpvibe_preview|wpvibe_stop_preview|_wpnonce)$/i.test(key)) url.searchParams.delete(key);
+  return {...link, path: url.pathname + url.search};
+ });
+}
 const status = new Map();
-for (const p of snap.urls) status.set(p.path, p.status);
+for (const p of snap.urls) if (p.status !== null) status.set(p.path, p.status);
 if (opt.check) for (const r of JSON.parse(await readFile(opt.check, 'utf8')).results) status.set(r.path, r.status);
 
 const silo = (path) => {
@@ -24,7 +33,14 @@ const silo = (path) => {
 	return 'site';
 };
 const esc = (v) => (/[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
-console.log(['source_url', 'target_url', 'anchor', 'target_status', 'source_silo', 'target_silo', 'breakage', 'recommendation'].join(','));
+const incoming = new Map();
+const outgoing = new Map();
+for (const page of snap.urls) {
+ const targets = new Set((page.links?.sample || []).map(link => link.path).filter(path => path !== page.path));
+ outgoing.set(page.path, targets.size);
+ for (const path of targets) incoming.set(path, (incoming.get(path) || 0) + 1);
+}
+console.log(['source_url', 'target_url', 'anchor', 'target_status', 'source_silo', 'target_silo', 'breakage', 'recommendation', 'source_outgoing_count', 'target_incoming_count'].join(','));
 for (const page of snap.urls) {
 	if (!page.links) continue;
 	const seen = new Set();
@@ -48,6 +64,13 @@ for (const page of snap.urls) {
 		const a = silo(page.path);
 		const b = silo(link.path);
 		if (!breakage && a.startsWith('blog/') && b === 'shop' && /thuê|xe máy/i.test(link.text) === false) rec = 'Check relevance: commercial link from a supporting article';
-		console.log([page.path, link.path, link.text, st ?? '', a, b, breakage, rec].map(esc).join(','));
+		console.log([page.path, link.path, link.text, st ?? '', a, b, breakage, rec, outgoing.get(page.path) || 0, incoming.get(link.path) || 0].map(esc).join(','));
 	}
+}
+
+// Orphans refer only to this snapshot's coverage, not all WordPress content.
+for (const page of snap.urls) {
+ if (page.path === '/' || incoming.has(page.path) || page.status >= 400) continue;
+ const source = snap.urls.find(other => other.path !== page.path && silo(other.path) === silo(page.path) && other.status >= 200 && other.status < 300);
+ console.log([source?.path || '', page.path, '', page.status || '', source ? silo(source.path) : '', silo(page.path), 'no-incoming-in-sample', 'Review a contextual link from a relevant published page; do not auto-insert', source ? outgoing.get(source.path) || 0 : '', 0].map(esc).join(','));
 }

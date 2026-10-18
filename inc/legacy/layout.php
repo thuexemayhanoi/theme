@@ -325,7 +325,7 @@ function nt_lg_title( $atts ): string {
  * @param string $content Inner content (text boxes, images, buttons).
  */
 function nt_lg_banner( $atts, $content = '' ): string {
-	$a     = nt_lg_atts(
+	$a = nt_lg_atts(
 		array(
 			'height'     => '300px',
 			'height__sm' => '',
@@ -372,7 +372,7 @@ function nt_lg_banner( $atts, $content = '' ): string {
 				esc_url( $a['bg'] ),
 				esc_attr( 'Thuê xe máy Hà Nội Nguyễn Tú, 112 Nguyễn Văn Cừ, Bồ Đề, Long Biên, Hà Nội' ),
 				$eager ? 'eager' : 'lazy',
-				$eager ? ' fetchpriority="high"' : ''
+				$eager ? ' fetchpriority="high" data-no-lazy="1"' : ''
 			)
 			: nt_lg_image_html(
 				$a['bg'],

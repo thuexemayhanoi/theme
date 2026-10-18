@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NT_VERSION', '1.0.0' );
+define( 'NT_VERSION', '1.1.0' );
 define( 'NT_DIR', get_template_directory() );
 define( 'NT_URI', get_template_directory_uri() );
 
@@ -41,9 +41,13 @@ $nt_modules = array(
 	'lib/css',
 	'lib/prices',
 	'lib/layout',
+	'lib/hours',
 	'icons',
 	'business',
 	'settings',
+	'hours',
+	'assistant',
+	'autopilot',
 	'setup',
 	'enqueue',
 	'menus',

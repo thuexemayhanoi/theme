@@ -22,17 +22,6 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 </footer>
 
-<?php if ( nt_show_cta_bar() ) : ?>
-	<div class="nt-ctabar" role="region" aria-label="Liên hệ nhanh">
-		<a class="nt-ctabar__btn nt-ctabar__btn--call" href="<?php echo esc_url( nt_tel_url() ); ?>">
-			<?php nt_the_icon( 'phone', array( 'size' => 20 ) ); ?><span>Gọi ngay</span>
-		</a>
-		<a class="nt-ctabar__btn nt-ctabar__btn--zalo" href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener">
-			<?php nt_the_icon( 'chat', array( 'size' => 20 ) ); ?><span>Zalo</span>
-		</a>
-	</div>
-<?php endif; ?>
-
 <?php wp_footer(); ?>
 </body>
 </html>

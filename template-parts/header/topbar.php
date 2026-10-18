@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 <div class="nt-topbar">
 	<div class="nt-container nt-topbar__inner">
 		<ul class="nt-topbar__facts">
-			<li><?php nt_the_icon( 'clock', array( 'size' => 16 ) ); ?><span>Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày</span></li>
+			<li><?php nt_the_icon( 'clock', array( 'size' => 16 ) ); ?><?php echo nt_hours_badge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- helper escapes. ?></li>
 			<li><?php nt_the_icon( 'pin', array( 'size' => 16 ) ); ?><span><?php echo esc_html( nt_address( false ) ); ?></span></li>
 		</ul>
 		<div class="nt-topbar__right">

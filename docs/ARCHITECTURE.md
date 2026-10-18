@@ -1,3 +1,5 @@
+> Cập nhật 18/10: các module Autopilot và đường mở rộng nằm trong [AUTOPILOT.md](AUTOPILOT.md); hợp đồng hiện hành ở [../AGENTS.md](../AGENTS.md). Chỉ mục postmeta/cron là ngoại lệ có chủ ý đối với mô tả "chỉ trình bày" cũ; không sửa bản ghi nội dung hoặc SEO metadata.
+
 # Kiến trúc theme Nguyễn Tú Editorial Commerce
 
 Theme **độc lập** (không `Template:` cha, không gọi hàm/tệp Flatsome — có test chặn). Thư mục gốc repo = thư mục theme để Deployer for Git cài trực tiếp.

@@ -127,6 +127,7 @@ get_header();
 			</div>
 		</article>
 
+		<?php nt_cluster_navigation(); ?>
 		<?php get_template_part( 'template-parts/content/related' ); ?>
 
 		<?php

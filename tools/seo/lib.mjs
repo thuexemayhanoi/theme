@@ -18,6 +18,9 @@ const sha = (text) => createHash('sha256').update(text).digest('hex').slice(0, 1
 export function pathOf(href, base = 'http://x.invalid/') {
 	try {
 		const u = new URL(href, base);
+		for (const key of [...u.searchParams.keys()]) {
+			if (/^(wpvibe_preview|wpvibe_stop_preview|_wpnonce)$/i.test(key)) u.searchParams.delete(key);
+		}
 		let p = u.pathname.replace(/\/{2,}/g, '/');
 		if (!/\.[a-z0-9]{2,5}$/i.test(p) && !p.endsWith('/')) p += '/';
 		return p + u.search;
@@ -54,7 +57,14 @@ function topNodes(parsed) {
  * @param {{html:string,url:string,status:number,headers?:Record<string,string>,finalUrl?:string,type?:string}} input
  */
 export function extractPage({ html, url, status, headers = {}, finalUrl, type = '' }) {
-	const base = finalUrl || url;
+ const cleanUrl = (value) => {
+  const clean = new URL(value);
+  for (const key of [...clean.searchParams.keys()]) if (/^(wpvibe_preview|wpvibe_stop_preview|_wpnonce)$/i.test(key)) clean.searchParams.delete(key);
+  return clean.href;
+ };
+ url = cleanUrl(url);
+ if (finalUrl) finalUrl = cleanUrl(finalUrl);
+ const base = finalUrl || url;
 	const $ = cheerio.load(html);
 	const host = new URL(base).host;
 
@@ -125,6 +135,7 @@ export function extractPage({ html, url, status, headers = {}, finalUrl, type = 
 		let abs;
 		try {
 			abs = new URL(href, base);
+			for (const key of [...abs.searchParams.keys()]) if (/^(wpvibe_preview|wpvibe_stop_preview|_wpnonce)$/i.test(key)) abs.searchParams.delete(key);
 		} catch {
 			return;
 		}

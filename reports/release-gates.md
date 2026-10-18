@@ -40,7 +40,7 @@
 | `motoai-real` — Real MotoAI chat widget compatibility (plugin not obtainable) | yes | **NOT_TESTED** | MotoAI Chat Widget is not publicly obtainable; only a layout simulator was tested (see e2e-contact). |
 | `flatsome-real-content` — Rendering of the real raw post_content of page #562 and siblings (needs staging with real DB) | yes | **NOT_TESTED** | The raw post_content of page #562 is not readable without authenticated access; run `wp nguyentu legacy-scan` and the staging checklist on a copy of the production database. |
 | `live-unchanged` — Production untouched: no activation, DB/option/file change, webhook or merge | yes | **PASS** | docs/PROGRESS.md records LIVE_UNCHANGED = TRUE (no activation, DB, option or file change on production) |
-| `secret-scan` — No credentials, tokens or keys in tracked files | yes | **PASS** | 256 tracked files scanned for keys/tokens/passwords: none found |
+| `secret-scan` — No credentials, tokens or keys in tracked files | yes | **PASS** | 274 tracked files scanned for keys/tokens/passwords: none found |
 | `rollback-doc` — Rollback plan documented | yes | **PASS** | docs/ROLLBACK.md exists |
 | `deploy-doc` — Deployment plan documented | yes | **PASS** | docs/DEPLOY.md exists |
 | `legacy-matrix-doc` — Shortcode compatibility matrix documented | yes | **PASS** | docs/LEGACY-COMPAT.md exists |

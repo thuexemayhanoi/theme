@@ -210,3 +210,21 @@ function nt_product_card( $product, array $args = array() ): void {
 	</article>
 	<?php
 }
+
+/**
+ * Preserve an authored shop H1 without adding WooCommerce's generic archive H1 above it.
+ * WooCommerce only prints the shop description on page one, so pagination keeps its title.
+ *
+ * @param bool $show Whether WooCommerce should print its generated page title.
+ * @return bool
+ */
+function nt_wc_show_page_title( bool $show ): bool {
+	if ( is_shop() && ! is_paged() ) {
+		$shop = get_post( wc_get_page_id( 'shop' ) );
+		if ( $shop instanceof WP_Post && preg_match( '/<h1\b/i', $shop->post_content ) ) {
+			return false;
+		}
+	}
+	return $show;
+}
+add_filter( 'woocommerce_show_page_title', 'nt_wc_show_page_title', 30 );

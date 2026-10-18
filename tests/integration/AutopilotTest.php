@@ -1,0 +1,119 @@
+<?php
+declare(strict_types=1);
+use PHPUnit\Framework\TestCase;
+final class AutopilotTest extends TestCase {
+    public function test_captured_custom_rules_restore_old_urls_without_losing_aliases(): void {
+        $old = get_option('nguyentu_legacy_compat');
+        try {
+            update_option('nguyentu_legacy_compat', array('rules'=>array('bo-suu-tap/([^/]+)/?$'=>'index.php?featured_item_category=$matches[1]')));
+            $rules = nt_featured_captured_rules(array('featured_item_category/([^/]+)/?$'=>'index.php?featured_item_category=$matches[1]'));
+            $this->assertArrayHasKey('bo-suu-tap/([^/]+)/?$',$rules);
+            $this->assertArrayHasKey('featured_item_category/([^/]+)/?$',$rules);
+            $term = get_term_by('slug','thue-ngay','featured_item_category');
+            $this->assertStringContainsString('/bo-suu-tap/thue-ngay/', get_term_link($term));
+        } finally { update_option('nguyentu_legacy_compat',$old); }
+    }
+    public function test_business_schema_is_inside_yoast_and_legacy_header_is_reversible(): void {
+        $graph=nt_yoast_business_graph(array(array('@type'=>'WebSite','@id'=>'site')));
+        $this->assertCount(2,$graph);
+        $this->assertSame('09:00',$graph[1]['openingHoursSpecification'][0]['opens']);
+        $this->assertArrayNotHasKey('makesOffer',$graph[1]);
+        $this->assertCount(2,nt_yoast_business_graph($graph));
+        $legacy='<script>'.wp_json_encode(array('@graph'=>array(array('@id'=>home_url('/#nguyen-tu-website'))))).'</script>';
+        $other='<script>window.example=1;</script>';
+        $this->assertSame($other,nt_deduplicate_legacy_header($legacy.$other));
+        $this->assertStringContainsString('nguyen-tu-website',$legacy);
+    }
+    public function test_shop_authored_h1_does_not_get_duplicate_generic_title(): void {
+        $id=wc_get_page_id('shop'); $post=get_post($id); $original=$post->post_content;
+        try {
+            wp_update_post(array('ID'=>$id,'post_content'=>'<h1>Shop authored title</h1>'));
+            $GLOBALS['wp_query']=new WP_Query(array('post_type'=>'product'));
+            $GLOBALS['wp_query']->is_post_type_archive=true;
+            $this->assertFalse(nt_wc_show_page_title(true));
+            $GLOBALS['wp_query']->is_paged=true;
+            $this->assertTrue(nt_wc_show_page_title(true));
+        } finally { wp_update_post(array('ID'=>$id,'post_content'=>$original)); wp_reset_query(); }
+    }
+    public function test_first_screen_images_are_excluded_from_cache_lazy_loading(): void {
+        $html=nt_lg_image_html('https://example.test/banner.webp',array('eager'=>true));
+        $this->assertStringContainsString('fetchpriority="high"',$html);
+        $this->assertStringContainsString('data-no-lazy="1"',$html);
+        $this->assertStringNotContainsString('data-no-lazy',nt_lg_image_html('https://example.test/other.webp',array('eager'=>false)));
+    }
+    public function test_legacy_home_hours_render_shared_state_without_rewriting_content(): void {
+        global $wp_query,$wp_the_query;
+        $old_query=$wp_query; $old_main=$wp_the_query;
+        $raw='Điện thoại · 08:00–21:30 · Không giao xe ngoài giờ';
+        try {
+            $wp_query=new WP_Query(array('page_id'=>562)); $wp_the_query=$wp_query;
+            $wp_query->in_the_loop=true;
+            $result=nt_contact_hours($raw);
+            $this->assertStringContainsString('data-nt-hours',$result);
+            $this->assertStringNotContainsString('08:00–21:30',$result);
+            $this->assertStringContainsString('08:00–21:30',$raw);
+        } finally { $wp_query=$old_query; $wp_the_query=$old_main; }
+    }
+    public function test_contextual_commercial_link_never_points_to_draft_target(): void {
+        $target=wp_insert_post(array('post_title'=>'NT service fixture','post_name'=>'nt-service-fixture','post_status'=>'publish'));
+        $article=wp_insert_post(array('post_title'=>'NT article fixture','post_status'=>'publish','post_category'=>array(162)));
+        $filter=static function() { return array('huong-dan-thue-xe'=>array('slug'=>'nt-service-fixture','label'=>'Service')); };
+        add_filter('nguyentu_cluster_commercial_targets',$filter);
+        try {
+            $this->assertSame(get_permalink($target),nt_cluster_commercial_link($article)['url']);
+            wp_update_post(array('ID'=>$target,'post_status'=>'draft'));
+            $this->assertSame(array(),nt_cluster_commercial_link($article));
+        } finally { remove_filter('nguyentu_cluster_commercial_targets',$filter); wp_delete_post($article,true); wp_delete_post($target,true); }
+    }
+    public function test_verified_prices_and_followup(): void {
+        $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
+        $this->assertSame('prices', $answer['intent']);
+        $this->assertStringContainsString('1.800.000–2.000.000đ', $answer['answer']);
+        $this->assertStringContainsString('1.000.000đ', nt_assistant_answer('Còn tuần?', $answer['context'])['answer']);
+        $this->assertStringNotContainsString('Honda Wave', $answer['answer']);
+    }
+    public function test_commercial_intents_and_no_fabricated_booking(): void {
+        foreach (array('Xe ga 50cc'=>'vehicles','Giá xe máy điện'=>'prices','Tiền đặt cọc'=>'deposit','Đặt cọc bao nhiêu?'=>'deposit','Phí giao xe bao nhiêu?'=>'location','How much deposit?'=>'deposit','Giao xe Phố Cổ'=>'location','Mở cửa lúc mấy giờ'=>'hours','Tôi muốn đặt xe ngày mai'=>'booking','Xe bị thủng lốp'=>'support') as $q=>$intent) {
+            $r = nt_assistant_answer($q);
+            $this->assertSame($intent,$r['intent'],$q);
+            $this->assertSame('local-rules-and-search',$r['mode']);
+        }
+        $this->assertStringContainsString('cannot confirm', nt_assistant_answer('I want to book a scooter')['answer']);
+        $this->assertStringContainsString('Liên hệ', nt_assistant_answer('Giá xe điện')['answer']);
+    }
+    public function test_index_excludes_drafts_passwords_and_unpublished_results(): void {
+        $id = wp_insert_post(array('post_title'=>'NT knowledge unique fixture','post_content'=>'Published knowledge fixture.','post_status'=>'publish'));
+        try {
+            $this->assertIsArray(get_post_meta($id,'_nt_knowledge',true));
+            wp_update_post(array('ID'=>$id,'post_status'=>'draft'));
+            $this->assertSame('',get_post_meta($id,'_nt_knowledge',true));
+            $this->assertSame(array(),nt_assistant_sources('NT knowledge unique fixture'));
+            wp_update_post(array('ID'=>$id,'post_status'=>'publish','post_password'=>'secret'));
+            $this->assertSame('',get_post_meta($id,'_nt_knowledge',true));
+        } finally { wp_delete_post($id,true); }
+    }
+    public function test_routes_validate_input_and_limit_spam(): void {
+        if (!did_action('rest_api_init')) do_action('rest_api_init');
+        add_filter('nguyentu_chat_widget_active','__return_false');
+        $request = new WP_REST_Request('POST','/nguyentu/v1/assistant');
+        $request->set_param('question',str_repeat('x',301));
+        $response = rest_get_server()->dispatch($request);
+        $this->assertSame(400,$response->get_status());
+        $request->set_param('question','Giá Vision theo tháng?');
+        $ip = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR']=$ip;
+        $key='nt_rate_'.hash_hmac('sha256',$ip,wp_salt('nonce'));
+        delete_transient($key);
+        try {
+            $this->assertSame(200,rest_get_server()->dispatch($request)->get_status());
+            set_transient($key,20,60);
+            $this->assertSame(429,rest_get_server()->dispatch($request)->get_status());
+        } finally { delete_transient($key); remove_filter('nguyentu_chat_widget_active','__return_false'); }
+    }
+    public function test_hours_response_is_not_cacheable(): void {
+        if (!did_action('rest_api_init')) do_action('rest_api_init');
+        $r=rest_get_server()->dispatch(new WP_REST_Request('GET','/nguyentu/v1/hours'));
+        $this->assertSame(200,$r->get_status());
+        $this->assertStringContainsString('no-store',$r->get_headers()['Cache-Control']);
+    }
+}

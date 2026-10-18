@@ -1,0 +1,289 @@
+{
+  "meta": {
+    "source": "WPVibe rendered HTML; HTTP status not exposed, 0 = unverified",
+    "coverage": "7 representative public URLs",
+    "capturedAt": "2026-10-18T07:48:51.310Z"
+  },
+  "urls": [
+    {
+      "url": "https://thuexemaynguyentu.com/",
+      "path": "/",
+      "status": 0,
+      "titles": [
+        "Thuê Xe Máy Hà Nội – Theo Ngày, Tháng | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Thuê xe máy Hà Nội tại Nguyễn Tú với xe số, xe ga 50cc–125cc. Thuê theo ngày, tuần hoặc tháng; thủ tục đặt cọc nhanh, hỗ trợ giao xe theo thỏa thuận."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/"
+      ],
+      "h1": [
+        "Thuê Xe Máy Hà Nội – Nguyễn Tú"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 12,
+        "h3": 45
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 3920,
+      "text_hash": "ea31d724db1b2dae"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/blog/",
+      "path": "/blog/",
+      "status": 0,
+      "titles": [
+        "Blog xe máy và du lịch Hà Nội | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Khám phá kinh nghiệm thuê xe máy, chọn xe, bảo dưỡng và du lịch Hà Nội. Đọc hướng dẫn theo chủ đề để chuẩn bị giấy tờ, phương tiện và lịch trình phù hợp."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/blog/"
+      ],
+      "h1": [
+        "Blog"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 14
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 917,
+      "text_hash": "22c30834c915adf0"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/blog/xe-dien/",
+      "path": "/blog/xe-dien/",
+      "status": 0,
+      "titles": [
+        "Xe máy điện: Pin, chi phí và cách chọn | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Tìm hiểu xe máy điện, pin, quãng đường, chi phí và điều kiện sử dụng. So sánh các hãng theo nhu cầu đi lại và kiểm tra thông tin của đúng phiên bản xe."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/blog/xe-dien/"
+      ],
+      "h1": [
+        "Xe Điện"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 14
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 890,
+      "text_hash": "0999e04511c29fe1"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/lien-he/",
+      "path": "/lien-he/",
+      "status": 0,
+      "titles": [
+        "Liên Hệ Nguyễn Tú | Thuê Xe Máy Hà Nội – 112 Nguyễn Văn Cừ"
+      ],
+      "descriptions": [
+        "Liên hệ Nguyễn Tú thuê xe máy Hà Nội tại 112 Nguyễn Văn Cừ, Bồ Đề, Long Biên. Gọi 0942 467 674 hoặc nhắn Zalo để đặt xe."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/lien-he/"
+      ],
+      "h1": [
+        "Liên hệ thuê xe máy Nguyễn Tú"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 7,
+        "h4": 1
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 673,
+      "text_hash": "33d2f47d65a8556f"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/san-pham/honda-wave/",
+      "path": "/san-pham/honda-wave/",
+      "status": 0,
+      "titles": [
+        "Thuê Xe Honda Wave Hà Nội | Giá & Đặt Xe – Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Thuê Honda Wave tại Nguyễn Tú, Hà Nội. Giá thuê theo ngày, tuần, tháng. Giao xe tận nơi, cọc nhẹ, xe vận hành êm ái, an toàn và tiện lợi."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/san-pham/honda-wave/"
+      ],
+      "h1": [
+        "Honda Wave"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 16,
+        "h3": 1
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 1235,
+      "text_hash": "50e8fe8a8a88e240"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/",
+      "path": "/bo-suu-tap/thue-ngay/",
+      "status": 0,
+      "titles": [
+        "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú"
+      ],
+      "descriptions": [],
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonicals": [],
+      "h1": [
+        "Không tìm thấy trang bạn cần"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h3": 3,
+        "h2": 4
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 412,
+      "text_hash": "9bbd35c1db6701f9"
+    },
+    {
+      "url": "https://thuexemaynguyentu.com/featured_item_category/bang-gia/",
+      "path": "/featured_item_category/bang-gia/",
+      "status": 0,
+      "titles": [
+        "Bảng Giá xe máy Hà Nội | Nguyễn Tú"
+      ],
+      "descriptions": [
+        "Tìm hiểu Bảng Giá xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe."
+      ],
+      "robots": [
+        "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      ],
+      "canonicals": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/"
+      ],
+      "h1": [
+        "Bảng Giá"
+      ],
+      "heading_counts": {
+        "h1": 1,
+        "h2": 14
+      },
+      "raw_shortcodes": [],
+      "nap": {
+        "phone_in_text": true,
+        "address_in_text": true,
+        "tel_links": [
+          "tel:0942467674"
+        ],
+        "zalo_links": [
+          "https://zalo.me/0942467674"
+        ],
+        "maps_links": [
+          "https://maps.google.com/maps?cid=7448790013669858019"
+        ]
+      },
+      "word_count": 781,
+      "text_hash": "c27775b6470a4b18"
+    }
+  ]
+}

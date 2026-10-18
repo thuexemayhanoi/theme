@@ -14,6 +14,7 @@ const shot = (page, name, w, fullPage) => page.screenshot({ path: `reports/scree
 
 const WIDTHS = [
 	{ w: 360, h: 800 },
+	{ w: 390, h: 844 },
 	{ w: 768, h: 1024 },
 	{ w: 1440, h: 900 },
 ];

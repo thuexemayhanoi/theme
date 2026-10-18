@@ -214,6 +214,7 @@ function nt_lg_image_html( string $ref, array $args = array() ): string {
 	);
 	if ( $args['eager'] ) {
 		$attr['fetchpriority'] = 'high';
+		$attr['data-no-lazy']  = '1';
 	}
 	if ( $args['decorative'] ) {
 		$attr['alt'] = '';
@@ -227,11 +228,12 @@ function nt_lg_image_html( string $ref, array $args = array() ): string {
 		return '';
 	}
 	return sprintf(
-		'<img src="%s" class="%s" alt="%s" loading="%s" decoding="async">',
+		'<img src="%s" class="%s" alt="%s" loading="%s" decoding="async"%s>',
 		$url,
 		esc_attr( (string) $args['class'] ),
 		$args['decorative'] ? '' : '',
-		$args['eager'] ? 'eager' : 'lazy'
+		$args['eager'] ? 'eager' : 'lazy',
+		$args['eager'] ? ' fetchpriority="high" data-no-lazy="1"' : ''
 	);
 }
 

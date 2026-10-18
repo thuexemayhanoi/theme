@@ -1,3 +1,5 @@
+> **Hợp đồng hiện hành 18/10/2026:** website đã dùng theme `theme`. Bắt đầu bảo trì từ [AGENTS.md](AGENTS.md) và [Autopilot](docs/AUTOPILOT.md). Chủ đã ủy quyền MASTER WORK A–Z; được merge/deploy các thay đổi trong phạm vi sau kiểm thử. Nội dung cấm go-live trong phần kiểm kê 17/10 bên dưới là lịch sử giai đoạn chuyển Flatsome, không phải yêu cầu xin lại quyền hiện tại. Giữ khóa tiêu đề trang chủ, nội dung/URL và Yoast metadata.
+
 # NGUYỄN TÚ — INDEPENDENT WORDPRESS THEME FACTORY
 
 > **SEO HULK — BẮT BUỘC, ƯU TIÊN P0:** Đọc và thực hiện toàn bộ [docs/SEO-HULK.md](docs/SEO-HULK.md) cùng README và CLAUDE.md. Giao diện đẹp thôi chưa đủ: bảo vệ canonical, robots, Yoast metadata/JSON-LD, sitemap, H1, category hierarchy, WooCommerce, Local SEO, internal links, Core Web Vitals và mọi URL cũ bằng báo cáo diff + kiểm thử. Không tự thay SEO cũ, không tạo schema trùng, không bịa score/ranking, không deploy live khi chưa đạt P0.

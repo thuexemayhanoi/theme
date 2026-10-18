@@ -77,7 +77,9 @@ if [ "$ONLY_E2E" != 1 ]; then
 		rec seo-rules-sandbox FAIL "P0 rule failures, see reports/seo-rules-after.md" reports/seo-rules-after.md
 		fail "SEO absolute rules (P0)"
 	fi
-	if node tools/seo/link-check.mjs reports/seo-after.json --base "$SITE_URL" --out reports/link-check-after.json; then
+	# First-touch archive requests lazily build Yoast hierarchy rows. Serialize the cold
+	# crawl after fixture mutations, then keep the browser suite parallel as before.
+	if node tools/seo/link-check.mjs reports/seo-after.json --base "$SITE_URL" --out reports/link-check-after.json --concurrency 1; then
 		rec link-check PASS "$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/link-check-after.json')).meta.checked)") internal link targets answered 2xx" reports/link-check-after.json
 	else
 		rec link-check FAIL "internal links answering non-2xx, see reports/link-check-after.json" reports/link-check-after.json
@@ -90,11 +92,11 @@ fi
 
 if [ "$E2E" = 1 ]; then
 	echo "== Playwright (simulators ON) =="
-	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout menu blog woo seo-head a11y contact --reporter=list,json,html || fail "Playwright (simulators on)"
+	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout menu blog woo seo-head a11y contact autopilot --reporter=list,json,html || fail "Playwright (simulators on)"
 	echo "== Playwright (simulators OFF: theme contact bar) =="
 	bash $SB/activate-sims.sh --off >/dev/null 2>&1
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true
-	NT_SIMS=off PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-sims-off.json npx playwright test contact --reporter=list,json || fail "Playwright (simulators off)"
+	NT_SIMS=off PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-sims-off.json npx playwright test contact autopilot --reporter=list,json || fail "Playwright (simulators off)"
 	if [ "$SHOTS" = 1 ]; then
 		# WordPress moved the previous theme's default widgets (Archives, Categories) into the new footer area on
 		# activation; that is a property of the sandbox, so evidence screenshots are taken without them.

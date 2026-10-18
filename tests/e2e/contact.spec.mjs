@@ -26,7 +26,7 @@ test.describe(`mobile contact UI (simulators ${SIMS ? 'ON' : 'OFF'}, 390px)`, ()
 		await page.goto('/blog/xe-dien/');
 		const classes = (await page.locator('body').getAttribute('class')) ?? '';
 		const fixed = await visibleFixed(page);
-		const bars = fixed.filter((f) => /nt-ctabar|moto-quickcall-bar/.test(f.cls));
+		const bars = fixed.filter((f) => /nt-tools|moto-quickcall-bar/.test(f.cls));
 		expect(bars.length, `fixed contact bars: ${JSON.stringify(bars.map((b) => b.id || b.cls))}`).toBe(1);
 
 		if (SIMS) {
@@ -37,9 +37,10 @@ test.describe(`mobile contact UI (simulators ${SIMS ? 'ON' : 'OFF'}, 390px)`, ()
 			await expect(page.locator('#motoai-chat-bubble-sim')).toBeVisible();
 		} else {
 			expect(classes).toContain('nt-has-cta-bar');
-			await expect(page.locator('.nt-ctabar')).toBeVisible();
-			await expect(page.locator('.nt-ctabar a[href="tel:0942467674"]')).toBeVisible();
-			await expect(page.locator('.nt-ctabar a[href^="https://zalo.me/0942467674"]')).toBeVisible();
+			await expect(page.locator('.nt-quickcall')).toBeVisible();
+			await page.locator('.nt-quickcall summary').click();
+			await expect(page.locator('.nt-quickcall a[href="tel:0942467674"]')).toBeVisible();
+			await expect(page.locator('.nt-quickcall a[href^="https://zalo.me/0942467674"]')).toBeVisible();
 		}
 	});
 
@@ -67,19 +68,19 @@ test.describe(`mobile contact UI (simulators ${SIMS ? 'ON' : 'OFF'}, 390px)`, ()
 		await page.goto('/');
 		const fixed = await visibleFixed(page);
 		for (const f of fixed) {
-			if (/nt-ctabar|moto-quickcall|motoai/.test(f.id + f.cls)) continue;
+			if (/nt-tools|moto-quickcall|motoai/.test(f.id + f.cls)) continue;
 			// anything else fixed must be the sticky header's drawer parts, which are hidden when closed
 			expect(f.cls + f.id, 'unexpected visible fixed element').toMatch(/skip-link|admin/);
 		}
 	});
 });
 
-test('on tablet and desktop the theme contact bar is not drawn', async ({ browser }) => {
+test('native contact disclosure works on tablet and desktop', async ({ browser }) => {
 	test.skip(SIMS, 'only meaningful when the theme bar is enabled');
 	for (const width of [768, 1280]) {
 		const page = await (await browser.newContext({ viewport: { width, height: 900 } })).newPage();
 		await page.goto('/');
-		await expect(page.locator('.nt-ctabar')).toBeHidden();
+		await expect(page.locator('.nt-quickcall')).toBeVisible();
 		await page.close();
 	}
 });
