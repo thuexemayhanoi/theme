@@ -60,13 +60,14 @@ defined( 'ABSPATH' ) || exit;
 					<address class="nt-nav__nap">
 						<strong><?php echo esc_html( nt_business( 'brand' ) ); ?></strong><br>
 						<?php echo esc_html( nt_address() ); ?><br>
-						Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày
+						<?php echo nt_hours_badge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- helper escapes. ?>
 					</address>
 				</div>
 			</div>
 		</nav>
 
 		<div class="nt-header__actions">
+            <label class="nt-mode-label"><span class="screen-reader-text">Chế độ hiển thị</span><select data-nt-mode aria-label="Chế độ hiển thị"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
 			<button type="button" class="nt-iconbtn" data-nt-search-toggle aria-expanded="false" aria-controls="nt-search-panel">
 				<?php nt_the_icon( 'search', array( 'size' => 22 ) ); ?>
 				<span class="screen-reader-text">Mở ô tìm kiếm</span>

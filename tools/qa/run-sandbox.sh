@@ -90,11 +90,11 @@ fi
 
 if [ "$E2E" = 1 ]; then
 	echo "== Playwright (simulators ON) =="
-	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout menu blog woo seo-head a11y contact --reporter=list,json,html || fail "Playwright (simulators on)"
+	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout menu blog woo seo-head a11y contact autopilot --reporter=list,json,html || fail "Playwright (simulators on)"
 	echo "== Playwright (simulators OFF: theme contact bar) =="
 	bash $SB/activate-sims.sh --off >/dev/null 2>&1
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true
-	NT_SIMS=off PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-sims-off.json npx playwright test contact --reporter=list,json || fail "Playwright (simulators off)"
+	NT_SIMS=off PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-sims-off.json npx playwright test contact autopilot --reporter=list,json || fail "Playwright (simulators off)"
 	if [ "$SHOTS" = 1 ]; then
 		# WordPress moved the previous theme's default widgets (Archives, Categories) into the new footer area on
 		# activation; that is a property of the sandbox, so evidence screenshots are taken without them.

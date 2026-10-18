@@ -1,3 +1,9 @@
+# Chỉ dẫn hiện hành
+
+Đọc và tuân theo [AGENTS.md](AGENTS.md), áp dụng cho mọi AI. Hợp đồng MASTER WORK A–Z ngày 18/10/2026 thay thế điều khoản chờ chủ phê duyệt go-live trong bản hợp đồng chuyển theme cũ bên dưới. Theme đã active; main có webhook. Chỉ merge mã đạt kiểm thử trong phạm vi ủy quyền, giữ dữ liệu và khóa tiêu đề. Tài liệu tính năng mới: docs/AUTOPILOT.md.
+
+## Hợp đồng kiểm kê cũ (17/10, chỉ tham khảo lịch sử)
+
 # CLAUDE.md — Nguyễn Tú WordPress independent theme
 
 **SEO HULK is a P0 mandatory workstream.** Read and implement `docs/SEO-HULK.md` in full before coding: preserve live Yoast metadata, canonical, robots, XML sitemap, indexability, one meaningful H1, schema graph, internal link/navigation graph, WooCommerce/featured-item URLs, Core Web Vitals, local entity NAP and crawl integrity. Record real before/after SEO snapshots, automated tests and release gates. Implement SEO into templates and CI; do not just write a plan. Never claim rankings, scores or schema without proof.

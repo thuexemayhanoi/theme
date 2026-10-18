@@ -127,7 +127,8 @@ get_header();
 			</div>
 		</article>
 
-		<?php get_template_part( 'template-parts/content/related' ); ?>
+		<?php nt_cluster_navigation(); ?>
+<?php get_template_part( 'template-parts/content/related' ); ?>
 
 		<?php
 		if ( comments_open() || get_comments_number() ) {

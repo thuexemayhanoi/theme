@@ -135,3 +135,11 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 - **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
+
+## 9. MASTER WORK A–Z — 18/10/2026, checkpoint hiện hành
+
+Nhánh `feat/nguyentu-autopilot-az`, base `3df2bff`. Đã xác minh theme `theme` đang active thật (thông tin LIVE_UNCHANGED từ phiên migration trước chỉ mô tả phiên trước). Trong giai đoạn build này production code chưa đổi; WPVibe draft dùng để test, mã nguồn chính vẫn ở repo.
+
+Đã bổ sung giờ máy chủ + ngày nghỉ/ngoại lệ, sáng/tối/auto, native QuickCall, local rule/search assistant, chỉ mục incremental và graph outgoing, navigation cluster, tài liệu bảo trì độc lập công cụ AI. Không dùng API AI ngoài. Kiểm thử unit 85/1935 và Node 31 PASS; PHP syntax/JS/CSS/budget PASS. REST preview thử giá Vision tháng và clock thành công.
+
+Tiếp theo: CI static/integration/e2e, đối chiếu HTML thực, sửa lỗi; merge khi đạt; xác minh webhook; chuyển QuickCall sau test; sửa schema WPCode trùng đã tìm đúng nguồn và giờ cũ trong home bằng thay đoạn có đối chiếu. Chưa tuyên bố hoàn thành production. Chi tiết `reports/autopilot-audit-2026-10-18.md`, `docs/AUTOPILOT.md`, `AGENTS.md`.
