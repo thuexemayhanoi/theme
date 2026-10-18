@@ -1,7 +1,7 @@
 {
   "gate": "link-check",
   "status": "PASS",
-  "detail": "237 internal link targets answered 2xx",
+  "detail": "236 internal link targets answered 2xx",
   "evidence": "reports/link-check-after.json",
-  "at": "2026-10-18T02:16:21.043Z"
+  "at": "2026-10-18T02:54:53.103Z"
 }

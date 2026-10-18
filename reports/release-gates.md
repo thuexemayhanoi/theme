@@ -16,7 +16,7 @@
 | `css-valid` — CSS parses, no @import, no external url(), tokens defined | no | **PASS** | css-check |
 | `budgets` — Asset byte budgets (render-blocking path) | no | **PASS** | asset budgets |
 | `contrast` — WCAG AA contrast of the design tokens | yes | **PASS** | WCAG contrast of tokens |
-| `integration` — PHPUnit integration against the disposable WordPress (menus, terms, counts, legacy render, Yoast coexistence) | yes | **PASS** | 61 test(s) passed (evidence: `reports/integration-results.md`) |
+| `integration` — PHPUnit integration against the disposable WordPress (menus, terms, counts, legacy render, Yoast coexistence) | yes | **PASS** | 62 test(s) passed (evidence: `reports/integration-results.md`) |
 | `menu-36` — Menu #67: all 36 items with identical parent ids, 3 levels rendered | yes | **PASS** | 7 test(s) passed (evidence: `reports/integration-results.md`) |
 | `categories-26` — Blog categories: 26 terms with identical parents | yes | **PASS** | 3 test(s) passed (evidence: `reports/integration-results.md`) |
 | `product-terms` — WooCommerce product_cat tree 70 > 71/72/73 | yes | **PASS** | 1 test(s) passed (evidence: `reports/integration-results.md`) |
@@ -25,22 +25,22 @@
 | `seo-rules-sandbox` — Absolute SEO rules on the sandbox snapshot (one canonical/H1/main, no duplicate schema, noindex only where intended, real 404) | yes | **PASS** | no P0 failure across 86 sandbox URLs; see reports/seo-rules-after.md (evidence: `reports/seo-rules-after.md`) |
 | `seo-diff-live` — SEO before/after diff against the LIVE site (title, description, canonical, robots, H1, schema, links, sitemap) | yes | **NOT_TESTED** | The build container cannot reach https://thuexemaynguyentu.com (egress policy returns 403). Run the manual workflow seo-snapshot-live or tools/seo/snapshot.mjs from an allowed network. |
 | `php-runtime-log` — No PHP warning, notice or deprecation raised by theme or plugin code while the sandbox pipeline ran (WP_DEBUG_LOG) | yes | **PASS** | 0 entries name a theme or plugin file (0 entries from WordPress, WooCommerce, WP-CLI or the sandbox harness are not blamed) (evidence: `reports/php-runtime-log.md`) |
-| `e2e-layout` — Playwright: 360/390/430/768/1280/1440 px, no horizontal overflow, no console errors | yes | **PASS** | 90 browser test(s) passed (evidence: `reports/e2e-results.md`) |
-| `e2e-menu` — Playwright: 36-item menu keyboard operation, drawer focus trap, aria-expanded | yes | **PASS** | 12 browser test(s) passed (evidence: `reports/e2e-results.md`) |
+| `e2e-layout` — Playwright: 360/390/430/768/1280/1440 px, no horizontal overflow, no console errors | yes | **PASS** | 92 browser test(s) passed (evidence: `reports/e2e-results.md`) |
+| `e2e-menu` — Playwright: 36-item menu keyboard operation, drawer focus trap, aria-expanded | yes | **PASS** | 16 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `e2e-contact` — Playwright: single contact bar, no overlap with chat bubble / QuickCall simulator | yes | **PASS** | 7 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `e2e-woo` — Playwright: product page, add to cart, cart page, contact fallback for unpriced product | yes | **PASS** | 13 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `e2e-search-404` — Playwright: search results, 404 status and content, noindex on both | no | **PASS** | 16 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `e2e-blog` — Playwright: category ancestry, pagination, post template, TOC, related posts | yes | **PASS** | 7 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `e2e-seo-head` — Playwright: one canonical/title, Yoast graph with merged LocalBusiness, robots.txt, sitemap, feed | yes | **PASS** | 11 browser test(s) passed (evidence: `reports/e2e-results.md`) |
 | `a11y-axe` — axe-core (WCAG 2.2 A/AA + best practice): no critical or serious violations at 390 and 1280 px | yes | **PASS** | 20 browser test(s) passed (evidence: `reports/e2e-results.md`) |
-| `link-check` — Internal link check over the sandbox crawl (no 404/500) | yes | **PASS** | 237 internal link targets answered 2xx (evidence: `reports/link-check-after.json`) |
+| `link-check` — Internal link check over the sandbox crawl (no 404/500) | yes | **PASS** | 236 internal link targets answered 2xx (evidence: `reports/link-check-after.json`) |
 | `lighthouse` — Lighthouse lab run (home, post, category, product) | no | **PASS** | Lighthouse 12.8.2, mobile preset, local sandbox (lab only): home: perf 87 / a11y 100 / bp 100 / seo 100; post: perf 91 / a11y 100 / bp 100 / seo 92; category: perf 93 / a11y 100 / bp 100 / seo 92; product: perf 79 / a11y 100 / bp 100 / seo 100 (evidence: `reports/performance.md`) |
 | `yoast-premium` — Yoast SEO Premium behaviour (not obtainable in the build environment) | no | **NOT_TESTED** | Yoast SEO Premium is a paid plugin and could not be installed in the build container. |
 | `quickcall-real` — Real Moto QuickCall plugin compatibility (plugin not obtainable) | yes | **NOT_TESTED** | Moto QuickCall Pro+ Social is not publicly obtainable; only a layout simulator was tested (see e2e-contact). |
 | `motoai-real` — Real MotoAI chat widget compatibility (plugin not obtainable) | yes | **NOT_TESTED** | MotoAI Chat Widget is not publicly obtainable; only a layout simulator was tested (see e2e-contact). |
 | `flatsome-real-content` — Rendering of the real raw post_content of page #562 and siblings (needs staging with real DB) | yes | **NOT_TESTED** | The raw post_content of page #562 is not readable without authenticated access; run `wp nguyentu legacy-scan` and the staging checklist on a copy of the production database. |
 | `live-unchanged` — Production untouched: no activation, DB/option/file change, webhook or merge | yes | **PASS** | docs/PROGRESS.md records LIVE_UNCHANGED = TRUE (no activation, DB, option or file change on production) |
-| `secret-scan` — No credentials, tokens or keys in tracked files | yes | **PASS** | 251 tracked files scanned for keys/tokens/passwords: none found |
+| `secret-scan` — No credentials, tokens or keys in tracked files | yes | **PASS** | 256 tracked files scanned for keys/tokens/passwords: none found |
 | `rollback-doc` — Rollback plan documented | yes | **PASS** | docs/ROLLBACK.md exists |
 | `deploy-doc` — Deployment plan documented | yes | **PASS** | docs/DEPLOY.md exists |
 | `legacy-matrix-doc` — Shortcode compatibility matrix documented | yes | **PASS** | docs/LEGACY-COMPAT.md exists |
@@ -48,4 +48,4 @@
 
 ## How a gate becomes PASS
 
-Run `bash tools/qa/run-all.sh` (no sandbox needed) and `bash tools/qa/run-sandbox.sh` (needs `tools/sandbox/setup.sh` + `seed.sh`); each step records its own result with `tools/qa/record.mjs`. Gates that need the live site or paid/private plugins stay NOT_TESTED until someone with access runs them; the exact manual steps are in `docs/STAGING-CHECKLIST.md`.
+Run `bash tools/qa/run-all.sh` (no sandbox needed) and `bash tools/qa/run-sandbox.sh` (needs `tools/sandbox/setup.sh` + `seed.sh`); each step records its own result with `tools/qa/record.mjs`. Both scripts exit 1 when any step or recorded gate fails; a skipped test is never a pass; and the sandbox script forgets the earlier result of every gate it is about to run, so a step that never reports reads NOT_TESTED, not a stale PASS. Gates that need the live site or paid/private plugins stay NOT_TESTED until someone with access runs them; the exact manual steps are in `docs/STAGING-CHECKLIST.md`.

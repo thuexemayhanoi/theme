@@ -1,6 +1,6 @@
 # SEO rules
 
-Source: `http://127.0.0.1:8088` (sandbox), snapshot 2026-10-18T02:15:00.460Z.
+Source: `http://127.0.0.1:8088` (sandbox), snapshot 2026-10-18T02:53:31.229Z.
 
 | URLs | Checks | PASS | P0 FAIL | P1 FAIL | P2 FAIL |
 | ---: | ---: | ---: | ---: | ---: | ---: |

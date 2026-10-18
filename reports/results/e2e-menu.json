@@ -1,7 +1,7 @@
 {
   "gate": "e2e-menu",
   "status": "PASS",
-  "detail": "12 browser test(s) passed",
+  "detail": "16 browser test(s) passed",
   "evidence": "reports/e2e-results.md",
-  "at": "2026-10-18T02:20:02.980Z"
+  "at": "2026-10-18T02:58:57.686Z"
 }

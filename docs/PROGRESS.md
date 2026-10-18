@@ -14,7 +14,7 @@ Tệp này được viết lại ở mỗi mốc. Bảng cổng chi tiết (PASS
 | Cổng phát hành | **PASS 32 · FAIL 0 · NOT_TESTED 5** (`reports/release-gates.md`) |
 | Sẵn sàng go-live? | **Chưa.** 4 cổng chặn là NOT_TESTED vì cần thứ môi trường build không có: site thật (bị chặn 403), nội dung thật của trang #562, plugin Moto QuickCall và MotoAI thật |
 | Điểm "98/100 làm đẹp", "99/100 SEO" | **Không đo được, không tuyên bố.** Có số đo thật (Lighthouse lab, axe, hơn 300 kiểm thử tự động) ở các báo cáo dưới đây |
-| PR | Xem mục 8 |
+| PR | https://github.com/thuexemayhanoi/theme/pull/1 (chi tiết ở mục 8) |
 
 ## 2. Đã làm được gì
 
@@ -36,9 +36,9 @@ Tệp này được viết lại ở mỗi mốc. Bảng cổng chi tiết (PASS
 | Bộ kiểm thử | Kết quả | Xem ở |
 | --- | --- | --- |
 | PHP lint, PHPCS (WordPress), ESLint, CSS parse, ngân sách byte, tương phản token | PASS | `reports/results/*.json` |
-| PHPUnit unit (thuần, không WordPress) | PASS — 68 test | `tools/qa/run-all.sh` |
-| PHPUnit integration trên WordPress thật | PASS — 61 test, 882 assertion | `reports/integration-results.md` |
-| Node test công cụ SEO | PASS — 24 test | `tests/node` |
+| PHPUnit unit (thuần, không WordPress) | PASS — 81 test | `tools/qa/run-all.sh` |
+| PHPUnit integration trên WordPress thật | PASS — 62 test, 890 assertion | `reports/integration-results.md` |
+| Node test công cụ SEO và cổng QA | PASS — 30 test | `tests/node` |
 | Menu 36 mục, 26 category, product_cat, featured_item 15+4 | PASS | cổng `menu-36`, `categories-26`, `product-terms`, `featured-items` |
 | Vòng ghi-lại/phát-lại `featured_item` (bật/tắt mô phỏng theme cũ) | PASS — 9 bước | `reports/compat-roundtrip.md` |
 | Luật SEO tuyệt đối trên 86 URL sandbox | **P0 = 0** (43 URL P1: Yoast của sandbox chưa có mô tả meta) | `reports/seo-rules-after.md` |
@@ -70,6 +70,24 @@ Giới hạn khi đọc các số trên: nội dung là mô phỏng, plugin Quic
 | Tương phản: widget footer, giá Woo (olive), URL kết quả tìm kiếm | Vi phạm WCAG AA | Màu theo token; có test axe |
 | Cờ `--http` của plugin trùng cờ toàn cục của WP-CLI | `verify` báo lỗi lạ | Đổi thành `--probe` |
 | Test dựa dữ liệu sai (danh mục rỗng, XPath `contains(@class)` khớp lớp con, console 404 của tài liệu 404) | Test đỏ/giả | Sửa test theo dữ liệu thật của baseline |
+
+## 4b. Vòng review đầu tiên của bot Codex trên PR #1 (9 phát hiện, đều đúng, đã sửa)
+
+Bot review commit `2182d45`. Từng phát hiện được đối chiếu với mã trước khi sửa; mỗi bản sửa có test **thất bại trên mã cũ** (đã thử bằng cách khôi phục tạm mã cũ) và đạt trên mã mới.
+
+| Phát hiện | Kiểm chứng | Sửa | Test chứng minh |
+| --- | --- | --- | --- |
+| P1 `run-all.sh`: job `static` xanh dù cổng hỏng | Tái hiện: thêm tệp PHP lỗi cú pháp → `php-lint` FAIL nhưng script thoát 0 | `step` ghi nhớ lỗi, `release-gates.mjs` thoát 1 khi có cổng FAIL, script thoát 1 | Trước: thoát 0. Sau: thoát 1; khi khỏe thoát 0 |
+| P1 `run-sandbox.sh`: job `sandbox` xanh dù cổng hỏng | Đọc mã: chỉ `echo` khi PHPUnit/Playwright lỗi, bộ tổng hợp luôn thoát 0. Thêm: kết quả cổng được commit sẵn nên bước chết giữa chừng để lại PASS cũ | Mỗi bước lỗi vào danh sách, cuối cùng thoát 1 (không dừng giữa chừng để mọi báo cáo vẫn được ghi); lỗi hạ tầng (DB, đồng bộ, kích hoạt) dừng ngay; kết quả cũ của cổng bị xóa trước khi chạy, bước không báo cáo = NOT_TESTED | Có cổng FAIL ghi sẵn: thoát 1; khỏe: thoát 0 |
+| P1 `junit-gates.mjs`: test bị bỏ qua tính là PASS | Đọc mã | Test bị bỏ qua không tính; cổng chỉ toàn test bị bỏ qua = NOT_TESTED (`tools/qa/lib/junit.mjs`) | 6 node test |
+| P2 `header.php`: menu di động riêng xếp chồng dưới menu chính | Đọc CSS: `.nt-nav__mobile-only` chỉ ẩn ở desktop | `nav.nt-nav--split`; dưới 1024 px ngăn kéo chỉ hiện menu di động, desktop giữ menu chính | 4 e2e trên stylesheet thật; 2 test thất bại trên CSS cũ |
+| P2 `front-page.php`: dải thông tin nhanh không bao giờ hiện khi nội dung có H1 | Đọc mã | `nt_home_facts_placement()`: "Luôn hiện" in dải dưới nội dung, "Luôn ẩn" tắt, **"Tự động" cố ý không thêm gì** cạnh hero có sẵn (giờ mở cửa đã có ở mục địa chỉ). Không bao giờ thêm H1 | 12 unit + e2e ba chế độ; e2e thất bại trên mẫu cũ |
+| P2 `inc/related.php`: tầng "chủ đề cha" không thấy bài ở danh mục con | `category__in` chỉ khớp gán trực tiếp; dữ liệu sandbox trả 11 thay vì 12 bài | Tầng cha dùng `tax_query` có `include_children` | Test tích hợp theo dữ liệu; mã cũ 11 ≠ 12 |
+| P2 `inc/lib/html.php`: id mục lục sinh ra có thể trùng id tự đặt ở phía sau | Tái hiện bằng unit test | Giữ chỗ mọi id có sẵn (mọi phần tử) rồi mới sinh id thiếu | 2 unit test thất bại trên mã cũ |
+| P2 `single-featured_item.php`: mất breadcrumb khi nội dung rộng có H1 riêng | Đọc mã, so với `page.php` | `nt_pagehead_mode()` / `nt_content_is_wide()` dùng chung cho cả hai template | 4 unit (4 tổ hợp) + e2e xuất bản một mục thử rồi xóa; e2e thất bại trên mẫu cũ |
+| P2 e2e bảng: test không thể thất bại (`found \|\| true`, không bao giờ mở bài) | Đọc mã: không có `page.goto` | Xuất bản một bài có bảng 12 cột, mở ở 390 px, kiểm tra vùng cuộn, không tràn ngang, cuộn bằng bàn phím; xóa bài sau khi chạy | Thất bại khi cố ý phá CSS của vùng cuộn |
+
+Cùng đợt: CI chỉ chạy một lần mỗi lần push (trước đây nhánh có PR chạy hai lần: sự kiện push và pull_request).
 
 ## 5. Chưa kiểm tra / giới hạn / blocker (không được coi là PASS)
 
@@ -111,5 +129,9 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 **Một bước tiếp theo:** chạy `seo-snapshot-live` (hoặc cho phép host `thuexemaynguyentu.com` ra khỏi môi trường build) để có ảnh chụp SEO "trước" thật; đó là cổng chặn duy nhất mà code không tự giải quyết được.
 
 ## 8. Nhật ký
+
+- **2026-10-17 → 18:** dựng theme, plugin tương thích, bộ công cụ SEO/QA, sandbox WordPress thật. Lần chạy thật đầu tiên tìm ra 11 nhóm lỗi (mục 4).
+- **2026-10-18, PR #1 (https://github.com/thuexemayhanoi/theme/pull/1):** CI GitHub trên runner sạch, commit `2182d45`. Log của job `sandbox` ghi `e2e-layout`, `e2e-menu`, `e2e-contact`, `e2e-woo`, `e2e-blog`, `e2e-seo-head`, `a11y-axe`, `e2e-search-404`, `php-runtime-log` đều PASS, và kết luận chỉ còn 4 cổng chặn NOT_TESTED, tức mọi cổng chặn khác (tích hợp, menu, danh mục, featured_item, luật SEO, liên kết) là PASS. **Nhưng** khi đó cả hai script thoát 0 dù cổng hỏng (phát hiện P1 của Codex), nên "job xanh" chưa phải bằng chứng; bằng chứng là các dòng PASS trong log. Với job `static` chưa có bằng chứng tương đương: lần chạy tới (script đã sửa) là lần đầu có ý nghĩa.
+- **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
