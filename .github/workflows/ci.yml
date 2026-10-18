@@ -1,9 +1,12 @@
 name: CI
 
+# A branch with an open pull request would run every job twice (push and pull_request), so pushes only
+# trigger CI on main; branches are covered by their pull request, and workflow_dispatch runs it by hand.
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
