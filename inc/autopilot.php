@@ -35,8 +35,8 @@ function nt_autopilot_assets(): void {
 		'nt-autopilot',
 		'window.ntAutopilot=' . wp_json_encode(
 			array(
-				'hours'     => rest_url( 'nguyentu/v1/hours' ),
-				'assistant' => rest_url( 'nguyentu/v1/assistant' ),
+				'hours'     => nt_autopilot_endpoint( 'hours' ),
+				'assistant' => nt_autopilot_endpoint( 'assistant' ),
 			)
 		) . ';',
 		'before'
@@ -88,4 +88,17 @@ function nt_cluster_navigation(): void {
 		}
 	}
 	echo '</nav>';
+}
+
+/**
+ * Same-origin REST endpoint; draft previews carry their existing sandbox token.
+ *
+ * @param string $route Public route name.
+ * @return string
+ */
+function nt_autopilot_endpoint( string $route ): string {
+	$url = rest_url( 'nguyentu/v1/' . $route );
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- token is validated by WPVibe, no mutation here.
+	$preview = isset( $_GET['wpvibe_preview'] ) ? sanitize_text_field( wp_unslash( $_GET['wpvibe_preview'] ) ) : '';
+	return '' !== $preview ? add_query_arg( 'wpvibe_preview', $preview, $url ) : $url;
 }

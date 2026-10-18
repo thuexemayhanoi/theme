@@ -33,3 +33,12 @@ Dựng lại index: trên staging/CLI thực: `wp option update nt_knowledge_cur
 ## QA và triển khai
 
 Đọc AGENTS.md. Các bài kiểm tra bổ sung: HoursTest, AutopilotTest, autopilot.test.mjs, autopilot.spec.mjs. Kiểm tra 360/390/768/1440, Light/Dark/Auto, lưu lựa chọn, bàn phím, đóng/mở panel, giá/không bịa, giờ chuyển ngày/nghỉ, API input/rate, index draft/password, không widget trùng. Dùng bản preview/staging trước main; preview token không được commit vào repo.
+
+
+## Bảo toàn URL và dọn schema cũ
+
+`inc/featured.php` áp lại các rule `/bo-suu-tap/` đã được companion capture, cả khi WordPress đang giữ rewrite cache cũ; không flush DB mỗi lượt truy cập, không đổi term/slug/menu. Link term lấy đúng permastruct đã có bằng chứng. Alias kỹ thuật cũ vẫn truy cập được.
+
+`inc/schema.php` lọc duy nhất graph Header WPCode có ID `#nguyen-tu-website` đã xác minh là graph trùng; không xóa option và không đụng script khác. LocalBusiness được thêm vào chính graph Yoast nếu chưa có Organization/LocalBusiness, với dữ liệu cấu hình chung. Không tạo Offer/InStock hoặc rating giả. Ngày nghỉ và ngoại lệ được phản ánh trong giờ schema. Tắt theme/rollback sẽ phục hồi nguyên mã chèn cũ do dữ liệu không bị xóa.
+
+Báo cáo links-report.mjs thêm số outgoing/incoming trong mẫu crawl và hàng trang chưa có incoming trong mẫu, đề xuất xem xét thủ công theo chủ đề. Không coi mẫu crawl là bản đồ đầy đủ mọi URL.

@@ -25,7 +25,7 @@ function nt_local_business_enabled(): bool {
  * @return array<string,mixed>
  */
 function nt_local_business_properties(): array {
-	$props = array(
+	$props  = array(
 		'telephone'                 => nt_business( 'phone_intl' ),
 		'address'                   => array(
 			'@type'           => 'PostalAddress',
@@ -44,6 +44,31 @@ function nt_local_business_properties(): array {
 			),
 		),
 	);
+	$closed = (array) nt_option( 'hours.closed_days', array() );
+	$days   = array(
+		1 => 'Monday',
+		2 => 'Tuesday',
+		3 => 'Wednesday',
+		4 => 'Thursday',
+		5 => 'Friday',
+		6 => 'Saturday',
+		7 => 'Sunday',
+	);
+	$props['openingHoursSpecification'][0]['dayOfWeek'] = array_values( array_diff_key( $days, array_flip( $closed ) ) );
+	if ( 7 === count( $closed ) ) {
+		$props['openingHoursSpecification'] = array(); }
+	foreach ( (array) nt_option( 'hours.exceptions', array() ) as $date => $hours ) {
+		$times = 'closed' === $hours ? array( '00:00', '00:00' ) : explode( '-', $hours );
+		if ( 2 === count( $times ) ) {
+			$props['specialOpeningHoursSpecification'][] = array(
+				'@type'        => 'OpeningHoursSpecification',
+				'validFrom'    => $date,
+				'validThrough' => $date,
+				'opens'        => $times[0],
+				'closes'       => $times[1],
+			);
+		}
+	}
 	return (array) apply_filters( 'nguyentu_local_business_properties', $props );
 }
 
@@ -73,3 +98,62 @@ function nt_yoast_enrich_organization( $data ) {
 	return $data;
 }
 add_filter( 'wpseo_schema_organization', 'nt_yoast_enrich_organization', 20 );
+
+/**
+ * Keep one verified business inside Yoast's graph when its site representation is a Person.
+ * Existing Organization/LocalBusiness nodes retain ownership; no second graph is printed.
+ *
+ * @param array $graph Yoast graph nodes.
+ * @return array
+ */
+function nt_yoast_business_graph( array $graph ): array {
+	if ( ! nt_local_business_enabled() ) {
+		return $graph;
+	}
+	foreach ( $graph as $node ) {
+		if ( array_intersect( (array) ( $node['@type'] ?? array() ), array( 'Organization', 'LocalBusiness', 'MotorcycleDealer' ) ) ) {
+			return $graph;
+		}
+	}
+	$graph[] = array_merge(
+		array(
+			'@type' => 'LocalBusiness',
+			'@id'   => home_url( '/#localbusiness' ),
+			'name'  => nt_business( 'gbp_name' ),
+			'url'   => home_url( '/' ),
+		),
+		nt_local_business_properties()
+	);
+	return $graph;
+}
+add_filter( 'wpseo_schema_graph', 'nt_yoast_business_graph', 30 );
+
+/**
+ * Suppress only the identified legacy WPCode graph during rendering, preserving its stored
+ * value for rollback and every unrelated script. Yoast now owns the verified business node.
+ *
+ * @param mixed $header Stored WPCode header string.
+ * @return mixed
+ */
+function nt_deduplicate_legacy_header( $header ) {
+	if ( ! is_string( $header ) || 'yoast' !== nt_seo_plugin() || ! nt_local_business_enabled() ) {
+		return $header;
+	}
+	return preg_replace_callback(
+		'#<script\b[^>]*>(.*?)</script>#is',
+		static function ( array $match ): string {
+			$data = json_decode( $match[1], true );
+			if ( ! is_array( $data ) ) {
+				$data = json_decode( wp_unslash( $match[1] ), true );
+			}
+			foreach ( (array) ( $data['@graph'] ?? array() ) as $node ) {
+				if ( home_url( '/#nguyen-tu-website' ) === ( $node['@id'] ?? '' ) ) {
+					return '';
+				}
+			}
+			return $match[0];
+		},
+		$header
+	) ?? $header;
+}
+add_filter( 'option_ihaf_insert_header', 'nt_deduplicate_legacy_header', 30 );

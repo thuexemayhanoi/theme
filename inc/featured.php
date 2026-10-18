@@ -150,6 +150,14 @@ function nt_featured_captured_rules( array $rules ): array {
 	return $captured + $rules;
 }
 add_filter( 'rewrite_rules_array', 'nt_featured_captured_rules', 30 );
+// Existing cached rules also need the captured aliases; no DB flush on visitor requests.
+add_filter(
+	'option_rewrite_rules',
+	static function ( $rules ) {
+		return nt_featured_captured_rules( is_array( $rules ) ? $rules : array() );
+	},
+	30
+);
 
 /**
  * Use the proven captured term permastruct for links as well as request resolution.

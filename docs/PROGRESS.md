@@ -143,3 +143,11 @@ Nhánh `feat/nguyentu-autopilot-az`, base `3df2bff`. Đã xác minh theme `theme
 Đã bổ sung giờ máy chủ + ngày nghỉ/ngoại lệ, sáng/tối/auto, native QuickCall, local rule/search assistant, chỉ mục incremental và graph outgoing, navigation cluster, tài liệu bảo trì độc lập công cụ AI. Không dùng API AI ngoài. Kiểm thử unit 85/1935 và Node 31 PASS; PHP syntax/JS/CSS/budget PASS. REST preview thử giá Vision tháng và clock thành công.
 
 Tiếp theo: CI static/integration/e2e, đối chiếu HTML thực, sửa lỗi; merge khi đạt; xác minh webhook; chuyển QuickCall sau test; sửa schema WPCode trùng đã tìm đúng nguồn và giờ cũ trong home bằng thay đoạn có đối chiếu. Chưa tuyên bố hoàn thành production. Chi tiết `reports/autopilot-audit-2026-10-18.md`, `docs/AUTOPILOT.md`, `AGENTS.md`.
+
+
+### Checkpoint kiểm thử preview
+
+- 8 cổng static local PASS; 85 unit test / 1940 assertions, 31 Node tests. CI static trên f0c6e4a PASS; sandbox đang dựng và phải chạy lại cho đầu nhánh cuối.
+- Preview dữ liệu thật: sửa /bo-suu-tap/thue-ngay/ từ 404 thành H1 Thuê Ngày; không đổi term/URL. Graph chỉ còn 1 của Yoast, 1 LocalBusiness, giờ09–21, không Offer InStock. Title trang chủ giữ nguyên.
+- Giao diện dark đã sửa nền header/pseudo-element và chữ menu. Form chat thực đã trả đúng giá Vision theo tháng, clock hiển thị Đang mở cửa. Preview REST mang token sandbox khi cache JS chưa thay.
+- Chưa merge/deploy main; plugin QuickCall cũ vẫn active, native sẽ tự nhận vị trí sau khi tắt đúng plugin được ủy quyền, sau test.

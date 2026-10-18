@@ -58,12 +58,12 @@
 .nt-cluster { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px; margin: 20px auto; max-width: 1200px; background: var(--nt-paper); border: 1px solid var(--nt-line); border-radius: var(--nt-radius); }
 /* Plugin retains contact ownership until its tested replacement is deployed. */
 .nt-has-quickcall .nt-tools { bottom: 100px; }
-.nt-menu-open .nt-tools { visibility: hidden; }
+.nt-lock .nt-tools { visibility: hidden; }
 @media (max-width: 389px) { .nt-header__actions { gap: 3px; } .nt-mode-label select { max-width: 61px; } .nt-header__inner { gap: 8px; } }
 @media (prefers-reduced-motion: reduce) { .nt-tools * { scroll-behavior: auto; } }
 [data-nt-theme="dark"] .nt-header::before { background: rgb(25 35 54 / 97%); }
 [data-nt-theme="dark"] .nt-menu a,
-[data-nt-theme="dark"] .nt-subtoggle { color: var(--nt-ink); }
+[data-nt-theme="dark"] .nt-sub-toggle { color: var(--nt-ink); }
 [data-nt-theme="dark"] .nt-menu .current-menu-item > a,
 [data-nt-theme="dark"] .nt-menu a:hover { color: var(--nt-accent); }
 [data-nt-theme="dark"] .nt-eyebrow,
@@ -82,3 +82,10 @@ body.nt-has-quickcall:has(.nt-assistant-toggle) .nt-footer__bottom { padding-bot
 [data-nt-theme="dark"] .nt-hero,
 [data-nt-theme="dark"] .nt-card--post,
 [data-nt-theme="dark"] .nt-legacy-section { color: var(--nt-ink); }
+[data-nt-theme="dark"] .woocommerce a.button,
+[data-nt-theme="dark"] .woocommerce button.button,
+[data-nt-theme="dark"] .woocommerce input.button,
+[data-nt-theme="dark"] .woocommerce-MyAccount-navigation .is-active a,
+[data-nt-theme="dark"] .nt-search__btn { color: #111827; }
+[data-nt-theme="dark"] .woocommerce-product-details__short-description { color: var(--nt-muted); }
+[data-nt-theme="dark"] .nt-price-table__price { color: var(--nt-accent); }

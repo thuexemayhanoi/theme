@@ -13,6 +13,17 @@ final class AutopilotTest extends TestCase {
             $this->assertStringContainsString('/bo-suu-tap/thue-ngay/', get_term_link($term));
         } finally { update_option('nguyentu_legacy_compat',$old); }
     }
+    public function test_business_schema_is_inside_yoast_and_legacy_header_is_reversible(): void {
+        $graph=nt_yoast_business_graph(array(array('@type'=>'WebSite','@id'=>'site')));
+        $this->assertCount(2,$graph);
+        $this->assertSame('09:00',$graph[1]['openingHoursSpecification'][0]['opens']);
+        $this->assertArrayNotHasKey('makesOffer',$graph[1]);
+        $this->assertCount(2,nt_yoast_business_graph($graph));
+        $legacy='<script>'.wp_json_encode(array('@graph'=>array(array('@id'=>home_url('/#nguyen-tu-website'))))).'</script>';
+        $other='<script>window.example=1;</script>';
+        $this->assertSame($other,nt_deduplicate_legacy_header($legacy.$other));
+        $this->assertStringContainsString('nguyen-tu-website',$legacy);
+    }
     public function test_verified_prices_and_followup(): void {
         $answer = nt_assistant_answer('Giá Honda Vision theo tháng?');
         $this->assertSame('prices', $answer['intent']);
