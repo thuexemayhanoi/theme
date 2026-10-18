@@ -344,6 +344,12 @@ function nt_lg_banner( $atts, $content = '' ): string {
 		$atts,
 		'ux_banner'
 	);
+	// Only the homepage legacy banner using attachment #369 changes. Stored page content stays untouched.
+	$nt_home_photo = is_front_page() && '369' === trim( (string) $a['bg'] );
+	if ( $nt_home_photo ) {
+		$a['bg'] = 'https://thuexemaynguyentu.com/wp-content/uploads/2026/10/banner-thue-xe-may-ha-noi-nguyen-tu.webp';
+	}
+
 	$h     = nt_css_len( $a['height'], '300px' );
 	$md    = nt_css_len( $a['height__md'] );
 	$sm    = nt_css_len( $a['height__sm'] );
@@ -360,17 +366,25 @@ function nt_lg_banner( $atts, $content = '' ): string {
 	if ( '' !== $a['bg'] ) {
 		// The first banner image of a page is the likely LCP element: eager + high priority.
 		$eager = nt_lg_claim_lcp();
-		$img   = nt_lg_image_html(
-			$a['bg'],
-			array(
-				'class'      => 'nt-lg-bg__img',
-				'decorative' => true,
-				'eager'      => $eager,
+		$img   = $nt_home_photo
+			? sprintf(
+				'<img src="%s" class="nt-lg-bg__img" width="1200" height="800" alt="%s" loading="%s" decoding="async"%s>',
+				esc_url( $a['bg'] ),
+				esc_attr( 'Thuê xe máy Hà Nội Nguyễn Tú, 112 Nguyễn Văn Cừ, Bồ Đề, Long Biên, Hà Nội' ),
+				$eager ? 'eager' : 'lazy',
+				$eager ? ' fetchpriority="high"' : ''
 			)
-		);
+			: nt_lg_image_html(
+				$a['bg'],
+				array(
+					'class'      => 'nt-lg-bg__img',
+					'decorative' => true,
+					'eager'      => $eager,
+				)
+			);
 		if ( '' !== $img ) {
 			$pos = nt_css_position( $a['bg_pos'] );
-			$bg  = '<div class="nt-lg-bg" aria-hidden="true"' . ( '' !== $pos ? ' style="--lg-pos:' . esc_attr( $pos ) . '"' : '' ) . '>' . $img . '</div>';
+			$bg  = '<div class="nt-lg-bg"' . ( $nt_home_photo ? '' : ' aria-hidden="true"' ) . ( '' !== $pos ? ' style="--lg-pos:' . esc_attr( $pos ) . '"' : '' ) . '>' . $img . '</div>';
 		}
 	}
 	$overlay_color = nt_css_color( $a['bg_overlay'] );
@@ -393,7 +407,7 @@ function nt_lg_banner( $atts, $content = '' ): string {
 
 	return sprintf(
 		'<div class="%1$s" style="%2$s"%3$s>%4$s%5$s%6$s<div class="nt-lg-banner__layers">%7$s</div></div>',
-		nt_lg_class( array_merge( array( 'nt-lg-banner' ), nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) ),
+		nt_lg_class( array_merge( array( 'nt-lg-banner' ), $nt_home_photo ? array( 'nt-lg-banner--nguyentu-home-photo' ) : array(), nt_css_classes( $a['class'] ), nt_lg_visibility_classes( $a['visibility'] ) ) ),
 		esc_attr( $style ),
 		nt_lg_id_attr( $a['id'] ),
 		$bg,
