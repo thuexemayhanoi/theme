@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { execFileSync } from 'node:child_process';
+
+/** WP-CLI of the disposable sandbox (tools/sandbox/wp.sh); only available when the suite runs against it. */
+const wp = (...args) => execFileSync('bash', ['tools/sandbox/wp.sh', ...args], { encoding: 'utf8' });
 
 test.describe('WooCommerce (classic cart and checkout pages)', () => {
 	test.use({ viewport: { width: 1280, height: 900 } });
@@ -80,6 +84,49 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		await expect(page.locator('button.single_add_to_cart_button')).toHaveCount(0);
 		await expect(page.locator('.nt-wc-contact a[href="tel:0942467674"]')).toBeVisible();
 		await expect(page.locator('.nt-wc-contact a[href^="https://zalo.me/0942467674"]')).toBeVisible();
+	});
+
+	test('WooCommerce stylesheets (render-blocking) load only where WooCommerce output is shown', async ({ request }) => {
+		const count = async (path) => ((await (await request.get(path)).text()).match(/plugins\/woocommerce\/assets\/css\//g) ?? []).length;
+		for (const path of ['/', '/blog/', '/blog/xe-dien/', '/lien-he/', '/gioi-thieu/', '/bo-suu-tap/thue-ngay/', '/?s=xe']) expect(await count(path), `${path} must not load WooCommerce CSS`).toBe(0);
+		for (const path of ['/shop/', '/san-pham/honda-wave/', '/cart/', '/checkout/', '/my-account/', '/danh-muc-san-pham/loai-xe/xe-so/']) expect(await count(path), `${path} needs WooCommerce CSS`).toBeGreaterThan(0);
+	});
+
+	test('the header cart badge is styled on pages that do not load WooCommerce CSS', async ({ page }) => {
+		await page.goto('/san-pham/honda-wave/');
+		await page.locator('button.single_add_to_cart_button').click();
+		await expect(page.locator('.woocommerce-message')).toBeVisible();
+		await page.goto('/blog/');
+		const badge = page.locator('.nt-cartlink__count');
+		await expect(badge).toBeVisible();
+		await expect(badge).toHaveCSS('position', 'absolute');
+		await expect(badge).toHaveCSS('border-radius', '999px');
+	});
+
+	test('optional lean mode: default keeps WooCommerce untouched; when on, jQuery-based Woo scripts load only on shop screens and order attribution stays', async ({ request }) => {
+		test.setTimeout(120_000);
+		const scripts = async (path) => [...(await (await request.get(path)).text()).matchAll(/<script[^>]*src="([^"]+)"/g)].map((m) => m[1].replace(/\?.*$/, '').split('/').pop());
+		const setLean = (value) => wp('eval', `$o = (array) get_option('nguyentu_options', array()); $o['lean_woo_js'] = '${value}'; update_option('nguyentu_options', $o);`);
+		try {
+			setLean('off');
+			expect(await scripts('/'), 'default: WooCommerce scripts are not touched').toContain('jquery.min.js');
+
+			setLean('on');
+			for (const path of ['/', '/blog/', '/lien-he/']) {
+				const list = await scripts(path);
+				expect(list, `${path}: no jQuery-based Woo script`).not.toContain('jquery.min.js');
+				expect(list).not.toContain('woocommerce.min.js');
+				expect(list, `${path}: Woo order attribution is kept`).toContain('order-attribution.min.js');
+				expect(list).toContain('theme.js');
+			}
+			for (const path of ['/shop/', '/san-pham/honda-wave/', '/cart/', '/checkout/']) {
+				const list = await scripts(path);
+				expect(list, `${path} needs jQuery and the Woo scripts`).toContain('jquery.min.js');
+				expect(list).toContain('woocommerce.min.js');
+			}
+		} finally {
+			setLean('off');
+		}
 	});
 
 	test('the cart link appears in the header only when the cart has items', async ({ page }) => {

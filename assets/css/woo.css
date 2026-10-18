@@ -168,7 +168,3 @@ form.cart { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; marg
 @media (max-width: 719px) {
 	.woocommerce table.shop_table_responsive tr td::before { font-weight: 700; }
 }
-
-/* Header cart link */
-.nt-cartlink { position: relative; }
-.nt-cartlink__count { position: absolute; top: 2px; right: 0; display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; font-size: .6875rem; font-weight: 800; color: #fff; background: var(--nt-accent); border-radius: 999px; }

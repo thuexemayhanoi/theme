@@ -51,6 +51,10 @@ Các mục dưới đây là phần **không thể kiểm tra trong môi trườ
 - [ ] Search Console: so sánh Coverage/Pages trước và sau trong 14 ngày.
 - [ ] Lighthouse mobile (home, một bài, một category, một sản phẩm) — ghi số đo thật và giới hạn của môi trường vào `reports/performance.md`.
 - [ ] Core Web Vitals thực tế (CrUX/RUM) chỉ đánh giá sau khi có đủ lượng truy cập.
+- [ ] **Tùy chọn hiệu năng** *Giao diện › Nguyễn Tú › Script jQuery của WooCommerce* (mặc định TẮT, WooCommerce nguyên trạng).
+      Bật trên staging rồi mở Console ở trang chủ, blog, `/lien-he/`: không được có lỗi `jQuery is not defined`; MotoAI, Moto QuickCall,
+      Contact Form 7, GTranslate và mọi đoạn WPCode vẫn chạy. Đo lab trong sandbox (không phải số liệu thật): trang chủ Lighthouse mobile 87 → 97,
+      bài viết 92 → 98 (`reports/performance.md`). Theo dõi nguồn đơn hàng của Woo không bị ảnh hưởng (script `sourcebuster`/`order-attribution` được giữ).
 
 ## F. Ký duyệt
 

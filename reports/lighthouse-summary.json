@@ -1,0 +1,56 @@
+{
+  "label": "default",
+  "version": "12.8.2",
+  "generated_at": "2026-10-18T02:05:42.643Z",
+  "base": "http://127.0.0.1:8088",
+  "results": [
+    {
+      "page": "home",
+      "path": "/",
+      "performance": 87,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcp": 3.55,
+      "cls": 0,
+      "tbt": 0,
+      "version": "12.8.2"
+    },
+    {
+      "page": "post",
+      "path": "/cach-doc-thong-so-tren-bang-dieu-khien-xe-dien/",
+      "performance": 91,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 92,
+      "lcp": 3.17,
+      "cls": 0,
+      "tbt": 7,
+      "version": "12.8.2"
+    },
+    {
+      "page": "category",
+      "path": "/blog/xe-dien/",
+      "performance": 93,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 92,
+      "lcp": 2.87,
+      "cls": 0,
+      "tbt": 1,
+      "version": "12.8.2"
+    },
+    {
+      "page": "product",
+      "path": "/san-pham/honda-wave/",
+      "performance": 79,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcp": 4.37,
+      "cls": 0,
+      "tbt": 0,
+      "version": "12.8.2"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ Không có điểm số hay thứ hạng nào được tuyên bố ở đây.
 | §4 Không redirect/slug/taxonomy base mới | Không có | `ContentTest` (slug, permalink), `compare` của plugin |
 | §5 Menu từ `wp_nav_menu()`; breadcrumb tương thích Yoast | `menus.php`, `nt_breadcrumbs()` (dùng Yoast khi bật, không có schema thứ hai khi tắt) | `MenuTest`, `SeoCoexistenceTest::test_breadcrumb_trail...` |
 | §5 `reports/internal-links.csv` | `tools/seo/links-report.mjs` từ snapshot | `reports/internal-links.csv` (phạm vi: danh sách URL của snapshot) |
-| §6 CWV: LCP, CLS, INP | CSS 6,7 KB gzip, font tự host + fallback metric, ảnh có kích thước, LCP `fetchpriority=high`, không jQuery, JS 2,8 KB gzip | `tools/qa/budgets.mjs`, Lighthouse (nếu chạy), e2e |
+| §6 CWV: LCP, CLS, INP | `main.css` 7,5 KB gzip (+ `home`/`blog`/`legacy`/`woo` chỉ khi trang cần), font tự host + fallback metric, ảnh có kích thước, LCP `fetchpriority=high`, theme không dùng jQuery (JS 2,8 KB gzip), CSS của WooCommerce chỉ nạp ở trang Woo, tùy chọn bỏ jQuery/script Woo khỏi trang không-Woo (giữ theo dõi nguồn đơn) | `tools/qa/budgets.mjs`, `reports/performance.md` (đo lab + Lighthouse thật), e2e `woo.spec.mjs` |
 | §6 Không cache cá nhân hóa | Không in nội dung theo người dùng (trừ liên kết giỏ hàng chỉ khi có hàng) | Checklist staging |
 | §7 Brand/NAP chuẩn, Call/Zalo/Maps, không tuyên bố chưa xác minh | `inc/business.php`, `nt_cta_buttons()` | `BusinessTest`, `StructureTest::test_banned_marketing_claims...`, quy tắc `nap` |
 | §7 Không hai thanh liên hệ chồng nhau | `nt_show_cta_bar()` | e2e contact (mô phỏng QuickCall/MotoAI); plugin thật = NOT_TESTED |

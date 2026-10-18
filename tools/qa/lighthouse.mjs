@@ -5,6 +5,12 @@
  * LIGHTHOUSE_BIN at an installed binary:  npm i lighthouse@12 --prefix /some/dir
  *   LIGHTHOUSE_BIN=/some/dir/node_modules/.bin/lighthouse node tools/qa/lighthouse.mjs
  * If the binary is missing the script exits 3 and nothing is claimed.
+ *
+ *   NT_LH_LABEL  label of this run (default "default" = theme settings as shipped)
+ *   NT_LH_OUT    output file (default reports/lighthouse-summary.json)
+ * The release gate "lighthouse" is recorded only for the "default" label and passes when the run
+ * completed and the theme-owned categories (accessibility, best practices) score at least 90;
+ * performance and SEO are reported, not gated (lab environment, SEO text belongs to Yoast).
  */
 import { chromium } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
@@ -30,7 +36,7 @@ const results = [];
 for (const [name, path] of PAGES) {
 	const file = join(dir, `${name}.json`);
 	try {
-		execFileSync(BIN, [`${BASE}${path}`, '--output=json', `--output-path=${file}`, '--quiet', `--chrome-path=${chrome}`, '--chrome-flags=--headless=new --no-sandbox --disable-gpu', '--only-categories=performance,accessibility,best-practices,seo'], { stdio: ['ignore', 'ignore', 'inherit'], timeout: 180000 });
+		execFileSync(BIN, [`${BASE}${path}`, '--output=json', `--output-path=${file}`, '--quiet', '--chrome-flags=--headless=new --no-sandbox --disable-gpu', '--only-categories=performance,accessibility,best-practices,seo'], { stdio: ['ignore', 'ignore', 'inherit'], timeout: 180000, env: { ...process.env, CHROME_PATH: chrome } });
 		const j = JSON.parse(readFileSync(file, 'utf8'));
 		const pct = (k) => Math.round((j.categories[k]?.score ?? 0) * 100);
 		results.push({
@@ -51,4 +57,11 @@ for (const [name, path] of PAGES) {
 		process.exit(1);
 	}
 }
-writeFileSync('reports/lighthouse-summary.json', `${JSON.stringify({ version: results[0]?.version, generated_at: new Date().toISOString(), base: BASE, results }, null, 2)}\n`);
+const LABEL = process.env.NT_LH_LABEL || 'default';
+const OUT = process.env.NT_LH_OUT || 'reports/lighthouse-summary.json';
+writeFileSync(OUT, `${JSON.stringify({ label: LABEL, version: results[0]?.version, generated_at: new Date().toISOString(), base: BASE, results }, null, 2)}\n`);
+if (LABEL === 'default') {
+	const weak = results.filter((r) => r.accessibility < 90 || r['best-practices'] < 90);
+	const line = results.map((r) => `${r.page}: perf ${r.performance} / a11y ${r.accessibility} / bp ${r['best-practices']} / seo ${r.seo}`).join('; ');
+	execFileSync('node', ['tools/qa/record.mjs', 'lighthouse', weak.length ? 'FAIL' : 'PASS', `Lighthouse ${results[0]?.version}, mobile preset, local sandbox (lab only): ${line}`, 'reports/performance.md'], { stdio: 'inherit' });
+}

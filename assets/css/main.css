@@ -300,6 +300,9 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-brand__name { font-size: 1.1875rem; font-weight: 800; letter-spacing: -.02em; }
 .nt-brand__tag { display: none; margin-top: 3px; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--nt-muted); }
 .nt-header__call-text { white-space: nowrap; }
+/* Header cart link */
+.nt-cartlink { position: relative; }
+.nt-cartlink__count { position: absolute; top: 2px; right: 0; display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; font-size: .6875rem; font-weight: 800; color: #fff; background: var(--nt-accent); border-radius: 999px; }
 @media (max-width: 639.98px) {
 	.nt-header__inner { gap: 8px; }
 	.nt-header__actions { gap: 2px; }

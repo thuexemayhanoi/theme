@@ -131,6 +131,7 @@ function nt_sanitize_options( $input ): array {
 	$out['header_cart'] = $toggle( $input['header_cart'] ?? '', array( 'auto', 'off' ), 'auto' );
 	$out['post_cta']    = $toggle( $input['post_cta'] ?? '', array( 'on', 'off' ), 'on' );
 	$out['share']       = $toggle( $input['share'] ?? '', array( 'on', 'off' ), 'on' );
+	$out['lean_woo_js'] = $toggle( $input['lean_woo_js'] ?? '', array( 'on', 'off' ), 'off' );
 	$out['schema']      = array( 'local_business' => empty( $input['schema']['local_business'] ) ? '0' : '1' );
 
 	return $out;
@@ -346,6 +347,19 @@ function nt_settings_page(): void {
 				);
 				?>
 														</td></tr>
+				<tr><th scope="row">Script jQuery của WooCommerce</th><td>
+				<?php
+				nt_settings_select(
+					'nguyentu_options[lean_woo_js]',
+					(string) ( $opts['lean_woo_js'] ?? 'off' ),
+					array(
+						'off' => 'Nạp trên mọi trang (mặc định của WooCommerce, an toàn nhất)',
+						'on'  => 'Chỉ nạp ở trang cửa hàng, sản phẩm, giỏ hàng, thanh toán, tài khoản',
+					)
+				);
+				?>
+				<p class="description">Bật để bỏ jQuery và các script Woo phụ thuộc jQuery khỏi trang chủ, blog, trang thường (nhanh hơn). Theo dõi nguồn đơn hàng của Woo được giữ nguyên. Chỉ bật sau khi kiểm tra trên staging rằng mọi đoạn mã tùy chỉnh (WPCode, plugin chat/gọi) không cần jQuery.</p>
+				</td></tr>
 			</tbody></table>
 
 			<h2>SEO</h2>

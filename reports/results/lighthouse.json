@@ -1,0 +1,7 @@
+{
+  "gate": "lighthouse",
+  "status": "PASS",
+  "detail": "Lighthouse 12.8.2, mobile preset, local sandbox (lab only): home: perf 87 / a11y 100 / bp 100 / seo 100; post: perf 91 / a11y 100 / bp 100 / seo 92; category: perf 93 / a11y 100 / bp 100 / seo 92; product: perf 79 / a11y 100 / bp 100 / seo 100",
+  "evidence": "reports/performance.md",
+  "at": "2026-10-18T02:05:42.678Z"
+}

@@ -42,8 +42,56 @@ function nt_wc_hooks(): void {
 	add_action( 'woocommerce_single_product_summary', 'nt_wc_contact_box', 35 );
 	add_filter( 'woocommerce_empty_price_html', 'nt_wc_empty_price' );
 	add_filter( 'woocommerce_output_related_products_args', 'nt_wc_related_args' );
+	add_filter( 'woocommerce_enqueue_styles', 'nt_wc_styles' );
+	add_action( 'wp_enqueue_scripts', 'nt_wc_lean_scripts', 99 );
 }
 add_action( 'init', 'nt_wc_hooks' );
+
+/**
+ * Whether this request shows WooCommerce output that needs WooCommerce's own stylesheets: the shop,
+ * product, cart, checkout and account screens, or a page whose content embeds a Woo shortcode or block.
+ */
+function nt_needs_woo_assets(): bool {
+	if ( nt_is_shop_context() ) {
+		return true;
+	}
+	$post = is_singular() ? get_queried_object() : null;
+	if ( $post instanceof WP_Post ) {
+		$content = (string) $post->post_content;
+		if ( false !== strpos( $content, 'wp:woocommerce/' ) || preg_match( '/\[(?:products?|product_[a-z_]+|add_to_cart[a-z_]*|woocommerce_[a-z_]+|shop_messages|recent_products|sale_products|best_selling_products|top_rated_products|featured_products)[\s\]\/]/', $content ) ) {
+			return true;
+		}
+	}
+	return (bool) apply_filters( 'nguyentu_load_woo_assets', false );
+}
+
+/**
+ * WooCommerce's three stylesheets (about 16 KB gzip, render-blocking) are only loaded where
+ * WooCommerce output is shown. On the home page, blog and plain pages the theme draws its own cards.
+ * Return true from the nguyentu_load_woo_assets filter to load them everywhere.
+ *
+ * @param array<string,array<string,mixed>> $styles Styles WooCommerce is about to enqueue.
+ * @return array<string,array<string,mixed>>
+ */
+function nt_wc_styles( $styles ) {
+	return nt_needs_woo_assets() ? $styles : array();
+}
+
+/**
+ * Optional (setting "Hiệu năng", off by default): WooCommerce enqueues its jQuery-based scripts on
+ * every page, which puts jQuery in the head as a render-blocking request. With the setting on those
+ * scripts are only loaded where WooCommerce output is shown. Order attribution (sourcebuster) has no
+ * jQuery dependency and is kept, so Woo's "where did this order come from" data stays complete.
+ * Off by default because snippets elsewhere on a live site may assume that jQuery exists.
+ */
+function nt_wc_lean_scripts(): void {
+	if ( 'on' !== nt_option( 'lean_woo_js', 'off' ) || nt_needs_woo_assets() ) {
+		return;
+	}
+	foreach ( array( 'wc-add-to-cart', 'woocommerce', 'jquery-blockui', 'js-cookie', 'wc-cart-fragments' ) as $handle ) {
+		wp_dequeue_script( $handle );
+	}
+}
 
 /**
  * Open the single main landmark for shop pages.

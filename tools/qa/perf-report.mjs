@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
  * reports/performance.md from tools/qa/perf.mjs output (and optional Lighthouse summaries).
- *   node tools/qa/perf-report.mjs reports/performance.json [reports/lighthouse-summary.json] > reports/performance.md
+ *   node tools/qa/perf-report.mjs reports/performance.json [reports/lighthouse-summary.json ...] > reports/performance.md
  */
 import { readFile } from 'node:fs/promises';
 
 const perf = JSON.parse(await readFile(process.argv[2], 'utf8'));
-const lh = process.argv[3] ? JSON.parse(await readFile(process.argv[3], 'utf8').catch(() => 'null')) : null;
+const lhRuns = [];
+for (const file of process.argv.slice(3)) {
+	const run = JSON.parse(await readFile(file, 'utf8').catch(() => 'null'));
+	if (run) lhRuns.push(run);
+}
 const kb = (n) => `${(n / 1024).toFixed(1)}`;
 const rate = (v, good, poor) => (v <= good ? 'good' : v <= poor ? 'needs improvement' : 'poor');
 
@@ -26,12 +30,16 @@ for (const prof of [...new Set(perf.results.map((r) => r.profile))]) {
 	out.push('');
 }
 out.push('\\* Interaction = longest event-handling duration of the first menu/search click observed with PerformanceObserver (`event` entries). It is an INP-style lab proxy, not INP.', '');
-if (lh) {
-	out.push('## Lighthouse (mobile preset, simulated throttling)', '', '| Page | Performance | Accessibility | Best practices | SEO | LCP s | CLS | TBT ms |', '| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |');
-	for (const r of lh.results) out.push(`| ${r.page} | ${r.performance} | ${r.accessibility} | ${r['best-practices']} | ${r.seo} | ${r.lcp} | ${r.cls} | ${r.tbt} |`);
-	out.push('', `Lighthouse ${lh.version}. Scores come from a local, uncompressed server and vary between runs; treat them as a smoke test.`, '');
+if (lhRuns.length > 0) {
+	for (const lh of lhRuns) {
+		out.push(`## Lighthouse (mobile preset, simulated throttling): ${lh.label ?? 'default'}`, '', '| Page | Performance | Accessibility | Best practices | SEO | LCP s | CLS | TBT ms |', '| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |');
+		for (const r of lh.results) out.push(`| ${r.page} | ${r.performance} | ${r.accessibility} | ${r['best-practices']} | ${r.seo} | ${r.lcp} | ${r.cls} | ${r.tbt} |`);
+		out.push('', `Lighthouse ${lh.version}, ${lh.generated_at}. Scores come from a local, uncompressed server and vary between runs; treat them as a smoke test.`, '');
+	}
 } else {
 	out.push('## Lighthouse', '', '**NOT_TESTED** in this run (no Lighthouse summary was supplied).', '');
 }
+const notes = await readFile(new URL('../../reports/performance-notes.md', import.meta.url), 'utf8').catch(() => '');
+if (notes) out.push(notes.trimEnd(), '');
 out.push('## Budgets enforced in CI', '', 'See `tools/qa/budgets.mjs`: main.css <= 34 KB raw / 9 KB gzip, theme.js <= 14 KB / 4.5 KB gzip, fonts <= 40 KB, critical path (main.css gzip + two fonts) <= 60 KB.', '', '## Limits of this environment', '', '- Single run per page and profile; variance between runs is not measured.', '- Local loopback network: CDP throttling approximates, but does not reproduce, a mobile network.', '- Production adds LiteSpeed Cache, brotli, HTTP/2/3, real images (the sandbox uses generated JPEGs) and third-party plugins (MotoAI, QuickCall, GTranslate, CF7, Site Kit) whose cost is not included here.', '');
 console.log(out.join('\n'));
