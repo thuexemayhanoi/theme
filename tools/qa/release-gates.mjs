@@ -3,6 +3,9 @@
  * Builds reports/release-gates.md from recorded results (reports/results/*.json).
  * A gate with no recorded result is NOT_TESTED. Nothing here is hand-edited and no gate can turn
  * into PASS without a recorded run. "Blocking" gates must all PASS before a go-live proposal.
+ *
+ * Exit status: 1 when any gate is FAIL, so a CI job that ends with this script goes red on a failed gate.
+ * NOT_TESTED does not fail the script (it is reported as such and keeps the verdict at NOT READY).
  */
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
@@ -129,10 +132,15 @@ const md = [
 	'',
 	'## How a gate becomes PASS',
 	'',
-	'Run `bash tools/qa/run-all.sh` (no sandbox needed) and `bash tools/qa/run-sandbox.sh` (needs `tools/sandbox/setup.sh` + `seed.sh`); each step records its own result with `tools/qa/record.mjs`. Gates that need the live site or paid/private plugins stay NOT_TESTED until someone with access runs them; the exact manual steps are in `docs/STAGING-CHECKLIST.md`.',
+	'Run `bash tools/qa/run-all.sh` (no sandbox needed) and `bash tools/qa/run-sandbox.sh` (needs `tools/sandbox/setup.sh` + `seed.sh`); each step records its own result with `tools/qa/record.mjs`. Both scripts exit 1 when any step or recorded gate fails; a skipped test is never a pass; and the sandbox script forgets the earlier result of every gate it is about to run, so a step that never reports reads NOT_TESTED, not a stale PASS. Gates that need the live site or paid/private plugins stay NOT_TESTED until someone with access runs them; the exact manual steps are in `docs/STAGING-CHECKLIST.md`.',
 	'',
 ].join('\n');
 
 await writeFile(new URL('reports/release-gates.md', root), md);
 console.log(md.split('\n').slice(4, 8).join('\n'));
 console.log(`Wrote reports/release-gates.md (${rows.length} gates).`);
+const failing = rows.filter((r) => r.status === 'FAIL');
+if (failing.length > 0) {
+	console.error(`FAIL gates: ${failing.map((r) => r.id).join(', ')}`);
+	process.exitCode = 1;
+}

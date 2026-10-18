@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Runs every automated gate that does NOT need the WordPress sandbox and records each result.
 # Usage: bash tools/qa/run-all.sh
+# A failing gate never stops the run (every gate still records its result), but the script exits 1 when any gate fails.
 set -uo pipefail
-cd "$(dirname "$0")/../.."
+cd "$(dirname "$0")/../.." || exit 1
 
+FAILED=0
 rec() { node tools/qa/record.mjs "$@" >/dev/null; }
 step() { # step <gate> <title> <command...>
 	local gate="$1" title="$2"; shift 2
@@ -14,6 +16,7 @@ step() { # step <gate> <title> <command...>
 	else
 		rec "$gate" FAIL "$title — $(echo "$out" | tail -3 | tr '\n' ' ' | cut -c1-200)"
 		echo "FAIL  $gate"; echo "$out" | tail -15
+		FAILED=1
 	fi
 }
 
@@ -33,4 +36,10 @@ step css-valid "css-check" node tools/qa/css-check.mjs
 step budgets "asset budgets" node tools/qa/budgets.mjs
 step contrast "WCAG contrast of tokens" node tools/qa/contrast.mjs
 
-node tools/qa/release-gates.mjs | tail -2
+# Also fails when any recorded gate (including one recorded by an earlier sandbox run) is FAIL.
+node tools/qa/release-gates.mjs || FAILED=1
+
+if [ "$FAILED" -ne 0 ]; then
+	echo "QA RUN FAILED: see the FAIL lines above and reports/release-gates.md"
+	exit 1
+fi

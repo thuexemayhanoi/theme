@@ -2,16 +2,13 @@
 /**
  * Maps a PHPUnit JUnit file to release gates (by test class / name) and records them.
  *   node tools/qa/junit-gates.mjs reports/results/integration-junit.xml
+ * Skipped tests never count as a pass (see tools/qa/lib/junit.mjs).
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
+import { gateResult, parseJUnit } from './lib/junit.mjs';
 
-const xml = await readFile(process.argv[2], 'utf8');
-const cases = [...xml.matchAll(/<testcase\b([^>]*?)(\/>|>([\s\S]*?)<\/testcase>)/g)].map((m) => {
-	const attrs = Object.fromEntries([...m[1].matchAll(/(\w+)="([^"]*)"/g)].map((a) => [a[1], a[2]]));
-	const body = m[3] ?? '';
-	return { cls: attrs.class ?? attrs.classname ?? '', name: attrs.name, failed: /<(failure|error)\b/.test(body), skipped: /<skipped\b/.test(body), message: body.match(/<(?:failure|error)[^>]*>([\s\S]*?)<\/(?:failure|error)>/)?.[1]?.trim().slice(0, 300) ?? '' };
-});
+const cases = parseJUnit(await readFile(process.argv[2], 'utf8'));
 
 // Human-readable, committed record of every PHPUnit integration test behind the gates.
 {
@@ -44,9 +41,6 @@ const GATES = {
 };
 
 for (const [gate, pick] of Object.entries(GATES)) {
-	const set = cases.filter(pick);
-	const failed = set.filter((c) => c.failed);
-	const status = set.length === 0 ? 'NOT_TESTED' : failed.length ? 'FAIL' : 'PASS';
-	const detail = set.length === 0 ? 'no matching tests in the JUnit file' : failed.length ? `${failed.length}/${set.length} failed: ${failed.map((f) => `${f.cls.split('\\').pop()}::${f.name}: ${f.message}`).join(' | ').slice(0, 400)}` : `${set.length} test(s) passed`;
+	const { status, detail } = gateResult(cases, pick);
 	execFileSync('node', ['tools/qa/record.mjs', gate, status, detail, 'reports/integration-results.md'], { stdio: 'inherit' });
 }
