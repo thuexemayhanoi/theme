@@ -11,9 +11,9 @@ Tệp này được viết lại ở mỗi mốc. Bảng cổng chi tiết (PASS
 
 | Mục | Trạng thái |
 | --- | --- |
-| Cổng phát hành | **PASS 31 · FAIL 0 · NOT_TESTED 5** (`reports/release-gates.md`) |
+| Cổng phát hành | **PASS 32 · FAIL 0 · NOT_TESTED 5** (`reports/release-gates.md`) |
 | Sẵn sàng go-live? | **Chưa.** 4 cổng chặn là NOT_TESTED vì cần thứ môi trường build không có: site thật (bị chặn 403), nội dung thật của trang #562, plugin Moto QuickCall và MotoAI thật |
-| Điểm "98/100 làm đẹp", "99/100 SEO" | **Không đo được, không tuyên bố.** Có số đo thật (Lighthouse lab, axe, 400+ kiểm thử) ở các báo cáo dưới đây |
+| Điểm "98/100 làm đẹp", "99/100 SEO" | **Không đo được, không tuyên bố.** Có số đo thật (Lighthouse lab, axe, hơn 300 kiểm thử tự động) ở các báo cáo dưới đây |
 | PR | Xem mục 8 |
 
 ## 2. Đã làm được gì
@@ -48,7 +48,8 @@ Tệp này được viết lại ở mỗi mốc. Bảng cổng chi tiết (PASS
 | Lighthouse 12.8 mobile (lab, máy chủ cục bộ) | trang chủ 87, bài 91, danh mục 93, sản phẩm 79; a11y 100, best-practices 100 | `reports/performance.md` |
 | Cùng phép đo với tùy chọn "Script jQuery của WooCommerce" bật | trang chủ 97, bài 98, danh mục 99 | `reports/performance.md` |
 | Schema JSON-LD | một `@graph`, một LocalBusiness, không trùng `@id`, không rating/review | `reports/structured-data.md` |
-| Ảnh chụp 360/768/1440 | 42 ảnh JPEG | `reports/screenshots/` |
+| Log PHP/WordPress của sandbox (WP_DEBUG_LOG) trong cả lượt chạy | 0 cảnh báo, thông báo hay deprecated (không riêng code theme/plugin: toàn bộ log trống) | `reports/php-runtime-log.md` |
+| Ảnh chụp 360/768/1440 (theme một mình, và 3 trang có mô phỏng QuickCall + MotoAI) | 42 ảnh JPEG | `reports/screenshots/` |
 
 Giới hạn khi đọc các số trên: nội dung là mô phỏng, plugin QuickCall/MotoAI/Flatsome là bản mô phỏng bố cục, đo hiệu năng là lab trên `php -S` (không gzip, không cache, không CDN). Không phải dữ liệu thật, không phải cam kết thứ hạng.
 
@@ -79,6 +80,15 @@ Giới hạn khi đọc các số trên: nội dung là mô phỏng, plugin Quic
 5. **Core Web Vitals thật** (CrUX/RUM) chỉ có sau khi chạy trên site thật; số lab ở `reports/performance.md` không thay thế.
 6. Gói ngôn ngữ `vi` không cài được trong sandbox, nên nhãn WooCommerce hiện tiếng Anh ở ảnh chụp; trên site thật hiển thị theo gói ngôn ngữ đã cài.
 7. Widget mặc định của WordPress (Archives, Categories) được chuyển vào chân trang khi đổi theme; staging cần dọn (có trong checklist).
+
+## 5b. Việc còn lại (theo thứ tự ưu tiên)
+
+1. Ảnh chụp SEO "trước" thật + `diff.mjs` (mục 7) — mở khóa cổng `seo-diff-live`.
+2. `wp nguyentu legacy-scan` trên bản sao DB production; bổ sung tag nào đang bị STRIPPED nếu quan trọng (cổng `flatsome-real-content`).
+3. Thử Moto QuickCall và MotoAI thật trên staging (cổng `quickcall-real`, `motoai-real`); kiểm tra GTranslate và Contact Form 7 (đã có CSS dự phòng).
+4. Quyết định bật tùy chọn *Script jQuery của WooCommerce* sau khi kiểm tra WPCode/plugin trên staging (trang chủ Lighthouse lab 87 → 97).
+5. Ứng viên tối ưu tiếp, **chưa làm** vì đụng template WooCommerce: nạp trễ script thư viện ảnh sản phẩm (FlexSlider/zoom/PhotoSwipe, ~70 KB) để trang sản phẩm đạt mức như các trang khác.
+6. Thay `screenshot.png` bằng ảnh chụp từ staging khi đã có nội dung thật.
 
 ## 6. Xem thử trên staging (một lượt)
 

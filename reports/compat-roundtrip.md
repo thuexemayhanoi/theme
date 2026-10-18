@@ -10,7 +10,7 @@ key,value
 registered_by_other_component,yes
 replay_active,no
 snapshot_source,runtime
-snapshot_captured_at,2026-10-18T02:07:48+00:00
+snapshot_captured_at,2026-10-18T02:14:25+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"
@@ -58,7 +58,7 @@ key,value
 registered_by_other_component,no
 replay_active,yes
 snapshot_source,runtime
-snapshot_captured_at,2026-10-18T02:07:57+00:00
+snapshot_captured_at,2026-10-18T02:14:34+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"
@@ -121,7 +121,7 @@ key,value
 registered_by_other_component,yes
 replay_active,no
 snapshot_source,runtime
-snapshot_captured_at,2026-10-18T02:07:57+00:00
+snapshot_captured_at,2026-10-18T02:14:34+00:00
 snapshot_order,"featured_item > featured_item_category"
 cpt_rewrite,"{""slug"":""featured_item"",""with_front"":true,""pages"":true,""feeds"":false,""ep_mask"":1}"
 tax_rewrite,"{""with_front"":true,""hierarchical"":false,""ep_mask"":0,""slug"":""bo-suu-tap""}"
