@@ -49,7 +49,7 @@ final class AutopilotTest extends TestCase {
         $this->assertStringNotContainsString('Honda Wave', $answer['answer']);
     }
     public function test_commercial_intents_and_no_fabricated_booking(): void {
-        foreach (array('Xe ga 50cc'=>'vehicles','Giá xe máy điện'=>'prices','Tiền đặt cọc'=>'deposit','Giao xe Phố Cổ'=>'location','Mở cửa lúc mấy giờ'=>'hours','Tôi muốn đặt xe ngày mai'=>'booking','Xe bị thủng lốp'=>'support') as $q=>$intent) {
+        foreach (array('Xe ga 50cc'=>'vehicles','Giá xe máy điện'=>'prices','Tiền đặt cọc'=>'deposit','Đặt cọc bao nhiêu?'=>'deposit','Phí giao xe bao nhiêu?'=>'location','How much deposit?'=>'deposit','Giao xe Phố Cổ'=>'location','Mở cửa lúc mấy giờ'=>'hours','Tôi muốn đặt xe ngày mai'=>'booking','Xe bị thủng lốp'=>'support') as $q=>$intent) {
             $r = nt_assistant_answer($q);
             $this->assertSame($intent,$r['intent'],$q);
             $this->assertSame('local-rules-and-search',$r['mode']);

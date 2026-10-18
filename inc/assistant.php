@@ -126,7 +126,7 @@ function nt_assistant_sources( string $question ): array {
 		}
 	}
 	// WordPress search is lexical retrieval, not a claim of vector/LLM semantics.
-	if ( preg_match( '/mu bao hiem|giay phep|pin|sac|bao duong|dong xuan|pho ha noi/', $normalized, $topic ) ) {
+	if ( preg_match( '/mu bao hiem|giay phep|bang lai|50cc|pin|sac|bao duong|dong xuan|pho ha noi/', $normalized, $topic ) ) {
 		$query = $topic[0];
 	}
 	$key = 'nt_search_' . md5( $query . wp_cache_get_last_changed( 'posts' ) );
@@ -199,13 +199,17 @@ function nt_assistant_answer( string $question, string $context = '' ): array {
 		$intent  = 'support';
 		$answer  = $en ? 'Stop somewhere safe. Contact Nguyễn Tú before authorizing repairs; keep repair receipts. Call ' : 'Dừng xe ở vị trí an toàn. Gọi Nguyễn Tú để thống nhất cách xử lý trước khi sửa; giữ hóa đơn sửa chữa. Điện thoại: ';
 		$answer .= nt_business( 'phone_display' ) . '.';
-	} elseif ( preg_match( '/\b(gia|bao nhieu|how much|price|cost|theo ngay|theo tuan|theo thang|monthly|weekly|daily)\b/', $q ) ) {
+	} elseif ( preg_match( '/\b(gia|bao nhieu|how much|price|cost|theo ngay|theo tuan|theo thang|monthly|weekly|daily)\b/', $q ) && ! preg_match( '/\b(coc|ho chieu|thu tuc|giay to|deposit|passport|documents|phi giao|delivery)\b|giao.*bao nhieu/', $q ) ) {
 		$intent  = 'prices';
 		$period  = preg_match( '/thang|month/', $q ) ? 'month' : ( preg_match( '/tuan|week/', $q ) ? 'week' : 'day' );
 		$matched = array();
 		foreach ( nt_price_rows() as $row ) {
 			$name   = nt_assistant_normalize( $row['name'] );
 			$wanted = preg_match( '/vision|wave|air blade|click|mio|50cc|dien|electric/', $q, $model );
+			if ( ! $wanted && str_contains( $q, 'xe so' ) && ! str_contains( $name, 'wave' ) ) {
+				continue; }
+			if ( ! $wanted && str_contains( $q, 'xe ga' ) && str_contains( $name, 'wave' ) ) {
+				continue; }
 			if ( ! $wanted || str_contains( $name, $model[0] ) || ( 'electric' === $model[0] && str_contains( $name, 'dien' ) ) ) {
 				$matched[] = $row['name'] . ': ' . $row[ $period ];
 			}
@@ -232,8 +236,8 @@ function nt_assistant_answer( string $question, string $context = '' ): array {
 		$answer = nt_address() . '. ' . ( $en ? 'Delivery in Hanoi can be arranged for a fee; the location, time and charge must be confirmed with the shop.' : 'Có thể thỏa thuận giao xe tại Hà Nội, có phí. Cần xác nhận địa điểm, thời gian và phí giao trước khi đặt xe.' );
 	} elseif ( preg_match( '/\b(dat|lien he|book|contact|available|con xe)\b/', $q ) ) {
 		$intent = 'booking';
-		$answer = $en ? 'Please tell the shop your dates, preferred model and pickup location by phone or Zalo. This assistant cannot confirm availability or reservations.' : 'Tổng thời gian thuê, dòng xe và địa điểm nhận xe là gì? Vui lòng gửi các thông tin này qua gọi điện hoặc Zalo. Trợ lý chưa thể xác nhận xe còn sẵn hoặc đặt xe thành công.';
-	} elseif ( preg_match( '/\b(50cc|xe so|xe ga|xe dien|xe dap dien|electric|scooter|vision|wave)\b/', $q ) ) {
+		$answer = $en ? 'Please tell the shop your dates, preferred model and pickup location by phone or Zalo. This assistant cannot confirm availability or reservations.' : 'Khách muốn thuê bao lâu, dòng xe nào và nhận xe ở đâu? Vui lòng gửi các thông tin này qua gọi điện hoặc Zalo. Trợ lý chưa thể xác nhận xe còn sẵn hoặc đặt xe thành công.';
+	} elseif ( preg_match( '/\b(50cc|xe so|xe ga|xe dien|xe dap dien|electric|scooter|vision|wave)\b/', $q ) && ! preg_match( '/bang lai|luat|quy dinh|bai viet|huong dan/', $q ) ) {
 		$intent = 'vehicles';
 		$answer = $en ? 'Nguyễn Tú rents motorcycles, scooters, 50cc scooters, electric motorcycles and e-bikes. Which model and rental period do you need? Availability must be confirmed by the shop.' : 'Nguyễn Tú cho thuê xe số, xe ga, xe tay ga 50cc, xe máy điện và xe đạp điện. Khách cần loại xe nào, thuê bao lâu? Tình trạng xe phải được cửa hàng xác nhận.';
 	}
