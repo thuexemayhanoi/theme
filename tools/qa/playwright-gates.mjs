@@ -56,7 +56,7 @@ for (const file of process.argv.slice(2)) {
 const GATES = {
 	'e2e-layout': (s) => s.file === 'layout.spec.mjs',
 	'e2e-menu': (s) => s.file === 'menu.spec.mjs',
-	'e2e-contact': (s) => s.file === 'contact.spec.mjs',
+	'e2e-contact': (s) => s.file === 'contact.spec.mjs' || s.file === 'native-assist.spec.mjs',
 	'e2e-woo': (s) => s.file === 'woo.spec.mjs',
 	'e2e-blog': (s) => s.file === 'blog.spec.mjs',
 	'e2e-seo-head': (s) => s.file === 'seo-head.spec.mjs',
