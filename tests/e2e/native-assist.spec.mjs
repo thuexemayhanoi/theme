@@ -61,6 +61,11 @@ test('grounded answers contain only public local sources and do not require AI A
 		expect(new URL(item.url).host).toBe('127.0.0.1:8088');
 		expect(item.title.length).toBeGreaterThan(0);
 	}
+	const deposit = await request.post('/wp-json/nguyentu/v1/assist', { data: { question: 'Tiền đặt cọc xe máy bao nhiêu?' } });
+	expect(deposit.status()).toBe(200);
+	const verified = await deposit.json();
+	expect(verified.sources).toHaveLength(1);
+	expect(new URL(verified.sources[0].url).pathname).toBe('/faq/');
 	const bad = await request.post('/wp-json/nguyentu/v1/assist', { data: { question: 'x'.repeat(181) } });
 	expect(bad.status()).toBe(400);
 });
