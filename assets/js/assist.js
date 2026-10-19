@@ -99,7 +99,7 @@
 					link.rel = 'noopener noreferrer';
 					item.appendChild(link);
 					list.appendChild(item);
-				} catch (_) { /* untrusted result is ignored */ }
+				} catch { /* untrusted result is ignored */ }
 			});
 			if (list.children.length) { box.appendChild(list); }
 		}
