@@ -24,6 +24,22 @@ for (const [width, expectedColumns] of widths) {
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
+		// Call / Zalo / Directions mirror native Quick Call's semantic palette,
+		// while using the same compact pill shape as the four social links.
+		const footerActions = footer.locator('.nt-footer__column--contact .nt-cta > a');
+		await expect(footerActions).toHaveCount(3);
+		const palette = await footerActions.evaluateAll((buttons) =>
+			buttons.map((button) => {
+				const style = getComputedStyle(button);
+				return { background: style.backgroundColor, radius: style.borderRadius, height: button.getBoundingClientRect().height, foreground: style.color };
+			})
+		);
+		expect(palette.map((button) => button.background)).toEqual(['rgb(210, 56, 31)', 'rgb(8, 105, 213)', 'rgb(71, 87, 117)']);
+		for (const button of palette) {
+			expect(button.radius).toBe('999px');
+			expect(button.height).toBeGreaterThanOrEqual(44);
+			expect(button.foreground).toBe('rgb(255, 255, 255)');
+		}
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__social')).toHaveCount(1);
 		const socials = footer.locator('.nt-footer__column--brand .nt-footer__social');
 		await expect(socials.locator('a')).toHaveText(['Facebook', 'Zalo', 'WhatsApp', 'Tripadvisor']);
