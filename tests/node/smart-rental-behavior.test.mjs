@@ -7,7 +7,7 @@ const source = readFileSync(new URL('../../plugins/nguyentu-smart-core/assets/re
 
 function createCalculator() {
   const handlers = {};
-  const option = { dataset: { dayRate: '150000' } };
+  const option = { dataset: { dayRate: '150000', weekPrice: '700.000đ', monthPrice: '900.000–1.200.000đ', deposit: '2–3 triệu' } };
   const vehicle = {
     selectedOptions: [option],
     addEventListener: (event, callback) => { handlers['vehicle:' + event] = callback; },
@@ -63,4 +63,46 @@ test('rejects negative, zero, non-integer and excessive day counts', () => {
     c.handlers['days:input']();
     assert.match(c.result.textContent, /1 đến 30 ngày/);
   }
+});
+
+test('7 days uses the published weekly rate instead of 7 daily rates', () => {
+  const c = createCalculator();
+  c.days.value = '7';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /700[.,]000đ/);
+  assert.doesNotMatch(c.result.textContent, /1[.,]050[.,]000đ/);
+});
+
+test('30 days uses the published monthly range and separates deposit', () => {
+  const c = createCalculator();
+  c.days.value = '30';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /900[.,]000–1[.,]200[.,]000đ/);
+  assert.match(c.result.textContent, /Tiền cọc tham khảo: 2–3 triệu/);
+  assert.doesNotMatch(c.result.textContent, /4[.,]500[.,]000đ/);
+});
+
+test('unpriced intermediate periods and package prices require confirmation', () => {
+  const c = createCalculator();
+  c.days.value = '10';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /liên hệ để xác nhận giá theo gói/);
+  c.days.value = '7';
+  c.option.dataset.weekPrice = 'Báo giá riêng';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /cần liên hệ/);
+  c.days.value = '30';
+  c.option.dataset.monthPrice = 'Liên hệ';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /cần liên hệ/);
+});
+
+test('price confirmation is required for electric vehicle without day rate', () => {
+  const c = createCalculator();
+  c.option.dataset.dayRate = '';
+  c.option.dataset.weekPrice = 'Liên hệ';
+  c.option.dataset.monthPrice = 'Liên hệ';
+  c.days.value = '3';
+  c.handlers['days:input']();
+  assert.match(c.result.textContent, /cần liên hệ để nhận báo giá/);
 });

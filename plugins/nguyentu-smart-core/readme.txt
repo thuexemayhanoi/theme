@@ -4,7 +4,7 @@ Tags: local-business, seo, internal-linking, calculator, structured-data
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 
 Zero-config business data and WordPress companion tools for thuexemaynguyentu.com.
@@ -16,7 +16,7 @@ One plugin ZIP, no account, external API, API key, setup wizard or database migr
 * Verified Nguyễn Tú business data (NAP, hours, owner-confirmed rental references). Reads the theme data when available.
 * Schema: honors the active theme's Yoast enrichment without creating a second Organization; if the theme changes, cautiously enriches Yoast when no Local SEO module takes ownership. Without a recognized SEO plugin, emits a conservative graph on eligible pages only.
 * Tools > Nguyễn Tú Core: read-only health and internal-link sample of up to 20 recent articles. This is not a whole-site broken-link checker.
-* Reference rental estimate: automatically appears after either the native Nguyễn Tú homepage price table or the verified original price table embedded in the historic homepage content. The stored homepage content is never edited. It also works through shortcode [nguyentu_rental_calculator] in other content. Shows day-rate estimates only and links to Zalo for confirmation. No bookings are placed.
+* Reference rental estimate: automatically appears after either the native Nguyễn Tú homepage price table or the verified original price table embedded in the historic homepage content. The stored homepage content is never edited. It also works through shortcode [nguyentu_rental_calculator] in other content. Shows the verified day rate for 1–6 days, the listed 7-day and 30-day prices (including published ranges), and a contact-only message for unpriced periods. Displays the listed deposit separately from the rental amount; never guesses a package price. Links to Zalo for confirmation. No bookings are placed.
 * Zero database writes; no external JavaScript/CDN, tracking, cookies or heavy runtime index.
 * Native Quick Call and Chatbot remain in the theme; this plugin never duplicates them.
 
