@@ -22,8 +22,8 @@ foreach ( $nt_items as $nt_item ) {
 	$nt_by_id[ (int) $nt_item->ID ] = $nt_item;
 }
 
-$nt_groups = array();
-$nt_counts = array(
+$nt_groups     = array();
+$nt_counts     = array(
 	'rental' => 0,
 	'blog'   => 0,
 	'info'   => 0,
@@ -98,7 +98,7 @@ foreach ( array( 310, 484, 326, 449 ) as $nt_page_id ) {
 }
 
 // Filter only these footer copies of primary navigation, never header or mobile.
-$nt_active_group = '';
+$nt_active_group  = '';
 $nt_footer_filter = static function ( $items, $args ) use ( &$nt_active_group, $nt_groups, $nt_contact_id ) {
 	if ( ! str_starts_with( (string) ( $args->menu_id ?? '' ), 'nt-footer-group-' ) ) {
 		return $items;
