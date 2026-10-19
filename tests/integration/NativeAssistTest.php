@@ -52,7 +52,7 @@ final class NativeAssistTest extends TestCase {
 		$this->assertStringContainsString( nt_address(), nt_assist_fact_answer( 'Địa chỉ cửa hàng ở đâu?' ) );
 		$this->assertStringContainsString( '2.000.000', nt_assist_fact_answer( 'Tiền đặt cọc bao nhiêu?' ) );
 		$this->assertStringContainsString( 'Honda Wave', nt_assist_fact_answer( 'Giá Honda Wave?' ) );
-		$this->assertSame( '', nt_assist_fact_answer( 'Có chắc xe Vision còn hàng lúc 17h?' ) );
+		$this->assertStringContainsString( 'không có dữ liệu tồn kho', nt_assist_fact_answer( 'Có chắc xe Vision còn hàng lúc 17h?' ) );
 	}
 
 	public function test_public_search_excludes_private_and_passworded_content(): void {
