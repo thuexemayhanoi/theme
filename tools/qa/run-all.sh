@@ -15,7 +15,7 @@ step() { # step <gate> <title> <command...>
 		echo "PASS  $gate"
 	else
 		rec "$gate" FAIL "$title — $(echo "$out" | tail -3 | tr '\n' ' ' | cut -c1-200)"
-		echo "FAIL  $gate"; echo "$out" | tail -15
+		echo "FAIL  $gate"; echo "$out" | head -50; echo "$out" | tail -15
 		FAILED=1
 	fi
 }
