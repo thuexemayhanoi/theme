@@ -16,8 +16,11 @@
 .nt-qc__link--chat { background: var(--nt-navy, #1b2f5b); }
 .nt-qc__link--maps { background: #475775; }
 .nt-qc__link .nt-icon { flex: none; }
-body.nt-has-native-quickcall { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
-body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 32px; }
+/* The fixed launcher does not occupy document flow. Never pad the body:
+ * that left a cream-coloured strip AFTER the navy footer on iPhones.
+ * Keep clearance INSIDE the same footer instead. */
+body.nt-has-native-quickcall { padding-bottom: 0; }
+body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist { position: fixed; z-index: 920; right: 12px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist__launch { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; border: 0; border-radius: 999px; padding: 9px 15px; background: var(--nt-navy, #1b2f5b); color: #fff; font-family: inherit; font-size: .85rem; font-weight: 700; line-height: 1.3; box-shadow: 0 6px 20px rgb(0 0 0 / 18%); cursor: pointer; }
 .nt-assist__panel { position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
@@ -56,7 +59,9 @@ body.nt-chat-is-open .nt-qc { visibility: hidden; pointer-events: none; }
 	.nt-qc { left: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px) + var(--nt-qc-dock-offset, 0px)); }
 	.nt-assist { right: 22px; bottom: 22px; }
 	.nt-assist__panel { right: 22px; bottom: 22px; }
-	body.nt-has-native-quickcall { padding-bottom: 0; }
+	/* At tablet/desktop, keep the copyright clear of the lower-left launcher
+	 * without creating a tall empty band below the footer content. */
+	body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 28px; padding-left: 88px; }
 }
 @media (max-width: 389.98px) {
 	.nt-qc { left: 10px; }
