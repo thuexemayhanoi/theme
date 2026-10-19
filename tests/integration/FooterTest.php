@@ -39,10 +39,28 @@ final class FooterTest extends TestCase {
 	}
 
 	public function test_footer_link_resolver_rejects_nonpublic_unknown_or_draft_objects(): void {
-		$this->assertNull( nt_footer_resolve_link( array( 'type' => 'post', 'id' => 987654, 'label' => 'Không tồn tại' ) ) );
-		$this->assertNull( nt_footer_resolve_link( array( 'type' => 'term', 'id' => 987654, 'taxonomy' => 'category', 'label' => 'Không tồn tại' ) ) );
-		$this->assertNull( nt_footer_resolve_link( array( 'type' => 'term', 'id' => 77, 'taxonomy' => 'invalid_taxonomy', 'label' => 'Sai' ) ) );
-		$this->assertNull( nt_footer_resolve_link( array( 'type' => 'post', 'id' => 310, 'label' => '' ) ) );
+		$this->assertNull( nt_footer_resolve_link( array(
+				'type'  => 'post',
+				'id'    => 987654,
+				'label' => 'Không tồn tại',
+			) ) );
+		$this->assertNull( nt_footer_resolve_link( array(
+				'type'     => 'term',
+				'id'       => 987654,
+				'taxonomy' => 'category',
+				'label'    => 'Không tồn tại',
+			) ) );
+		$this->assertNull( nt_footer_resolve_link( array(
+				'type'     => 'term',
+				'id'       => 77,
+				'taxonomy' => 'invalid_taxonomy',
+				'label'    => 'Sai',
+			) ) );
+		$this->assertNull( nt_footer_resolve_link( array(
+				'type'  => 'post',
+				'id'    => 310,
+				'label' => '',
+			) ) );
 	}
 
 	public function test_footer_only_uses_actual_wordpress_permalink_functions(): void {
