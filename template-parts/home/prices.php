@@ -44,6 +44,8 @@ $nt_policy = nt_policy();
 			</tbody>
 		</table>
 
+		<?php do_action( 'nt_home_prices_after_table' ); // Smart Core injects an optional estimate below the existing price table. ?>
+
 		<div class="nt-policybox">
 			<h3 class="nt-policybox__title"><?php nt_the_icon( 'wallet', array( 'size' => 22 ) ); ?>Chính sách đặt cọc</h3>
 			<ul class="nt-checklist">

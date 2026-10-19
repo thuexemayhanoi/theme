@@ -8,8 +8,8 @@ const read = (path) => readFileSync(new URL(path, root), 'utf8');
 test('Smart Core has a standalone WordPress bootstrap and all expected modules', () => {
   const main = read('nguyentu-smart-core.php');
   assert.match(main, /Plugin Name: Nguyễn Tú Smart Core/);
-  assert.match(main, /Version: 0\.1\.0/);
-  for (const path of ['includes/business.php', 'includes/schema.php', 'includes/admin.php', 'readme.txt', 'uninstall.php']) {
+  assert.match(main, /Version: 1\\.0\\.0/);
+  for (const path of ['includes/business.php', 'includes/schema.php', 'includes/admin.php', 'includes/audit.php', 'includes/rental.php', 'assets/rental.js', 'assets/rental.css', 'readme.txt', 'uninstall.php']) {
     assert.equal(existsSync(new URL(path, root)), true, path);
   }
 });
@@ -39,4 +39,17 @@ test('plugin shipping is separate from the active theme and does not touch Quick
   assert.match(attrs, /^\/plugins export-ignore$/m);
   const main = read('nguyentu-smart-core.php');
   assert.doesNotMatch(main, /add_action\( 'wp_footer'/);
+});
+
+test('Smart Core has a bounded, non-destructive SEO audit and a calculator', () => {
+  const audit = read('includes/audit.php');
+  const rental = read('includes/rental.php');
+  assert.match(audit, /posts_per_page'\s*=> 20/);
+  assert.match(audit, /WP_HTML_Tag_Processor/);
+  assert.doesNotMatch(audit, /wp_update_post|update_option|DELETE FROM/);
+  assert.match(rental, /nguyentu_rental_calculator/);
+  assert.match(rental, /nt_home_prices_after_table/);
+  assert.doesNotMatch(rental, /wp_insert_post|wp_remote_post|wp_create_user/);
+  const script = read('assets/rental.js');
+  assert.doesNotMatch(script, /fetch\(|localStorage|XMLHttpRequest/);
 });
