@@ -180,7 +180,7 @@ add_action( 'rest_api_init', 'nt_assist_rest_routes' );
  * @return array<int,array{title:string,url:string,excerpt:string}>
  */
 function nt_assist_public_search( string $query ): array {
-	$search = new WP_Query(
+	$search  = new WP_Query(
 		array(
 			's'                   => $query,
 			'post_type'           => array( 'post', 'page', 'product' ),
