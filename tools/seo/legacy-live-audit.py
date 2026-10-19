@@ -77,6 +77,7 @@ def main():
     product = baseline["products"][0]["post_name"]
     controls[6] = f"/san-pham/{product}/"
     cases += [{"kind": "control", "url": base + x} for x in controls]
+    alias_urls = {c["url"] for c in cases if c["kind"] == "alias"}
 
     def fetch(case):
         try:
@@ -113,8 +114,8 @@ def main():
         elif r["kind"] == "control" and "nt-definitely-missing" not in r["url"] and r["status"] != 200:
             failures.append(f"CONTROL {r['url']}: HTTP {r['status']}")
         if r.get("status") == 200:
-            aliases = [u for u in r.get("links", []) if u.startswith(base + "/featured_item_category/")
-                       or re.match(re.escape(base) + r"/featured_item/[^/?]+/", u)]
+            aliases = [u for u in r.get("links", [])
+                       if urlsplit(u)._replace(query="", fragment="").geturl() in alias_urls]
             if aliases:
                 failures.append(f"INTERNAL ALIASES {r['url']}: {len(aliases)}")
     for name, kind in (("featured_item", "post"), ("featured_item_category", "term")):

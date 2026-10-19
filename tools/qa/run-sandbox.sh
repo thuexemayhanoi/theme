@@ -69,6 +69,9 @@ if [ "$ONLY_E2E" != 1 ]; then
 
 	echo "== featured_item round trip (capture, replay, dormant) =="
 	bash tools/qa/compat-roundtrip.sh || fail "featured_item round trip"
+	# Round trip ends with the legacy provider ON to prove dormancy. Run every remaining
+	# functional/SEO/browser check with the independent plugin providing the real routes.
+	SIM_FLATSOME=0 bash $SB/sync.sh --quiet || abort "legacy registration simulator could not be removed"
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true
 
 	echo "== SEO snapshot, rules, links =="
