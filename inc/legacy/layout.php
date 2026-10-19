@@ -202,7 +202,7 @@ function nt_lg_col( $atts, $content = '' ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_gap( $atts ): string {
-	$a     = nt_lg_atts(
+	$a = nt_lg_atts(
 		array(
 			'height'     => '30px',
 			'height__sm' => '',
