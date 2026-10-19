@@ -76,7 +76,7 @@ location migration; check it with `./wp.sh menu location list`.
 | Posts | 160 published, IDs **10001-10160** (the baseline has no blog post IDs), one author `nguyentu-editor` ("Nguyễn Tú"), dates over the last 12 months (anchor 2026-10-17), 600-1500 words, 3-5 H2 + some H3, a list in every post, a table in 32, a quote in 40, manual excerpts in 53, 107 in block markup and 53 in classic HTML, 40 with a 1600x900 featured image (attachments 9200-9239). Exactly one post has two categories (157 + 156). All synthetic and marked as such. |
 | Pages | 10 with exact IDs/slugs/titles/parents (562 front page `/`, 310 > 424, 432, 372, 484, 494, 3040 shop, 326, 449). Content from `tests/fixtures/pages/<ID>.html` when present (tokens `{{HERO_ID}}`, `{{PRODUCT_IMG:<slug>}}` replaced, otherwise verbatim), else a placeholder. Sandbox-only extras: **9001 cart, 9002 checkout, 9003 my-account** with the classic shortcodes. |
 | Products | 13 simple products, exact IDs; leaf categories only (71: 4, 72: 6, 73: 3; displayed counts incl. children 70: 13); VND without decimals (`150.000 ₫`); prices on honda-wave 150000, honda-vision 200000, honda-air-blade 200000, honda-click 150000, yamaha-mio-classico 150000, xe-ga-50cc 200000, the other 7 have **no price**; in stock, image + descriptions. WooCommerce's own default `Uncategorized` product category is already term **15** on a fresh install; it is the default. |
-| featured_item | 15 posts, exact IDs, each in term 77 and one of 78/79/80; terms 77-80 (counts 15/5/5/5). Registered by the simulator: `/bo-suu-tap/<term>/`, `/featured_item/<slug>/`. |
+| featured_item | 15 posts, exact IDs, each in term 77 and one of 78/79/80; terms 77-80 (counts 15/5/5/5). Registered by the simulator: `/bo-suu-tap/<term>/`, `/bo-suu-tap/<comma-separated-terms>/<slug>/`. |
 | Menus | nav_menu 67 "Main chính" with 36 `nav_menu_item` posts (exact IDs, `menu_order` = position, parent IDs, type/object/object_id, custom links keep their production absolute URLs); nav_menu 66 "Secondary" is empty. Children come before their parent in `menu_order` for some items, exactly as in the baseline. |
 | Media | hero `9100` (dusk sky, sun and road, no text), products `9101-9113`, posts `9200-9239`; real attachments with generated sizes. The 123 production attachments are not reproduced. |
 | Site | `WPLANG=vi` (`<html lang="vi">`, no language pack, so UI strings stay English), `Asia/Ho_Chi_Minh`, `blog_public=1`, `WP_ENVIRONMENT_TYPE=local`, `WP_DEBUG`/`WP_DEBUG_LOG` on (log in `$SANDBOX_DIR/logs/wp-debug.log`, display off), currency VND. |
@@ -130,7 +130,7 @@ Disk after a full install: downloads 236 MB, WordPress 258 MB, MariaDB datadir 1
   the `X-Sandbox-Theme` header override, `OPCACHE=1`, auto-start of MariaDB by `wp.sh` / `serve.sh` / `snapshot.sh`, an empty second database for a PHPUnit suite.
 * `sync.sh` excludes the brief's list **plus everything the repo's `.gitignore` ignores** (`/dist`, `*.zip`, caches ...). Tracked dev files such as `composer.json` or `package.json` are still copied.
 * The wp-admin password is **generated** at install time and kept in `$SANDBOX_DIR/etc/admin-password` (`ADMIN_PASS` overrides). `setup.sh` and `snapshot.sh restore` re-apply it, so an older install that was created with a fixed password is brought in line the next time one of them runs.
-* `seed.sh` also works with the featured_item simulator off (`SIM_FLATSOME=0`): terms and relationships are then written directly; the URL checks of `verify-seed.sh` for `/bo-suu-tap/<term>/` and `/featured_item/...` correctly FAIL in that state.
+* `seed.sh` also works with the featured_item simulator off (`SIM_FLATSOME=0`): terms and relationships are then written directly; the URL checks of `verify-seed.sh` for `/bo-suu-tap/<term>/` and legacy single paths correctly FAIL in that state.
 
 ## Known limits
 
@@ -145,7 +145,7 @@ Disk after a full install: downloads 236 MB, WordPress 258 MB, MariaDB datadir 1
   Performance numbers measured here (Lighthouse, TTFB) say nothing about production.
 * **No internet from PHP or from the browser.** Gravatar (disabled), Google Fonts, oEmbed, s.w.org emoji, WordPress.org APIs and language packs do not load.
 * The WordPress PHPUnit test library is **not** installed (it comes from develop.svn.wordpress.org, blocked here); an empty `nguyentu_sandbox_tests` database is provided for a suite you bootstrap yourself.
-* `featured_item` single URLs are `/featured_item/<slug>/` (simulator default) and there is no `/featured_item/` archive (`has_archive=false`).
+* `featured_item` single URLs are `/bo-suu-tap/<comma-separated-terms>/<slug>/` (simulator default) and the existing `/featured_item/` archive is preserved (`has_archive=true`).
 * The sitemap lists the 3 sandbox pages (cart, checkout, my-account) too; production has no such pages. Yoast's `category-sitemap.xml` only lists non-empty categories.
 * Restoring a snapshot also restores plugin/theme activation (it is DB state): re-activate your theme and companion plugin afterwards, and remember that the rewrite rules stored in the snapshot match the simulator state at snapshot time (`SIM_FLATSOME=1`).
 * `verify-seed.sh` and `smoke-playwright.cjs` use the active default theme or `X-Sandbox-Theme`; they are harness checks, not theme tests.

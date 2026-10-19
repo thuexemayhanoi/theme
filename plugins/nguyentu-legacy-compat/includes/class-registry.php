@@ -307,8 +307,21 @@ final class NT_Compat_Registry {
 	 * Register the post type and taxonomy from the snapshot when nobody else has.
 	 */
 	public static function replay(): void {
-		if ( post_type_exists( self::CPT ) || taxonomy_exists( self::TAX ) ) {
+		if ( post_type_exists( self::CPT ) && taxonomy_exists( self::TAX ) ) {
 			return; // Previous theme (or another plugin) still provides them: stay dormant.
+		}
+		// Additive, once-only rollback snapshot, before any supervised rewrite flush. Never overwrite it.
+		if ( false === get_option( 'nguyentu_legacy_compat_backup_v110', false ) ) {
+			add_option(
+				'nguyentu_legacy_compat_backup_v110',
+				array(
+					'created_at'    => gmdate( 'c' ),
+					'snapshot'      => self::snapshot(),
+					'rewrite_rules' => get_option( 'rewrite_rules', array() ),
+				),
+				'',
+				false
+			);
 		}
 		$snapshot   = self::snapshot();
 		$definition = ! empty( $snapshot['definition'] ) && is_array( $snapshot['definition'] ) ? $snapshot['definition'] : self::defaults();
@@ -327,10 +340,14 @@ final class NT_Compat_Registry {
 		}
 		$order     = ! empty( $snapshot['order'] ) && is_array( $snapshot['order'] ) ? $snapshot['order'] : array( self::TAX, self::CPT );
 		$taxonomy  = static function () use ( $tax ): void {
-			register_taxonomy( $tax['name'], (array) ( $tax['object_type'] ?? array( self::CPT ) ), (array) ( $tax['args'] ?? array() ) );
+			if ( ! taxonomy_exists( $tax['name'] ) ) {
+				register_taxonomy( $tax['name'], (array) ( $tax['object_type'] ?? array( self::CPT ) ), (array) ( $tax['args'] ?? array() ) );
+			}
 		};
 		$post_type = static function () use ( $pt ): void {
-			register_post_type( $pt['name'], (array) ( $pt['args'] ?? array() ) );
+			if ( ! post_type_exists( $pt['name'] ) ) {
+				register_post_type( $pt['name'], (array) ( $pt['args'] ?? array() ) );
+			}
 		};
 		if ( isset( $order[0] ) && self::CPT === $order[0] ) {
 			$post_type();
@@ -340,5 +357,6 @@ final class NT_Compat_Registry {
 			$post_type();
 		}
 		self::$replayed = true;
+		register_taxonomy_for_object_type( self::TAX, self::CPT );
 	}
 }

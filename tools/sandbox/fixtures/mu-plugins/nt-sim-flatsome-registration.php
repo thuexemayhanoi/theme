@@ -6,13 +6,13 @@
  *
  * Behaviour reproduced (init priority 10, like a theme file loaded on init):
  *   post type  featured_item           public, show_in_rest, supports title/editor/thumbnail/excerpt/page-attributes,
- *                                      rewrite slug "featured_item"  => /featured_item/<slug>/
+ *                                      registration slug "featured_item"; effective permastruct /bo-suu-tap/<terms>/<slug>/
  *   taxonomy   featured_item_category  hierarchical, rewrite slug "bo-suu-tap", rewrite hierarchical=false
  *                                      => /bo-suu-tap/<term-slug>/  (also for child terms: /bo-suu-tap/thue-ngay/)
  *
- * NOTE: the exact registration arguments of the real Flatsome theme were not read from production
- * (no access). Only the facts listed above come from the audit brief; everything else here is a
- * plausible default. Treat this file as a stand-in, not as evidence about Flatsome.
+ * NOTE: this is a simulator, not proprietary old-theme code. The effective legacy paths were
+ * cross-checked against the pre-switch URL records and the saved runtime rules on 2026-10-19.
+ * tests/fixtures/legacy-registration.json separately reproduces the mismatched runtime snapshot.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +44,7 @@ add_action(
 				'menu_icon'          => 'dashicons-portfolio',
 				'capability_type'    => 'post',
 				'hierarchical'       => false,
-				'has_archive'        => false,
+				'has_archive'        => true,
 				'query_var'          => true,
 				'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
 				'rewrite'            => array(
@@ -82,4 +82,32 @@ add_action(
 		);
 	},
 	10
+);
+
+// Reproduce the effective permastructs and link filter verified on 2026-10-19. Their values
+// differ from the registration objects: this discrepancy is exactly what v1.0 failed to replay.
+add_action(
+	'init',
+	static function () {
+		global $wp_rewrite;
+		$wp_rewrite->add_permastruct( 'featured_item', 'bo-suu-tap/%featured_item_category%/%featured_item%', array( 'with_front' => true ) );
+		$wp_rewrite->add_permastruct( 'featured_item_category', 'bo-suu-tap/%featured_item_category%', array( 'with_front' => true ) );
+	},
+	20
+);
+add_filter(
+	'post_type_link',
+	static function ( $url, $post, $leavename ) {
+		if ( 'featured_item' !== $post->post_type ) {
+			return $url;
+		}
+		$terms = get_the_terms( $post->ID, 'featured_item_category' );
+		if ( ! is_array( $terms ) ) {
+			return $url;
+		}
+		usort( $terms, static fn( $a, $b ) => $a->term_id <=> $b->term_id );
+		return home_url( '/bo-suu-tap/' . implode( ',', wp_list_pluck( $terms, 'slug' ) ) . '/' . ( $leavename ? '%featured_item%' : $post->post_name ) . '/' );
+	},
+	10,
+	3
 );

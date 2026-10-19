@@ -1,0 +1,791 @@
+{
+  "checked_at": "2026-10-19T09:46:46.360606+00:00",
+  "rows": [
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-ha-noi-1-ngay/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-ha-noi-1-ngay/",
+      "id": "587",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-ngay/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-ha-noi-1-ngay/",
+      "id": "587",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-ha-noi-1-ngay/"
+      ],
+      "title": "Thuê xe máy Hà Nội 1 ngày: Lịch trình | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Lên lịch trình đi Hà Nội một ngày và chuẩn bị xe máy thuê phù hợp. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+      "id": "682",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+      "id": "682",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/dich-vu-thue-xe-may-moi-ngay-ha-noi/"
+      ],
+      "title": "Thuê xe máy mỗi ngày: Thủ tục và sử dụng | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Xem thủ tục thuê xe máy mỗi ngày và các lưu ý khi nhận, sử dụng xe. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 58
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+      "id": "686",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+      "id": "686",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/"
+      ],
+      "title": "Đặt xe máy thuê theo ngày Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu các bước đặt xe máy theo ngày và thông tin cần xác nhận. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 58
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+      "id": "693",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+      "id": "693",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/"
+      ],
+      "title": "Thuê xe máy 1 ngày Hà Nội: Giao nhận | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Chuẩn bị điểm nhận, trả và phương án giao xe khi thuê xe máy một ngày. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may/",
+      "id": "696",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may/",
+      "id": "696",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may/"
+      ],
+      "title": "Giá thuê xe máy theo ngày Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Đối chiếu bảng giá thuê xe máy theo ngày và chi phí cần hỏi trước. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 58
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+      "id": "701",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+      "id": "701",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/"
+      ],
+      "title": "Thuê xe máy tuần Hà Nội: Chọn gói thuê | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Chọn gói thuê xe máy theo tuần phù hợp lịch đi lại tại Hà Nội. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+      "id": "703",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+      "id": "703",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/"
+      ],
+      "title": "Thuê xe máy 1 tuần: Điều kiện thuê | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu tiền cọc, giấy tờ và điều kiện sử dụng xe khi thuê một tuần. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+      "id": "705",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/",
+      "id": "705",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/"
+      ],
+      "title": "Thuê xe máy theo tuần: Tính chi phí | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tính tổng chi phí thuê xe theo tuần, gồm giá xe và các khoản phát sinh. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+      "id": "708",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+      "id": "708",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/"
+      ],
+      "title": "Thuê xe máy 1 tuần Hà Nội: Nhận và trả xe | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Kiểm tra xe, giấy tờ và quy trình nhận, trả khi thuê xe máy một tuần. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "id": "710",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "id": "710",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/"
+      ],
+      "title": "Giá thuê xe máy 1 tuần Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "So sánh chi phí thuê xe máy một tuần theo loại xe và nhu cầu. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+      "id": "793",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+      "id": "793",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/"
+      ],
+      "title": "Thuê xe máy tháng Hà Nội: Hợp đồng | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Đọc các điều kiện sử dụng, bảo dưỡng và trách nhiệm trong hợp đồng thuê tháng. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+      "id": "795",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+      "id": "795",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/"
+      ],
+      "title": "Thuê xe máy tháng Hà Nội: Giao nhận | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Chuẩn bị địa điểm, thời gian và phí giao nhận khi thuê xe máy theo tháng. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 58
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-1-thang/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-1-thang/",
+      "id": "802",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-thang/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-1-thang/",
+      "id": "802",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-1-thang/"
+      ],
+      "title": "Thuê xe máy 1 tháng Hà Nội: Thủ tục | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu hồ sơ, tiền cọc và các bước thuê xe máy trong một tháng. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 60
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+      "id": "809",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+      "id": "809",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/"
+      ],
+      "title": "Thuê xe máy tháng Hà Nội: Chọn loại xe | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Chọn xe số, xe ga hoặc xe điện cho lịch thuê theo tháng tại Hà Nội. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 60
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-thang-ha-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-thang-ha-noi/",
+      "id": "811",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-thang-ha-noi/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-thang-ha-noi/",
+      "id": "811",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-thang-ha-noi/"
+      ],
+      "title": "Giá thuê xe máy theo tháng Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Đối chiếu giá thuê theo tháng, loại xe và khoản chi cần xác nhận. Xem hướng dẫn của Nguyễn Tú và xác nhận xe, giá cùng điều kiện thuê trước khi đặt.",
+      "observed_link_count": 59
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+      "id": "77",
+      "status": 301,
+      "location": "https://thuexemaynguyentu.com/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+      "canonical": [],
+      "title": "",
+      "robots": null,
+      "description": null,
+      "observed_link_count": 0
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item_category/bang-gia/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/",
+      "id": "77",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/"
+      ],
+      "title": "Bảng Giá xe máy Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu Bảng Giá xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe.",
+      "observed_link_count": 60
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/",
+      "id": "78",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item_category/thue-ngay/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/",
+      "id": "78",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/"
+      ],
+      "title": "Thuê Ngày xe máy Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu Thuê Ngày xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe.",
+      "observed_link_count": 55
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/",
+      "id": "79",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item_category/thue-tuan/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/",
+      "id": "79",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/"
+      ],
+      "title": "Thuê Tuần xe máy Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu Thuê Tuần xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe.",
+      "observed_link_count": 55
+    },
+    {
+      "kind": "canonical",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/",
+      "id": "80",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "alias",
+      "url": "https://thuexemaynguyentu.com/featured_item_category/thue-thang/",
+      "expected": "https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/",
+      "id": "80",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/"
+      ],
+      "title": "Thuê Tháng xe máy Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu Thuê Tháng xe máy tại Hà Nội trên website Nguyễn Tú. Xem các hướng dẫn về gói thuê, chi phí, giấy tờ và cách chuẩn bị trước khi đặt xe.",
+      "observed_link_count": 55
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/"
+      ],
+      "title": "Thuê Xe Máy Hà Nội – Theo Ngày, Tháng | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Thuê xe máy Hà Nội tại Nguyễn Tú với xe số, xe ga 50cc–125cc. Thuê theo ngày, tuần hoặc tháng; thủ tục đặt cọc nhanh, hỗ trợ giao xe theo thỏa thuận.",
+      "observed_link_count": 81
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/bo-suu-tap/"
+      ],
+      "title": "Bộ Sưu Tập Xe Máy Cho Thuê Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Xem bảng giá thuê xe máy Hà Nội theo ngày, tuần và tháng. Chọn gói phù hợp, kiểm tra giá hiện tại và cách nhận xe tại Nguyễn Tú.",
+      "observed_link_count": 53
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/featured_item/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/featured_item/"
+      ],
+      "title": "Thuê xe máy theo ngày, tuần, tháng tại Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Tìm hiểu các gói thuê xe máy theo ngày, tuần và tháng tại Hà Nội. Xem hướng dẫn chọn xe, chi phí, thủ tục và phương án giao nhận của Nguyễn Tú.",
+      "observed_link_count": 60
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/lien-he/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/lien-he/"
+      ],
+      "title": "Liên Hệ Nguyễn Tú | Thuê Xe Máy Hà Nội – 112 Nguyễn Văn Cừ",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Liên hệ Nguyễn Tú thuê xe máy Hà Nội tại 112 Nguyễn Văn Cừ, Bồ Đề, Long Biên. Gọi 0942 467 674 hoặc nhắn Zalo để đặt xe.",
+      "observed_link_count": 51
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/blog/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/blog/"
+      ],
+      "title": "Blog xe máy và du lịch Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Khám phá kinh nghiệm thuê xe máy, chọn xe, bảo dưỡng và du lịch Hà Nội. Đọc hướng dẫn theo chủ đề để chuẩn bị giấy tờ, phương tiện và lịch trình phù hợp.",
+      "observed_link_count": 62
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/shop/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/shop/"
+      ],
+      "title": "Thuê xe máy Hà Nội: Các loại xe | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Xem các loại xe máy cho thuê tại Hà Nội của Nguyễn Tú. Chọn xe theo nhu cầu và liên hệ để xác nhận giá, tình trạng xe, lịch thuê cùng phương án giao nhận.",
+      "observed_link_count": 61
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/san-pham/xe-so-honda-blade/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://thuexemaynguyentu.com/san-pham/xe-so-honda-blade/"
+      ],
+      "title": "Xe Số Honda Blade Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "description": "Cho thuê xe số Honda Blade Hà Nội – xe bền bỉ, tiết kiệm xăng, thủ tục nhanh gọn, giá rẻ, uy tín. Phù hợp sinh viên, khách du lịch và người đi làm.",
+      "observed_link_count": 65
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/robots.txt",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "title": "",
+      "robots": null,
+      "description": null,
+      "observed_link_count": 0
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/sitemap_index.xml",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "title": "",
+      "robots": null,
+      "description": null,
+      "sitemap_urls": [
+        "https://thuexemaynguyentu.com/post-sitemap.xml",
+        "https://thuexemaynguyentu.com/page-sitemap.xml",
+        "https://thuexemaynguyentu.com/product-sitemap.xml",
+        "https://thuexemaynguyentu.com/featured_item-sitemap.xml",
+        "https://thuexemaynguyentu.com/category-sitemap.xml",
+        "https://thuexemaynguyentu.com/product_cat-sitemap.xml",
+        "https://thuexemaynguyentu.com/pa_dong-xe-sitemap.xml",
+        "https://thuexemaynguyentu.com/pa_loai-xe-sitemap.xml",
+        "https://thuexemaynguyentu.com/featured_item_category-sitemap.xml"
+      ],
+      "observed_link_count": 0
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/featured_item-sitemap.xml",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "title": "",
+      "robots": null,
+      "description": null,
+      "sitemap_urls": [
+        "https://thuexemaynguyentu.com/featured_item/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-ngay/",
+        "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/",
+        "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/",
+        "https://thuexemaynguyentu.com/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/",
+        "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/",
+        "https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-thang/",
+        "https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/",
+        "https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-thang-ha-noi/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may/",
+        "https://thuexemaynguyentu.com/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/"
+      ],
+      "observed_link_count": 0
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/featured_item_category-sitemap.xml",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "title": "",
+      "robots": null,
+      "description": null,
+      "sitemap_urls": [
+        "https://thuexemaynguyentu.com/featured_item_category/bang-gia/",
+        "https://thuexemaynguyentu.com/featured_item_category/thue-ngay/",
+        "https://thuexemaynguyentu.com/featured_item_category/thue-thang/",
+        "https://thuexemaynguyentu.com/featured_item_category/thue-tuan/"
+      ],
+      "observed_link_count": 0
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/nt-definitely-missing/",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/featured_item_category/nt-definitely-missing/",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/nt-definitely-missing/thue-xe-may/",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    },
+    {
+      "kind": "control",
+      "url": "https://thuexemaynguyentu.com/nt-definitely-missing/",
+      "status": 404,
+      "location": null,
+      "canonical": [],
+      "title": "Page not found - Cho Thuê Xe Máy Hà Nội | Nguyễn Tú",
+      "robots": "noindex, follow",
+      "description": null,
+      "observed_link_count": 49
+    }
+  ],
+  "failures": [
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-ha-noi-1-ngay/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-ngay/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/dich-vu-thue-xe-may-moi-ngay-ha-noi/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-moi-ngay-ha-noi/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-theo-ngay-ha-noi-dat-xe-nhanh-coc-nhe/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-1-ngay-ha-noi-giao-xe-tan-noi-thu-tuc-don-gian/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-ngay/thue-xe-may/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-theo-tuan-gia-uu-dai-giao-xe-nhanh/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-tuan-tai-ha-noi-tien-loi-an-toan-coc-nhe/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-moi-tuan-ha-noi-tiet-kiem-thuan-tien-giao-tan-noi/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-1-tuan-thu-tuc-nhanh-coc-nhe-dich-vu-tot/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-tuan/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/bang-gia-thue-cac-loai-xe-may-1-tuan-ha-noi-giao-xe-tan-noi/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-thang-ha-noi-thuan-tien-an-toan-uy-tin/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/thue-xe-may-ha-noi-hang-thang-giao-xe-tan-noi-coc-nhe-tien-loi/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/dich-vu-thue-xe-may-1-thang/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/dich-vu-thue-xe-may-1-thang/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-cac-loai-theo-thang-ha-noi-tien-loi-gia-tot/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia,thue-thang/cho-thue-xe-may-thang-ha-noi/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item/cho-thue-xe-may-thang-ha-noi/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/bang-gia/: HTTP 301 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item_category/bang-gia/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/thue-ngay/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item_category/thue-ngay/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/thue-tuan/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item_category/thue-tuan/: HTTP 200 -> None",
+    "CANONICAL https://thuexemaynguyentu.com/bo-suu-tap/thue-thang/: HTTP 404 []",
+    "ALIAS https://thuexemaynguyentu.com/featured_item_category/thue-thang/: HTTP 200 -> None"
+  ]
+}
