@@ -4,6 +4,7 @@
  *
  * @package NguyenTuSmartCore
  */
+
 defined( 'ABSPATH' ) || exit;
 
 /**

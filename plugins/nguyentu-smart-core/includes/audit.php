@@ -4,6 +4,7 @@
  *
  * @package NguyenTuSmartCore
  */
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -64,7 +65,7 @@ final class NT_Smart_Audit {
 			if ( ! $post instanceof WP_Post || '' !== $post->post_password ) {
 				continue;
 			}
-			$url    = get_permalink( $post );
+			$url     = get_permalink( $post );
 			$rows[] = array(
 				'id'    => (int) $post->ID,
 				'title' => get_the_title( $post ),
