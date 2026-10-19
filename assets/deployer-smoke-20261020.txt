@@ -1,4 +1,0 @@
-Nguyen Tu deployment verification marker.
-Purpose: confirm automatic sync from GitHub main to the WordPress theme directory.
-Check ID: nt-webhook-probe-20261020-a1.
-Safe: no PHP, JavaScript, CSS, secrets, or customer data.
