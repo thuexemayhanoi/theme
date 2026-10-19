@@ -28,7 +28,7 @@ php_lint() {
 export -f php_lint 2>/dev/null || true
 
 step php-lint "all PHP files pass php -l" bash -c 'n=0; while IFS= read -r -d "" f; do php -l "$f" >/dev/null || exit 1; n=$((n+1)); done < <(find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -print0); echo "$n files"'
-step phpcs "WordPress coding standards, 0 errors 0 warnings" vendor/bin/phpcs --report=summary
+step phpcs "WordPress coding standards, 0 errors 0 warnings" vendor/bin/phpcs --report=full
 step unit "PHPUnit unit suite" vendor/bin/phpunit --testsuite unit
 step js-lint "eslint" npx --no-install eslint assets/js tools tests/e2e tests/node --no-warn-ignored
 step node-tests "node:test SEO tooling" node --test "tests/node/*.test.mjs"
