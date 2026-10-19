@@ -607,8 +607,34 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer .nt-widget a { color: #fff; }
 .nt-footer .nt-widget ul { margin: 0; padding: 0; list-style: none; }
 .nt-footer .nt-widget li { margin-bottom: 6px; }
-.nt-footer__bottom { padding: 20px 0 28px; font-size: .8125rem; color: #9fb0cd; border-top: 1px solid rgb(255 255 255 / 12%); }
-.nt-footer__bottom p { margin: 0; }
+/* Compact footer end row: copyright at left and a non-floating Back to Top at right.
+ * Keep it in normal flow so it cannot cover Quick Call or the iOS Safari dock. */
+.nt-footer__bottom {
+	display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px;
+	padding: 20px 0 28px; font-size: .8125rem; color: #9fb0cd;
+	border-top: 1px solid rgb(255 255 255 / 12%);
+}
+.nt-footer__bottom p { min-width: 0; margin: 0; }
+.nt-footer__backtop {
+	display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+	min-width: 44px; min-height: 44px; padding: 9px 12px;
+	border: 1px solid rgb(255 255 255 / 38%); border-radius: 999px;
+	background: transparent; color: #fff; font: inherit; font-weight: 700; line-height: 1.4;
+	white-space: nowrap; text-decoration: none; box-shadow: none;
+}
+.nt-footer__backtop .nt-icon { flex: none; }
+.nt-footer__backtop:hover, .nt-footer__backtop:focus-visible {
+	background: rgb(255 255 255 / 12%); color: #fff; text-decoration: none;
+}
+.nt-footer__backtop:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@media (max-width: 479.98px) {
+	/* Icon-only button fits 320–390px viewports and keeps the brand name readable. */
+	.nt-footer__backtop { width: 44px; padding: 9px; }
+	.nt-footer__backtop span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+}
 @media (min-width: 640px) {
 	.nt-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
 }

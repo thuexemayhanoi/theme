@@ -76,6 +76,50 @@ for (const [width, expectedColumns] of widths) {
 	});
 }
 
+for (const width of [320, 360, 390, 768, 1024, 1440]) {
+	test('footer copyright and back to top do not overlap contact UI at ' + width + 'px', async ({ page }) => {
+		await page.setViewportSize({ width, height: 844 });
+		await page.goto('/blog/', { waitUntil: 'networkidle' });
+		const copyright = page.locator('.nt-footer__bottom p');
+		const backtop = page.locator('.nt-footer__backtop');
+		await expect(copyright).toHaveText(/© 2026 Cho Thuê Xe Máy Nguyễn Tú/);
+		await expect(copyright).not.toContainText('Giá thuê và điều kiện đặt cọc');
+		await expect(backtop).toHaveAttribute('href', '#nt-page-top');
+		await expect(backtop).toHaveAttribute('aria-label', 'Lên đầu trang');
+		await expect(page.locator('body#nt-page-top')).toHaveCount(1);
+		await page.evaluate(() => {
+			document.documentElement.style.scrollBehavior = 'auto';
+			window.scrollTo(0, document.documentElement.scrollHeight);
+		});
+		const layout = await page.evaluate(() => {
+			const copyright = document.querySelector('.nt-footer__bottom p').getBoundingClientRect();
+			const backtop = document.querySelector('.nt-footer__backtop').getBoundingClientRect();
+			const fixedContact = document.querySelector('#nt-native-quickcall .nt-qc__launch, #moto-quickcall-sim, .nt-ctabar');
+			const contact = fixedContact?.getBoundingClientRect();
+			const intersects = (a, b) => !!b && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+			return {
+				copyright, backtop,
+				buttonBackground: getComputedStyle(document.querySelector('.nt-footer__backtop')).backgroundColor,
+				buttonBorder: getComputedStyle(document.querySelector('.nt-footer__backtop')).borderTopColor,
+				nonFloating: getComputedStyle(document.querySelector('.nt-footer__backtop')).position !== 'fixed',
+				copyrightOverlapsButton: intersects(copyright, backtop),
+				contactOverlapsButton: intersects(backtop, contact),
+			};
+		});
+		expect(layout.backtop.height).toBeGreaterThanOrEqual(44);
+		expect(layout.backtop.width).toBeGreaterThanOrEqual(44);
+		expect(layout.buttonBackground).toBe('rgba(0, 0, 0, 0)');
+		expect(layout.buttonBorder).toBe('rgba(255, 255, 255, 0.38)');
+		expect(layout.nonFloating).toBe(true);
+		expect(layout.copyrightOverlapsButton).toBe(false);
+		expect(layout.contactOverlapsButton).toBe(false);
+		await noHorizontalScroll(page);
+		await backtop.click();
+		await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 5000 }).toBeLessThanOrEqual(20);
+		await expect(page.locator('#site-header')).toBeVisible();
+	});
+}
+
 test('only strategic Hub, rental and information links; no copied 36-item menu', async ({ page }) => {
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await page.goto('/', { waitUntil: 'networkidle' });

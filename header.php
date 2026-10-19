@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body id="nt-page-top" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
 <a class="skip-link screen-reader-text" href="#main">Bỏ qua và đến nội dung chính</a>

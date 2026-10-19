@@ -25,7 +25,11 @@ defined( 'ABSPATH' ) || exit;
 		<?php endif; ?>
 
 		<div class="nt-footer__bottom">
-			<p>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( nt_business( 'brand' ) ); ?>. Giá thuê và điều kiện đặt cọc được xác nhận theo dòng xe và thời điểm đặt.</p>
+			<p>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( nt_business( 'brand' ) ); ?></p>
+			<a class="nt-footer__backtop" href="#nt-page-top" aria-label="Lên đầu trang">
+				<?php nt_the_icon( 'arrow-up', array( 'size' => 20 ) ); ?>
+				<span>Lên đầu trang</span>
+			</a>
 		</div>
 	</div>
 </footer>
