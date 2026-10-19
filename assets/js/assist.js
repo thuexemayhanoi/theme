@@ -50,17 +50,21 @@
 			top: rect.top + dockOffset,
 			bottom: rect.bottom + dockOffset
 		};
-		var xs = [original.left + 7, (original.left + original.right) / 2, original.right - 7];
-		var ys = [original.top + 7, (original.top + original.bottom) / 2, original.bottom - 7];
+		// Three bounded samples cover the top, center and bottom of the bubble.
+		var points = [
+			[original.left + 7, original.top + 7],
+			[(original.left + original.right) / 2, (original.top + original.bottom) / 2],
+			[original.right - 7, original.bottom - 7]
+		];
 		var obstacleTop = window.innerHeight;
-		for (var i = 0; i < xs.length; i++) {
-			for (var j = 0; j < ys.length; j++) {
-				if (xs[i] < 0 || xs[i] >= window.innerWidth || ys[j] < 0 || ys[j] >= window.innerHeight) { continue; }
-				var layers = doc.elementsFromPoint(xs[i], ys[j]);
-				for (var k = 0; k < layers.length; k++) {
-					var obstacle = fixedObstacle(layers[k], original, window.innerHeight);
-					if (obstacle) { obstacleTop = Math.min(obstacleTop, obstacle.top); }
-				}
+		for (var i = 0; i < points.length; i++) {
+			var x = points[i][0];
+			var y = points[i][1];
+			if (x < 0 || x >= window.innerWidth || y < 0 || y >= window.innerHeight) { continue; }
+			var layers = doc.elementsFromPoint(x, y);
+			for (var k = 0; k < layers.length; k++) {
+				var obstacle = fixedObstacle(layers[k], original, window.innerHeight);
+				if (obstacle) { obstacleTop = Math.min(obstacleTop, obstacle.top); }
 			}
 		}
 		var needed = Math.max(0, Math.ceil(original.bottom - obstacleTop + 12));
