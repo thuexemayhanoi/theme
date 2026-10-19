@@ -12,6 +12,11 @@ test('back to top is a native link, not duplicate floating Quick Call or JavaScr
   assert.ok(footer.includes('href="#nt-page-top"'));
   assert.ok(footer.includes("nt_the_icon( 'arrow-up'"));
   assert.ok(footer.includes('aria-label="Lên đầu trang"'));
+  assert.ok(footer.includes('style="display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;"'));
+  assert.ok(footer.includes('justify-self:end'));
+  assert.ok(footer.includes('border:1px solid rgba(255,255,255,.38)'));
+  assert.ok(footer.includes('min-width:44px;min-height:44px'));
+
   assert.ok(footer.includes('<span>Lên đầu trang</span>'));
   assert.doesNotMatch(footer, /Giá thuê và điều kiện đặt cọc được xác nhận/);
   assert.match(css, /\.nt-footer__backtop \{/);
