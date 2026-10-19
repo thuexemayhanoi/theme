@@ -13,6 +13,10 @@ for (const [width, expectedColumns] of [[390, 1], [768, 2], [1280, 4]]) {
 		expect(columns).toBe(expectedColumns);
 
 		await expect(page.locator('.nt-footer__column--brand .nt-footer__tagline')).toHaveCount(1);
+		await expect(page.locator('.nt-footer__tagline')).toContainText('theo giờ, ngày, tuần, tháng');
+		await expect(page.locator('.nt-footer__tagline')).toContainText('Long Biên');
+		await expect(page.locator('.nt-footer__tagline')).toContainText('xe 50cc và xe điện');
+		await expect(page.locator('.nt-footer__tagline')).toContainText('tiền cọc');
 		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(0);
 		await expect(page.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(1);
 		await expect(page.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
@@ -49,4 +53,13 @@ test('footer headings and page/category links retain crawlable SEO semantics', a
 	);
 	expect(problems, 'menu items must have useful anchor text and href').toEqual([]);
 	await expect(footer.locator('.nt-footer__menu h1, .nt-footer__menu h2, .nt-footer__menu h3, .nt-footer__list h1, .nt-footer__list h2, .nt-footer__list h3')).toHaveCount(0);
+});
+
+test('footer tagline is consistent across homepage and posts without becoming a heading', async ({ page }) => {
+	for (const path of ['/', '/gioi-thieu/', '/lien-he/']) {
+		await page.goto(path, { waitUntil: 'networkidle' });
+		const tagline = page.locator('#site-footer .nt-footer__tagline');
+		await expect(tagline).toContainText('Thuê xe máy Hà Nội theo giờ, ngày, tuần, tháng');
+		await expect(page.locator('#site-footer h1')).toHaveCount(0);
+	}
 });
