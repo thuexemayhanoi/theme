@@ -115,10 +115,13 @@ final class NT_Smart_Rental {
 								continue;
 							}
 							$name = (string) ( $row['name'] ?? '' );
-							$day  = (string) ( $row['day'] ?? 'Liên hệ' );
-							$rate = self::daily_rate( $day );
+							$day     = (string) ( $row['day'] ?? 'Liên hệ' );
+							$week    = (string) ( $row['week'] ?? 'Liên hệ' );
+							$month   = (string) ( $row['month'] ?? 'Liên hệ' );
+							$deposit = (string) ( $row['deposit'] ?? 'Xác nhận khi thuê' );
+							$rate    = self::daily_rate( $day );
 							?>
-							<option value="<?php echo esc_attr( $name ); ?>" data-day-rate="<?php echo esc_attr( null === $rate ? '' : (string) $rate ); ?>"><?php echo esc_html( $name . ' — ' . $day . '/ngày' ); ?></option>
+							<option value="<?php echo esc_attr( $name ); ?>" data-day-rate="<?php echo esc_attr( null === $rate ? '' : (string) $rate ); ?>" data-week-price="<?php echo esc_attr( $week ); ?>" data-month-price="<?php echo esc_attr( $month ); ?>" data-deposit="<?php echo esc_attr( $deposit ); ?>"><?php echo esc_html( $name . ' — ' . $day . '/ngày' ); ?></option>
 						<?php endforeach; ?>
 					</select>
 				</label>
@@ -127,7 +130,7 @@ final class NT_Smart_Rental {
 				</label>
 			</div>
 			<p class="ntsc-rental__result" data-ntsc-result role="status" aria-live="polite">Giá tham khảo theo ngày, chưa tính tiền cọc.</p>
-			<p class="ntsc-rental__note">Giá tuần/tháng, tiền cọc, phí giao nhận và tình trạng xe cần cửa hàng xác nhận trước khi thuê.</p>
+			<p class="ntsc-rental__note">Giá tham khảo: 1–6 ngày tính theo giá ngày, 7 ngày theo giá tuần, 30 ngày theo giá tháng. Các kỳ thuê khác, tiền cọc, phí giao nhận và tình trạng xe cần cửa hàng xác nhận.</p>
 			<a class="ntsc-rental__link" href="<?php echo esc_url( (string) ( $b['zalo_url'] ?? '' ) ); ?>" target="_blank" rel="noopener noreferrer">Nhắn Zalo xác nhận giá</a>
 		</section>
 		<?php
