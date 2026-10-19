@@ -120,6 +120,11 @@ function nt_sanitize_options( $input ): array {
 
 	$out['prices'] = isset( $input['prices'] ) ? sanitize_textarea_field( wp_unslash( (string) $input['prices'] ) ) : '';
 
+	// Footer copy is presentation-only. It does not update the WP site description or SEO fields.
+	$out['footer'] = array(
+		'tagline' => isset( $input['footer']['tagline'] ) ? sanitize_text_field( wp_unslash( (string) $input['footer']['tagline'] ) ) : '',
+	);
+
 	$toggle = static function ( $value, array $allowed, string $default ): string {
 		$value = is_string( $value ) ? $value : '';
 		return in_array( $value, $allowed, true ) ? $value : $default;
@@ -272,6 +277,11 @@ function nt_settings_page(): void {
 				</tr>
 			<?php endforeach; ?>
 			</tbody></table>
+
+			<h2>Mô tả riêng tại chân trang (footer)</h2>
+			<p>Chỉ thay đổi dòng mô tả dưới thương hiệu tại chân trang trên mọi trang và bài viết. Không sửa mô tả website chung, SEO Title hoặc Meta Description. Để trống để dùng câu chuẩn của Nguyễn Tú.</p>
+			<p><label for="nt-footer-tagline">Mô tả dịch vụ tại footer</label></p>
+			<textarea id="nt-footer-tagline" name="nguyentu_options[footer][tagline]" rows="3" class="large-text" placeholder="<?php echo esc_attr( nt_footer_tagline_default() ); ?>"><?php echo esc_textarea( (string) ( $opts['footer']['tagline'] ?? '' ) ); ?></textarea>
 
 			<h2>Bảng giá tham khảo</h2>
 			<p>Mỗi dòng một loại xe, các cột cách nhau bằng dấu <code>|</code>: <code>Loại xe | Theo ngày | Theo tuần | Theo tháng | Tiền cọc</code>. Dòng bắt đầu bằng <code>#</code> bị bỏ qua. Để trống để dùng bảng giá chuẩn của cửa hàng. Chỉ nhập giá đã công bố; giá xe điện chưa có thì ghi "Liên hệ".</p>
