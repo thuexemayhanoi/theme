@@ -135,3 +135,9 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 - **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
+
+## SEO Autopilot — phạm vi được duyệt 19/10/2026
+
+Chủ site duyệt khôi phục đúng 18 URL canonical cũ và bỏ H1 sinh tự động tại `/shop/` cùng danh mục xe điện, giữ H1 đã viết. Nhánh `fix/approved-seo-routes-h1-2026-10-19` tách từ `main`, chỉ sửa chức năng này, một căn chỉnh PHPCS có sẵn và kiểm thử. Plugin compat 1.1.0 ánh xạ chính xác 15 bài `featured_item` và ba term đang tồn tại; ID, slug, term, trạng thái được kiểm tra từ site thật và trong bộ QA, không truy vấn 15 bài trên mỗi lượt khách. Không đổi permalink đang chạy, canonical, title/H1 đã viết, nội dung hay redirect của URL khác. Sau khi cài bản plugin đã kiểm thử, phải flush rewrite **một lần** và purge LiteSpeed; đối chiếu trước/sau cả 18 URL, 19 URL hiện hành của CPT/term, `/bo-suu-tap/bang-gia/`, trang chủ và hai archive WooCommerce. Nếu có khác biệt ngoài phạm vi, phục hồi plugin 1.0.0 và bản theme trước rồi flush/purge.
+
+Tại thời điểm ghi checkpoint này, mã mới **chưa lên production**. Kiểm thử tĩnh, unit và CI là điều kiện cần, chưa thay bằng nghiệm thu trên site thật. Không dùng nhánh này để kích hoạt lại theme hoặc triển khai các thay đổi trong PR #3; bốn cổng migration ở trên vẫn NOT_TESTED.

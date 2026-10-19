@@ -3,7 +3,7 @@ Contributors: nguyentu
 Requires at least: 7.1
 Tested up to: 7.1.3
 Requires PHP: 8.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 
 Keeps the featured_item post type and the featured_item_category taxonomy (and their /bo-suu-tap/ URLs) alive when the Flatsome theme is replaced.
@@ -17,6 +17,9 @@ Keeps the featured_item post type and the featured_item_category taxonomy (and t
 It never creates, edits or deletes posts, terms, menus, media or SEO data. WP-CLI: `wp nguyentu-compat status|capture|export-urls|compare|verify`.
 
 == Changelog ==
+
+= 1.1.0 =
+* Restore only the 15 audited old item canonical URLs and three child term URLs as 200 aliases. Keep working routes and stored canonical metadata unchanged; flush rewrite rules once after upgrade.
 
 = 1.0.0 =
 * First release.

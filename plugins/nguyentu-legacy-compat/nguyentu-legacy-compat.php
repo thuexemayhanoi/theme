@@ -3,7 +3,7 @@
  * Plugin Name:       Nguyễn Tú Legacy Compat (featured_item)
  * Plugin URI:        https://thuexemaynguyentu.com/
  * Description:       Giữ nguyên post type "featured_item" và taxonomy "featured_item_category" (15 bảng giá, 4 term, URL /bo-suu-tap/...) khi theme Flatsome được thay bằng theme độc lập. Ghi lại cấu hình đăng ký đang chạy rồi đăng ký lại y hệt; không tạo, sửa hay xóa bản ghi nào.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 7.1
  * Requires PHP:      8.2
  * Author:            Nguyễn Tú
@@ -29,12 +29,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NT_COMPAT_VERSION', '1.0.0' );
+define( 'NT_COMPAT_VERSION', '1.1.0' );
 define( 'NT_COMPAT_FILE', __FILE__ );
 define( 'NT_COMPAT_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NT_COMPAT_OPTION', 'nguyentu_legacy_compat' );
 
 require_once NT_COMPAT_DIR . 'includes/class-registry.php';
+require_once NT_COMPAT_DIR . 'includes/class-legacy-routes.php';
 require_once NT_COMPAT_DIR . 'includes/class-templates.php';
 require_once NT_COMPAT_DIR . 'includes/class-admin.php';
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -44,5 +45,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 register_activation_hook( __FILE__, array( 'NT_Compat_Registry', 'on_activate' ) );
 
 add_action( 'init', array( 'NT_Compat_Registry', 'replay' ), 99 );
+NT_Compat_Legacy_Routes::hooks();
 NT_Compat_Templates::hooks();
 NT_Compat_Admin::hooks();
