@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
-# Builds dist/nguyentu-legacy-compat.zip (companion plugin, installed separately from the theme).
+# Build BOTH independent WordPress plugins in dist/, never put plugin sources in theme ZIP.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p dist
 python3 -I - <<'PY'
-import os, pathlib, sys, zipfile
-src = pathlib.Path("plugins/nguyentu-legacy-compat")
-out = pathlib.Path("dist/nguyentu-legacy-compat.zip")
-if out.exists():
-    out.unlink()
-n = 0
-with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-    for dirpath, _, files in os.walk(src):
-        for f in sorted(files):
-            p = pathlib.Path(dirpath) / f
-            if f == ".htaccess" and pathlib.Path(dirpath) == src.parent:
+import pathlib, sys, zipfile
+
+root = pathlib.Path("plugins")
+for slug, main in [
+    ("nguyentu-legacy-compat", "nguyentu-legacy-compat.php"),
+    ("nguyentu-smart-core", "nguyentu-smart-core.php"),
+]:
+    src = root / slug
+    required = [main, "readme.txt", "uninstall.php"]
+    if any(not (src / name).is_file() for name in required):
+        sys.exit(f"Plugin {slug}: a required file is missing")
+    out = pathlib.Path("dist") / (slug + ".zip")
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+        for path in sorted(src.rglob("*")):
+            if not path.is_file() or path.name.startswith(".") or path.suffix in (".key", ".pem"):
                 continue
-            z.write(p, f"nguyentu-legacy-compat/{p.relative_to(src).as_posix()}")
-            n += 1
-with zipfile.ZipFile(out) as z:
-    if "nguyentu-legacy-compat/nguyentu-legacy-compat.php" not in z.namelist():
-        sys.exit("bad archive: main file missing")
-print(f"{out}: {n} files, {out.stat().st_size // 1024} KB")
+            archive.write(path, slug + "/" + path.relative_to(src).as_posix())
+    with zipfile.ZipFile(out) as archive:
+        paths = archive.namelist()
+        for name in required:
+            if slug + "/" + name not in paths:
+                sys.exit(f"Plugin {slug}: malformed archive, missing {name}")
+        if any(name.startswith(slug + "/tests/") or "/.env" in name for name in paths):
+            sys.exit(f"Plugin {slug}: development or private file leaked")
+    print(f"{out}: {len(paths)} files, {out.stat().st_size // 1024} KB")
 PY

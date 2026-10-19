@@ -1,42 +1,45 @@
 === Nguyễn Tú Smart Core ===
 Contributors: thuexemayhanoi
-Tags: local-business, structured-data, schema, seo
+Tags: local-business, seo, internal-linking, calculator, structured-data
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 0.1.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 
-Verified business data and schema coexistence for thuexemaynguyentu.com.
+Zero-config business data and WordPress companion tools for thuexemaynguyentu.com.
 
 == Description ==
 
-* Shares the verified business profile and reference rental prices with the Nguyễn Tú theme.
-* The theme's existing Yoast LocalBusiness enrichment remains in control when that theme is active.
-* When the theme changes, preserves a conservative Yoast Organization enrichment unless Yoast Local SEO handles it.
-* When no supported SEO plugin is present, produces one Organization/LocalBusiness and WebSite graph on eligible public pages; no title, canonical, robots, sitemap, review, rating, Offer, or Product metadata.
-* Tools > Nguyễn Tú Core provides a read-only health/status view.
-* Does not create any new WordPress options or data tables. Does not edit existing content.
+One plugin ZIP, no account, external API, API key, setup wizard or database migration.
+
+* Verified Nguyễn Tú business data (NAP, hours, owner-confirmed rental references). Reads the theme data when available.
+* Schema: honors the active theme's Yoast enrichment without creating a second Organization; if the theme changes, cautiously enriches Yoast when no Local SEO module takes ownership. Without a recognized SEO plugin, emits a conservative graph on eligible pages only.
+* Tools > Nguyễn Tú Core: read-only health and internal-link sample of up to 20 recent articles. This is not a whole-site broken-link checker.
+* Reference rental estimate: automatically appears after the native Nguyễn Tú homepage price table when that section is displayed. It also works through shortcode [nguyentu_rental_calculator] in other content. Shows day-rate estimates only and links to Zalo for confirmation. No bookings are placed.
+* Zero database writes; no external JavaScript/CDN, tracking, cookies or heavy runtime index.
+* Native Quick Call and Chatbot remain in the theme; this plugin never duplicates them.
 
 == Installation ==
 
-Code is staged in the repository for QA. No plugin package is provided in this revision.
-Packaging and production activation require separate owner approval and QA.
+1. Plugins > Add New > Upload Plugin.
+2. Select nguyentu-smart-core.zip and choose Install, then Activate.
+3. All automatic functions start. Optional Tools > Nguyễn Tú Core is read-only. No settings to fill in.
 
-== FAQ ==
+The calculator appears automatically with the theme's native homepage reference-price block, when it is shown. If the homepage uses only custom stored content, add the shortcode to a page if needed.
 
-= Does simply pushing this directory to GitHub activate the plugin? =
+== SEO safety ==
 
-No. WordPress plugins live under wp-content/plugins and must be installed and activated separately. This repository's theme build excludes plugins/.
+* Yoast SEO owns title, meta, canonicals, robots, XML sitemap and its structured-data graph.
+* Does not alter content, post categories, products, taxonomies or URLs.
+* Does not invent ratings, fake reviews, rental bookings, live inventory or Product offers.
+* Actual rich-result appearance, rankings and indexing cannot be guaranteed.
+* Domain protection prevents Nguyễn Tú data appearing on unrelated domains by default.
 
-= Will the plugin overwrite Yoast SEO schema or canonical data? =
+== Removal ==
 
-No. Yoast owns its graph and document metadata. The native theme continues to manage the current Yoast Organization enrichment. The plugin only uses a fallback when the theme or SEO plugin is absent.
+Deactivation stops the plugin. Uninstall creates no content changes or database cleanup because this plugin does not own any persistent state.
 
-= Are all pages guaranteed rich results? =
+== Notes ==
 
-No. Structured data describes real facts; eligibility, search appearance and ranking are determined by search engines.
-
-= What about Quick Call and chatbot? =
-
-Those remain native theme modules and are outside this plugin.
+Sources and packaging scripts live in https://github.com/thuexemayhanoi/theme/ . GitHub Actions builds the ZIP as an artifact. The theme package deliberately excludes plugins.

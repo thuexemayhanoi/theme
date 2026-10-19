@@ -70,6 +70,7 @@ final class NT_Smart_Admin {
 		self::row( 'Tương thích', $theme );
 		self::row( 'Giá thuê', count( nt_smart_reference_prices() ) . ' nhóm giá tham khảo; không tự tạo Product/Offer schema' );
 		echo '</tbody></table>';
+		NT_Smart_Audit::render();
 		echo '<p>Không thay đổi URL, canonical, robots, sitemap, title, bài viết hay bảng giá hiện có.</p>';
 		echo '</div>';
 	}

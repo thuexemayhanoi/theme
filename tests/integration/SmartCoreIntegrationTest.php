@@ -23,6 +23,18 @@ final class SmartCoreIntegrationTest extends TestCase {
 		$this->assertSame( nt_price_rows(), nt_smart_reference_prices() );
 	}
 
+	public function test_daily_rate_uses_real_vnd_reference_prices(): void {
+		$this->assertSame( 150000, NT_Smart_Rental::daily_rate( '150.000đ' ) );
+		$this->assertSame( 200000, NT_Smart_Rental::daily_rate( '200.000đ' ) );
+		$this->assertNull( NT_Smart_Rental::daily_rate( 'Liên hệ' ) );
+	}
+
+	public function test_audit_counts_only_distinct_links_on_this_host(): void {
+		$url = home_url( '/test-post/' );
+		$html = '<a href="/blog/first/">one</a><a href="/blog/first/">repeat</a><a href="https://example.com/x/">external</a><a href="/test-post/">self</a>';
+		$this->assertSame( 1, NT_Smart_Audit::count_internal_links( $html, $url ) );
+	}
+
 	public function test_non_target_localhost_is_blocked_by_default(): void {
 		$this->assertFalse( nt_smart_site_allowed() );
 	}
