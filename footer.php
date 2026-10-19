@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php endif; ?>
 
 		<div class="nt-footer__bottom">
-			<p>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( nt_business( 'brand' ) ); ?>. Giá thuê hiển thị là giá tham khảo, cần xác nhận trước khi đặt xe.</p>
+			<p>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( nt_business( 'brand' ) ); ?>. Giá thuê và điều kiện đặt cọc được xác nhận theo dòng xe và thời điểm đặt.</p>
 		</div>
 	</div>
 </footer>
