@@ -132,16 +132,22 @@ function nt_assist_render(): void {
 					<p class="nt-assist__bot">Xin chào! Tôi giúp tìm thông tin thuê xe, giá tham khảo, tiền cọc và thủ tục từ website Nguyễn Tú. Bạn cần tìm gì?</p>
 				</div>
 				<div class="nt-assist__shortcuts" aria-label="Câu hỏi gợi ý">
-					<button type="button" data-nt-chat-suggest="Giá thuê Honda Wave">Giá thuê</button>
+					<button type="button" data-nt-chat-suggest="Giá thuê Honda Wave">Bảng giá</button>
 					<button type="button" data-nt-chat-suggest="Tiền đặt cọc">Đặt cọc</button>
 					<button type="button" data-nt-chat-suggest="Thủ tục thuê xe">Thủ tục</button>
+					<button type="button" data-nt-chat-suggest="Xe máy điện">Xe điện</button>
 				</div>
 				<form class="nt-assist__form" data-nt-chat-form>
 					<label class="screen-reader-text" for="nt-assist-question">Câu hỏi tư vấn</label>
 					<input id="nt-assist-question" name="question" maxlength="180" minlength="2" required autocomplete="off" placeholder="Ví dụ: Thuê xe Vision giá bao nhiêu?">
 					<button type="submit" aria-label="Gửi câu hỏi"><?php nt_the_icon( 'arrow-right', array( 'size' => 21 ) ); ?></button>
 				</form>
-				<p class="nt-assist__note">Không nhập số giấy tờ hay dữ liệu riêng tư. Giá và xe còn cần cửa hàng xác nhận. <a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener noreferrer">Nhắn Zalo</a></p>
+				<p class="nt-assist__status" data-nt-chat-status role="status" aria-live="polite" hidden>Đang tìm thông tin phù hợp…</p>
+				<div class="nt-assist__privacy">
+					<span>Chỉ nhớ chủ đề và tối đa 5 nguồn công khai trong trình duyệt, tự hết hạn. Không lưu lịch sử chat.</span>
+					<button type="button" data-nt-chat-clear aria-label="Xóa bộ nhớ tư vấn trên thiết bị">Xóa ghi nhớ</button>
+				</div>
+				<p class="nt-assist__note">Không nhập giấy tờ hay dữ liệu riêng tư. Giá và xe còn cần xác nhận. <a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener noreferrer">Nhắn Zalo</a></p>
 			</section>
 		</div>
 	<?php endif; ?>
