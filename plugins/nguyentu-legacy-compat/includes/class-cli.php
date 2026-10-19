@@ -108,10 +108,12 @@ final class NT_Compat_CLI {
 		unset( $args, $assoc_args ); // WP-CLI signature; no options.
 		WP_CLI::line( 'type,id,slug,status,path' );
 		foreach ( self::collect() as $row ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- in-memory CSV stream, no filesystem writes.
 			$stream = fopen( 'php://temp', 'r+' );
 			fputcsv( $stream, array( $row['type'], $row['id'], $row['slug'], $row['status'], $row['path'] ), ',', '"', '' );
 			rewind( $stream );
 			WP_CLI::line( rtrim( (string) stream_get_contents( $stream ) ) );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- close the in-memory CSV stream.
 			fclose( $stream );
 		}
 	}

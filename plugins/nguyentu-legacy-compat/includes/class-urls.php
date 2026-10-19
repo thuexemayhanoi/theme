@@ -103,17 +103,17 @@ final class NT_Compat_Urls {
 			$query = 'index.php?featured_item_category=$matches[1]';
 			$extra[ $base . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$' ] = $query . '&feed=$matches[2]';
 			$extra[ $base . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$' ]      = $query . '&feed=$matches[2]';
-			$extra[ $base . '/([^/]+)/page/([0-9]+)/?$' ]               = $query . '&paged=$matches[2]';
-			$extra[ $base . '/([^/]+)/embed/?$' ]                       = $query . '&embed=true';
-			$extra[ $base . '/([^/]+)/?$' ]                            = $query;
+			$extra[ $base . '/([^/]+)/page/([0-9]+)/?$' ]                 = $query . '&paged=$matches[2]';
+			$extra[ $base . '/([^/]+)/embed/?$' ]                         = $query . '&embed=true';
+			$extra[ $base . '/([^/]+)/?$' ]                               = $query;
 		}
 		$single = 'bo-suu-tap/([^/]+)/([^/]+)';
 		$query  = 'index.php?featured_item=$matches[2]&nt_compat_group=$matches[1]';
 		$extra[ $single . '/feed/(feed|rdf|rss|rss2|atom)/?$' ] = $query . '&feed=$matches[3]';
 		$extra[ $single . '/(feed|rdf|rss|rss2|atom)/?$' ]      = $query . '&feed=$matches[3]';
-		$extra[ $single . '/embed/?$' ]                       = $query . '&embed=true';
-		$extra[ $single . '/trackback/?$' ]                   = $query . '&tb=1';
-		$extra[ $single . '(?:/([0-9]+))?/?$' ]               = $query . '&page=$matches[3]';
+		$extra[ $single . '/embed/?$' ]                         = $query . '&embed=true';
+		$extra[ $single . '/trackback/?$' ]                     = $query . '&tb=1';
+		$extra[ $single . '(?:/([0-9]+))?/?$' ]                 = $query . '&page=$matches[3]';
 		return $extra + $rules;
 	}
 
@@ -184,7 +184,7 @@ final class NT_Compat_Urls {
 		}
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- compared as a path, not rendered.
 		$path = (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
-		return $path === wp_parse_url( $url, PHP_URL_PATH ) ? '' : $url;
+		return wp_parse_url( $url, PHP_URL_PATH ) === $path ? '' : $url;
 	}
 
 	/** 301 only a resolved public legacy object. Never POST, preview, missing content or homepage. */
