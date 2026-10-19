@@ -99,5 +99,6 @@ jobs:
             reports/results/*.json
             reports/seo-after.json
             reports/seo-rules-after.json
+            reports/legacy-recovery-sandbox.json
             playwright-report
             test-results
