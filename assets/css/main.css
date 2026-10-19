@@ -585,7 +585,20 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 /* Shared footer: real primary menu including all nested items, responsive without JS. */
 .nt-footer__intro { padding: 48px 0 30px; border-bottom: 1px solid rgb(255 255 255 / 12%); }
 .nt-footer__brand { margin: 0 0 8px; font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.3; color: #fff; }
-.nt-footer__tagline { max-width: 68ch; margin: 0 0 20px; line-height: 1.65; color: #d7deec; }
+.nt-footer__tagline { max-width: 68ch; margin: 0 0 16px; line-height: 1.65; color: #d7deec; }
+.nt-footer__social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.nt-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 8px 15px; border: 1px solid rgb(255 255 255 / 32%); border-radius: 999px; font-size: .875rem; font-weight: 700; text-decoration: none; }
+.nt-footer__social a:hover, .nt-footer__social a:focus-visible { background: rgb(255 255 255 / 12%); text-decoration: none; outline-offset: 3px; }
+.nt-footer__contact { max-width: 340px; margin-top: 15px; }
+.nt-footer__contact .nt-footer__nap p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 10px; font-size: .875rem; line-height: 1.55; }
+.nt-footer__contact .nt-footer__nap p > span:first-of-type { flex: 1; min-width: 0; }
+.nt-footer__contact .nt-footer__nap .nt-icon { flex: none; }
+.nt-footer__contact .nt-cta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; margin-top: 14px; }
+.nt-footer__contact .nt-btn { min-height: 40px; padding: 8px 12px; font-size: .8125rem; }
+.nt-footer__contact .nt-btn--ghost { color: #fff; border-color: rgb(255 255 255 / 45%); background: transparent; }
+.nt-footer__contact .nt-btn--ghost:hover { color: var(--nt-navy); background: #fff; }
+.nt-footer__contact-fallback { min-width: 0; }
+.nt-footer__contact-fallback .nt-footer__title { margin-bottom: 16px; }
 .nt-footer__col--brand { max-width: 720px; }
 .nt-footer__nap { font-style: normal; }
 .nt-footer__links { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 34px 0 42px; }

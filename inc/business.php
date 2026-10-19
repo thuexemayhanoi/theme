@@ -25,6 +25,7 @@ function nt_business_defaults(): array {
 		'phone_tel'     => '0942467674',
 		'phone_intl'    => '+84942467674',
 		'zalo_url'      => 'https://zalo.me/0942467674',
+		'facebook_url'  => 'https://www.facebook.com/chothuexemaynguyentu/',
 		'maps_url'      => 'https://maps.google.com/maps?cid=7448790013669858019',
 		'street'        => '112 Nguyễn Văn Cừ',
 		'ward'          => 'Bồ Đề',
@@ -179,6 +180,15 @@ function nt_tel_url(): string {
  */
 function nt_zalo_url(): string {
 	return nt_business( 'zalo_url' );
+}
+
+/**
+ * WhatsApp contact link computed from the same international business phone.
+ * Changing the phone number in one place updates this link too.
+ */
+function nt_whatsapp_url(): string {
+	$digits = preg_replace( '/[^0-9]/', '', (string) nt_business( 'phone_intl' ) );
+	return 'https://wa.me/' . (string) $digits;
 }
 
 /**

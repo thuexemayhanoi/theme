@@ -39,24 +39,43 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 		);
 	}
 }
+/**
+ * Only the footer sitemap is modified: append contact details immediately below
+ * the existing WordPress "Liên hệ" page item, without changing menu data or URLs.
+ */
+$nt_contact_attached = false;
+$nt_contact_slot     = static function ( $item_output, $item, $depth, $args ) use ( &$nt_contact_attached ) {
+	if (
+		$nt_contact_attached ||
+		! $item instanceof WP_Post ||
+		'post_type' !== $item->type ||
+		'page' !== $item->object ||
+		372 !== (int) $item->object_id ||
+		'nt-footer-site-map' !== (string) ( $args->menu_id ?? '' )
+	) {
+		return $item_output;
+	}
+
+	ob_start();
+	get_template_part( 'template-parts/footer/contact' );
+	$contact_html        = (string) ob_get_clean();
+	$nt_contact_attached = true;
+	return $item_output . $contact_html;
+};
+
 ?>
 <div class="nt-footer__intro">
 	<section class="nt-footer__col nt-footer__col--brand" aria-labelledby="nt-f-brand">
 		<p id="nt-f-brand" class="nt-footer__brand"><?php echo esc_html( nt_business( 'brand' ) ); ?></p>
 		<p class="nt-footer__tagline"><?php echo esc_html( $nt_tagline ); ?></p>
-		<address class="nt-footer__nap">
-			<p><?php nt_the_icon( 'pin', array( 'size' => 18 ) ); ?><span><?php echo esc_html( nt_address() ); ?></span></p>
-			<p><?php nt_the_icon( 'phone', array( 'size' => 18 ) ); ?><a href="<?php echo esc_url( nt_tel_url() ); ?>"><?php echo esc_html( nt_business( 'phone_display' ) ); ?></a> <span class="nt-footer__muted">(gọi / Zalo)</span></p>
-			<p><?php nt_the_icon( 'clock', array( 'size' => 18 ) ); ?><span>Mở cửa <?php echo esc_html( nt_hours_range() ); ?> mỗi ngày</span></p>
-		</address>
-		<?php
-		nt_cta_buttons(
-			array(
-				'size'       => 'sm',
-				'call_label' => 'Gọi ngay',
-			)
-		);
-		?>
+		<nav class="nt-footer__social" aria-label="Mạng xã hội và nhắn tin Nguyễn Tú">
+			<?php $nt_facebook = (string) nt_business( 'facebook_url' ); ?>
+			<?php if ( '' !== $nt_facebook ) : ?>
+				<a href="<?php echo esc_url( $nt_facebook ); ?>" target="_blank" rel="noopener noreferrer">Facebook</a>
+			<?php endif; ?>
+			<a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener noreferrer">Zalo</a>
+			<a href="<?php echo esc_url( nt_whatsapp_url() ); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+		</nav>
 	</section>
 </div>
 
@@ -65,6 +84,7 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 		<nav class="nt-footer__directory" aria-labelledby="nt-f-directory">
 			<h2 id="nt-f-directory" class="nt-footer__title">Khám phá website</h2>
 			<?php
+			add_filter( 'walker_nav_menu_start_el', $nt_contact_slot, 10, 4 );
 			nt_render_menu(
 				'primary',
 				array(
@@ -74,6 +94,7 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 					'depth'      => 0,
 				)
 			);
+			remove_filter( 'walker_nav_menu_start_el', $nt_contact_slot, 10 );
 			?>
 		</nav>
 	<?php else : ?>
@@ -99,6 +120,13 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 				<?php endforeach; ?>
 			</ul>
 		</nav>
+	<?php endif; ?>
+
+	<?php if ( ! $nt_contact_attached ) : ?>
+		<section class="nt-footer__contact-fallback" aria-labelledby="nt-f-contact">
+			<h2 id="nt-f-contact" class="nt-footer__title">Liên hệ</h2>
+			<?php get_template_part( 'template-parts/footer/contact' ); ?>
+		</section>
 	<?php endif; ?>
 
 	<?php if ( array() !== $nt_info_pages || ( $nt_footer_menu > 0 && $nt_footer_menu !== $nt_primary_menu ) ) : ?>

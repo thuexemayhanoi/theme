@@ -38,6 +38,10 @@ function nt_settings_business_fields(): array {
 			'label' => 'Liên kết Zalo',
 			'type'  => 'url',
 		),
+		'facebook_url'  => array(
+			'label' => 'Trang Facebook chính thức',
+			'type'  => 'url',
+		),
 		'maps_url'      => array(
 			'label' => 'Liên kết Google Maps',
 			'type'  => 'url',
