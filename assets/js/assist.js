@@ -26,6 +26,9 @@
 	function toggleChat(open) {
 		if (!panel) { return; }
 		panel.hidden = !open;
+		doc.querySelectorAll('[data-nt-chat-open]').forEach(function (button) {
+			button.setAttribute('aria-expanded', open ? 'true' : 'false');
+		});
 		doc.body.classList.toggle('nt-chat-is-open', open);
 		if (open) {
 			previousFocus = doc.activeElement;
