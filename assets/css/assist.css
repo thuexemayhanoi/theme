@@ -2,7 +2,7 @@
  * Native contact and grounded-data assistant — standalone on-demand bundle.
  * Colors match the navy / warm orange Nguyễn Tú design system.
  */
-.nt-qc { position: fixed; z-index: 900; left: 16px; bottom: calc(18px + env(safe-area-inset-bottom, 0px) + var(--nt-qc-dock-offset, 0px)); font-family: inherit; }
+.nt-qc { --nt-qc-dock-offset: 0px; position: fixed; z-index: 900; left: 16px; bottom: calc(18px + env(safe-area-inset-bottom, 0px) + var(--nt-qc-dock-offset, 0px)); font-family: inherit; }
 .nt-qc--suspended { visibility: hidden; pointer-events: none; }
 .nt-qc__launch { display: grid; place-items: center; width: 58px; height: 58px; border: 2px solid #fff; border-radius: 50%; background: var(--nt-navy, #1b2f5b); color: #fff; box-shadow: 0 5px 20px rgb(0 0 0 / 22%); cursor: pointer; }
 .nt-qc__launch:hover, .nt-qc__launch:focus-visible { background: var(--nt-navy-700, #14264a); }
