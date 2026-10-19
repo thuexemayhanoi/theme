@@ -118,6 +118,22 @@ function nt_option( string $path, $default = null ) {
 }
 
 /**
+ * Footer-only service description. Never changes WordPress Site Tagline or SEO metadata.
+ *
+ * @return string Owner-approved default description.
+ */
+function nt_footer_tagline_default(): string {
+	return 'Thuê xe máy Hà Nội theo giờ, ngày, tuần, tháng tại Long Biên. Xe số, xe ga, xe 50cc và xe điện; hỗ trợ giao nhận theo khu vực, báo giá và tiền cọc rõ ràng trước khi thuê.';
+}
+
+/**
+ * Footer description can be overridden independently under Giao diện > Nguyễn Tú.
+ */
+function nt_footer_tagline(): string {
+	return (string) nt_option( 'footer.tagline', nt_footer_tagline_default() );
+}
+
+/**
  * Business data: verified defaults overridden by non-empty admin values.
  *
  * @param string|null $key Single key, or null for the whole array.
