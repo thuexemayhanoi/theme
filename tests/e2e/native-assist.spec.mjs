@@ -29,7 +29,9 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 		}
 		await expect(page.locator('.nt-qc__link--maps')).toHaveCount(0);
 		await expect(page.locator('.nt-qc__link--chat')).toBeVisible();
+		await expect(page.locator('.nt-qc__link--chat')).toHaveAttribute('aria-controls', 'nt-assist-dialog');
 		await page.locator('.nt-qc__link--chat').click();
+		await expect(page.locator('.nt-qc__link--chat')).toHaveAttribute('aria-expanded', 'true');
 		await expect(page.locator('#nt-assist-dialog')).toBeVisible();
 		await expect(page.locator('body')).toHaveClass(/nt-chat-is-open/);
 		await expect(page.locator('.nt-assist__head')).toContainText('Tra cứu nội dung công khai');
