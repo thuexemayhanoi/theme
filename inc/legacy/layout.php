@@ -202,7 +202,7 @@ function nt_lg_col( $atts, $content = '' ): string {
  * @param mixed $atts Attributes.
  */
 function nt_lg_gap( $atts ): string {
-	$a = nt_lg_atts(
+	$a     = nt_lg_atts(
 		array(
 			'height'     => '30px',
 			'height__sm' => '',
@@ -325,7 +325,7 @@ function nt_lg_title( $atts ): string {
  * @param string $content Inner content (text boxes, images, buttons).
  */
 function nt_lg_banner( $atts, $content = '' ): string {
-	$a     = nt_lg_atts(
+	$a = nt_lg_atts(
 		array(
 			'height'     => '300px',
 			'height__sm' => '',
