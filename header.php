@@ -61,10 +61,6 @@ defined( 'ABSPATH' ) || exit;
 				nt_wc_header_cart();
 			}
 			?>
-			<a class="nt-btn nt-btn--call nt-btn--sm nt-header__call" href="<?php echo esc_url( nt_tel_url() ); ?>">
-				<?php nt_the_icon( 'phone', array( 'size' => 18 ) ); ?>
-				<span class="nt-header__call-text">Gọi ngay</span>
-			</a>
 			<button type="button" class="nt-iconbtn nt-menu-toggle" data-nt-menu-toggle aria-expanded="false" aria-controls="nt-nav">
 				<?php nt_the_icon( 'menu', array( 'size' => 26 ) ); ?>
 				<span class="screen-reader-text">Mở menu</span>
