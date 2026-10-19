@@ -466,7 +466,7 @@ function nt_assist_fact_answer( string $question, array $context = array() ): st
 		return 'Giá thuê tùy mẫu xe và thời hạn. Xem bảng giá tham khảo trong mục Hỏi đáp hoặc liên hệ cửa hàng để xác nhận giá và nhu cầu thuê theo giờ.';
 	}
 	if ( 'vehicles' === $intent ) {
-		return 'Website Nguyễn Tú có thông tin về các dòng xe phù hợp nhu cầu thuê. Giá, điều kiện và mẫu xe còn cần liên hệ cửa hàng xác nhận.';
+		return 'Website Nguyễn Tú có thông tin về xe điện, xe đạp điện, xe 50cc, xe số và xe ga. Giá, điều kiện và mẫu xe còn cần cửa hàng xác nhận.';
 	}
 	return '';
 }
