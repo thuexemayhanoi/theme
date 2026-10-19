@@ -40,6 +40,14 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 32px; }
 .nt-assist__form input { min-width: 0; flex: 1; min-height: 44px; padding: 9px 11px; border: 1px solid #a6b4ca; border-radius: 12px; background: #fff; color: #182e51; font-family: inherit; font-size: .86rem; font-weight: 400; line-height: 1.4; }
 .nt-assist__form button { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--nt-accent, #ce4027); color: #fff; cursor: pointer; }
 .nt-assist__form button:disabled { opacity: .45; cursor: progress; }
+.nt-assist__status { margin: 0; padding: 7px 12px; background: #f1f4fa; color: #304869; font-size: .76rem; line-height: 1.4; }
+.nt-assist__status[hidden] { display: none; }
+.nt-assist__privacy { display: flex; align-items: center; gap: 9px; justify-content: space-between; padding: 7px 11px 3px; background: #fff; border-top: 1px solid #e4e9f1; }
+.nt-assist__privacy span { flex: 1; min-width: 0; color: #485a72; font-size: .66rem; line-height: 1.5; }
+.nt-assist__privacy button { flex: none; min-height: 36px; padding: 5px 8px; color: #234c80; font-family: inherit; font-size: .7rem; font-weight: 700; background: #f1f4fa; border: 1px solid #bdc9d9; border-radius: 9px; cursor: pointer; }
+.nt-assist__privacy button:hover, .nt-assist__privacy button:focus-visible { background: #e2eaf5; }
+.nt-assist__sources-title { display: block; margin: 9px 0 3px; font-size: .74rem; color: #425471; }
+.nt-assist__scroll { scrollbar-width: thin; }
 .nt-assist__note { margin: 0; padding: 5px 11px 12px; font-size: .69rem; line-height: 1.5; color: #425471; background: #fff; }
 .nt-assist__note a { color: #155dab; text-decoration: underline; }
 .nt-assist :focus-visible, .nt-qc button:focus-visible { outline: 3px solid #e48638; outline-offset: 2px; }
