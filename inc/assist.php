@@ -250,9 +250,9 @@ function nt_assist_model_row( string $question ): ?array {
 		'honda wave'                  => array( 'wave', 'rsx' ),
 		'honda vision'                => array( 'vision' ),
 		'honda air blade'             => array( 'air blade', 'airblade' ),
-		'honda click / yamaha mio'    => array( 'click', 'mio' ),
+		'honda click yamaha mio'      => array( 'click', 'mio' ),
 		'xe tay ga 50cc'             => array( '50cc' ),
-		'xe may dien / xe dap dien'  => array( 'xe may dien', 'xe dap dien', 'xe dien' ),
+		'xe may dien xe dap dien'    => array( 'xe may dien', 'xe dap dien', 'xe dien' ),
 	);
 	foreach ( nt_price_rows() as $row ) {
 		$name = nt_assist_normalize( (string) $row['name'] );
@@ -496,6 +496,7 @@ function nt_assist_rest_answer( WP_REST_Request $request ) {
 	return rest_ensure_response(
 		array(
 			'mode'    => 'tra-cuu-noi-dung',
+			'intent'  => $intent,
 			'answer'  => $answer,
 			'sources' => $sources,
 			'context' => $context,
