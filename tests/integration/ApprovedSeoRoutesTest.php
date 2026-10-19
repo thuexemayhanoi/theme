@@ -11,6 +11,9 @@ final class ApprovedSeoRoutesTest extends TestCase {
 		$rules = get_option( 'rewrite_rules' );
 		$this->assertIsArray( $rules );
 		foreach ( NT_Compat_Legacy_Routes::items() as $path => $id ) {
+			$this->assertSame( basename( $path ), get_post( $id )->post_name );
+			$this->assertSame( 'publish', get_post_status( $id ) );
+			$this->assertTrue( has_term( explode( ',', explode( '/', $path )[1] )[1], 'featured_item_category', $id ) );
 			$this->assertSame( 'index.php?post_type=featured_item&p=' . $id, $rules[ '^' . preg_quote( $path, '#' ) . '/?$' ] ?? null, $path );
 		}
 		foreach ( NT_Compat_Legacy_Routes::terms() as $path => $id ) {

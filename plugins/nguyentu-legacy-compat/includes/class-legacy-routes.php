@@ -58,29 +58,19 @@ final class NT_Compat_Legacy_Routes {
 	}
 
 	/**
-	 * Register only audited paths, after the post type and taxonomy are registered. WordPress
-	 * rewrite rules must be flushed once after deployment; the plugin never flushes on traffic.
+	 * Register only audited paths, after the post type and taxonomy are registered. No database
+	 * queries are needed on ordinary traffic; WordPress returns 404 if an item no longer exists.
+	 * Rewrite rules must be flushed once after deployment, never on traffic.
 	 */
 	public static function register(): void {
 		if ( ! post_type_exists( NT_Compat_Registry::CPT ) || ! taxonomy_exists( NT_Compat_Registry::TAX ) ) {
 			return;
 		}
 		foreach ( self::items() as $path => $id ) {
-			$post = get_post( $id );
-			if ( ! $post instanceof WP_Post || NT_Compat_Registry::CPT !== $post->post_type || 'publish' !== $post->post_status || basename( $path ) !== $post->post_name ) {
-				continue;
-			}
-			$child = explode( ',', explode( '/', $path )[1] )[1];
-			if ( ! has_term( $child, NT_Compat_Registry::TAX, $post ) ) {
-				continue;
-			}
 			add_rewrite_rule( '^' . preg_quote( $path, '#' ) . '/?$', 'index.php?post_type=' . NT_Compat_Registry::CPT . '&p=' . $id, 'top' );
 		}
-		foreach ( self::terms() as $path => $id ) {
-			$term = get_term( $id, NT_Compat_Registry::TAX );
-			if ( $term instanceof WP_Term && basename( $path ) === $term->slug ) {
-				add_rewrite_rule( '^' . preg_quote( $path, '#' ) . '/?$', 'index.php?' . NT_Compat_Registry::TAX . '=' . $term->slug, 'top' );
-			}
+		foreach ( array_keys( self::terms() ) as $path ) {
+			add_rewrite_rule( '^' . preg_quote( $path, '#' ) . '/?$', 'index.php?' . NT_Compat_Registry::TAX . '=' . basename( $path ), 'top' );
 		}
 	}
 
