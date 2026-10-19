@@ -43,6 +43,7 @@ $nt_modules = array(
 	'lib/layout',
 	'icons',
 	'business',
+	'footer',
 	'settings',
 	'setup',
 	'enqueue',

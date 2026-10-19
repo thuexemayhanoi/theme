@@ -123,7 +123,7 @@ function nt_option( string $path, $default = null ) {
  * @return string Owner-approved default description.
  */
 function nt_footer_tagline_default(): string {
-	return 'Thuê xe máy Hà Nội theo giờ, ngày, tuần, tháng tại Long Biên. Xe số, xe ga, xe 50cc và xe điện; hỗ trợ giao nhận theo khu vực, báo giá và tiền cọc rõ ràng trước khi thuê.';
+	return 'Thuê xe máy tại Hà Nội theo ngày, tuần, tháng; tư vấn nhu cầu thuê theo giờ. Có xe số, xe ga, xe 50cc và xe điện. Liên hệ xác nhận giá, tiền cọc và điều kiện nhận xe.';
 }
 
 /**
