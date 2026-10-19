@@ -111,6 +111,10 @@ for (const width of [320, 360, 390, 768, 1024, 1440]) {
 		expect(layout.buttonBackground).toBe('rgba(0, 0, 0, 0)');
 		expect(layout.buttonBorder).toBe('rgba(255, 255, 255, 0.38)');
 		expect(layout.nonFloating).toBe(true);
+		// LiteSpeed may delay/rewrite bundled CSS. Inline critical styles must
+		// still anchor the Back-to-Top link on the right side of the Footer.
+		expect(layout.backtop.right).toBeGreaterThan(layout.copyright.right);
+
 		expect(layout.copyrightOverlapsButton).toBe(false);
 		expect(layout.contactOverlapsButton).toBe(false);
 		await noHorizontalScroll(page);
