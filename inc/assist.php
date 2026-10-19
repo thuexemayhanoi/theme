@@ -248,6 +248,45 @@ function nt_assist_fact_answer( string $question ): string {
 }
 
 /**
+ * Attach a directly relevant *published* website page for verified policy answers.
+ * Avoid WP_Query's noisy generic matches when the answer comes from owner facts.
+ * FAQ #484 covers rates, deposits and paperwork; Contact #372 covers directions.
+ *
+ * @param string $question Visitor question.
+ * @return array<int,array{title:string,url:string,excerpt:string}>
+ */
+function nt_assist_verified_fact_sources( string $question ): array {
+	$q  = mb_strtolower( $question, 'UTF-8' );
+	$id = 484; // Existing published FAQ page, not an invented permalink.
+	if ( preg_match( '/(địa chỉ|ở đâu|giờ mở cửa|mấy giờ|đường đi|giao xe|giao tận|nhận xe|ship xe)/iu', $q ) ) {
+		$id = 372; // Published contact / pickup information.
+	} elseif ( preg_match( '/xe đạp điện/iu', $q ) ) {
+		$id = 647;
+	} elseif ( preg_match( '/xe điện|xe máy điện/iu', $q ) ) {
+		$id = 422;
+	} elseif ( preg_match( '/50cc/iu', $q ) ) {
+		$id = 669;
+	}
+	$post = get_post( $id );
+	if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status || '' !== $post->post_password ) {
+		return array();
+	}
+	$url = get_permalink( $post );
+	if ( ! is_string( $url ) || '' === $url ) {
+		return array();
+	}
+	$text    = (string) ( $post->post_excerpt ?: $post->post_content );
+	$summary = trim( preg_replace( '/\\s+/u', ' ', wp_strip_all_tags( strip_shortcodes( $text ) ) ) );
+	return array(
+		array(
+			'title'   => get_the_title( $post ),
+			'url'     => $url,
+			'excerpt' => mb_substr( $summary, 0, 175 ),
+		),
+	);
+}
+
+/**
  * Secure REST callback: never returns drafts, account/order/customer information.
  *
  * @param WP_REST_Request $request Visitor query.
@@ -262,7 +301,7 @@ function nt_assist_rest_answer( WP_REST_Request $request ) {
 		return new WP_Error( 'nt_assistant_input', 'Câu hỏi cần dài từ 2 đến 180 ký tự.', array( 'status' => 400 ) );
 	}
 	$answer  = nt_assist_fact_answer( $question );
-	$sources = nt_assist_public_search( $question );
+	$sources = '' !== $answer ? nt_assist_verified_fact_sources( $question ) : nt_assist_public_search( $question );
 	if ( '' === $answer ) {
 		$answer = $sources
 			? 'Tôi tìm thấy một số nội dung liên quan trên website. Bạn có thể mở các bài viết bên dưới để đọc thông tin nguồn.'

@@ -35,7 +35,10 @@
 			toggleMenu(false);
 			if (input) { input.focus(); }
 		} else if (previousFocus && previousFocus.focus) {
-			previousFocus.focus();
+			// The chat trigger lives inside the QuickCall menu, which is now hidden.
+			// Return keyboard users to the visible launcher, never a hidden button.
+			if (launcher && menu && menu.contains(previousFocus)) { launcher.focus(); }
+			else { previousFocus.focus(); }
 			previousFocus = null;
 		}
 	}

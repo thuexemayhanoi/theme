@@ -81,6 +81,8 @@ final class NativeAssistTest extends TestCase {
 		$this->assertInstanceOf( WP_REST_Response::class, $ok );
 		$this->assertSame( 'tra-cuu-noi-dung', $ok->get_data()['mode'] );
 		$this->assertStringContainsString( '2.000.000', $ok->get_data()['answer'] );
+		$this->assertSame( get_permalink( 484 ), $ok->get_data()['sources'][0]['url'] );
+		$this->assertCount( 1, $ok->get_data()['sources'], 'Deposit must not cite unrelated articles.' );
 	}
 
 	private function assertWPError( $object ): void {
