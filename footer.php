@@ -12,7 +12,15 @@ defined( 'ABSPATH' ) || exit;
 	<div class="nt-container">
 		<?php get_template_part( 'template-parts/footer/columns' ); ?>
 
-		<?php if ( is_active_sidebar( 'footer-extra' ) ) : ?>
+		<?php
+		/*
+		 * Old footer-extra widgets duplicate the product catalogue (Latest,
+		 * Best Selling, Top Rated). Keep the widgets in WordPress, but leave
+		 * the old area hidden by default; a filter can opt back in without
+		 * deleting user data or changing any product.
+		 */
+		?>
+		<?php if ( apply_filters( 'nguyentu_enable_footer_extra', false ) && is_active_sidebar( 'footer-extra' ) ) : ?>
 			<div class="nt-footer__widgets"><?php dynamic_sidebar( 'footer-extra' ); ?></div>
 		<?php endif; ?>
 
