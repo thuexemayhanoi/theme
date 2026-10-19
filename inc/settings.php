@@ -50,6 +50,10 @@ function nt_settings_business_fields(): array {
 			'label' => 'Liên kết Google Maps',
 			'type'  => 'url',
 		),
+		'quick_maps_url'  => array(
+			'label' => 'Liên kết Chỉ đường trong Quick Call (không đổi Maps trong SEO)',
+			'type'  => 'url',
+		),
 		'street'          => array(
 			'label' => 'Số nhà, đường',
 			'type'  => 'text',
@@ -144,7 +148,7 @@ function nt_sanitize_options( $input ): array {
 	$out['native_assistant'] = $toggle( $input['native_assistant'] ?? '', array( 'auto', 'off' ), 'auto' );
 	$out['assist_buttons']   = array();
 	foreach ( array( 'call', 'zalo', 'whatsapp', 'chat', 'maps' ) as $key ) {
-		$out['assist_buttons'][ $key ] = $toggle( $input['assist_buttons'][ $key ] ?? '', array( 'on', 'off' ), 'maps' === $key ? 'off' : 'on' );
+		$out['assist_buttons'][ $key ] = $toggle( $input['assist_buttons'][ $key ] ?? '', array( 'on', 'off' ), 'on' );
 	}
 	$out['toc']         = $toggle( $input['toc'] ?? '', array( 'auto', 'off' ), 'auto' );
 	$out['header_cart'] = $toggle( $input['header_cart'] ?? '', array( 'auto', 'off' ), 'auto' );
