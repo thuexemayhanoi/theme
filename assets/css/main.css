@@ -578,6 +578,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__nap p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 11px; font-size: .875rem; line-height: 1.6; }
 .nt-footer__nap .nt-icon { flex: none; margin-top: 3px; color: #ff8a73; }
 .nt-footer__nap p > span:first-of-type { min-width: 0; }
+.nt-footer__nap a[href^="mailto:"] { overflow-wrap: anywhere; }
 .nt-footer__column--contact .nt-footer__contact { margin-top: 20px; }
 .nt-footer__contact .nt-cta { display: flex; flex-wrap: wrap; gap: 8px; }
 

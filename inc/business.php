@@ -24,6 +24,7 @@ function nt_business_defaults(): array {
 		'phone_display'   => '0942 467 674',
 		'phone_tel'       => '0942467674',
 		'phone_intl'      => '+84942467674',
+		'email'           => 'nguyentuantu8x@gmail.com',
 		'zalo_url'        => 'https://zalo.me/0942467674',
 		'facebook_url'    => 'https://www.facebook.com/chothuexemaynguyentu/',
 		'tripadvisor_url' => 'https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Hanoi_Motorbike_Rental_Nguyen_Tu-Long_Bien_Hanoi.html',

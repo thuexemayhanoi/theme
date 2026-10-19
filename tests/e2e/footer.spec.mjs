@@ -27,6 +27,20 @@ for (const [width, expectedColumns] of widths) {
 		await expect(footer.locator('.nt-footer__column--rental')).not.toContainText('Cần thuê theo giờ?');
 		await expect(footer.locator('.nt-footer__column--contact').getByRole('link', { name: 'Liên hệ', exact: true })).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(1);
+		const email = footer.locator('.nt-footer__column--brand .nt-footer__nap a[href^="mailto:"]');
+		await expect(email).toHaveCount(1);
+		await expect(email).toHaveText('nguyentuantu8x@gmail.com');
+		await expect(email).toHaveAttribute('href', 'mailto:nguyentuantu8x@gmail.com');
+		await expect(email.locator('..').locator('svg.nt-icon--mail[width="18"][aria-hidden="true"]')).toHaveCount(1);
+		const iconPalette = await footer.locator('.nt-footer__nap .nt-icon').evaluateAll((icons) =>
+			icons.map((icon) => getComputedStyle(icon).color)
+		);
+		expect(new Set(iconPalette).size).toBe(1);
+		const emailLayout = await email.evaluate((a) => ({
+			linkRight: a.getBoundingClientRect().right,
+			footerRight: document.querySelector('.nt-footer__column--brand').getBoundingClientRect().right
+		}));
+		expect(emailLayout.linkRight).toBeLessThanOrEqual(emailLayout.footerRight + 1);
 		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
 		// All three footer CTAs must match the four outlined social links,
@@ -171,6 +185,7 @@ test('footer is shared by core page, archive, WooCommerce and collection', async
 		await expect(page.locator('.nt-footer__grid > .nt-footer__column')).toHaveCount(4);
 		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('112 Nguyễn Văn Cừ');
 		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('0942 467 674');
+		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('nguyentuantu8x@gmail.com');
 		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('09:00');
 		await expect(page.locator('#site-footer h1')).toHaveCount(0);
 	}

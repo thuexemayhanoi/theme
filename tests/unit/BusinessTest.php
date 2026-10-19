@@ -16,6 +16,7 @@ final class BusinessTest extends TestCase {
 		$this->assertSame( '0942 467 674', $b['phone_display'] );
 		$this->assertSame( '0942467674', $b['phone_tel'] );
 		$this->assertSame( '+84942467674', $b['phone_intl'] );
+		$this->assertSame( 'nguyentuantu8x@gmail.com', $b['email'] );
 		$this->assertSame( 'https://zalo.me/0942467674', $b['zalo_url'] );
 		$this->assertSame( 'https://maps.google.com/maps?cid=7448790013669858019', $b['maps_url'] );
 		$this->assertSame( '112 Nguyễn Văn Cừ', $b['street'] );

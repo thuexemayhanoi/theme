@@ -34,6 +34,10 @@ function nt_settings_business_fields(): array {
 			'label' => 'Số điện thoại quốc tế (schema)',
 			'type'  => 'tel',
 		),
+		'email'           => array(
+			'label' => 'Email liên hệ',
+			'type'  => 'email',
+		),
 		'zalo_url'        => array(
 			'label' => 'Liên kết Zalo',
 			'type'  => 'url',
@@ -117,6 +121,9 @@ function nt_sanitize_options( $input ): array {
 			$val = esc_url_raw( trim( $raw ), array( 'https', 'http' ) );
 		} elseif ( 'tel' === $field['type'] ) {
 			$val = nt_phone_digits( $raw );
+		} elseif ( 'email' === $field['type'] ) {
+			$val = sanitize_email( $raw );
+			$val = is_email( $val ) ? $val : '';
 		} else {
 			$val = sanitize_text_field( $raw );
 		}
