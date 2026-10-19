@@ -108,7 +108,11 @@ final class NT_Compat_CLI {
 		unset( $args, $assoc_args ); // WP-CLI signature; no options.
 		WP_CLI::line( 'type,id,slug,status,path' );
 		foreach ( self::collect() as $row ) {
-			WP_CLI::line( implode( ',', array( $row['type'], $row['id'], $row['slug'], $row['status'], $row['path'] ) ) );
+			$stream = fopen( 'php://temp', 'r+' );
+			fputcsv( $stream, array( $row['type'], $row['id'], $row['slug'], $row['status'], $row['path'] ), ',', '"', '' );
+			rewind( $stream );
+			WP_CLI::line( rtrim( (string) stream_get_contents( $stream ) ) );
+			fclose( $stream );
 		}
 	}
 

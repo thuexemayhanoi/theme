@@ -64,6 +64,9 @@ if [ "$ONLY_E2E" != 1 ]; then
 	vendor/bin/phpunit -c phpunit.integration.xml.dist --log-junit reports/results/raw/integration-junit.xml || fail "PHPUnit integration suite"
 	node tools/qa/junit-gates.mjs reports/results/raw/integration-junit.xml || fail "integration gates were not recorded (no JUnit file)"
 
+	echo "== actual legacy snapshot recovery, aliases and 404s =="
+	bash tools/qa/legacy-recovery.sh || fail "actual legacy URL recovery"
+
 	echo "== featured_item round trip (capture, replay, dormant) =="
 	bash tools/qa/compat-roundtrip.sh || fail "featured_item round trip"
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true

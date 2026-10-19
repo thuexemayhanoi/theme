@@ -1,0 +1,24 @@
+name: Legacy compatibility plugin release
+
+on:
+  push:
+    branches: ['legacy-compat-v*']
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the standalone plugin ZIP
+        run: bash tools/build-plugin-zip.sh
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          target_commitish: ${{ github.sha }}
+          name: ${{ github.ref_name }}
+          files: dist/nguyentu-legacy-compat.zip
+          draft: false
+          make_latest: false

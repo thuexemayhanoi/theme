@@ -110,6 +110,19 @@ def main():
             failures.append(f"ALIAS {r['url']}: HTTP {r['status']} -> {r['location']}")
         elif "nt-definitely-missing" in r["url"] and r["status"] != 404:
             failures.append(f"404 {r['url']}: HTTP {r['status']}")
+        elif r["kind"] == "control" and "nt-definitely-missing" not in r["url"] and r["status"] != 200:
+            failures.append(f"CONTROL {r['url']}: HTTP {r['status']}")
+        if r.get("status") == 200:
+            aliases = [u for u in r.get("links", []) if u.startswith(base + "/featured_item_category/")
+                       or re.match(re.escape(base) + r"/featured_item/[^/?]+/", u)]
+            if aliases:
+                failures.append(f"INTERNAL ALIASES {r['url']}: {len(aliases)}")
+    for name, kind in (("featured_item", "post"), ("featured_item_category", "term")):
+        sitemap = next(r for r in rows if r["url"] == f"{base}/{name}-sitemap.xml")
+        expected = {base + urlsplit(r["permalink"]).path for r in evidence["yoast"] if r["object_type"] == kind}
+        missing = expected - set(sitemap.get("sitemap_urls", []))
+        if missing:
+            failures.append(f"SITEMAP {name}: {len(missing)} canonical URLs missing")
     if args.before:
         before = {r["url"]: r for r in json.loads(pathlib.Path(args.before).read_text())["rows"]}
         for r in rows:

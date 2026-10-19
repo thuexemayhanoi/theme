@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "source": "runtime",
+  "captured_at": "2026-10-18T04:38:12+00:00",
+  "definition": {
+    "post_type": {
+      "name": "featured_item",
+      "args": {
+        "description": "",
+        "public": true,
+        "hierarchical": false,
+        "exclude_from_search": false,
+        "publicly_queryable": true,
+        "show_ui": true,
+        "show_in_menu": true,
+        "show_in_nav_menus": true,
+        "show_in_admin_bar": true,
+        "menu_position": 5,
+        "menu_icon": "dashicons-portfolio",
+        "capability_type": "page",
+        "map_meta_cap": true,
+        "has_archive": true,
+        "rewrite": {
+          "slug": "featured_item",
+          "with_front": true,
+          "pages": true,
+          "feeds": true,
+          "ep_mask": 1
+        },
+        "query_var": "featured_item",
+        "can_export": true,
+        "delete_with_user": null,
+        "show_in_rest": false,
+        "rest_base": "",
+        "supports": [
+          "title",
+          "editor",
+          "excerpt",
+          "thumbnail",
+          "comments",
+          "author",
+          "custom-fields",
+          "revisions",
+          "page-attributes",
+          "autosave"
+        ],
+        "taxonomies": [
+          "featured_item_category",
+          "featured_item_tag"
+        ]
+      }
+    },
+    "taxonomy": {
+      "name": "featured_item_category",
+      "object_type": [
+        "featured_item"
+      ],
+      "args": {
+        "description": "",
+        "public": true,
+        "publicly_queryable": true,
+        "hierarchical": true,
+        "show_ui": true,
+        "show_in_menu": true,
+        "show_in_nav_menus": true,
+        "show_tagcloud": true,
+        "show_in_quick_edit": true,
+        "show_admin_column": true,
+        "rewrite": {
+          "0": "",
+          "with_front": true,
+          "hierarchical": false,
+          "ep_mask": 0,
+          "slug": "featured_item_category"
+        },
+        "query_var": "featured_item_category",
+        "show_in_rest": false,
+        "rest_base": "",
+        "sort": false
+      }
+    },
+    "extra": {
+      "featured_item_tag": {
+        "name": "featured_item_tag",
+        "object_type": [
+          "featured_item"
+        ],
+        "args": {
+          "description": "",
+          "public": true,
+          "publicly_queryable": true,
+          "hierarchical": false,
+          "show_ui": true,
+          "show_in_menu": true,
+          "show_in_nav_menus": true,
+          "show_tagcloud": true,
+          "show_in_quick_edit": true,
+          "show_admin_column": true,
+          "rewrite": {
+            "0": "",
+            "with_front": true,
+            "hierarchical": false,
+            "ep_mask": 0,
+            "slug": "featured_item_tag"
+          },
+          "query_var": "featured_item_tag",
+          "show_in_rest": false,
+          "rest_base": "",
+          "sort": false
+        }
+      }
+    }
+  },
+  "order": [
+    "featured_item",
+    "featured_item_category"
+  ],
+  "rules": {
+    "featured_item/?$": "index.php?post_type=featured_item",
+    "featured_item/feed/(feed|rdf|rss|rss2|atom)/?$": "index.php?post_type=featured_item&feed=$matches[1]",
+    "featured_item/(feed|rdf|rss|rss2|atom)/?$": "index.php?post_type=featured_item&feed=$matches[1]",
+    "featured_item/page/([0-9]{1,})/?$": "index.php?post_type=featured_item&paged=$matches[1]",
+    "bo-suu-tap/([^/]+)/([^/]+)/embed/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&embed=true",
+    "bo-suu-tap/([^/]+)/([^/]+)/trackback/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&tb=1",
+    "bo-suu-tap/([^/]+)/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&feed=$matches[3]",
+    "bo-suu-tap/([^/]+)/([^/]+)/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&feed=$matches[3]",
+    "bo-suu-tap/([^/]+)/([^/]+)/page/?([0-9]{1,})/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&paged=$matches[3]",
+    "bo-suu-tap/([^/]+)/([^/]+)(?:/([0-9]+))?/?$": "index.php?featured_item_category=$matches[1]&featured_item=$matches[2]&page=$matches[3]",
+    "bo-suu-tap/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_category=$matches[1]&feed=$matches[2]",
+    "bo-suu-tap/([^/]+)/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_category=$matches[1]&feed=$matches[2]",
+    "bo-suu-tap/([^/]+)/embed/?$": "index.php?featured_item_category=$matches[1]&embed=true",
+    "bo-suu-tap/([^/]+)/page/?([0-9]{1,})/?$": "index.php?featured_item_category=$matches[1]&paged=$matches[2]",
+    "bo-suu-tap/([^/]+)/?$": "index.php?featured_item_category=$matches[1]",
+    "featured_item_tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_tag=$matches[1]&feed=$matches[2]",
+    "featured_item_tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$": "index.php?featured_item_tag=$matches[1]&feed=$matches[2]",
+    "featured_item_tag/([^/]+)/embed/?$": "index.php?featured_item_tag=$matches[1]&embed=true",
+    "featured_item_tag/([^/]+)/page/?([0-9]{1,})/?$": "index.php?featured_item_tag=$matches[1]&paged=$matches[2]",
+    "featured_item_tag/([^/]+)/?$": "index.php?featured_item_tag=$matches[1]"
+  }
+}
