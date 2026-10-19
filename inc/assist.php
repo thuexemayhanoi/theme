@@ -108,7 +108,7 @@ function nt_assist_render(): void {
 					</a>
 				<?php endforeach; ?>
 				<?php if ( nt_assist_button_enabled( 'chat' ) && ( $assistant || nt_chat_widget_active() ) ) : ?>
-					<button type="button" class="nt-qc__link nt-qc__link--chat" data-nt-chat-open>
+					<button type="button" class="nt-qc__link nt-qc__link--chat" data-nt-chat-open aria-controls="nt-assist-dialog" aria-expanded="false">
 						<?php nt_the_icon( 'chat', array( 'size' => 19 ) ); ?>
 						<span>Trợ lý tư vấn</span>
 					</button>
