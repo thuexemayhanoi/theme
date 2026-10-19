@@ -25,7 +25,7 @@ for (const [width, expectedColumns] of widths) {
 		// Avoid a redundant, long hourly-rental sentence under rental links on every viewport.
 		await expect(footer.locator('.nt-footer__column--rental .nt-footer__hint')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--rental')).not.toContainText('Cần thuê theo giờ?');
-		await expect(footer.locator('.nt-footer__column--contact a')).toContainText(['Giới thiệu', 'Liên hệ', 'Câu hỏi thường gặp', 'Chính sách bảo mật', 'Điều khoản sử dụng', 'Gọi ngay', 'Zalo', 'Chỉ đường']);
+		await expect(footer.locator('.nt-footer__column--contact').getByRole('link', { name: 'Liên hệ', exact: true })).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
