@@ -22,8 +22,8 @@ foreach ( $nt_items as $nt_item ) {
 	$nt_by_id[ (int) $nt_item->ID ] = $nt_item;
 }
 
-$nt_groups     = array();
-$nt_counts     = array(
+$nt_groups      = array();
+$nt_counts      = array(
 	'rental' => 0,
 	'blog'   => 0,
 	'info'   => 0,
