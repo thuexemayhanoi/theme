@@ -10,13 +10,6 @@ defined( 'ABSPATH' ) || exit;
 
 $nt_footer_groups = nt_footer_groups();
 $nt_tagline       = nt_footer_tagline();
-$nt_contact_url   = '';
-foreach ( $nt_footer_groups['info'] as $nt_footer_info ) {
-	if ( 'Liên hệ' === $nt_footer_info['label'] ) {
-		$nt_contact_url = $nt_footer_info['url'];
-		break;
-	}
-}
 ?>
 <div class="nt-footer__grid">
 	<section class="nt-footer__column nt-footer__column--brand" aria-labelledby="nt-f-brand">
@@ -45,9 +38,6 @@ foreach ( $nt_footer_groups['info'] as $nt_footer_info ) {
 		<nav aria-label="Dịch vụ và bảng giá thuê xe máy">
 			<?php nt_footer_list( $nt_footer_groups['rental'] ); ?>
 		</nav>
-		<?php if ( '' !== $nt_contact_url ) : ?>
-			<p class="nt-footer__hint">Cần thuê theo giờ? <a href="<?php echo esc_url( $nt_contact_url ); ?>">Liên hệ để được tư vấn</a> trước khi đặt.</p>
-		<?php endif; ?>
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--blog" aria-labelledby="nt-f-blog">
