@@ -38,7 +38,7 @@ function nt_assist_button_enabled( string $button ): bool {
 		'zalo'     => 'on',
 		'whatsapp' => 'on',
 		'chat'     => 'on',
-		'maps'     => 'off',
+		'maps'     => 'on',
 	);
 	return isset( $defaults[ $button ] ) && 'off' !== nt_option( 'assist_buttons.' . $button, $defaults[ $button ] );
 }
@@ -68,7 +68,7 @@ function nt_assist_contact_links(): array {
 		'maps'     => array(
 			'label' => 'Chỉ đường',
 			'icon'  => 'map',
-			'url'   => nt_maps_url(),
+			'url'   => nt_business( 'quick_maps_url' ) ?: nt_maps_url(),
 		),
 	);
 	return array_filter(
