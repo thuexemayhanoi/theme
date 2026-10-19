@@ -28,6 +28,7 @@ function nt_business_defaults(): array {
 		'facebook_url'    => 'https://www.facebook.com/chothuexemaynguyentu/',
 		'tripadvisor_url' => 'https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Hanoi_Motorbike_Rental_Nguyen_Tu-Long_Bien_Hanoi.html',
 		'maps_url'        => 'https://maps.google.com/maps?cid=7448790013669858019',
+		'quick_maps_url'  => 'https://share.google/KHz2FVQKhtFilL01j',
 		'street'          => '112 Nguyễn Văn Cừ',
 		'ward'            => 'Bồ Đề',
 		'district'        => 'Long Biên',
