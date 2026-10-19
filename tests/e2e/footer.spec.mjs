@@ -25,6 +25,15 @@ for (const [width, expectedColumns] of widths) {
 		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__social')).toHaveCount(1);
+		const socials = footer.locator('.nt-footer__column--brand .nt-footer__social');
+		await expect(socials.locator('a')).toHaveText(['Facebook', 'Zalo', 'WhatsApp', 'Tripadvisor']);
+		const tripadvisor = socials.locator('a.nt-footer__social--tripadvisor');
+		await expect(tripadvisor).toHaveAttribute('href', 'https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Hanoi_Motorbike_Rental_Nguyen_Tu-Long_Bien_Hanoi.html');
+		await expect(tripadvisor).toHaveAttribute('aria-label', 'Xem Nguyễn Tú trên Tripadvisor');
+		await expect(tripadvisor).toHaveAttribute('rel', /noopener.*noreferrer/);
+		await expect(tripadvisor.locator('svg.nt-icon--tripadvisor[aria-hidden="true"]')).toHaveCount(1);
+		const isTouchTarget = await tripadvisor.evaluate((element) => element.getBoundingClientRect().height >= 44);
+		expect(isTouchTarget).toBe(true);
 		await expect(footer.locator('.nt-footer__nap address')).toHaveCount(0);
 		await expect(footer.locator('address')).toHaveCount(1);
 		await noHorizontalScroll(page);
