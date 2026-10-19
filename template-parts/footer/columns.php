@@ -30,6 +30,13 @@ foreach ( $nt_footer_groups['info'] as $nt_footer_info ) {
 			<?php endif; ?>
 			<a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener noreferrer">Zalo</a>
 			<a href="<?php echo esc_url( nt_whatsapp_url() ); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+			<?php $nt_tripadvisor = (string) nt_business( 'tripadvisor_url' ); ?>
+			<?php if ( '' !== $nt_tripadvisor ) : ?>
+				<a class="nt-footer__social--tripadvisor" href="<?php echo esc_url( $nt_tripadvisor ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Xem Nguyễn Tú trên Tripadvisor">
+					<?php nt_the_icon( 'tripadvisor', array( 'size' => 18 ) ); ?>
+					<span>Tripadvisor</span>
+				</a>
+			<?php endif; ?>
 		</nav>
 	</section>
 

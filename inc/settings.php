@@ -18,55 +18,59 @@ defined( 'ABSPATH' ) || exit;
  */
 function nt_settings_business_fields(): array {
 	return array(
-		'brand'         => array(
+		'brand'           => array(
 			'label' => 'Tên thương hiệu',
 			'type'  => 'text',
 		),
-		'phone_display' => array(
+		'phone_display'   => array(
 			'label' => 'Số điện thoại hiển thị',
 			'type'  => 'text',
 		),
-		'phone_tel'     => array(
+		'phone_tel'       => array(
 			'label' => 'Số điện thoại cho liên kết tel:',
 			'type'  => 'tel',
 		),
-		'phone_intl'    => array(
+		'phone_intl'      => array(
 			'label' => 'Số điện thoại quốc tế (schema)',
 			'type'  => 'tel',
 		),
-		'zalo_url'      => array(
+		'zalo_url'        => array(
 			'label' => 'Liên kết Zalo',
 			'type'  => 'url',
 		),
-		'facebook_url'  => array(
+		'facebook_url'    => array(
 			'label' => 'Trang Facebook chính thức',
 			'type'  => 'url',
 		),
-		'maps_url'      => array(
+		'tripadvisor_url' => array(
+			'label' => 'Trang Tripadvisor chính thức',
+			'type'  => 'url',
+		),
+		'maps_url'        => array(
 			'label' => 'Liên kết Google Maps',
 			'type'  => 'url',
 		),
-		'street'        => array(
+		'street'          => array(
 			'label' => 'Số nhà, đường',
 			'type'  => 'text',
 		),
-		'ward'          => array(
+		'ward'            => array(
 			'label' => 'Phường/Xã',
 			'type'  => 'text',
 		),
-		'district'      => array(
+		'district'        => array(
 			'label' => 'Quận/Huyện',
 			'type'  => 'text',
 		),
-		'city'          => array(
+		'city'            => array(
 			'label' => 'Tỉnh/Thành phố',
 			'type'  => 'text',
 		),
-		'open'          => array(
+		'open'            => array(
 			'label' => 'Giờ mở cửa (HH:MM)',
 			'type'  => 'text',
 		),
-		'close'         => array(
+		'close'           => array(
 			'label' => 'Giờ đóng cửa (HH:MM)',
 			'type'  => 'text',
 		),

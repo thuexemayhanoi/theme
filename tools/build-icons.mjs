@@ -59,6 +59,7 @@ const ICONS = {
 	external: 'external-link',
 	mail: 'mail',
 	badge: 'certificate',
+	tripadvisor: 'brand-tripadvisor',
 };
 
 let php = `<?php

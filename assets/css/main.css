@@ -564,6 +564,8 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__tagline { margin: 0 0 15px; color: #d7deec; font-size: .925rem; line-height: 1.65; }
 .nt-footer__social { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .nt-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 12px; border: 1px solid rgb(255 255 255 / 38%); border-radius: 999px; font-size: .8125rem; font-weight: 700; }
+.nt-footer__social .nt-footer__social--tripadvisor { gap: 7px; }
+.nt-footer__social--tripadvisor .nt-icon { flex: 0 0 auto; }
 .nt-footer__social a:hover, .nt-footer__social a:focus-visible { background: rgb(255 255 255 / 12%); text-decoration: none; }
 .nt-footer__list { margin: 0; padding: 0; list-style: none; }
 .nt-footer__list li { margin: 0 0 12px; }
