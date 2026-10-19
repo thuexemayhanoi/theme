@@ -42,6 +42,10 @@ function nt_settings_business_fields(): array {
 			'label' => 'Trang Facebook chính thức',
 			'type'  => 'url',
 		),
+		'tripadvisor_url' => array(
+			'label' => 'Trang Tripadvisor chính thức',
+			'type'  => 'url',
+		),
 		'maps_url'      => array(
 			'label' => 'Liên kết Google Maps',
 			'type'  => 'url',
