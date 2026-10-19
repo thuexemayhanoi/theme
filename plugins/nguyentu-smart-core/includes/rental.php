@@ -28,6 +28,14 @@ final class NT_Smart_Rental {
 	}
 
 	/**
+	 * Auto-place the estimate in the Nguyễn Tú homepage price table.
+	 * Hook: nt_home_prices_after_table. It renders nothing on other hosts.
+	 */
+	public static function echo_calculator(): void {
+		echo self::render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All markup and URLs are escaped by render().
+	}
+
+	/**
 	 * Parse a VND daily-price label, never assume "Liên hệ" is numeric.
 	 *
 	 * @param mixed $text Published day price.
