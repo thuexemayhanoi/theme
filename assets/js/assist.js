@@ -62,9 +62,15 @@
 		} else { safeDelete(memoryKey); }
 	}
 	function cacheTopic(query) {
-		// Exclude contacts, long numbers and URLs from saved lookup keys.
+		// Never persist a visitor question as plaintext; skip likely identifiers.
 		if (/@|https?:|[0-9]{4}/i.test(query)) { return ''; }
-		return query.trim().toLocaleLowerCase('vi').replace(/\s+/g, ' ').slice(0, 90);
+		var text = query.trim().toLocaleLowerCase('vi').replace(/\s+/g, ' ').slice(0, 90);
+		var hash = 2166136261;
+		for (var i = 0; i < text.length; i++) {
+			hash ^= text.charCodeAt(i);
+			hash = Math.imul(hash, 16777619);
+		}
+		return 'topic-' + (hash >>> 0).toString(16);
 	}
 	function saveSources(query, intent, sources) {
 		var key = cacheTopic(query);
