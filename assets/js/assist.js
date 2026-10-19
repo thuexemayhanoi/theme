@@ -17,6 +17,91 @@
 	var submit = form && form.querySelector('button[type="submit"]');
 	var previousFocus = null;
 
+	/*
+	 * Move the launcher only when an actual bottom overlay intersects its natural
+	 * position. Use bounded hit-testing rather than scanning every WP post node.
+	 * Recompute from its unshifted geometry, so movement never accumulates on scroll.
+	 */
+	var dockFrame = 0;
+	var dockOffset = 0;
+	function fixedObstacle(el, rect, viewportHeight) {
+		for (var node = el; node && node !== doc.body; node = node.parentElement) {
+			if (quickcall.contains(node) || (assist && assist.contains(node))) { return null; }
+			var style = window.getComputedStyle(node);
+			if (style.visibility === 'hidden' || parseFloat(style.opacity) < 0.05) { continue; }
+			if (style.position !== 'fixed' && style.position !== 'sticky') { continue; }
+			var box = node.getBoundingClientRect();
+			if (box.width < 14 || box.height < 14 || box.top >= viewportHeight ||
+				box.bottom <= rect.top || box.top >= rect.bottom ||
+				box.right <= rect.left || box.left >= rect.right) { continue; }
+			return box;
+		}
+		return null;
+	}
+	function updateDockAvoidance() {
+		dockFrame = 0;
+		if (!quickcall || !launcher || doc.hidden || !window.innerHeight) { return; }
+		var rect = launcher.getBoundingClientRect();
+		if (rect.width < 1 || rect.height < 1) { return; }
+		// Rect is shifted up by the last known offset. Recover the actual baseline.
+		var original = {
+			left: rect.left,
+			right: rect.right,
+			top: rect.top + dockOffset,
+			bottom: rect.bottom + dockOffset
+		};
+		var xs = [original.left + 7, (original.left + original.right) / 2, original.right - 7];
+		var ys = [original.top + 7, (original.top + original.bottom) / 2, original.bottom - 7];
+		var obstacleTop = window.innerHeight;
+		for (var i = 0; i < xs.length; i++) {
+			for (var j = 0; j < ys.length; j++) {
+				if (xs[i] < 0 || xs[i] >= window.innerWidth || ys[j] < 0 || ys[j] >= window.innerHeight) { continue; }
+				var layers = doc.elementsFromPoint(xs[i], ys[j]);
+				for (var k = 0; k < layers.length; k++) {
+					var obstacle = fixedObstacle(layers[k], original, window.innerHeight);
+					if (obstacle) { obstacleTop = Math.min(obstacleTop, obstacle.top); }
+				}
+			}
+		}
+		var needed = Math.max(0, Math.ceil(original.bottom - obstacleTop + 12));
+		var room = Math.max(0, original.top - 72);
+		// A full-screen modal should take precedence over any floating launcher.
+		var blockedByModal = needed > room && needed > 0;
+		quickcall.classList.toggle('nt-qc--suspended', blockedByModal);
+		var next = blockedByModal ? 0 : Math.min(needed, room);
+		if (next !== dockOffset) {
+			dockOffset = next;
+			quickcall.style.setProperty('--nt-qc-dock-offset', next + 'px');
+		}
+	}
+	function scheduleDockAvoidance() {
+		if (quickcall && !dockFrame) { dockFrame = window.requestAnimationFrame(updateDockAvoidance); }
+	}
+	if (quickcall) {
+		window.addEventListener('resize', scheduleDockAvoidance, { passive: true });
+		window.addEventListener('scroll', scheduleDockAvoidance, { passive: true });
+		window.addEventListener('pageshow', scheduleDockAvoidance);
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener('resize', scheduleDockAvoidance, { passive: true });
+		}
+		if (window.MutationObserver && doc.body) {
+			var dockObserver = new MutationObserver(function (changes) {
+				if (changes.some(function (change) {
+					return !quickcall.contains(change.target) && !(assist && assist.contains(change.target));
+				})) { scheduleDockAvoidance(); }
+			});
+			dockObserver.observe(doc.body, {
+				childList: true, subtree: true, attributes: true,
+				attributeFilter: ['class', 'style', 'hidden', 'aria-hidden']
+			});
+		}
+		// CSS-only dock appearance cannot always be observed by DOM mutations.
+		window.setInterval(function () {
+			if (!doc.hidden) { scheduleDockAvoidance(); }
+		}, 1800);
+		scheduleDockAvoidance();
+	}
+
 	function toggleMenu(open) {
 		if (!menu || !launcher) { return; }
 		menu.hidden = !open;
