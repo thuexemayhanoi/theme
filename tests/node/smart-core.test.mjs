@@ -8,7 +8,7 @@ const read = (path) => readFileSync(new URL(path, root), 'utf8');
 test('Smart Core has a standalone WordPress bootstrap and all expected modules', () => {
   const main = read('nguyentu-smart-core.php');
   assert.match(main, /Plugin Name: Nguyễn Tú Smart Core/);
-  assert.match(main, /Version: 1\.0\.0/);
+  assert.match(main, /Version: 1\.0\.1/);
   for (const path of ['includes/business.php', 'includes/schema.php', 'includes/admin.php', 'includes/audit.php', 'includes/rental.php', 'assets/rental.js', 'assets/rental.css', 'readme.txt', 'uninstall.php']) {
     assert.equal(existsSync(new URL(path, root)), true, path);
   }

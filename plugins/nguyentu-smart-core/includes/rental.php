@@ -29,7 +29,6 @@ final class NT_Smart_Rental {
 		wp_enqueue_script( 'nt-smart-rental', plugins_url( 'assets/rental.js', NTSC_MAIN_FILE ), array(), NTSC_VERSION, true );
 	}
 
-
 	/**
 	 * Adapt the existing authored homepage price table without editing stored
 	 * post content. Native theme price blocks already use the separate action.
