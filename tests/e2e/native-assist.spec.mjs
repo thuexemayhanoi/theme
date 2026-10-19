@@ -42,6 +42,7 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 		await noHorizontalScroll(page);
 		await page.keyboard.press('Escape');
 		await expect(page.locator('#nt-assist-dialog')).toBeHidden();
+		await expect(page.locator('[data-nt-qc-launch]')).toBeFocused();
 		await expect(page.locator('body')).not.toHaveClass(/nt-chat-is-open/);
 		const footprint = await page.locator('#nt-native-quickcall .nt-qc__launch').boundingBox();
 		expect(footprint.width).toBeGreaterThanOrEqual(44);
