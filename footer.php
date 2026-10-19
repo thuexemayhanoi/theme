@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php // Critical inline layout keeps the Footer correct when LiteSpeed serves a stale optimized stylesheet. ?>
 		<div class="nt-footer__bottom" style="display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;">
 			<p style="min-width:0;margin:0;">&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( nt_business( 'brand' ) ); ?></p>
-			<a class="nt-footer__backtop" href="#nt-page-top" aria-label="Lên đầu trang" title="Lên đầu trang" style="display:inline-flex;align-items:center;justify-content:center;justify-self:end;gap:7px;min-width:44px;min-height:44px;padding:9px 12px;border:1px solid rgba(255,255,255,.38);border-radius:999px;background:transparent;color:#fff;text-decoration:none;">
+			<a class="nt-footer__backtop" href="#nt-page-top" aria-label="Lên đầu trang" title="Lên đầu trang" style="display:inline-flex;align-items:center;justify-content:center;justify-self:end;gap:7px;min-width:44px;min-height:44px;padding:9px;border:1px solid rgba(255,255,255,.38);border-radius:999px;color:#fff;text-decoration:none;">
 				<?php nt_the_icon( 'arrow-up', array( 'size' => 20 ) ); ?>
 				<span>Lên đầu trang</span>
 			</a>
