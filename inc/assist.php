@@ -201,7 +201,7 @@ function nt_assist_normalize( string $text ): string {
  * @return string[]
  */
 function nt_assist_terms( string $query ): array {
-	$skip = array_flip( array( 'anh', 'ban', 'bao', 'can', 'cho', 'co', 'cua', 'da', 'duoc', 'em', 'gi', 'ha', 'hay', 'khi', 'khong', 'la', 'may', 'mot', 'nao', 'nhieu', 'noi', 'o', 'the', 'thi', 'thue', 'toi', 'tu', 'va', 've', 'voi', 'xe' ) );
+	$skip  = array_flip( array( 'anh', 'ban', 'bao', 'can', 'cho', 'co', 'cua', 'da', 'duoc', 'em', 'gi', 'ha', 'hay', 'khi', 'khong', 'la', 'may', 'mot', 'nao', 'nhieu', 'noi', 'o', 'the', 'thi', 'thue', 'toi', 'tu', 'va', 've', 'voi', 'xe' ) );
 	$words = explode( ' ', nt_assist_normalize( $query ) );
 	$terms = array();
 	foreach ( $words as $word ) {
@@ -255,14 +255,14 @@ function nt_assist_intent( string $question ): string {
  * @return array|null A row from the business price table.
  */
 function nt_assist_model_row( string $question ): ?array {
-	$q = ' ' . nt_assist_normalize( $question ) . ' ';
+	$q       = ' ' . nt_assist_normalize( $question ) . ' ';
 	$aliases = array(
-		'honda wave'                  => array( 'wave', 'rsx' ),
-		'honda vision'                => array( 'vision' ),
-		'honda air blade'             => array( 'air blade', 'airblade' ),
-		'honda click yamaha mio'      => array( 'click', 'mio' ),
-		'xe tay ga 50cc'             => array( '50cc' ),
-		'xe may dien xe dap dien'    => array( 'xe may dien', 'xe dap dien', 'xe dien' ),
+		'honda wave'              => array( 'wave', 'rsx' ),
+		'honda vision'            => array( 'vision' ),
+		'honda air blade'         => array( 'air blade', 'airblade' ),
+		'honda click yamaha mio'  => array( 'click', 'mio' ),
+		'xe tay ga 50cc'          => array( '50cc' ),
+		'xe may dien xe dap dien' => array( 'xe may dien', 'xe dap dien', 'xe dien' ),
 	);
 	foreach ( nt_price_rows() as $row ) {
 		$name = nt_assist_normalize( (string) $row['name'] );
@@ -354,7 +354,7 @@ function nt_assist_public_search( string $query ): array {
 	if ( array() === $terms ) {
 		return array();
 	}
-	$search = new WP_Query(
+	$search  = new WP_Query(
 		array(
 			's'                   => implode( ' ', array_slice( $terms, 0, 3 ) ),
 			'post_type'           => array( 'post', 'page', 'product' ),
