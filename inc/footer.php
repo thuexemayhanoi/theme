@@ -16,31 +16,128 @@ defined( 'ABSPATH' ) || exit;
 function nt_footer_manifest(): array {
 	return array(
 		'rental' => array(
-			array( 'type' => 'term', 'id' => 77, 'taxonomy' => 'featured_item_category', 'label' => 'Bảng giá thuê xe máy' ),
-			array( 'type' => 'term', 'id' => 78, 'taxonomy' => 'featured_item_category', 'label' => 'Thuê theo ngày' ),
-			array( 'type' => 'term', 'id' => 79, 'taxonomy' => 'featured_item_category', 'label' => 'Thuê theo tuần' ),
-			array( 'type' => 'term', 'id' => 80, 'taxonomy' => 'featured_item_category', 'label' => 'Thuê theo tháng' ),
-			array( 'type' => 'post', 'id' => 669, 'label' => 'Xe ga 50cc' ),
-			array( 'type' => 'term', 'id' => 71, 'taxonomy' => 'product_cat', 'label' => 'Xe số' ),
-			array( 'type' => 'term', 'id' => 72, 'taxonomy' => 'product_cat', 'label' => 'Xe ga' ),
-			array( 'type' => 'post', 'id' => 422, 'label' => 'Thuê xe máy điện' ),
-			array( 'type' => 'post', 'id' => 647, 'label' => 'Thuê xe đạp điện' ),
+			array(
+				'type'     => 'term',
+				'id'       => 77,
+				'taxonomy' => 'featured_item_category',
+				'label'    => 'Bảng giá thuê xe máy',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 78,
+				'taxonomy' => 'featured_item_category',
+				'label'    => 'Thuê theo ngày',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 79,
+				'taxonomy' => 'featured_item_category',
+				'label'    => 'Thuê theo tuần',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 80,
+				'taxonomy' => 'featured_item_category',
+				'label'    => 'Thuê theo tháng',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 669,
+				'label' => 'Xe ga 50cc',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 71,
+				'taxonomy' => 'product_cat',
+				'label'    => 'Xe số',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 72,
+				'taxonomy' => 'product_cat',
+				'label'    => 'Xe ga',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 422,
+				'label' => 'Thuê xe máy điện',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 647,
+				'label' => 'Thuê xe đạp điện',
+			),
 		),
 		'hubs'   => array(
-			array( 'type' => 'term', 'id' => 162, 'taxonomy' => 'category', 'label' => 'Hướng dẫn thuê xe' ),
-			array( 'type' => 'term', 'id' => 127, 'taxonomy' => 'category', 'label' => 'Chia sẻ & kinh nghiệm' ),
-			array( 'type' => 'term', 'id' => 126, 'taxonomy' => 'category', 'label' => 'Điểm đến & du lịch' ),
-			array( 'type' => 'term', 'id' => 156, 'taxonomy' => 'category', 'label' => 'Đánh giá & so sánh xe' ),
-			array( 'type' => 'term', 'id' => 157, 'taxonomy' => 'category', 'label' => 'Xe điện: kinh nghiệm sử dụng' ),
-			array( 'type' => 'term', 'id' => 158, 'taxonomy' => 'category', 'label' => 'Kỹ thuật & bảo dưỡng' ),
-			array( 'type' => 'term', 'id' => 159, 'taxonomy' => 'category', 'label' => 'Pháp lý & kinh nghiệm' ),
+			array(
+				'type'     => 'term',
+				'id'       => 162,
+				'taxonomy' => 'category',
+				'label'    => 'Hướng dẫn thuê xe',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 127,
+				'taxonomy' => 'category',
+				'label'    => 'Chia sẻ & kinh nghiệm',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 126,
+				'taxonomy' => 'category',
+				'label'    => 'Điểm đến & du lịch',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 156,
+				'taxonomy' => 'category',
+				'label'    => 'Đánh giá & so sánh xe',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 157,
+				'taxonomy' => 'category',
+				'label'    => 'Xe điện: kinh nghiệm sử dụng',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 158,
+				'taxonomy' => 'category',
+				'label'    => 'Kỹ thuật & bảo dưỡng',
+			),
+			array(
+				'type'     => 'term',
+				'id'       => 159,
+				'taxonomy' => 'category',
+				'label'    => 'Pháp lý & kinh nghiệm',
+			),
 		),
 		'info'   => array(
-			array( 'type' => 'post', 'id' => 310, 'label' => 'Giới thiệu' ),
-			array( 'type' => 'post', 'id' => 372, 'label' => 'Liên hệ' ),
-			array( 'type' => 'post', 'id' => 484, 'label' => 'Câu hỏi thường gặp' ),
-			array( 'type' => 'post', 'id' => 326, 'label' => 'Chính sách bảo mật' ),
-			array( 'type' => 'post', 'id' => 449, 'label' => 'Điều khoản sử dụng' ),
+			array(
+				'type'  => 'post',
+				'id'    => 310,
+				'label' => 'Giới thiệu',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 372,
+				'label' => 'Liên hệ',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 484,
+				'label' => 'Câu hỏi thường gặp',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 326,
+				'label' => 'Chính sách bảo mật',
+			),
+			array(
+				'type'  => 'post',
+				'id'    => 449,
+				'label' => 'Điều khoản sử dụng',
+			),
 		),
 	);
 }
@@ -126,6 +223,7 @@ function nt_footer_groups(): array {
 			}
 			$urls[ $key ]   = true;
 			$texts[ $name ] = true;
+
 			$lists[ $group ][] = $link;
 		}
 	}
