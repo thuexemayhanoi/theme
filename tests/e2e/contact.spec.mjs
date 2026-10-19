@@ -90,3 +90,43 @@ test('on tablet and desktop the native QuickCall is accessible, with no duplicat
 		await context.close();
 	}
 });
+
+
+for (const width of [360, 390, 768, 1024, 1440]) {
+	test('native QuickCall footer reaches actual viewport bottom without a blank strip at ' + width + 'px', async ({ page }) => {
+		test.skip(SIMS, 'native contact is not active while legacy simulators run');
+		await page.setViewportSize({ width, height: 844 });
+		await page.goto('/blog/', { waitUntil: 'networkidle' });
+		await expect(page.locator('#nt-native-quickcall')).toBeVisible();
+		await expect(page.locator('#site-footer')).toBeVisible();
+		await page.evaluate(() => {
+			document.documentElement.style.scrollBehavior = 'auto';
+			window.scrollTo(0, document.documentElement.scrollHeight);
+		});
+		await expect.poll(async () => page.evaluate(() => Math.abs(
+			document.getElementById('site-footer').getBoundingClientRect().bottom - window.innerHeight
+		)), { timeout: 5000 }).toBeLessThanOrEqual(2);
+
+		const geometry = await page.evaluate(() => {
+			const footer = document.getElementById('site-footer');
+			const copyright = footer.querySelector('.nt-footer__bottom p').getBoundingClientRect();
+			const launcher = document.querySelector('#nt-native-quickcall .nt-qc__launch').getBoundingClientRect();
+			const covered = !(copyright.right <= launcher.left || copyright.left >= launcher.right ||
+				copyright.bottom <= launcher.top || copyright.top >= launcher.bottom);
+			const lastVisible = document.elementFromPoint(window.innerWidth / 2, window.innerHeight - 2);
+			return {
+				bodyPadding: parseFloat(getComputedStyle(document.body).paddingBottom),
+				footerAtBottom: Math.abs(footer.getBoundingClientRect().bottom - window.innerHeight),
+				footerOwnsScreenEdge: !!lastVisible?.closest('#site-footer'),
+				copyrightObscured: covered,
+				footerBackground: getComputedStyle(footer).backgroundColor,
+				bodyBackground: getComputedStyle(document.body).backgroundColor
+			};
+		});
+		expect(geometry.bodyPadding).toBeLessThanOrEqual(1);
+		expect(geometry.footerAtBottom).toBeLessThanOrEqual(2);
+		expect(geometry.footerOwnsScreenEdge, 'the last pixels must be the navy footer, not the cream body').toBe(true);
+		expect(geometry.footerBackground).not.toBe(geometry.bodyBackground);
+		expect(geometry.copyrightObscured, 'the bottom copyright must remain readable beside/above QuickCall').toBe(false);
+	});
+}
