@@ -46,6 +46,7 @@ $nt_modules = array(
 	'footer',
 	'settings',
 	'setup',
+	'assist',
 	'enqueue',
 	'menus',
 	'seo',

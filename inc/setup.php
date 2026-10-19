@@ -151,6 +151,12 @@ function nt_body_classes( array $classes ): array {
 	if ( nt_show_cta_bar() ) {
 		$classes[] = 'nt-has-cta-bar';
 	}
+	if ( nt_native_quickcall_enabled() ) {
+		$classes[] = 'nt-has-native-quickcall';
+	}
+	if ( nt_native_assistant_enabled() ) {
+		$classes[] = 'nt-has-native-assistant';
+	}
 	return $classes;
 }
 add_filter( 'body_class', 'nt_body_classes' );
@@ -193,6 +199,10 @@ function nt_chat_widget_active(): bool {
  * "auto" shows it only when QuickCall is not active.
  */
 function nt_show_cta_bar(): bool {
+	// The new QuickCall replaces the old 2-button bar; legacy plugin always wins.
+	if ( nt_quickcall_active() || nt_native_quickcall_enabled() ) {
+		return false;
+	}
 	$mode = nt_toggle( 'cta_bar' );
 	if ( 'on' === $mode ) {
 		return true;
