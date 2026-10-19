@@ -135,3 +135,15 @@ bash tools/qa/run-sandbox.sh --reset           # integration + SEO + e2e + ảnh
 - **2026-10-18, sau review của Codex:** 9 phát hiện đều đúng và đã sửa (mục 4b). Chạy lại toàn bộ trên sandbox với script đã sửa: thoát 0, "mọi bước thành công và không cổng nào FAIL", PASS 32 · FAIL 0 · NOT_TESTED 5 (cùng 4 cổng chặn như cũ).
 
 Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệt.
+
+
+## 2026-10-19 — Permanent Footer SEO HULK V1 (PR #5)
+
+- **Repository/branch:** thuexemayhanoi/theme / `feat/nguyentu-permanent-footer-seo-hulk-v1`. PR: https://github.com/thuexemayhanoi/theme/pull/5 (draft until P0 live parity is independently verified). **LIVE_UNCHANGED by this PR.**
+- **Audit:** public homepage footer had 46 anchor instances / 44 unique URLs. Home and some other routes served differing footer versions, possibly cache/deployer inconsistency; current baseline is not a reliable deployment marker.
+- **P0 discovered, not caused by footer:** `/bo-suu-tap/thue-ngay/` and `/bo-suu-tap/thue-tuan/` return 404 on current live, despite WP-generated `/featured_item_category/...` currently returning 200. Preserve old URLs; do not disguise the issue by editing permalinks in footer. Owner separately authorizes any rewrite/redirect repair.
+- **Implemented:** permanent 4-column/footer-only PHP renderer and compact CSS; 9 service links, 7 indexable Hub links, 5 informational pages; all URLs resolved by verified WP IDs, with publish/public guards and deduplication, separate NAP vs contact-action modes; conservative hourly-consultation tagline; dynamic copyright year and deposit notice.
+- **Live URL inventory:** `reports/footer-live-before-2026-10-19.csv` (46 observed anchors) and `reports/footer-curated-urls-2026-10-19.csv` (21 intended destinations returned HTTP 200; seven Hub URLs observed index/follow).
+- **QA:** `tests/integration/FooterTest.php`, `tests/e2e/footer.spec.mjs` cover first-party public links, five viewport widths, semantic headings, NAP, no full menu tree, home/page/category/product/collection. GitHub PR CI result is the proof, not these statements. Final live post-deploy screenshots, Yoast diff, real QuickCall/MotoAI overlap, and legacy URL protection remain **UNVERIFIED / P0** until staging verification.
+- **Scope guard:** no change to any other repository, WordPress posts/pages/categories, SEO metadata, permalink settings or workflows. Production deployment not requested/attempted by tooling.
+- **Rollback:** revert the PR merge commit if subsequently approved; preserve prior theme and Hostinger backup. Detailed audit/release gates: `docs/FOOTER-SEO-HULK-V1.md`.
