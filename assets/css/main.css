@@ -4,7 +4,7 @@
  * No external requests. Page-specific styles live in home/blog/woo/legacy.css.
  */
 
-/* ---------- Fonts (self-hosted, OFL) ---------- */
+
 @font-face {
 	font-family: "Plus Jakarta Sans Variable";
 	font-style: normal;
@@ -21,7 +21,7 @@
 	src: url("../fonts/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2-variations");
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* Metric-compatible fallback keeps the swap from shifting the layout. */
+
 @font-face {
 	font-family: "Plus Jakarta Fallback";
 	src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
@@ -31,7 +31,7 @@
 	line-gap-override: 0%;
 }
 
-/* ---------- Tokens ---------- */
+
 :root {
 	--nt-cream: #faf7f0;
 	--nt-paper: #fff;
@@ -47,7 +47,7 @@
 	--nt-accent-700: #b02d17;
 	--nt-zalo: #0068ff;
 	--nt-zalo-700: #0053cc;
-	/* Shared contact palette: native Quick Call and the three footer CTAs. */
+	
 	--nt-contact-call: var(--nt-accent);
 	--nt-contact-zalo: #0869d5;
 	--nt-contact-maps: #475775;
@@ -71,7 +71,7 @@
 	--nt-admin-bar: var(--wp-admin--admin-bar--height, 0px);
 }
 
-/* ---------- Reset ---------- */
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -133,7 +133,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 	font-weight: 700; text-decoration: none;
 }
 
-/* ---------- Layout ---------- */
+
 .nt-container { width: min(100% - 2 * var(--nt-gutter), var(--nt-container)); margin-inline: auto; }
 .nt-container--narrow { width: min(100% - 2 * var(--nt-gutter), var(--nt-narrow)); }
 .nt-main { min-height: 50vh; }
@@ -148,7 +148,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-eyebrow::before { content: ""; width: 22px; height: 2px; background: currentcolor; border-radius: 2px; }
 .nt-icon { flex: none; vertical-align: middle; }
 
-/* ---------- Prose (editor content) ---------- */
+
 .nt-prose { font-size: 1.0625rem; line-height: 1.75; }
 .nt-prose > :first-child { margin-top: 0; }
 .nt-prose > :last-child { margin-bottom: 0; }
@@ -194,7 +194,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-prose .wp-block-table .nt-table-wrap { margin: 0; }
 
 
-/* ---------- Buttons ---------- */
+
 .nt-btn {
 	display: inline-flex; align-items: center; justify-content: center; gap: .55em;
 	min-height: 44px;
@@ -218,7 +218,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-btn--primary { background: var(--nt-navy); color: #fff; }
 .nt-btn--primary:hover { background: var(--nt-navy-700); color: #fff; }
 
-/* ---------- Forms: plugin forms inside the content (Contact Form 7), comments ---------- */
+
 .nt-main :where(input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"], input[type="password"], input[type="date"], textarea, select) {
 	width: 100%; max-width: 100%; min-height: 46px; padding: 10px 16px;
 	font: inherit; color: var(--nt-ink); background: var(--nt-paper);
@@ -262,7 +262,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 }
 .nt-iconbtn:hover { background: var(--nt-navy-100); color: var(--nt-navy); }
 
-/* ---------- Top bar (desktop) ---------- */
+
 .nt-topbar { display: none; background: var(--nt-navy-900); color: #e8edf6; font-size: .8125rem; }
 .nt-topbar a { color: #fff; text-decoration: none; }
 .nt-topbar a:hover { text-decoration: underline; color: #fff; }
@@ -271,15 +271,14 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-topbar__facts li, .nt-topbar__phone { display: inline-flex; align-items: center; gap: 6px; }
 .nt-topbar__right { display: flex; align-items: center; gap: 20px; }
 
-/* ---------- Header ---------- */
+
 .nt-header {
 	position: sticky; top: var(--nt-admin-bar); z-index: 50;
 	isolation: isolate;
 	border-bottom: 1px solid transparent;
 	transition: border-color .2s ease, box-shadow .2s ease;
 }
-/* The blur lives on a pseudo-element: a backdrop-filter on the header itself would trap the
-   fixed-position mobile drawer inside the header box. */
+
 .nt-header::before {
 	content: ""; position: absolute; inset: 0; z-index: -1;
 	background: rgb(250 247 240 / 92%);
@@ -304,7 +303,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 .nt-brand__name { font-size: 1.1875rem; font-weight: 800; letter-spacing: -.02em; }
 .nt-brand__tag { display: none; margin-top: 3px; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--nt-muted); }
 .nt-header__call-text { white-space: nowrap; }
-/* Header cart link */
+
 .nt-cartlink { position: relative; }
 .nt-cartlink__count { position: absolute; top: 2px; right: 0; display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; font-size: .6875rem; font-weight: 800; color: #fff; background: var(--nt-accent); border-radius: 999px; }
 @media (max-width: 639.98px) {
@@ -313,7 +312,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 	.nt-brand__link { gap: 8px; }
 	.nt-brand__mark { width: 36px; height: 36px; border-radius: 10px; }
 	.nt-brand__name { font-size: 1.0625rem; }
-	/* Call stays one tap away as an icon-only button; the label remains the accessible name. */
+	
 	.nt-header__call { width: 44px; height: 44px; padding: 0; gap: 0; justify-content: center; border-radius: 50%; }
 	.nt-header__call-text { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); }
 }
@@ -321,7 +320,7 @@ hr { border: 0; border-top: 1px solid var(--nt-line); margin: 2em 0; }
 	.nt-header__call { display: none; }
 }
 
-/* ---------- Navigation: off-canvas below 1024px ---------- */
+
 .nt-nav {
 	position: fixed; z-index: 70;
 	top: 0; right: 0; bottom: 0;
@@ -341,7 +340,7 @@ body.nt-has-quickcall, body.nt-has-chat { --nt-fixed-bars: 76px; }
 .nt-nav__foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--nt-line); }
 .nt-nav__nap { margin-top: 16px; font-size: .875rem; color: var(--nt-muted); }
 .nt-nav__empty { padding: 16px 0; color: var(--nt-muted); }
-/* With a separate "mobile" menu assigned, the drawer shows that one instead of the main menu (desktop keeps the main one). */
+
 @media (max-width: 1023.98px) {
 	.nt-nav--split #nt-menu-primary, .nt-nav--split .nt-nav__empty { display: none; }
 }
@@ -372,14 +371,14 @@ body.nt-has-quickcall, body.nt-has-chat { --nt-fixed-bars: 76px; }
 .nt-sub .nt-menu__item { border-bottom: 0; }
 .nt-sub .nt-menu__link { min-height: 42px; font-weight: 600; }
 
-/* Without JavaScript every menu simply stays expanded and reachable. */
+
 html:not(.js) .nt-nav { position: static; transform: none; visibility: visible; width: auto; box-shadow: none; background: transparent; }
 html:not(.js) .nt-nav__head, html:not(.js) .nt-menu-toggle, html:not(.js) .nt-sub-toggle, html:not(.js) [data-nt-search-toggle] { display: none; }
 html:not(.js) .nt-header__inner { flex-wrap: wrap; }
 html:not(.js) .nt-sub { display: block; }
 html:not(.js) .nt-searchpanel[hidden] { display: block; }
 
-/* ---------- Search ---------- */
+
 .nt-searchpanel { padding: 12px 0 16px; border-top: 1px solid var(--nt-line); background: var(--nt-paper); }
 .nt-searchpanel[hidden] { display: none; }
 .nt-search {
@@ -405,7 +404,7 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 	.nt-brand__tag { display: block; }
 }
 
-/* ---------- Desktop navigation (>= 1024px) ---------- */
+
 @media (min-width: 1024px) {
 	:root { --nt-header-h: 76px; }
 	.nt-topbar { display: block; }
@@ -430,7 +429,7 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 	.nt-menu__item--d0.nt-has-sub > .nt-menu__link { padding-right: 4px; }
 	.nt-menu__item--d0 > .nt-sub-toggle { width: 28px; height: 28px; margin-right: 8px; }
 
-	/* Sub-menus: panel under the item. */
+	
 	.nt-sub {
 		display: block;
 		position: absolute; top: 100%; left: 0; z-index: 80;
@@ -447,7 +446,7 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 	.nt-sub .nt-menu__link { padding: 8px 12px; min-height: 40px; border-radius: 10px; font-weight: 600; }
 	.nt-sub .nt-menu__link:hover { background: var(--nt-navy-100); color: var(--nt-navy); }
 
-	/* Mega panel: 3-level branches (e.g. Blog) become columns inside the viewport. */
+	
 	.nt-menu__item--d0.nt-has-mega { position: static; }
 	.nt-has-mega > .nt-sub--d1 {
 		left: 0; right: 0;
@@ -470,7 +469,7 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 	.nt-nav__mobile-only { display: none; }
 }
 
-/* ---------- Cards ---------- */
+
 .nt-card {
 	position: relative;
 	display: flex; flex-direction: column;
@@ -531,7 +530,7 @@ a.nt-chip:hover { background: var(--nt-navy); color: #fff; }
 	.nt-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* ---------- Breadcrumb ---------- */
+
 .nt-breadcrumb { margin: 0 0 1rem; font-size: .875rem; color: var(--nt-muted); }
 .nt-breadcrumb ol { display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 0; padding: 0; list-style: none; }
 .nt-breadcrumb li + li::before { content: "›"; margin-right: 8px; color: #b9b19c; }
@@ -542,7 +541,7 @@ a.nt-chip:hover { background: var(--nt-navy); color: #fff; }
 .nt-pagecrumbs { padding: 14px 0 0; }
 .nt-pagecrumbs .nt-breadcrumb { margin-bottom: 0; }
 
-/* ---------- Pagination ---------- */
+
 .nt-pagination, .navigation.pagination { margin: 3rem 0 0; }
 .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .page-numbers {
@@ -556,7 +555,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .page-numbers.current { color: #fff; background: var(--nt-navy); border-color: var(--nt-navy); }
 .page-numbers.dots { background: transparent; border-color: transparent; }
 
-/* ---------- Permanent SEO footer: 1 / 2 / 4 responsive columns, no JS ---------- */
+
 .nt-footer { margin-top: var(--nt-section); color: #d7deec; background: var(--nt-navy-900); }
 .nt-footer a { color: #fff; text-decoration: none; }
 .nt-footer a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
@@ -581,8 +580,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__nap p > span:first-of-type { min-width: 0; }
 .nt-footer__column--contact .nt-footer__contact { margin-top: 20px; }
 .nt-footer__contact .nt-cta { display: flex; flex-wrap: wrap; gap: 8px; }
-/* The three Footer actions must look like the four outlined social pills.
- * Quick Call's red, blue and maps colors are reserved for the floating menu. */
+
 .nt-footer__contact .nt-btn {
 	display: inline-flex; align-items: center; justify-content: center; gap: 7px;
 	min-height: 44px; padding: 9px 12px; border: 1px solid rgb(255 255 255 / 38%);
@@ -590,7 +588,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 	color: #fff; background: transparent; box-shadow: none; text-decoration: none;
 }
 .nt-footer__contact .nt-btn .nt-icon { flex: 0 0 auto; }
-/* Override the globally filled call/Zalo and globally outlined ghost button ONLY in the Footer. */
+
 .nt-footer__contact .nt-btn:is(.nt-btn--call, .nt-btn--zalo, .nt-btn--ghost) {
 	color: #fff; background: transparent; border-color: rgb(255 255 255 / 38%);
 }
@@ -605,8 +603,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer .nt-widget a { color: #fff; }
 .nt-footer .nt-widget ul { margin: 0; padding: 0; list-style: none; }
 .nt-footer .nt-widget li { margin-bottom: 6px; }
-/* Compact footer end row: copyright at left and a non-floating Back to Top at right.
- * Keep it in normal flow so it cannot cover Quick Call or the iOS Safari dock. */
+
 .nt-footer__bottom {
 	display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px;
 	padding: 20px 0 28px; font-size: .8125rem; color: #9fb0cd;
@@ -626,7 +623,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 }
 .nt-footer__backtop:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 @media (max-width: 479.98px) {
-	/* Icon-only button fits 320–390px viewports and keeps the brand name readable. */
+	
 	.nt-footer__backtop { width: 44px; padding: 9px; }
 	.nt-footer__backtop span { display: none; }
 }
@@ -640,7 +637,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 	.nt-footer__grid { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)) minmax(0, 1.2fr); gap: 32px; }
 }
 
-/* ---------- Mobile contact bar (only when no QuickCall plugin is active) ---------- */
+
 .nt-ctabar {
 	position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
 	display: flex; gap: 8px;
@@ -659,7 +656,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 body.nt-has-chat .nt-ctabar { padding-right: 84px; }
 body.nt-has-chat .nt-footer__bottom { padding-right: 84px; }
 @media (max-width: 767.98px) {
-	/* The QuickCall plugin draws its own fixed bar: keep the last footer line clear of it. */
+	
 	body.nt-has-quickcall .nt-footer__bottom { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
 }
 body.nt-has-cta-bar { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
@@ -668,7 +665,7 @@ body.nt-has-cta-bar { padding-bottom: calc(66px + env(safe-area-inset-bottom)); 
 	body.nt-has-cta-bar { padding-bottom: 0; }
 }
 
-/* ---------- Empty state / hubs ---------- */
+
 .nt-empty { max-width: 760px; margin: 2rem auto; text-align: center; }
 .nt-empty .nt-search { margin: 1.5rem auto; }
 .nt-hubs { display: grid; gap: 28px; margin: 2.5rem 0; text-align: left; grid-template-columns: minmax(0, 1fr); }
