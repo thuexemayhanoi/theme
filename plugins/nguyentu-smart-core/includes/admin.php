@@ -7,8 +7,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-final class NTSC_Admin {
+/**
+ * Read-only administrator status screen; no configuration or database writes.
+ */
+final class NT_Smart_Admin {
 
+	/**
+	 * Register the plugin status view under Tools.
+	 */
 	public static function register(): void {
 		add_management_page(
 			'Nguyễn Tú Smart Core',
@@ -20,6 +26,8 @@ final class NTSC_Admin {
 	}
 
 	/**
+	 * Add the status link to the WordPress plugins screen.
+	 *
 	 * @param array<int,string> $links Existing WordPress plugin action links.
 	 * @return array<int,string>
 	 */
@@ -29,14 +37,17 @@ final class NTSC_Admin {
 		return $links;
 	}
 
+	/**
+	 * Render current verified facts and schema ownership.
+	 */
 	public static function page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'Bạn không có quyền truy cập.', 'nguyentu-smart-core' ) );
 		}
 
-		$b       = ntsc_business();
-		$owner   = NTSC_Schema::seo_owner();
-		$allowed = ntsc_site_allowed();
+		$b       = nt_smart_business();
+		$owner   = NT_Smart_Schema::seo_owner();
+		$allowed = nt_smart_site_allowed();
 		$mode    = '' !== $owner
 			? 'Schema do ' . $owner . ' quản lý; Smart Core không tạo graph cạnh tranh.'
 			: 'Chưa phát hiện SEO plugin: Smart Core chỉ in Organization + WebSite khi trang đủ điều kiện.';
@@ -57,12 +68,18 @@ final class NTSC_Admin {
 		self::row( 'Nguồn dữ liệu', function_exists( 'nt_business' ) ? 'Đọc trực tiếp từ theme Nguyễn Tú' : 'Dữ liệu chuẩn + tùy chọn WordPress cũ nếu có' );
 		self::row( 'Schema', $mode );
 		self::row( 'Tương thích', $theme );
-		self::row( 'Giá thuê', count( ntsc_reference_prices() ) . ' nhóm giá tham khảo; không tự tạo Product/Offer schema' );
+		self::row( 'Giá thuê', count( nt_smart_reference_prices() ) . ' nhóm giá tham khảo; không tự tạo Product/Offer schema' );
 		echo '</tbody></table>';
 		echo '<p>Không thay đổi URL, canonical, robots, sitemap, title, bài viết hay bảng giá hiện có.</p>';
 		echo '</div>';
 	}
 
+	/**
+	 * Render a single escaped status row.
+	 *
+	 * @param string $label Label text.
+	 * @param string $value Value text.
+	 */
 	private static function row( string $label, string $value ): void {
 		echo '<tr><th scope="row" style="width:180px">' . esc_html( $label ) . '</th><td>' . esc_html( $value ) . '</td></tr>';
 	}

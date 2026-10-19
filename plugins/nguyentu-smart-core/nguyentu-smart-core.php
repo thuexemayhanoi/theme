@@ -27,6 +27,6 @@ require_once NTSC_PATH . 'includes/business.php';
 require_once NTSC_PATH . 'includes/schema.php';
 require_once NTSC_PATH . 'includes/admin.php';
 
-add_action( 'plugins_loaded', array( 'NTSC_Schema', 'register' ), 20 );
-add_action( 'admin_menu', array( 'NTSC_Admin', 'register' ) );
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( 'NTSC_Admin', 'action_links' ) );
+add_action( 'plugins_loaded', array( 'NT_Smart_Schema', 'register' ), 20 );
+add_action( 'admin_menu', array( 'NT_Smart_Admin', 'register' ) );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( 'NT_Smart_Admin', 'action_links' ) );

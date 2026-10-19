@@ -11,7 +11,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-final class NTSC_Schema {
+/**
+ * Safe structured-data integration that defers to the current SEO owner.
+ */
+final class NT_Smart_Schema {
 
 	/**
 	 * Register hooks after plugins have loaded. WordPress loads themes later;
@@ -53,7 +56,7 @@ final class NTSC_Schema {
 	 * @return array<string,mixed>
 	 */
 	public static function local_properties(): array {
-		$b = ntsc_business();
+		$b = nt_smart_business();
 
 		$address = array(
 			'@type'           => 'PostalAddress',
@@ -85,13 +88,13 @@ final class NTSC_Schema {
 	 * @return mixed
 	 */
 	public static function enrich_yoast_organization( $data ) {
-		if ( ! is_array( $data ) || ! ntsc_site_allowed() ) {
+		if ( ! is_array( $data ) || ! nt_smart_site_allowed() ) {
 			return $data;
 		}
 		if ( function_exists( 'nt_yoast_enrich_organization' ) || defined( 'WPSEO_LOCAL_VERSION' ) ) {
 			return $data;
 		}
-		$b = ntsc_business();
+		$b = nt_smart_business();
 		if ( '' === trim( (string) ( $b['brand'] ?? '' ) ) || '' === trim( (string) ( $b['phone_intl'] ?? '' ) ) ) {
 			return $data;
 		}
@@ -102,8 +105,8 @@ final class NTSC_Schema {
 			}
 		}
 
-		$types = (array) ( $data['@type'] ?? 'Organization' );
-		$types = array_values( array_unique( array_merge( $types, array( 'Organization', 'LocalBusiness' ) ) ) );
+		$types         = (array) ( $data['@type'] ?? 'Organization' );
+		$types         = array_values( array_unique( array_merge( $types, array( 'Organization', 'LocalBusiness' ) ) ) );
 		$data['@type'] = $types;
 		return $data;
 	}
@@ -113,7 +116,7 @@ final class NTSC_Schema {
 	 * Only public, indexable-style frontend page types can receive this fallback.
 	 */
 	public static function print_fallback(): void {
-		if ( ! ntsc_site_allowed() || '' !== self::seo_owner() || is_admin() || is_feed() || is_404() || is_search() ) {
+		if ( ! nt_smart_site_allowed() || '' !== self::seo_owner() || is_admin() || is_feed() || is_404() || is_search() ) {
 			return;
 		}
 		if ( is_singular() ) {
@@ -126,7 +129,7 @@ final class NTSC_Schema {
 			return;
 		}
 
-		$b = ntsc_business();
+		$b = nt_smart_business();
 		if ( '' === trim( (string) ( $b['brand'] ?? '' ) ) || '' === trim( (string) ( $b['phone_intl'] ?? '' ) ) || '' === trim( (string) ( $b['street'] ?? '' ) ) ) {
 			return;
 		}
@@ -138,7 +141,7 @@ final class NTSC_Schema {
 			'name'  => sanitize_text_field( (string) $b['brand'] ),
 			'url'   => $site_url,
 		);
-		$org = array_merge( $org, self::local_properties() );
+		$org      = array_merge( $org, self::local_properties() );
 		if ( ! empty( $b['facebook_url'] ) ) {
 			$org['sameAs'] = array( esc_url_raw( (string) $b['facebook_url'] ) );
 		}
@@ -148,11 +151,11 @@ final class NTSC_Schema {
 			'@graph'   => array(
 				$org,
 				array(
-					'@type'     => 'WebSite',
-					'@id'       => $site_url . '#website',
-					'url'       => $site_url,
-					'name'      => sanitize_text_field( (string) get_bloginfo( 'name' ) ),
-					'publisher' => array( '@id' => $site_url . '#organization' ),
+					'@type'      => 'WebSite',
+					'@id'        => $site_url . '#website',
+					'url'        => $site_url,
+					'name'       => sanitize_text_field( (string) get_bloginfo( 'name' ) ),
+					'publisher'  => array( '@id' => $site_url . '#organization' ),
 					'inLanguage' => get_bloginfo( 'language' ),
 				),
 			),

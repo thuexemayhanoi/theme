@@ -15,10 +15,10 @@ defined( 'ABSPATH' ) || exit;
  * Only publish Nguyễn Tú facts on the intended production host.
  * Non-production environments can opt in explicitly with this filter for staging.
  */
-function ntsc_site_allowed(): bool {
+function nt_smart_site_allowed(): bool {
 	$host    = strtolower( (string) wp_parse_url( home_url( '/' ), PHP_URL_HOST ) );
 	$allowed = in_array( $host, array( 'thuexemaynguyentu.com', 'www.thuexemaynguyentu.com' ), true );
-	return (bool) apply_filters( 'ntsc_site_allowed', $allowed, $host );
+	return (bool) apply_filters( 'nt_smart_site_allowed', $allowed, $host );
 }
 
 /**
@@ -26,7 +26,7 @@ function ntsc_site_allowed(): bool {
  *
  * @return array<string,string>
  */
-function ntsc_business_defaults(): array {
+function nt_smart_business_defaults(): array {
 	return array(
 		'brand'         => 'Cho Thuê Xe Máy Nguyễn Tú',
 		'gbp_name'      => 'Thuê xe máy ở Hà Nội - Nguyễn Tú',
@@ -52,8 +52,8 @@ function ntsc_business_defaults(): array {
  *
  * @return array<string,string>
  */
-function ntsc_business(): array {
-	$profile = ntsc_business_defaults();
+function nt_smart_business(): array {
+	$profile = nt_smart_business_defaults();
 
 	if ( function_exists( 'nt_business' ) ) {
 		$theme = nt_business();
@@ -84,17 +84,53 @@ function ntsc_business(): array {
  *
  * @return array<int,array<string,string>>
  */
-function ntsc_reference_prices(): array {
+function nt_smart_reference_prices(): array {
 	if ( function_exists( 'nt_price_rows' ) ) {
 		return (array) nt_price_rows();
 	}
 
 	return array(
-		array( 'name' => 'Honda Wave', 'day' => '150.000đ', 'week' => '700.000đ', 'month' => '900.000–1.200.000đ', 'deposit' => '2–3 triệu' ),
-		array( 'name' => 'Honda Vision', 'day' => '200.000đ', 'week' => '1.000.000đ', 'month' => '1.800.000–2.000.000đ', 'deposit' => '4–5 triệu' ),
-		array( 'name' => 'Honda Air Blade', 'day' => '200.000đ', 'week' => '1.000.000đ', 'month' => '1.500.000đ', 'deposit' => '3 triệu' ),
-		array( 'name' => 'Honda Click / Yamaha Mio', 'day' => '150.000đ', 'week' => '700.000đ', 'month' => '900.000–1.200.000đ', 'deposit' => '2 triệu' ),
-		array( 'name' => 'Xe tay ga 50cc', 'day' => '200.000đ', 'week' => 'Báo giá riêng', 'month' => 'Báo giá riêng', 'deposit' => '4 triệu' ),
-		array( 'name' => 'Xe máy điện / Xe đạp điện', 'day' => 'Liên hệ', 'week' => 'Liên hệ', 'month' => 'Liên hệ', 'deposit' => 'Xác nhận theo mẫu xe' ),
+		array(
+			'name'    => 'Honda Wave',
+			'day'     => '150.000đ',
+			'week'    => '700.000đ',
+			'month'   => '900.000–1.200.000đ',
+			'deposit' => '2–3 triệu',
+		),
+		array(
+			'name'    => 'Honda Vision',
+			'day'     => '200.000đ',
+			'week'    => '1.000.000đ',
+			'month'   => '1.800.000–2.000.000đ',
+			'deposit' => '4–5 triệu',
+		),
+		array(
+			'name'    => 'Honda Air Blade',
+			'day'     => '200.000đ',
+			'week'    => '1.000.000đ',
+			'month'   => '1.500.000đ',
+			'deposit' => '3 triệu',
+		),
+		array(
+			'name'    => 'Honda Click / Yamaha Mio',
+			'day'     => '150.000đ',
+			'week'    => '700.000đ',
+			'month'   => '900.000–1.200.000đ',
+			'deposit' => '2 triệu',
+		),
+		array(
+			'name'    => 'Xe tay ga 50cc',
+			'day'     => '200.000đ',
+			'week'    => 'Báo giá riêng',
+			'month'   => 'Báo giá riêng',
+			'deposit' => '4 triệu',
+		),
+		array(
+			'name'    => 'Xe máy điện / Xe đạp điện',
+			'day'     => 'Liên hệ',
+			'week'    => 'Liên hệ',
+			'month'   => 'Liên hệ',
+			'deposit' => 'Xác nhận theo mẫu xe',
+		),
 	);
 }
