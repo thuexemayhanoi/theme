@@ -35,7 +35,9 @@ final class NativeAssistTest extends TestCase {
 		$this->assertSame( nt_tel_url(), $links['call']['url'] );
 		$this->assertSame( nt_zalo_url(), $links['zalo']['url'] );
 		$this->assertSame( nt_whatsapp_url(), $links['whatsapp']['url'] );
-		$this->assertArrayNotHasKey( 'maps', $links, 'maps must remain off by default' );
+		$this->assertArrayHasKey( 'maps', $links, 'owner-approved directions link is enabled by default' );
+		$this->assertSame( 'https://share.google/KHz2FVQKhtFilL01j', $links['maps']['url'] );
+		$this->assertSame( 'https://maps.google.com/maps?cid=7448790013669858019', nt_maps_url(), 'Keep the canonical business Maps profile unchanged.' );
 		ob_start();
 		nt_assist_render();
 		$html = (string) ob_get_clean();
