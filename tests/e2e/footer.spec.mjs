@@ -1,65 +1,80 @@
 import { test, expect } from '@playwright/test';
-import { noHorizontalScroll } from './helpers.mjs';
+import { noHorizontalScroll, overflowOffenders } from './helpers.mjs';
 
-for (const [width, expectedColumns] of [[390, 1], [768, 2], [1280, 4]]) {
-	test('footer uses ' + expectedColumns + ' responsive columns at ' + width + 'px', async ({ page }) => {
+const widths = [
+	[360, 1],
+	[390, 1],
+	[768, 2],
+	[1024, 4],
+	[1440, 4],
+];
+
+for (const [width, expectedColumns] of widths) {
+	test('permanent footer: ' + expectedColumns + ' columns at ' + width + 'px', async ({ page }) => {
 		await page.setViewportSize({ width, height: 900 });
 		await page.goto('/', { waitUntil: 'networkidle' });
 
-		await expect(page.locator('.nt-footer__grid > .nt-footer__column')).toHaveCount(4);
-		const columns = await page.locator('.nt-footer__grid').evaluate((el) =>
+		const footer = page.locator('#site-footer');
+		await expect(footer.locator('.nt-footer__grid > .nt-footer__column')).toHaveCount(4);
+		const tracks = await footer.locator('.nt-footer__grid').evaluate((el) =>
 			getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length
 		);
-		expect(columns).toBe(expectedColumns);
-
-		await expect(page.locator('.nt-footer__column--brand .nt-footer__tagline')).toHaveCount(1);
-		await expect(page.locator('.nt-footer__tagline')).toContainText('theo giờ, ngày, tuần, tháng');
-		await expect(page.locator('.nt-footer__tagline')).toContainText('Long Biên');
-		await expect(page.locator('.nt-footer__tagline')).toContainText('xe 50cc và xe điện');
-		await expect(page.locator('.nt-footer__tagline')).toContainText('tiền cọc');
-		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(0);
-		await expect(page.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(1);
-		await expect(page.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
-		await expect(page.locator('#nt-f-contact')).toContainText('Liên hệ');
+		expect(tracks).toBe(expectedColumns);
+		await expect(footer.locator('.nt-footer__column--brand .nt-footer__tagline')).toContainText('tư vấn nhu cầu thuê theo giờ');
+		await expect(footer.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(1);
+		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
+		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
+		await expect(footer.locator('.nt-footer__column--brand .nt-footer__social')).toHaveCount(1);
+		await expect(footer.locator('.nt-footer__nap address')).toHaveCount(0);
+		await expect(footer.locator('address')).toHaveCount(1);
 		await noHorizontalScroll(page);
+		expect(await overflowOffenders(page)).toEqual([]);
 	});
 }
 
-test('footer headings and page/category links retain crawlable SEO semantics', async ({ page }) => {
+test('only strategic Hub, rental and information links; no copied 36-item menu', async ({ page }) => {
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await page.goto('/', { waitUntil: 'networkidle' });
-
 	const footer = page.locator('#site-footer');
-	await expect(footer.locator('.nt-footer__grid h1')).toHaveCount(0);
+	await expect(footer.locator('h1')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__grid h2')).toHaveCount(3);
-	await expect(footer.locator('.nt-footer__grid h3, .nt-footer__grid h4')).toHaveCount(0);
-	await expect(footer.locator('.nt-footer__column--brand #nt-f-brand')).toHaveCount(1);
-
-	for (const [group, heading] of [
-		['rental', 'Thuê xe & bảng giá'],
-		['blog', 'Cẩm nang & Blog'],
-		['contact', 'Liên hệ'],
+	await expect(footer.locator('.nt-footer__grid h3')).toHaveCount(0);
+	await expect(footer.locator('.nt-footer__menu')).toHaveCount(0);
+	await expect(footer.locator('.nt-footer__widgets')).toHaveCount(0);
+	for (const [group, max, min] of [
+		['rental', 9, 6],
+		['blog', 7, 5],
+		['contact', 5, 4],
 	]) {
-		await expect(footer.locator('.nt-footer__column--' + group + ' > h2')).toHaveText(heading);
+		const n = await footer.locator('.nt-footer__column--' + group + ' nav .nt-footer__list > li > a').count();
+		expect(n).toBeGreaterThanOrEqual(min);
+		expect(n).toBeLessThanOrEqual(max);
 	}
-
-	// Navigation items are real HTML links, never injected H2/H3 headings or JS-only buttons.
-	const problems = await footer.locator('.nt-footer__menu, .nt-footer__list').evaluateAll((menus) =>
-		menus.flatMap((menu) => [...menu.querySelectorAll('a')].flatMap((a) => {
-			const href = a.getAttribute('href') || '';
-			const label = (a.textContent || '').trim();
-			return href && !/^javascript:/i.test(href) && label ? [] : [label + ' -> ' + href];
-		}))
-	);
-	expect(problems, 'menu items must have useful anchor text and href').toEqual([]);
-	await expect(footer.locator('.nt-footer__menu h1, .nt-footer__menu h2, .nt-footer__menu h3, .nt-footer__list h1, .nt-footer__list h2, .nt-footer__list h3')).toHaveCount(0);
+	await expect(footer.locator('.nt-footer__column--rental nav a')).toContainText([
+		'Bảng giá thuê xe máy', 'Thuê theo ngày', 'Thuê theo tuần', 'Thuê theo tháng',
+		'Xe ga 50cc', 'Xe số', 'Xe ga', 'Thuê xe máy điện', 'Thuê xe đạp điện',
+	]);
+	const problems = await footer.locator('.nt-footer__list').evaluateAll((menus) => {
+		const links = menus.flatMap((el) => [...el.querySelectorAll('a')]);
+		const urls = links.map((a) => a.getAttribute('href'));
+		const labels = links.map((a) => (a.textContent || '').trim());
+		const invalid = links.filter((a) => !a.href || !a.textContent.trim() || /^javascript:/i.test(a.getAttribute('href') || ''));
+		return { invalid: invalid.length, duplicateUrls: urls.length - new Set(urls).size, duplicateLabels: labels.length - new Set(labels).size };
+	});
+	expect(problems).toEqual({ invalid: 0, duplicateUrls: 0, duplicateLabels: 0 });
+	await expect(footer.locator('.nt-footer__list .sub-menu')).toHaveCount(0);
+	await expect(footer.locator('.nt-footer__list h2, .nt-footer__list h3')).toHaveCount(0);
 });
 
-test('footer tagline is consistent across homepage and posts without becoming a heading', async ({ page }) => {
-	for (const path of ['/', '/gioi-thieu/', '/lien-he/']) {
-		await page.goto(path, { waitUntil: 'networkidle' });
-		const tagline = page.locator('#site-footer .nt-footer__tagline');
-		await expect(tagline).toContainText('Thuê xe máy Hà Nội theo giờ, ngày, tuần, tháng');
+test('footer is shared by core page, archive, WooCommerce and collection', async ({ page }) => {
+	for (const path of ['/', '/gioi-thieu/', '/lien-he/', '/blog/xe-dien/', '/san-pham/honda-wave/', '/bo-suu-tap/']) {
+		const res = await page.goto(path, { waitUntil: 'networkidle' });
+		expect(res.status()).toBe(200);
+		await expect(page.locator('#site-footer')).toHaveCount(1);
+		await expect(page.locator('.nt-footer__grid > .nt-footer__column')).toHaveCount(4);
+		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('112 Nguyễn Văn Cừ');
+		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('0942 467 674');
+		await expect(page.locator('.nt-footer__column--brand .nt-footer__nap')).toContainText('09:00');
 		await expect(page.locator('#site-footer h1')).toHaveCount(0);
 	}
 });
