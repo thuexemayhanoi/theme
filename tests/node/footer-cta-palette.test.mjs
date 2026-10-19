@@ -12,23 +12,26 @@ function block(source, selector) {
   return source.slice(start + selector.length + 2).split('}')[0];
 }
 
-test('footer contact actions use the same semantic color tokens as Quick Call', () => {
-  for (const name of ['call', 'zalo', 'maps']) {
-    assert.ok(main.includes('--nt-contact-' + name + ':'), name + ' token exists');
-    assert.ok(assist.includes('.nt-qc__link--' + name + ' { background: var(--nt-contact-' + name), name + ' quick call uses token');
-  }
-  for (const [variant, color] of [['call', 'call'], ['zalo', 'zalo'], ['ghost', 'maps']]) {
-    const style = block(main, '.nt-footer__contact .nt-btn--' + variant);
-    assert.ok(style.includes('background: var(--nt-contact-' + color + ')'));
-    assert.ok(style.includes('color: #fff'));
-  }
-});
-
-test('footer pills match social buttons without changing global CTA variants', () => {
+test('four social and three footer CTAs have same outline and transparent background', () => {
   for (const selector of ['.nt-footer__social a', '.nt-footer__contact .nt-btn']) {
     const rule = block(main, selector);
-    assert.ok(rule.includes('min-height: 44px'));
-    assert.ok(rule.includes('border-radius: 999px'));
+    for (const declaration of ['min-height: 44px', 'padding: 9px 12px', 'border: 1px solid rgb(255 255 255 / 38%)', 'border-radius: 999px', 'font-size: .8125rem', 'font-weight: 700']) {
+      assert.ok(rule.includes(declaration), selector + ' needs ' + declaration);
+    }
   }
-  assert.ok(block(main, '.nt-btn--ghost').includes('var(--nt-navy)'), 'Original global ghost button remains');
+  const actions = block(main, '.nt-footer__contact .nt-btn');
+  assert.ok(actions.includes('background: transparent'));
+  const variants = block(main, '.nt-footer__contact .nt-btn:is(.nt-btn--call, .nt-btn--zalo, .nt-btn--ghost)');
+  assert.ok(variants.includes('background: transparent'));
+  assert.ok(variants.includes('border-color: rgb(255 255 255 / 38%)'));
+});
+
+test('native Quick Call colors are unchanged, and global button colors are untouched', () => {
+  for (const name of ['call', 'zalo', 'maps']) {
+    assert.ok(main.includes('--nt-contact-' + name + ':'), name + ' token exists');
+    assert.ok(assist.includes('.nt-qc__link--' + name + ' { background: var(--nt-contact-' + name), name + ' Quick Call retains token');
+  }
+  assert.ok(block(main, '.nt-btn--call').includes('var(--nt-accent)'));
+  assert.ok(block(main, '.nt-btn--zalo').includes('var(--nt-zalo)'));
+  assert.ok(block(main, '.nt-btn--ghost').includes('var(--nt-navy)'));
 });
