@@ -47,4 +47,30 @@ final class WooCommerceTest extends TestCase {
 		$this->assertNotFalse( has_action( 'woocommerce_before_main_content', 'nt_wc_wrapper_start' ) );
 		$this->assertFalse( has_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb' ) );
 	}
+
+	public function test_authored_archive_headings_replace_only_the_generated_heading(): void {
+		$shop      = get_post( 3040 );
+		$electric  = get_term( 73, 'product_cat' );
+		$shop_body = $shop->post_content;
+		$term_body = $electric->description;
+		try {
+			wp_update_post( array( 'ID' => 3040, 'post_content' => '<h1>Chọn mẫu xe máy tại Nguyễn Tú</h1><p>Mẫu xe đang có.</p>' ) );
+			wp_update_term( 73, 'product_cat', array( 'description' => '[title text="Thuê Xe Máy Điện Hà Nội" tag_name="h1"]' ) );
+			foreach ( array(
+				'/shop/' => 'Chọn mẫu xe máy tại Nguyễn Tú',
+				'/danh-muc-san-pham/loai-xe/xe-dien/' => 'Thuê Xe Máy Điện Hà Nội',
+			) as $path => $heading ) {
+				$response = wp_remote_get( home_url( $path ), array( 'timeout' => 15 ) );
+				$this->assertFalse( is_wp_error( $response ), $path );
+				$this->assertSame( 200, wp_remote_retrieve_response_code( $response ), $path );
+				$body = wp_remote_retrieve_body( $response );
+				$this->assertSame( 1, preg_match_all( '#<h1\b#i', $body ), $path );
+				$this->assertStringContainsString( $heading, $body, $path );
+			}
+			$this->assertSame( 1, preg_match_all( '#<h1\b#i', wp_remote_retrieve_body( wp_remote_get( home_url( '/danh-muc-san-pham/loai-xe/xe-so/' ) ) ) ) );
+		} finally {
+			wp_update_post( array( 'ID' => 3040, 'post_content' => $shop_body ) );
+			wp_update_term( 73, 'product_cat', array( 'description' => $term_body ) );
+		}
+	}
 }

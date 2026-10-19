@@ -43,9 +43,34 @@ function nt_wc_hooks(): void {
 	add_filter( 'woocommerce_empty_price_html', 'nt_wc_empty_price' );
 	add_filter( 'woocommerce_output_related_products_args', 'nt_wc_related_args' );
 	add_filter( 'woocommerce_enqueue_styles', 'nt_wc_styles' );
+	add_filter( 'woocommerce_show_page_title', 'nt_wc_show_archive_title' );
 	add_action( 'wp_enqueue_scripts', 'nt_wc_lean_scripts', 99 );
 }
 add_action( 'init', 'nt_wc_hooks' );
+
+/**
+ * The shop page and electric-vehicle category already supply their own visible H1 in the
+ * authored description. Suppress WooCommerce's generated heading only for those two archives
+ * while that authored heading is still present. Other shop/category pages keep Woo's title.
+ *
+ * @param bool $show Whether WooCommerce would print its archive title.
+ */
+function nt_wc_show_archive_title( bool $show ): bool {
+	if ( ! $show ) {
+		return false;
+	}
+	if ( is_shop() && 3040 === (int) wc_get_page_id( 'shop' ) ) {
+		return ! nt_html_has_h1( (string) get_post_field( 'post_content', 3040 ) );
+	}
+	if ( is_product_category() && 73 === get_queried_object_id() ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term && 'product_cat' === $term->taxonomy ) {
+			// Flatsome's authored [title tag_name="h1"] is rendered by the legacy bridge.
+			return ! nt_html_has_h1( do_shortcode( (string) $term->description ) );
+		}
+	}
+	return true;
+}
 
 /**
  * Whether this request shows WooCommerce output that needs WooCommerce's own stylesheets: the shop,
