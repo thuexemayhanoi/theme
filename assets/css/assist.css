@@ -45,7 +45,7 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 32px; }
 .nt-assist :focus-visible, .nt-qc button:focus-visible { outline: 3px solid #e48638; outline-offset: 2px; }
 body.nt-chat-is-open .nt-qc { visibility: hidden; pointer-events: none; }
 @media (min-width: 768px) {
-	.nt-qc { left: 22px; bottom: 22px; }
+	.nt-qc { left: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px) + var(--nt-qc-dock-offset, 0px)); }
 	.nt-assist { right: 22px; bottom: 22px; }
 	.nt-assist__panel { right: 22px; bottom: 22px; }
 	body.nt-has-native-quickcall { padding-bottom: 0; }
