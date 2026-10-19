@@ -114,7 +114,7 @@ final class NT_Smart_Rental {
 							if ( ! is_array( $row ) ) {
 								continue;
 							}
-							$name = (string) ( $row['name'] ?? '' );
+							$name    = (string) ( $row['name'] ?? '' );
 							$day     = (string) ( $row['day'] ?? 'Liên hệ' );
 							$week    = (string) ( $row['week'] ?? 'Liên hệ' );
 							$month   = (string) ( $row['month'] ?? 'Liên hệ' );
