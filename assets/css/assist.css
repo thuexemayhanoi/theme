@@ -1,0 +1,57 @@
+/*
+ * Native contact and grounded-data assistant — standalone on-demand bundle.
+ * Colors match the navy / warm orange Nguyễn Tú design system.
+ */
+.nt-qc { position: fixed; z-index: 900; left: 16px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); font-family: inherit; }
+.nt-qc__launch { display: grid; place-items: center; width: 58px; height: 58px; border: 2px solid #fff; border-radius: 50%; background: var(--nt-navy, #1b2f5b); color: #fff; box-shadow: 0 5px 20px rgb(0 0 0 / 22%); cursor: pointer; }
+.nt-qc__launch:hover, .nt-qc__launch:focus-visible { background: var(--nt-navy-700, #14264a); }
+.nt-qc__menu { position: absolute; bottom: calc(100% + 10px); left: 0; display: flex; flex-direction: column; gap: 7px; width: 176px; max-height: min(62dvh, 360px); overflow-y: auto; padding: 9px; border: 1px solid #d7deea; border-radius: 16px; background: #fff; box-shadow: 0 8px 28px rgb(12 26 51 / 22%); }
+.nt-qc__menu[hidden] { display: none; }
+.nt-qc__link { display: flex; align-items: center; gap: 10px; min-height: 44px; width: 100%; box-sizing: border-box; padding: 9px 11px; border: 0; border-radius: 10px; color: #fff; font: 700 .85rem/1.4 inherit; text-decoration: none; cursor: pointer; text-align: left; }
+.nt-qc__link:hover, .nt-qc__link:focus-visible { color: #fff; filter: brightness(.93); text-decoration: none; outline: 2px solid var(--nt-navy); outline-offset: 2px; }
+.nt-qc__link--call { background: var(--nt-accent, #ce4027); }
+.nt-qc__link--zalo { background: #0869d5; }
+.nt-qc__link--whatsapp { background: #14773b; }
+.nt-qc__link--chat { background: var(--nt-navy, #1b2f5b); }
+.nt-qc__link--maps { background: #475775; }
+.nt-qc__link .nt-icon { flex: none; }
+body.nt-has-native-quickcall { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 32px; }
+.nt-assist { position: fixed; z-index: 920; right: 12px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+.nt-assist__launch { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; border: 0; border-radius: 999px; padding: 9px 15px; background: var(--nt-navy, #1b2f5b); color: #fff; font: 700 .85rem/1.3 inherit; box-shadow: 0 6px 20px rgb(0 0 0 / 18%); cursor: pointer; }
+.nt-assist__panel { position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
+.nt-assist__panel[hidden] { display: none; }
+.nt-assist__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; background: var(--nt-navy, #1b2f5b); color: #fff; }
+.nt-assist__head > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nt-assist__head strong { font-size: .97rem; }
+.nt-assist__head span { font-size: .73rem; color: #dce5f3; }
+.nt-assist__close { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 1px solid rgb(255 255 255 / 35%); border-radius: 12px; color: #fff; background: transparent; cursor: pointer; }
+.nt-assist__scroll { flex: 1; overflow: auto; overscroll-behavior: contain; padding: 16px 12px; background: #f1f4fa; }
+.nt-assist__bot, .nt-assist__message { margin: 0 0 11px; padding: 12px; background: #fff; border-radius: 13px; font-size: .87rem; line-height: 1.6; overflow-wrap: anywhere; }
+.nt-assist__message p { margin: 0; }
+.nt-assist__message--user { margin-left: 12%; color: #fff; background: var(--nt-navy, #1b2f5b); }
+.nt-assist__sources { list-style: none; padding: 8px 0 0; margin: 7px 0 0; border-top: 1px solid #d9dfeb; }
+.nt-assist__sources li { margin: 5px 0; }
+.nt-assist__sources a { color: #174d91; text-decoration: underline; text-underline-offset: 2px; font-weight: 650; }
+.nt-assist__shortcuts { display: flex; overflow-x: auto; gap: 7px; padding: 9px 10px; background: #fff; }
+.nt-assist__shortcuts button { flex: none; min-height: 36px; padding: 6px 11px; border: 1px solid #cbd5e2; border-radius: 999px; background: #fff; color: #243e68; font: 600 .78rem/1.4 inherit; cursor: pointer; }
+.nt-assist__form { display: flex; gap: 6px; padding: 9px 10px; background: #fff; }
+.nt-assist__form input { min-width: 0; flex: 1; min-height: 44px; padding: 9px 11px; border: 1px solid #a6b4ca; border-radius: 12px; background: #fff; color: #182e51; font: 400 .86rem/1.4 inherit; }
+.nt-assist__form button { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--nt-accent, #ce4027); color: #fff; cursor: pointer; }
+.nt-assist__form button:disabled { opacity: .45; cursor: progress; }
+.nt-assist__note { margin: 0; padding: 5px 11px 12px; font-size: .69rem; line-height: 1.5; color: #425471; background: #fff; }
+.nt-assist__note a { color: #155dab; text-decoration: underline; }
+.nt-assist :focus-visible, .nt-qc button:focus-visible { outline: 3px solid #e48638; outline-offset: 2px; }
+body.nt-chat-is-open .nt-qc { visibility: hidden; pointer-events: none; }
+@media (min-width: 768px) {
+	.nt-qc { left: 22px; bottom: 22px; }
+	.nt-assist { right: 22px; bottom: 22px; }
+	.nt-assist__panel { right: 22px; bottom: 22px; }
+	body.nt-has-native-quickcall { padding-bottom: 0; }
+}
+@media (max-width: 389.98px) {
+	.nt-qc { left: 10px; }
+	.nt-assist, .nt-assist__panel { right: 8px; }
+	.nt-assist__panel { width: calc(100vw - 16px); }
+}
+@media print { .nt-qc, .nt-assist { display: none !important; } }
