@@ -10,11 +10,11 @@
 .nt-qc__menu[hidden] { display: none; }
 .nt-qc__link { display: flex; align-items: center; gap: 10px; min-height: 44px; width: 100%; box-sizing: border-box; padding: 9px 11px; border: 0; border-radius: 10px; color: #fff; font-family: inherit; font-size: .85rem; font-weight: 700; line-height: 1.4; text-decoration: none; cursor: pointer; text-align: left; }
 .nt-qc__link:hover, .nt-qc__link:focus-visible { color: #fff; filter: brightness(.93); text-decoration: none; outline: 2px solid var(--nt-navy); outline-offset: 2px; }
-.nt-qc__link--call { background: var(--nt-accent, #ce4027); }
-.nt-qc__link--zalo { background: #0869d5; }
+.nt-qc__link--call { background: var(--nt-contact-call, #d2381f); }
+.nt-qc__link--zalo { background: var(--nt-contact-zalo, #0869d5); }
 .nt-qc__link--whatsapp { background: #14773b; }
 .nt-qc__link--chat { background: var(--nt-navy, #1b2f5b); }
-.nt-qc__link--maps { background: #475775; }
+.nt-qc__link--maps { background: var(--nt-contact-maps, #475775); }
 .nt-qc__link .nt-icon { flex: none; }
 body.nt-has-native-quickcall { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: 32px; }
