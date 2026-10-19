@@ -6,13 +6,13 @@
  *
  * Behaviour reproduced (init priority 10, like a theme file loaded on init):
  *   post type  featured_item           public, show_in_rest, supports title/editor/thumbnail/excerpt/page-attributes,
- *                                      rewrite slug "featured_item"  => /featured_item/<slug>/
+ *                                      registration slug "featured_item"; effective permastruct /bo-suu-tap/<terms>/<slug>/
  *   taxonomy   featured_item_category  hierarchical, rewrite slug "bo-suu-tap", rewrite hierarchical=false
  *                                      => /bo-suu-tap/<term-slug>/  (also for child terms: /bo-suu-tap/thue-ngay/)
  *
- * NOTE: the exact registration arguments of the real Flatsome theme were not read from production
- * (no access). Only the facts listed above come from the audit brief; everything else here is a
- * plausible default. Treat this file as a stand-in, not as evidence about Flatsome.
+ * NOTE: this is a simulator, not proprietary old-theme code. The effective legacy paths were
+ * cross-checked against the pre-switch URL records and the saved runtime rules on 2026-10-19.
+ * tests/fixtures/legacy-registration.json separately reproduces the mismatched runtime snapshot.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

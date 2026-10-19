@@ -33,4 +33,23 @@ The owner explicitly authorized audit, repair, testing, commit/push and deployme
 
 Restore the prior plugin package from the pre-release commit and the `rewrite_rules` value in `nguyentu_legacy_compat_backup_v110`; purge page cache. The original `nguyentu_legacy_compat` option is never overwritten by v1.1. No content/term/SEO restoration should be necessary because this repair does not write those records. Keep the Hostinger backup available. Do not reactivate the old theme as part of this repair.
 
-Status: implementation and validation in progress; live plugin unchanged until the tested ZIP is installed.
+## Verified result and checkpoint
+
+- Merged PR: https://github.com/thuexemayhanoi/theme/pull/8, merge commit `3edc3ba4043462b72cf76366becff198d95d2481`.
+- Green CI: https://github.com/thuexemayhanoi/theme/actions/runs/39234961183.
+- WordPress integration: 72 tests / 1,014 assertions; recovery fixture: 19 exact canonical URLs / 19 aliases / 53 HTTP cases, zero failures. Both partial-registration cases pass. All 222 internal-link targets return 2xx. Browser suites include WooCommerce, menu, layout and SEO head checks.
+- The existing fixture-only report has 43 missing-description P1 warnings; no P0 SEO failures. Five pre-existing whole-theme manual release gates remain NOT_TESTED. This is not a claim that an entire production theme audit has been completed.
+- Standalone release: https://github.com/thuexemayhanoi/theme/releases/tag/legacy-compat-v1.1.0 (17,937-byte ZIP).
+- Predeployment production backup: `nguyentu_legacy_url_predeploy_20261019` contains the original registration snapshot and 39 legacy rewrite entries. It excludes unrelated component rules. No production rewrite flush has been performed in this task.
+- **PRODUCTION PLUGIN IS STILL 1.0.0.** Authenticated verification after the merge confirmed it active at its original path. `/bo-suu-tap/thue-ngay/` still returns 404 and its `/featured_item_category/` alias still returns 200. A theme deployment does not install a separately packaged plugin.
+- The connected plugin installers support WordPress.org packages, so installing the custom ZIP remains a separate administrator step. No post/page/term/menu/price/Yoast data was edited; only the additive backup option was created.
+
+## Resume after installing the package
+
+1. Install the released ZIP as an update to `nguyentu-legacy-compat` and retain its activation state.
+2. Verify version 1.1.0, backup `nguyentu_legacy_compat_backup_v110`, and the original 15 objects / four terms.
+3. Flush rewrite rules once if required, then purge page/object cache.
+4. Run `python tools/seo/legacy-live-audit.py --out reports/legacy-live-after-2026-10-19.json --before reports/legacy-live-before-2026-10-19.json --verify` against the real site.
+5. Compare old alias-page title/description/robots with restored canonical pages; verify existing Yoast redirect history, a product URL and pagination/feed variants. Update this checkpoint only with actual live results.
+
+Status: **CODE_MERGED / PACKAGE_RELEASED / LIVE_PLUGIN_UPDATE_PENDING**. Do not report the live 404s fixed before installation and after-verification.

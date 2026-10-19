@@ -147,3 +147,11 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - **QA:** `tests/integration/FooterTest.php`, `tests/e2e/footer.spec.mjs` cover first-party public links, five viewport widths, semantic headings, NAP, no full menu tree, home/page/category/product/collection. GitHub PR CI result is the proof, not these statements. Final live post-deploy screenshots, Yoast diff, real QuickCall/MotoAI overlap, and legacy URL protection remain **UNVERIFIED / P0** until staging verification.
 - **Scope guard:** no change to any other repository, WordPress posts/pages/categories, SEO metadata, permalink settings or workflows. Production deployment not requested/attempted by tooling.
 - **Rollback:** revert the PR merge commit if subsequently approved; preserve prior theme and Hostinger backup. Detailed audit/release gates: `docs/FOOTER-SEO-HULK-V1.md`.
+
+
+## 2026-10-19 — Legacy URL compatibility repair (PR #8)
+
+- Merge `3edc3ba`; standalone plugin v1.1.0 released. Complete evidence and resume steps: `docs/LEGACY-URL-REPAIR.md`.
+- Green CI: 72 integration tests, 53 recovery HTTP checks with zero failures, both partial-registration cases, 222 valid internal targets, browser/WooCommerce/SEO suites.
+- Production predeployment backup stored in `nguyentu_legacy_url_predeploy_20261019` (39 legacy rules + original registration snapshot). No production rewrite flush or content/term/SEO edits.
+- **Live plugin remains active v1.0.0; the old URL still returns 404.** Custom ZIP installation is pending because the connected installers only accept WordPress.org packages. Theme merge alone does not update the separate plugin. Do not claim live completion.
