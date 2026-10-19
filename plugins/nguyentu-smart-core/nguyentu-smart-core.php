@@ -3,7 +3,7 @@
  * Plugin Name: Nguyễn Tú Smart Core
  * Plugin URI: https://github.com/thuexemayhanoi/theme
  * Description: Verified business facts and conflict-safe structured data. Works independently of the Nguyễn Tú theme.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.3
  * Requires PHP: 8.2
  * Author: Nguyễn Tú
@@ -19,7 +19,7 @@ if ( defined( 'NTSC_VERSION' ) ) {
 	return;
 }
 
-define( 'NTSC_VERSION', '1.0.0' );
+define( 'NTSC_VERSION', '1.0.1' );
 define( 'NTSC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NTSC_MAIN_FILE', __FILE__ );
 

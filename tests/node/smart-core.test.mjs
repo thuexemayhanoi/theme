@@ -44,6 +44,10 @@ test('plugin shipping is separate from the active theme and does not touch Quick
 test('Smart Core has a bounded, non-destructive SEO audit and a calculator', () => {
   const audit = read('includes/audit.php');
   const rental = read('includes/rental.php');
+  assert.match(rental, /maybe_attach_to_legacy_prices/);
+  assert.match(rental, /attach_to_existing_table/);
+  assert.match(rental, /is_front_page/);
+  assert.match(rental, /in_the_loop/);
   assert.match(audit, /posts_per_page'\s*=> 20/);
   assert.match(audit, /WP_HTML_Tag_Processor/);
   assert.doesNotMatch(audit, /wp_update_post|update_option|DELETE FROM/);

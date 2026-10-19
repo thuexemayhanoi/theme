@@ -35,6 +35,27 @@ final class SmartCoreIntegrationTest extends TestCase {
 		$this->assertSame( 1, NT_Smart_Audit::count_internal_links( $html, $url ) );
 	}
 
+	public function test_legacy_homepage_price_table_gets_one_non_destructive_calculator(): void {
+		add_filter( 'nt_smart_site_allowed', '__return_true' );
+		$table = '<h3>1. Bảng giá thuê xe máy</h3><div style="overflow-x:auto;"><div class="nt-table-wrap"><table><caption>Giá thuê tham khảo tại Nguyễn Tú</caption><tbody><tr><td>Honda Wave</td><td>150.000đ</td></tr></tbody></table></div></div><p>Nội dung sau bảng giá không thay đổi.</p>';
+		$result = NT_Smart_Rental::attach_to_existing_table( $table );
+		$this->assertSame( 1, substr_count( $result, 'class="ntsc-rental"' ) );
+		$this->assertStringContainsString( '</table></div></div>' . "\n" . '<section class="ntsc-rental"', $result );
+		$this->assertStringContainsString( '<p>Nội dung sau bảng giá không thay đổi.</p>', $result );
+		$this->assertSame( $result, NT_Smart_Rental::attach_to_existing_table( $result ), 'No duplicate calculator.' );
+		$this->assertSame( 'Không phải bảng giá.', NT_Smart_Rental::attach_to_existing_table( 'Không phải bảng giá.' ) );
+		remove_filter( 'nt_smart_site_allowed', '__return_true' );
+	}
+
+	public function test_read_only_audit_is_bounded_to_twenty_posts(): void {
+		$rows = NT_Smart_Audit::latest_posts();
+		$this->assertLessThanOrEqual( 20, count( $rows ) );
+		foreach ( $rows as $row ) {
+			$this->assertArrayHasKey( 'links', $row );
+			$this->assertGreaterThanOrEqual( 0, $row['links'] );
+		}
+	}
+
 	public function test_non_target_localhost_is_blocked_by_default(): void {
 		$this->assertFalse( nt_smart_site_allowed() );
 	}
