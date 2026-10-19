@@ -15,6 +15,8 @@ const BUDGETS = [
 	['assets/css/woo.css', 16 * KB, 4 * KB],
 	['assets/css/legacy.css', 18 * KB, 5 * KB],
 	['assets/js/theme.js', 14 * KB, 4.5 * KB],
+	['assets/js/assist.js', 19 * KB, 6.2 * KB],
+	['assets/css/assist.css', 9 * KB, 3 * KB],
 ];
 const rows = [];
 let fails = 0;
