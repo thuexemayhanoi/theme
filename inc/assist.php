@@ -162,6 +162,10 @@ function nt_assist_rest_routes(): void {
 			'callback'            => 'nt_assist_rest_answer',
 			'permission_callback' => '__return_true',
 			'args'                => array(
+				'context'  => array(
+					'type'     => 'object',
+					'required' => false,
+				),
 				'question' => array(
 					'type'              => 'string',
 					'required'          => true,
@@ -174,84 +178,295 @@ function nt_assist_rest_routes(): void {
 add_action( 'rest_api_init', 'nt_assist_rest_routes' );
 
 /**
- * Read actual public posts/pages/products on each question: new posts need no reindex job.
+ * Normalize Vietnamese words for intent detection and title-first scoring.
+ * The text is never used in the SQL query or exposed as an HTML fragment.
  *
- * @param string $query Visitor's sanitized question.
+ * @param string $text Public source content or visitor question.
+ */
+function nt_assist_normalize( string $text ): string {
+	$text = mb_strtolower( remove_accents( $text ), 'UTF-8' );
+	return trim( (string) preg_replace( '/[^a-z0-9]+/u', ' ', $text ) );
+}
+
+/**
+ * Short relevant terms (not full sentences) for lightweight title matching.
+ *
+ * @param string $query Visitor query.
+ * @return string[]
+ */
+function nt_assist_terms( string $query ): array {
+	$skip = array_flip( array( 'anh', 'ban', 'bao', 'can', 'cho', 'co', 'cua', 'da', 'duoc', 'em', 'gi', 'ha', 'hay', 'khi', 'khong', 'la', 'may', 'mot', 'nao', 'nhieu', 'noi', 'o', 'the', 'thi', 'thue', 'toi', 'tu', 'va', 've', 'voi', 'xe' ) );
+	$words = explode( ' ', nt_assist_normalize( $query ) );
+	$terms = array();
+	foreach ( $words as $word ) {
+		if ( strlen( $word ) > 1 && ! isset( $skip[ $word ] ) ) {
+			$terms[ $word ] = $word;
+		}
+	}
+	return array_slice( array_values( $terms ), 0, 7 );
+}
+
+/**
+ * Intent controls the evidence source and never offers unverified inventory.
+ *
+ * @param string $question User question.
+ */
+function nt_assist_intent( string $question ): string {
+	$q = nt_assist_normalize( $question );
+	if ( preg_match( '/\b(con hang|con xe|san xe|ton kho|dat truoc|khuyen mai|giam gia)\b/', $q ) ) {
+		return 'availability';
+	}
+	if ( preg_match( '/\b(coc|the chap|ky quy|hoan coc)\b/', $q ) ) {
+		return 'deposit';
+	}
+	if ( preg_match( '/\b(giay to|thu tuc|ho chieu|passport|cmnd|cccd|can gi)\b/', $q ) ) {
+		return 'documents';
+	}
+	if ( preg_match( '/\b(dia chi|o dau|chi duong|duong di|gio mo cua|may gio|mo cua)\b/', $q ) ) {
+		return 'location';
+	}
+	if ( preg_match( '/\b(giao xe|giao tan|ship xe|giao nhan|nhan xe)\b/', $q ) ) {
+		return 'delivery';
+	}
+	if ( preg_match( '/\b(gia|bao nhieu|chi phi|tien thue|tinh tien|bang gia|thue theo|theo gio)\b/', $q ) ) {
+		return 'price';
+	}
+	if ( preg_match( '/\b(xe dien|xe dap dien|50cc|xe so|xe ga)\b/', $q ) ) {
+		return 'vehicles';
+	}
+	return 'search';
+}
+
+/**
+ * Match only price-table vehicles that exist in owner-controlled WordPress data.
+ * Accept familiar short model names for conversational follow-up.
+ *
+ * @param string $question Question text or a previously verified context model.
+ * @return array|null A row from the business price table.
+ */
+function nt_assist_model_row( string $question ): ?array {
+	$q = ' ' . nt_assist_normalize( $question ) . ' ';
+	$aliases = array(
+		'honda wave'                  => array( 'wave', 'rsx' ),
+		'honda vision'                => array( 'vision' ),
+		'honda air blade'             => array( 'air blade', 'airblade' ),
+		'honda click / yamaha mio'    => array( 'click', 'mio' ),
+		'xe tay ga 50cc'             => array( '50cc' ),
+		'xe may dien / xe dap dien'  => array( 'xe may dien', 'xe dap dien', 'xe dien' ),
+	);
+	foreach ( nt_price_rows() as $row ) {
+		$name = nt_assist_normalize( (string) $row['name'] );
+		foreach ( $aliases[ $name ] ?? array( $name ) as $alias ) {
+			if ( false !== strpos( $q, ' ' . $alias . ' ' ) ) {
+				return $row;
+			}
+		}
+	}
+	return null;
+}
+
+/**
+ * Validate the small, non-personal context supplied by the browser. Never trust
+ * arbitrary price or policy strings from the client.
+ *
+ * @param mixed $value Optional REST context.
+ * @return array{model:string,period:string}
+ */
+function nt_assist_context( $value ): array {
+	$input = is_array( $value ) ? $value : array();
+	$model = sanitize_text_field( (string) ( $input['model'] ?? '' ) );
+	$row   = '' !== $model ? nt_assist_model_row( $model ) : null;
+	$term  = sanitize_key( (string) ( $input['period'] ?? '' ) );
+	return array(
+		'model'  => $row ? (string) $row['name'] : '',
+		'period' => in_array( $term, array( 'day', 'week', 'month' ), true ) ? $term : '',
+	);
+}
+
+/**
+ * Find the duration explicitly named in this question.
+ *
+ * @param string $question Visitor query.
+ */
+function nt_assist_period( string $question ): string {
+	$q = nt_assist_normalize( $question );
+	if ( preg_match( '/\b(thang|month)\b/', $q ) ) {
+		return 'month';
+	}
+	if ( preg_match( '/\b(tuan|week)\b/', $q ) ) {
+		return 'week';
+	}
+	if ( preg_match( '/\b(ngay|day)\b/', $q ) ) {
+		return 'day';
+	}
+	return '';
+}
+
+/**
+ * Read only published, non-passworded pages with public slugs verified on WP.
+ * The admin may change the page URL and get_permalink() follows it.
+ *
+ * @param string $intent Trusted intent.
+ * @return array<int,array{title:string,url:string,excerpt:string}>
+ */
+function nt_assist_verified_sources( string $intent ): array {
+	$id   = 'location' === $intent || 'delivery' === $intent || 'availability' === $intent ? 372 : 484;
+	$post = get_post( $id );
+	if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status || '' !== $post->post_password ) {
+		return array();
+	}
+	if ( '1' === (string) get_post_meta( $post->ID, '_yoast_wpseo_meta-robots-noindex', true ) ) {
+		return array();
+	}
+	$url = get_permalink( $post );
+	if ( ! is_string( $url ) || '' === $url ) {
+		return array();
+	}
+	return array(
+		array(
+			'title'   => get_the_title( $post ),
+			'url'     => $url,
+			'excerpt' => '',
+		),
+	);
+}
+
+/**
+ * Find public, topically relevant content with a bounded WordPress search.
+ * Titles and summaries are scored locally; generic word matches must not
+ * accidentally return unrelated electric-bike or touring articles.
+ *
+ * @param string $query Question.
  * @return array<int,array{title:string,url:string,excerpt:string}>
  */
 function nt_assist_public_search( string $query ): array {
-	$search  = new WP_Query(
+	$terms = nt_assist_terms( $query );
+	if ( array() === $terms ) {
+		return array();
+	}
+	$search = new WP_Query(
 		array(
-			's'                   => $query,
+			's'                   => implode( ' ', array_slice( $terms, 0, 3 ) ),
 			'post_type'           => array( 'post', 'page', 'product' ),
 			'post_status'         => 'publish',
 			'has_password'        => false,
-			'posts_per_page'      => 4,
+			'posts_per_page'      => 12,
 			'no_found_rows'       => true,
 			'ignore_sticky_posts' => true,
 			'suppress_filters'    => true,
 		)
 	);
-	$sources = array();
+	$matches = array();
 	foreach ( $search->posts as $post ) {
 		if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status || '' !== $post->post_password ) {
+			continue;
+		}
+		if ( '1' === (string) get_post_meta( $post->ID, '_yoast_wpseo_meta-robots-noindex', true ) ) {
 			continue;
 		}
 		$url = get_permalink( $post );
 		if ( ! is_string( $url ) || '' === $url ) {
 			continue;
 		}
-		$text      = (string) ( $post->post_excerpt ?: $post->post_content );
-		$summary   = trim( preg_replace( '/\s+/u', ' ', wp_strip_all_tags( strip_shortcodes( $text ) ) ) );
-		$sources[] = array(
-			'title'   => get_the_title( $post ),
+		$title   = get_the_title( $post );
+		$summary = trim( (string) preg_replace( '/\s+/u', ' ', wp_strip_all_tags( strip_shortcodes( (string) ( $post->post_excerpt ?: $post->post_content ) ) ) ) );
+		$hay     = nt_assist_normalize( $title . ' ' . mb_substr( $summary, 0, 650, 'UTF-8' ) );
+		$heading = ' ' . nt_assist_normalize( $title ) . ' ';
+		$hits    = 0;
+		$score   = 0;
+		foreach ( $terms as $term ) {
+			if ( false !== strpos( ' ' . $hay . ' ', ' ' . $term . ' ' ) ) {
+				++$hits;
+				$score += false !== strpos( $heading, ' ' . $term . ' ' ) ? 5 : 1;
+			}
+		}
+		$needed = count( $terms ) >= 3 ? 2 : count( $terms );
+		if ( $hits < $needed || $score < 4 ) {
+			continue;
+		}
+		$matches[] = array(
+			'score'   => $score,
+			'title'   => $title,
 			'url'     => $url,
-			'excerpt' => mb_substr( $summary, 0, 175 ),
+			'excerpt' => mb_substr( $summary, 0, 160, 'UTF-8' ),
 		);
 	}
 	wp_reset_postdata();
-	return $sources;
+	usort(
+		$matches,
+		static function ( array $a, array $b ): int {
+			return $b['score'] <=> $a['score'];
+		}
+	);
+	return array_map(
+		static function ( array $item ): array {
+			unset( $item['score'] );
+			return $item;
+		},
+		array_slice( $matches, 0, 3 )
+	);
 }
 
 /**
- * Fact-based answer synthesis. Never infer a price for an unlisted model.
+ * Generate a fact-only answer using centralized, owner-controlled business data.
  *
- * @param string $question Sanitized query.
+ * @param string $question Visitor question.
+ * @param array  $context  Validated model/duration context.
  */
-function nt_assist_fact_answer( string $question ): string {
-	$q      = mb_strtolower( $question, 'UTF-8' );
+function nt_assist_fact_answer( string $question, array $context = array() ): string {
+	$intent = nt_assist_intent( $question );
 	$policy = nt_policy();
-	if ( preg_match( '/(địa chỉ|ở đâu|giờ mở cửa|mấy giờ|đường đi)/iu', $q ) ) {
+	$row    = nt_assist_model_row( $question );
+	if ( null === $row && ! empty( $context['model'] ) ) {
+		$row = nt_assist_model_row( (string) $context['model'] );
+	}
+	$period = nt_assist_period( $question );
+	if ( '' === $period ) {
+		$period = $context['period'] ?? '';
+	}
+	if ( 'availability' === $intent ) {
+		return 'Tôi không có dữ liệu tồn kho, lịch giữ xe hoặc khuyến mãi theo thời gian thực. Vui lòng gọi hoặc nhắn Zalo để cửa hàng kiểm tra trước khi đặt.';
+	}
+	if ( 'location' === $intent ) {
 		return nt_address() . '. Mở cửa ' . nt_hours_range() . ' mỗi ngày.';
 	}
-	if ( preg_match( '/(đặt cọc|tiền cọc|thế chấp|hoàn cọc)/iu', $q ) ) {
-		return $policy['deposit_range'] . ' Giá trị và điều kiện cọc cần được xác nhận theo xe và hợp đồng.';
+	if ( 'deposit' === $intent ) {
+		return $row
+			? 'Tiền cọc tham khảo ' . $row['name'] . ': ' . $row['deposit'] . '. Giá trị và điều kiện cọc thực tế cần xác nhận theo hợp đồng.'
+			: $policy['deposit_range'] . ' Giá trị và điều kiện cọc cần xác nhận theo xe và hợp đồng.';
 	}
-	if ( preg_match( '/(thủ tục|giấy tờ|hộ chiếu|passport|cmnd|cccd)/iu', $q ) ) {
+	if ( 'documents' === $intent ) {
 		return 'Thủ tục và phương án giấy tờ bảo đảm được xác nhận theo từng hợp đồng. ' . $policy['documents'];
 	}
-	if ( preg_match( '/(giá|bao nhiêu|chi phí|tiền thuê|thuê theo)/iu', $q ) ) {
-		foreach ( nt_price_rows() as $row ) {
-			if ( false !== mb_stripos( $question, (string) $row['name'], 0, 'UTF-8' ) ) {
-				return 'Giá tham khảo ' . $row['name'] . ': theo ngày ' . $row['day'] . ', theo tuần ' . $row['week'] . ', theo tháng ' . $row['month'] . '. ' . $policy['price_note'];
+	if ( 'delivery' === $intent ) {
+		return 'Nguyễn Tú hỗ trợ giao nhận xe tùy khu vực Hà Nội. Điểm giao, phí và thời gian cần được cửa hàng xác nhận trước.';
+	}
+	if ( 'price' === $intent || ( $row && '' !== $period && preg_match( '/\b(thang|tuan|ngay|month|week|day)\b/', nt_assist_normalize( $question ) ) ) ) {
+		if ( $row ) {
+			if ( in_array( $period, array( 'day', 'week', 'month' ), true ) ) {
+				$names = array(
+					'day'   => 'ngày',
+					'week'  => 'tuần',
+					'month' => 'tháng',
+				);
+				return 'Giá tham khảo ' . $row['name'] . ' theo ' . $names[ $period ] . ': ' . $row[ $period ] . '. ' . $policy['price_note'];
 			}
+			return 'Giá tham khảo ' . $row['name'] . ': theo ngày ' . $row['day'] . ', theo tuần ' . $row['week'] . ', theo tháng ' . $row['month'] . '. ' . $policy['price_note'];
 		}
-		return 'Giá thuê tùy loại xe, thời hạn và thời điểm. Vui lòng xem bảng giá tham khảo trên website; gọi điện hoặc nhắn Zalo để xác nhận giá thực tế, nhất là nhu cầu theo giờ.';
+		return 'Giá thuê tùy mẫu xe và thời hạn. Xem bảng giá tham khảo trong mục Hỏi đáp hoặc liên hệ cửa hàng để xác nhận giá và nhu cầu thuê theo giờ.';
 	}
-	if ( preg_match( '/(giao xe|giao tận|nhận xe|ship xe)/iu', $q ) ) {
-		return 'Cửa hàng có hỗ trợ giao nhận theo khu vực Hà Nội. Phí và điểm giao nhận cần được xác nhận trước khi đặt xe.';
-	}
-	if ( preg_match( '/(xe điện|xe đạp điện|50cc)/iu', $q ) ) {
-		return 'Nguyễn Tú có thông tin về xe điện và xe 50cc trên website. Mẫu xe còn, giá thuê và điều kiện sử dụng cần liên hệ cửa hàng xác nhận.';
+	if ( 'vehicles' === $intent ) {
+		return 'Website Nguyễn Tú có thông tin về các dòng xe phù hợp nhu cầu thuê. Giá, điều kiện và mẫu xe còn cần liên hệ cửa hàng xác nhận.';
 	}
 	return '';
 }
 
 /**
- * Secure REST callback: never returns drafts, account/order/customer information.
+ * Public read-only endpoint; returns no drafts, private orders or visitor data.
+ * The server never stores chat history or browser context in WordPress.
  *
- * @param WP_REST_Request $request Visitor query.
- * @return WP_REST_Response|WP_Error Reply with current-site source links.
+ * @param WP_REST_Request $request Sanitized question and bounded topic context.
+ * @return WP_REST_Response|WP_Error Answer with verified links.
  */
 function nt_assist_rest_answer( WP_REST_Request $request ) {
 	if ( ! nt_native_assistant_enabled() ) {
@@ -261,18 +476,29 @@ function nt_assist_rest_answer( WP_REST_Request $request ) {
 	if ( mb_strlen( $question, 'UTF-8' ) < 2 || mb_strlen( $question, 'UTF-8' ) > 180 ) {
 		return new WP_Error( 'nt_assistant_input', 'Câu hỏi cần dài từ 2 đến 180 ký tự.', array( 'status' => 400 ) );
 	}
-	$answer  = nt_assist_fact_answer( $question );
-	$sources = nt_assist_public_search( $question );
+	$context = nt_assist_context( $request->get_param( 'context' ) );
+	$row     = nt_assist_model_row( $question );
+	if ( $row ) {
+		$context['model'] = (string) $row['name'];
+	}
+	$term = nt_assist_period( $question );
+	if ( '' !== $term ) {
+		$context['period'] = $term;
+	}
+	$intent  = nt_assist_intent( $question );
+	$answer  = nt_assist_fact_answer( $question, $context );
+	$sources = '' === $answer ? nt_assist_public_search( $question ) : nt_assist_verified_sources( $intent );
 	if ( '' === $answer ) {
 		$answer = $sources
-			? 'Tôi tìm thấy một số nội dung liên quan trên website. Bạn có thể mở các bài viết bên dưới để đọc thông tin nguồn.'
-			: 'Tôi chưa tìm được thông tin đủ chắc chắn để trả lời. Vui lòng gọi Nguyễn Tú hoặc nhắn Zalo để được tư vấn cụ thể.';
+			? 'Tôi tìm được một số bài liên quan trên website Nguyễn Tú. Mở tài liệu bên dưới để xem chi tiết; giá và điều kiện thuê cần cửa hàng xác nhận.'
+			: 'Tôi chưa tìm được nguồn đủ phù hợp để trả lời. Vui lòng gọi Nguyễn Tú hoặc nhắn Zalo để được hỗ trợ cụ thể.';
 	}
 	return rest_ensure_response(
 		array(
 			'mode'    => 'tra-cuu-noi-dung',
 			'answer'  => $answer,
 			'sources' => $sources,
+			'context' => $context,
 			'contact' => array(
 				'phone' => nt_tel_url(),
 				'zalo'  => nt_zalo_url(),
