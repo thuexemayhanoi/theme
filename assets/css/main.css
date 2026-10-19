@@ -588,7 +588,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__contact .nt-btn {
 	display: inline-flex; align-items: center; justify-content: center; gap: 7px;
 	min-height: 44px; padding: 9px 12px; border: 1px solid rgb(255 255 255 / 38%);
-	border-radius: 999px; font-size: .8125rem; font-weight: 700; line-height: 1.4;
+	border-radius: 999px; font-size: .8125rem; font-weight: 700; line-height: inherit;
 	color: #fff; background: transparent; box-shadow: none; text-decoration: none;
 }
 .nt-footer__contact .nt-btn .nt-icon { flex: 0 0 auto; }
