@@ -10,10 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $nt_primary_menu = nt_resolve_menu_id( 'primary' );
 $nt_footer_menu  = nt_resolve_menu_id( 'footer' );
-$nt_tagline      = trim( (string) get_bloginfo( 'description', 'display' ) );
-if ( '' === $nt_tagline ) {
-	$nt_tagline = 'Thuê xe máy tại Hà Nội theo ngày, tuần, tháng; xe số, xe ga, xe 50cc và xe điện.';
-}
+$nt_tagline      = nt_footer_tagline();
 
 $nt_items = $nt_primary_menu > 0 ? wp_get_nav_menu_items( $nt_primary_menu ) : array();
 $nt_items = is_array( $nt_items ) ? $nt_items : array();
