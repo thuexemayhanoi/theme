@@ -574,8 +574,6 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__list { margin: 0; padding: 0; list-style: none; }
 .nt-footer__list li { margin: 0 0 12px; }
 .nt-footer__list a { display: inline-block; min-height: 28px; padding: 3px 0; font-size: .9rem; line-height: 1.5; }
-.nt-footer__hint { margin: 18px 0 0; color: #c2cfe2; font-size: .875rem; line-height: 1.6; }
-.nt-footer__hint a { text-decoration: underline; text-underline-offset: 3px; }
 .nt-footer__contact { min-width: 0; }
 .nt-footer__nap { font-style: normal; }
 .nt-footer__nap p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 11px; font-size: .875rem; line-height: 1.6; }

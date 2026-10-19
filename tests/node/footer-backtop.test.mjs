@@ -31,3 +31,13 @@ test('footer back-to-top has readable outlined touch target, mobile fallback and
   assert.ok(section.includes('@media (max-width: 479.98px)'));
   assert.ok(section.includes('prefers-reduced-motion: reduce'));
 });
+
+test('rental footer does not repeat an hourly-contact prompt already available in Contact', () => {
+  const columns = source('template-parts/footer/columns.php');
+  assert.doesNotMatch(columns, /nt-footer__hint|Cần thuê theo giờ\?/);
+  assert.doesNotMatch(columns, /\$nt_contact_url/);
+  assert.doesNotMatch(css, /\.nt-footer__hint/);
+  assert.match(columns, /nt_footer_list\( \$nt_footer_groups\['info'\] \)/);
+  assert.match(columns, /nt_footer_list\( \$nt_footer_groups\['rental'\] \)/);
+  assert.match(columns, /'mode' => 'actions'/);
+});

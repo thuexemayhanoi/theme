@@ -21,6 +21,11 @@ for (const [width, expectedColumns] of widths) {
 		);
 		expect(tracks).toBe(expectedColumns);
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__tagline')).toContainText('tư vấn nhu cầu thuê theo giờ');
+		// Footer already provides a dedicated Contact link and Call/Zalo/Maps actions.
+		// Avoid a redundant, long hourly-rental sentence under rental links on every viewport.
+		await expect(footer.locator('.nt-footer__column--rental .nt-footer__hint')).toHaveCount(0);
+		await expect(footer.locator('.nt-footer__column--rental')).not.toContainText('Cần thuê theo giờ?');
+		await expect(footer.locator('.nt-footer__column--contact').getByRole('link', { name: 'Liên hệ', exact: true })).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--brand .nt-footer__nap')).toHaveCount(1);
 		await expect(footer.locator('.nt-footer__column--contact .nt-footer__nap')).toHaveCount(0);
 		await expect(footer.locator('.nt-footer__column--contact .nt-cta')).toHaveCount(1);
