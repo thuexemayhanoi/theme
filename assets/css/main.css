@@ -552,67 +552,54 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .page-numbers.current { color: #fff; background: var(--nt-navy); border-color: var(--nt-navy); }
 .page-numbers.dots { background: transparent; border-color: transparent; }
 
-/* ---------- Footer ---------- */
+/* ---------- Shared four-column footer ---------- */
 .nt-footer { margin-top: var(--nt-section); color: #d7deec; background: var(--nt-navy-900); }
 .nt-footer a { color: #fff; text-decoration: none; }
 .nt-footer a:hover { color: #fff; text-decoration: underline; }
-.nt-footer__title { margin: 0 0 14px; font-size: .8125rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fff; }
-.nt-footer__nap p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 10px; font-size: .875rem; line-height: 1.55; }
-.nt-footer__nap .nt-icon { margin-top: 3px; color: #ff8a73; }
+.nt-footer a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.nt-footer__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 48px 0 40px; }
+.nt-footer__column { min-width: 0; overflow-wrap: anywhere; }
+.nt-footer__title { margin: 0 0 18px; color: #fff; font-size: .8125rem; font-weight: 800; letter-spacing: .075em; text-transform: uppercase; }
+.nt-footer__brand { margin: 0 0 12px; color: #fff; font-size: clamp(1.125rem, 2vw, 1.45rem); font-weight: 700; line-height: 1.4; }
+.nt-footer__tagline { margin: 0 0 18px; color: #d7deec; line-height: 1.65; }
+.nt-footer__social { display: flex; flex-wrap: wrap; gap: 8px; }
+.nt-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 12px; border: 1px solid rgb(255 255 255 / 32%); border-radius: 999px; font-size: .8125rem; font-weight: 700; }
+.nt-footer__social a:hover, .nt-footer__social a:focus-visible { background: rgb(255 255 255 / 12%); text-decoration: none; }
+.nt-footer__menu, .nt-footer__menu .sub-menu, .nt-footer__list { margin: 0; padding: 0; list-style: none; }
+.nt-footer__menu li { min-width: 0; margin-bottom: 8px; }
+.nt-footer__menu a { display: inline-block; padding: 3px 0; font-size: .875rem; line-height: 1.5; }
+.nt-footer__menu > li > a { font-weight: 750; color: #fff; }
+.nt-footer__menu .sub-menu { margin: 6px 0 14px; padding-left: 12px; border-left: 1px solid rgb(255 255 255 / 22%); }
+.nt-footer__menu .sub-menu a { color: #d7deec; font-weight: 400; }
+.nt-footer__menu .sub-menu .sub-menu { margin: 3px 0 10px; padding-left: 10px; }
+.nt-footer__menu .sub-menu .sub-menu a { font-size: .8125rem; }
+.nt-footer__list li { margin-bottom: 8px; }
+.nt-footer__list a { font-size: .875rem; line-height: 1.5; }
+.nt-footer__info { margin-top: 22px; padding-top: 16px; border-top: 1px solid rgb(255 255 255 / 15%); }
+.nt-footer__info .nt-footer__menu + .nt-footer__list, .nt-footer__info .nt-footer__list + .nt-footer__list { margin-top: 16px; }
+.nt-footer__contact { min-width: 0; }
+.nt-footer__nap { font-style: normal; }
+.nt-footer__nap p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 12px; font-size: .875rem; line-height: 1.6; }
+.nt-footer__nap .nt-icon { flex: none; margin-top: 3px; color: #ff8a73; }
+.nt-footer__nap p > span:first-of-type { min-width: 0; }
 .nt-footer__muted { color: #9fb0cd; }
-.nt-footer__list { margin: 0; padding: 0; list-style: none; }
-.nt-footer__list li { margin: 0 0 8px; }
+.nt-footer__contact .nt-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.nt-footer__contact .nt-btn { display: inline-flex; min-height: 40px; padding: 8px 12px; font-size: .8125rem; }
+.nt-footer__contact .nt-btn--ghost { color: #fff; border-color: rgb(255 255 255 / 45%); background: transparent; }
+.nt-footer__contact .nt-btn--ghost:hover { color: var(--nt-navy); background: #fff; }
 .nt-footer__widgets { display: grid; gap: 0 40px; padding-bottom: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
 .nt-footer .nt-widget { margin: 0 0 20px; padding: 0; color: inherit; background: transparent; border: 0; border-radius: 0; }
-.nt-footer .nt-widget :is(.nt-widget__title, .wp-block-heading, h2, h3) { margin: 0 0 12px; font-size: 1rem; letter-spacing: .02em; color: #fff; }
+.nt-footer .nt-widget :is(.nt-widget__title, .wp-block-heading, h2, h3) { margin: 0 0 12px; font-size: 1rem; color: #fff; }
 .nt-footer .nt-widget a { color: #fff; }
 .nt-footer .nt-widget ul { margin: 0; padding: 0; list-style: none; }
 .nt-footer .nt-widget li { margin-bottom: 6px; }
 .nt-footer__bottom { padding: 20px 0 28px; font-size: .8125rem; color: #9fb0cd; border-top: 1px solid rgb(255 255 255 / 12%); }
 .nt-footer__bottom p { margin: 0; }
-
-.nt-footer__intro { padding: 48px 0 30px; border-bottom: 1px solid rgb(255 255 255 / 12%); }
-.nt-footer__brand { margin: 0 0 8px; font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.3; color: #fff; }
-.nt-footer__tagline { max-width: 68ch; margin: 0 0 16px; line-height: 1.65; color: #d7deec; }
-.nt-footer__social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-.nt-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 8px 15px; border: 1px solid rgb(255 255 255 / 32%); border-radius: 999px; font-size: .875rem; font-weight: 700; }
-.nt-footer__social a:hover, .nt-footer__social a:focus-visible { background: rgb(255 255 255 / 12%); text-decoration: none; outline-offset: 3px; }
-.nt-footer__contact { max-width: 340px; margin-top: 15px; }
-.nt-footer__contact .nt-footer__nap p > span:first-of-type { flex: 1; min-width: 0; }
-.nt-footer__contact .nt-footer__nap .nt-icon { flex: none; }
-.nt-footer__contact .nt-cta { gap: 8px; margin-top: 14px; }
-.nt-footer__contact .nt-btn { display: inline-flex; min-height: 40px; padding: 8px 12px; font-size: .8125rem; }
-.nt-footer__contact .nt-btn--ghost { color: #fff; border-color: rgb(255 255 255 / 45%); background: transparent; }
-.nt-footer__contact .nt-btn--ghost:hover { color: var(--nt-navy); background: #fff; }
-.nt-footer__nap { font-style: normal; }
-.nt-footer__links { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 34px 0 42px; }
-.nt-footer__directory, .nt-footer__support { min-width: 0; }
-.nt-footer__links .nt-footer__title { margin-bottom: 20px; }
-.nt-footer__menu, .nt-footer__menu .sub-menu { margin: 0; padding: 0; list-style: none; }
-.nt-footer__menu { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px 24px; }
-.nt-footer__menu li { min-width: 0; overflow-wrap: anywhere; }
-.nt-footer__menu a { display: inline-block; padding: 4px 0; line-height: 1.45; }
-.nt-footer__menu > li > a { font-size: .9688rem; font-weight: 800; color: #fff; }
-.nt-footer__menu .sub-menu { margin-top: 4px; padding-left: 12px; border-left: 1px solid rgb(255 255 255 / 18%); }
-.nt-footer__menu .sub-menu a { color: #d7deec; font-size: .875rem; }
-.nt-footer__menu .sub-menu .sub-menu { margin-top: 2px; padding-left: 10px; }
-.nt-footer__menu .sub-menu .sub-menu a { color: #c4d1e6; font-size: .8125rem; }
-.nt-footer__menu a:hover, .nt-footer__menu a:focus-visible { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-.nt-footer__menu a:focus-visible, .nt-footer__list a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 2px; }
-.nt-footer__support .nt-footer__list + .nt-footer__list { margin-top: 14px; }
-.nt-footer__fallback { columns: 1; }
 @media (min-width: 640px) {
-    .nt-footer__menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .nt-footer__fallback { columns: 2; }
+	.nt-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
 }
 @media (min-width: 1024px) {
-    .nt-footer__intro { padding: 52px 0 34px; }
-    .nt-footer__links { grid-template-columns: minmax(0, 4fr) minmax(200px, 1fr); gap: 36px; }
-    .nt-footer__menu { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 28px; }
-    .nt-footer__fallback { columns: 3; }
-}
-@media (min-width: 1360px) {
-    .nt-footer__menu { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+	.nt-footer__grid { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)) minmax(0, 1.2fr); gap: 32px; }
 }
 
 /* ---------- Mobile contact bar (only when no QuickCall plugin is active) ---------- */
