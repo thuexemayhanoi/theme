@@ -238,6 +238,10 @@ function nt_assist_intent( string $question ): string {
 		return 'price';
 	}
 	if ( preg_match( '/\b(xe dien|xe dap dien|50cc|xe so|xe ga)\b/', $q ) ) {
+		// Technical and legal questions need matching public articles, not a sales template.
+		if ( preg_match( '/\b(pin|chai|sac|ngap|nuoc|phanh|loi|hong|ip67|bao duong|bang lai|phap luat|quy dinh)\b/', $q ) ) {
+			return 'search';
+		}
 		return 'vehicles';
 	}
 	return 'search';
