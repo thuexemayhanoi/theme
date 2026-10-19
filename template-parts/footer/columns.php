@@ -42,7 +42,7 @@ foreach ( array( 310, 372, 484, 326, 449 ) as $nt_page_id ) {
 ?>
 <div class="nt-footer__intro">
 	<section class="nt-footer__col nt-footer__col--brand" aria-labelledby="nt-f-brand">
-		<h2 id="nt-f-brand" class="nt-footer__brand"><?php echo esc_html( nt_business( 'brand' ) ); ?></h2>
+		<p id="nt-f-brand" class="nt-footer__brand"><?php echo esc_html( nt_business( 'brand' ) ); ?></p>
 		<p class="nt-footer__tagline"><?php echo esc_html( $nt_tagline ); ?></p>
 		<address class="nt-footer__nap">
 			<p><?php nt_the_icon( 'pin', array( 'size' => 18 ) ); ?><span><?php echo esc_html( nt_address() ); ?></span></p>
