@@ -581,7 +581,7 @@ a.page-numbers:hover { background: var(--nt-navy-100); border-color: var(--nt-na
 .nt-footer__contact .nt-footer__nap p > span:first-of-type { flex: 1; min-width: 0; }
 .nt-footer__contact .nt-footer__nap .nt-icon { flex: none; }
 .nt-footer__contact .nt-cta { gap: 8px; margin-top: 14px; }
-.nt-footer__contact .nt-btn { min-height: 40px; padding: 8px 12px; font-size: .8125rem; }
+.nt-footer__contact .nt-btn { display: inline-flex; min-height: 40px; padding: 8px 12px; font-size: .8125rem; }
 .nt-footer__contact .nt-btn--ghost { color: #fff; border-color: rgb(255 255 255 / 45%); background: transparent; }
 .nt-footer__contact .nt-btn--ghost:hover { color: var(--nt-navy); background: #fff; }
 .nt-footer__nap { font-style: normal; }
