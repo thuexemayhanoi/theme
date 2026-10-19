@@ -8,7 +8,7 @@ const read = (path) => readFileSync(new URL(path, root), 'utf8');
 test('Smart Core has a standalone WordPress bootstrap and all expected modules', () => {
   const main = read('nguyentu-smart-core.php');
   assert.match(main, /Plugin Name: Nguyễn Tú Smart Core/);
-  assert.match(main, /Version: 1\.0\.0/);
+  assert.match(main, /Version: 1\.0\.1/);
   for (const path of ['includes/business.php', 'includes/schema.php', 'includes/admin.php', 'includes/audit.php', 'includes/rental.php', 'assets/rental.js', 'assets/rental.css', 'readme.txt', 'uninstall.php']) {
     assert.equal(existsSync(new URL(path, root)), true, path);
   }
@@ -44,6 +44,10 @@ test('plugin shipping is separate from the active theme and does not touch Quick
 test('Smart Core has a bounded, non-destructive SEO audit and a calculator', () => {
   const audit = read('includes/audit.php');
   const rental = read('includes/rental.php');
+  assert.match(rental, /maybe_attach_to_legacy_prices/);
+  assert.match(rental, /attach_to_existing_table/);
+  assert.match(rental, /is_front_page/);
+  assert.match(rental, /in_the_loop/);
   assert.match(audit, /posts_per_page'\s*=> 20/);
   assert.match(audit, /WP_HTML_Tag_Processor/);
   assert.doesNotMatch(audit, /wp_update_post|update_option|DELETE FROM/);
