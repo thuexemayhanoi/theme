@@ -26,6 +26,7 @@ function nt_business_defaults(): array {
 		'phone_intl'    => '+84942467674',
 		'zalo_url'      => 'https://zalo.me/0942467674',
 		'facebook_url'  => 'https://www.facebook.com/chothuexemaynguyentu/',
+		'tripadvisor_url' => 'https://www.tripadvisor.com.vn/Attraction_Review-g21333608-d9826317-Reviews-Hanoi_Motorbike_Rental_Nguyen_Tu-Long_Bien_Hanoi.html',
 		'maps_url'      => 'https://maps.google.com/maps?cid=7448790013669858019',
 		'street'        => '112 Nguyễn Văn Cừ',
 		'ward'          => 'Bồ Đề',
