@@ -140,6 +140,12 @@ function nt_sanitize_options( $input ): array {
 	}
 
 	$out['cta_bar']     = $toggle( $input['cta_bar'] ?? '', array( 'auto', 'on', 'off' ), 'auto' );
+	$out['native_quickcall'] = $toggle( $input['native_quickcall'] ?? '', array( 'auto', 'off' ), 'auto' );
+	$out['native_assistant'] = $toggle( $input['native_assistant'] ?? '', array( 'auto', 'off' ), 'auto' );
+	$out['assist_buttons']   = array();
+	foreach ( array( 'call', 'zalo', 'whatsapp', 'chat', 'maps' ) as $key ) {
+		$out['assist_buttons'][ $key ] = $toggle( $input['assist_buttons'][ $key ] ?? '', array( 'on', 'off' ), 'maps' === $key ? 'off' : 'on' );
+	}
 	$out['toc']         = $toggle( $input['toc'] ?? '', array( 'auto', 'off' ), 'auto' );
 	$out['header_cart'] = $toggle( $input['header_cart'] ?? '', array( 'auto', 'off' ), 'auto' );
 	$out['post_cta']    = $toggle( $input['post_cta'] ?? '', array( 'on', 'off' ), 'on' );
@@ -286,6 +292,16 @@ function nt_settings_page(): void {
 			<p>Chỉ thay đổi dòng mô tả dưới thương hiệu tại chân trang trên mọi trang và bài viết. Không sửa mô tả website chung, SEO Title hoặc Meta Description. Để trống để dùng câu chuẩn của Nguyễn Tú.</p>
 			<p><label for="nt-footer-tagline">Mô tả dịch vụ tại footer</label></p>
 			<textarea id="nt-footer-tagline" name="nguyentu_options[footer][tagline]" rows="3" class="large-text" placeholder="<?php echo esc_attr( nt_footer_tagline_default() ); ?>"><?php echo esc_textarea( (string) ( $opts['footer']['tagline'] ?? '' ) ); ?></textarea>
+
+			<h2>Quick Call và trợ lý tư vấn</h2>
+			<p>Chế độ tự động giữ nguyên plugin cũ cho đến khi chủ website vô hiệu hóa plugin ấy. Không hiển thị hai giao diện trùng nhau. Trợ lý tra cứu bài viết công khai, không phải AI tạo sinh trả phí.</p>
+			<table class="form-table" role="presentation"><tbody>
+			<tr><th scope="row">Quick Call của theme</th><td><?php nt_settings_select( 'nguyentu_options[native_quickcall]', (string) ( $opts['native_quickcall'] ?? 'auto' ), array( 'auto' => 'Tự bật khi plugin Moto QuickCall ngừng', 'off' => 'Tắt hoàn toàn' ) ); ?></td></tr>
+			<tr><th scope="row">Trợ lý tra cứu của theme</th><td><?php nt_settings_select( 'nguyentu_options[native_assistant]', (string) ( $opts['native_assistant'] ?? 'auto' ), array( 'auto' => 'Tự bật khi plugin MotoAI ngừng', 'off' => 'Tắt hoàn toàn' ) ); ?></td></tr>
+			<?php foreach ( array( 'call' => 'Gọi điện', 'zalo' => 'Zalo', 'whatsapp' => 'WhatsApp', 'chat' => 'Trợ lý tư vấn', 'maps' => 'Google Maps' ) as $nt_key => $nt_label ) : ?>
+				<tr><th scope="row"><?php echo esc_html( $nt_label ); ?></th><td><?php nt_settings_select( 'nguyentu_options[assist_buttons][' . $nt_key . ']', (string) ( $opts['assist_buttons'][ $nt_key ] ?? ( 'maps' === $nt_key ? 'off' : 'on' ) ), array( 'on' => 'Bật', 'off' => 'Tắt' ) ); ?></td></tr>
+			<?php endforeach; ?>
+			</tbody></table>
 
 			<h2>Bảng giá tham khảo</h2>
 			<p>Mỗi dòng một loại xe, các cột cách nhau bằng dấu <code>|</code>: <code>Loại xe | Theo ngày | Theo tuần | Theo tháng | Tiền cọc</code>. Dòng bắt đầu bằng <code>#</code> bị bỏ qua. Để trống để dùng bảng giá chuẩn của cửa hàng. Chỉ nhập giá đã công bố; giá xe điện chưa có thì ghi "Liên hệ".</p>
