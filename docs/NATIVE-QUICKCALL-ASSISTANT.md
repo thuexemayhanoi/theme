@@ -18,21 +18,18 @@
 5. **Answer generator:** deterministic facts read from `nt_business()`, `nt_policy()`, `nt_price_rows()` when verified, else curated WordPress links and handoff to Call/Zalo. No fabricated availability, hourly price, sale, discounts or guaranteed booking. Mode is visibly described as **tra cứu**, NOT generative AI.
 6. **One widget only:** existing Moto QuickCall takes precedence; theme native quickcall suppressed while old plugin active. Existing MotoAI similarly takes precedence; theme assistant suppressed while old plugin active. When QuickCall migrates first but MotoAI remains, the native contact menu opens the existing MotoAI bubble for AI Chat; no second chatbot. Neither `nt-ctabar` nor native launcher doubles the active plugin. Default Maps link OFF; other buttons ON. Controls: WP Admin > Appearance > Nguyễn Tú > Quick Call và trợ lý tư vấn.
 
-## Plugin backup, licensing, and transition gate
+## Plugin backup and already completed owner removal (verified 2026-10-19)
 
-**BACKUP NOT VERIFIED / NO OLD PLUGIN DEACTIVATED AS PART OF CODE RELEASE.**
-The installed QuickCall plugin has no explicit license marker in its main PHP header. Source reads are not a byte-exact portable archive (secrets may be masked); a bundle built from them would NOT be a validated restore ZIP. Do not pretend a ZIP exists.
+**The owner reports Moto QuickCall and MotoAI were disabled and deleted on production before this rollout.** WPVibe site info and the native WordPress plugin listing independently confirm that **neither plugin is installed**; the public HTML also contains no `moto-quickcall` or `motoai` output. The active theme's older two-button Gọi/Zalo fallback remains until this PR deploys, so visitor contact was not cut off.
 
-Before production deactivation, the owner/admin must create a **private restore archive** via Hostinger hPanel File Manager / Backup tools:
+There is **no installed copy to ZIP now**. We did **not** uninstall or deactivate either plugin and must not claim that a portable QuickCall ZIP was produced or restored. The owner reports a Hostinger backup from yesterday; its exact plugin contents and restoration quality have **not** been verified. For a private restoration, inspect/download the actual archived `wp-content/plugins/moto-quickcall-flatsome-safe-v4/` from the hosting backup, without copying secrets into GitHub. If absent from that archive, only a valid, licensed original distribution can recover it.
 
-1. Ensure a fresh Hostinger backup of today's site exists (yesterday's backup may predate recent changes).
-2. In Hostinger file manager, privately archive **only** `public_html/wp-content/plugins/moto-quickcall-flatsome-safe-v4/` into a ZIP stored **outside public_html** or download it directly. Do not publish that ZIP in GitHub or a public uploads directory; this is a recovery copy of an existing installed plugin, not a license for redistribution.
-3. Back up the setting `mqcps_v4_settings` if it exists through an authorized export route (currently read API returned option not found, so do not fabricate its content). Remove tokens/private user data from any sharing/exported logs.
-4. Validate ZIP extraction / plugin file integrity on staging; confirm the plugin can be restored in the Plugins admin when required.
-5. In a staging clone, **disable Moto QuickCall only**, verify exactly one native QuickCall and working Call/Zalo/WhatsApp/Chat/Maps across 360/390/768/1024/1440, preserving Footer and existing MotoAI. Re-enable on regression.
-6. To move to the **native** assistant too, separately deactivate MotoAI on staging only after testing the public REST, real source links and verified prices. The separate production switch deserves explicit owner review.
-7. Only when backup + cutover QA is complete, authorized production admin deactivates the corresponding old plugin(s). **Never uninstall/delete** without a further explicit owner instruction. Roll back by reactivating each old plugin, or restoring from private ZIP/Hostinger backup.
-8. After any cutover, purge LiteSpeed Cache once and verify public HTML, CSS/JS, 5 screen widths and REST behavior (active chat endpoint only). Do not repeatedly push to trigger deploys.
+When this PR's WordPress sandbox tests pass, release the new theme via the already configured Deployer for Git workflow **once**. Use the single active theme directory. No separate plugin switch is necessary because the previous plugins are no longer installed. Following delivery, confirm the new native QuickCall replaces the old theme's fallback bar; check Gọi/Zalo/WhatsApp/Chat at 360, 390, 768, 1024 and 1440 px, source retrieval, and no overlap with footer, header, mobile browser toolbar or any still-injected WPCode widgets.
+
+On failure, roll back to the earlier theme commit and restore the previous **two-button theme fallback**. The deleted plugins do not reappear just by reverting the theme; their recovery depends on the host backup or separately licensed plugin packages.
+
+**Never claim an actual AI language model is connected**: this version answers by bounded WordPress search and verified business templates without an API. Future paid AI integrations would require independent approval, privacy/security review and budget.
+
 
 ## Tests and evidence
 
@@ -40,7 +37,7 @@ Before production deactivation, the owner/admin must create a **private restore 
 - `tests/e2e/native-assist.spec.mjs`: five widths, Escape/open/close, real sandbox REST and accessible local sources.
 - `tests/e2e/contact.spec.mjs` and `tools/qa/run-sandbox.sh` execute with legacy plugin simulators ON then OFF. These are **simulation results**, not real plugin equivalence.
 - Existing QA: canonical/robots, SEO schema, WooCommerce, header, footer and menu unchanged.
-- **UNVERIFIED until cutover:** actual production plugin ZIP/restore, real plugins simultaneously running with their exact configuration, production disabled-plugin transition, field Core Web Vitals and live non-duplication after deactivation.
+- **UNVERIFIED until live deployment:** plugin recovery ZIP/restore from Hostinger backup, field Core Web Vitals and no-overlap / correct native bar after publishing. Legacy simulator tests remain useful for regression only; real plugins have already been removed by owner.
 
 ### Notes on future scale
 
