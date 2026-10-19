@@ -1,6 +1,7 @@
 /*
  * Native Nguyễn Tú launcher and verified-content assistant.
- * Progressive enhancement only; no cookies, localStorage, analytics, AI API or crawler.
+ * Progressive enhancement: bounded local topic/source cache, no chat-history persistence,
+ * cookies, analytics, paid AI API, web crawler or framework.
  */
 (function () {
 	'use strict';
@@ -16,6 +17,98 @@
 	var log = assist && assist.querySelector('[data-nt-chat-log]');
 	var submit = form && form.querySelector('button[type="submit"]');
 	var previousFocus = null;
+	var status = assist && assist.querySelector('[data-nt-chat-status]');
+	var clearButton = assist && assist.querySelector('[data-nt-chat-clear]');
+	var memoryKey = 'nt-assist-topic-v2';
+	var sourcesKey = 'nt-assist-sources-v2';
+	var topicTtl = 24 * 60 * 60 * 1000;
+	var sourcesTtl = 6 * 60 * 60 * 1000;
+	// Only model and duration are persisted. Never store a question or chat message.
+	function safeRead(key) {
+		try { return JSON.parse(window.localStorage.getItem(key) || 'null'); }
+		catch { return null; }
+	}
+	function safeWrite(key, value, maxLength) {
+		try {
+			var text = JSON.stringify(value);
+			if (text.length <= maxLength) { window.localStorage.setItem(key, text); }
+		} catch { /* private browsing may disable storage */ }
+	}
+	function safeDelete(key) {
+		try { window.localStorage.removeItem(key); }
+		catch { /* storage unavailable */ }
+	}
+	function getMemory() {
+		var saved = safeRead(memoryKey);
+		if (!saved || saved.v !== 2 || !Number.isFinite(saved.until) || saved.until < Date.now()) {
+			safeDelete(memoryKey);
+			return { model: '', period: '' };
+		}
+		return {
+			model: typeof saved.model === 'string' ? saved.model.slice(0, 60) : '',
+			period: ['day', 'week', 'month'].includes(saved.period) ? saved.period : ''
+		};
+	}
+	var currentContext = getMemory();
+	function rememberContext(context) {
+		if (!context || typeof context !== 'object') { return; }
+		currentContext = {
+			model: String(context.model || '').slice(0, 60),
+			period: ['day', 'week', 'month'].includes(context.period) ? context.period : ''
+		};
+		if (currentContext.model || currentContext.period) {
+			safeWrite(memoryKey, { v: 2, until: Date.now() + topicTtl,
+				model: currentContext.model, period: currentContext.period }, 512);
+		} else { safeDelete(memoryKey); }
+	}
+	function cacheTopic(query) {
+		// Never persist a visitor question as plaintext; skip likely identifiers.
+		if (/@|https?:|[0-9]{4}/i.test(query)) { return ''; }
+		var text = query.trim().toLocaleLowerCase('vi').replace(/\s+/g, ' ').slice(0, 90);
+		var hash = 2166136261;
+		for (var i = 0; i < text.length; i++) {
+			hash ^= text.charCodeAt(i);
+			hash = Math.imul(hash, 16777619);
+		}
+		return 'topic-' + (hash >>> 0).toString(16);
+	}
+	function saveSources(query, intent, sources) {
+		var key = cacheTopic(query);
+		if (!key || intent !== 'search' || !Array.isArray(sources) || !sources.length) { return; }
+		var existing = safeRead(sourcesKey);
+		var items = existing && existing.v === 2 && existing.until > Date.now()
+			&& Array.isArray(existing.items) ? existing.items : [];
+		var safe = sources.slice(0, 3).filter(function (item) {
+			if (!item || !item.url || !item.title) { return false; }
+			try { return new URL(item.url).origin === location.origin; }
+			catch { return false; }
+		}).map(function (item) {
+			return {
+				title: String(item.title).slice(0, 90),
+				url: String(item.url).slice(0, 240),
+				excerpt: String(item.excerpt || '').slice(0, 135)
+			};
+		});
+		if (!safe.length) { return; }
+		items = items.filter(function (entry) { return entry.query !== key; });
+		items.unshift({ query: key, sources: safe });
+		safeWrite(sourcesKey, { v: 2, until: Date.now() + sourcesTtl, items: items.slice(0, 5) }, 8000);
+	}
+	function cachedSources(query) {
+		var data = safeRead(sourcesKey);
+		if (!data || data.v !== 2 || data.until < Date.now() || !Array.isArray(data.items)) {
+			safeDelete(sourcesKey);
+			return [];
+		}
+		var entry = data.items.find(function (item) { return item.query === cacheTopic(query); });
+		return entry && Array.isArray(entry.sources) ? entry.sources : [];
+	}
+	function busy(state) {
+		if (submit) { submit.disabled = state; }
+		if (status) { status.hidden = !state; }
+		if (form) { form.setAttribute('aria-busy', state ? 'true' : 'false'); }
+	}
+
 
 	/*
 	 * Move the launcher only when an actual bottom overlay intersects its natural
@@ -124,7 +217,9 @@
 			toggleMenu(false);
 			if (input) { input.focus(); }
 		} else if (previousFocus && previousFocus.focus) {
-			previousFocus.focus();
+			// The chat was opened from a button inside the now-hidden QuickCall menu.
+			if (launcher && menu && menu.contains(previousFocus)) { launcher.focus(); }
+			else { previousFocus.focus(); }
 			previousFocus = null;
 		}
 	}
@@ -178,7 +273,7 @@
 		if (Array.isArray(sources) && sources.length) {
 			var list = doc.createElement('ul');
 			list.className = 'nt-assist__sources';
-			sources.slice(0, 4).forEach(function (source) {
+			sources.slice(0, 3).forEach(function (source) {
 				if (!source || !source.url || !source.title) { return; }
 				try {
 					var url = new URL(source.url, location.origin);
@@ -193,9 +288,17 @@
 					list.appendChild(item);
 				} catch { /* untrusted result is ignored */ }
 			});
-			if (list.children.length) { box.appendChild(list); }
+			if (list.children.length) {
+				var heading = doc.createElement('strong');
+				heading.className = 'nt-assist__sources-title';
+				heading.textContent = 'Đọc thêm từ website:';
+				box.appendChild(heading);
+				box.appendChild(list);
+			}
 		}
 		log.appendChild(box);
+		// One greeting + 12 recent messages, without persisting conversation text.
+		while (log.children.length > 13) { log.removeChild(log.children[1]); }
 		log.scrollTop = log.scrollHeight;
 	}
 	function send(question) {
@@ -204,7 +307,7 @@
 		if (text.length < 2 || submit.disabled) { return; }
 		addMessage(text, 'user');
 		input.value = '';
-		submit.disabled = true;
+		busy(true);
 		var controller = new AbortController();
 		var timeout = setTimeout(function () { controller.abort(); }, 12000);
 		fetch(assist.getAttribute('data-endpoint'), {
@@ -212,19 +315,38 @@
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'omit',
 			cache: 'no-store',
-			body: JSON.stringify({ question: text }),
+			body: JSON.stringify({ question: text, context: currentContext }),
 			signal: controller.signal
 		}).then(function (response) {
 			if (!response.ok) { throw new Error('request unavailable'); }
 			return response.json();
 		}).then(function (data) {
 			addMessage(String(data.answer || 'Không có dữ liệu xác minh.'), 'bot', data.sources);
+			rememberContext(data.context);
+			saveSources(text, data.intent, data.sources);
 		}).catch(function () {
-			addMessage('Chưa tra cứu được lúc này. Bạn vui lòng gọi 0942 467 674 hoặc nhắn Zalo để được hỗ trợ.', 'bot');
+			var saved = cachedSources(text);
+			if (saved.length) {
+				addMessage('Chưa kết nối được. Đây là các nguồn đã lưu tạm từ lần tra cứu trước, có thể đã cũ. Vui lòng xác nhận giá và điều kiện với cửa hàng.', 'bot', saved);
+			} else {
+				addMessage('Chưa tra cứu được lúc này. Bạn vui lòng gọi Nguyễn Tú hoặc nhắn Zalo để được hỗ trợ.', 'bot');
+			}
 		}).finally(function () {
 			clearTimeout(timeout);
-			submit.disabled = false;
+			busy(false);
 			if (panel && !panel.hidden) { input.focus(); }
+		});
+	}
+	if (clearButton) {
+		clearButton.addEventListener('click', function () {
+			safeDelete(memoryKey);
+			safeDelete(sourcesKey);
+			currentContext = { model: '', period: '' };
+			if (log) {
+				while (log.children.length > 1) { log.removeChild(log.lastElementChild); }
+				log.scrollTop = 0;
+			}
+			addMessage('Bộ nhớ chủ đề và nguồn đã lưu trên thiết bị đã được xóa.', 'bot');
 		});
 	}
 	if (form) {

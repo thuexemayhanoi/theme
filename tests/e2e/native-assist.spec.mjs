@@ -94,6 +94,59 @@ test('QuickCall yields to a full-screen blocking dialog instead of covering it',
 	await expect(page.locator('#nt-native-quickcall')).not.toHaveClass(/nt-qc--suspended/);
 });
 
+
+test('prices cite the published FAQ instead of unrelated electric articles', async ({ request }) => {
+	test.skip(SIMS, 'native endpoint is disabled while MotoAI simulation runs');
+	const response = await request.post('/wp-json/nguyentu/v1/assist', {
+		data: { question: 'Giá thuê xe máy bao nhiêu?' }
+	});
+	expect(response.status()).toBe(200);
+	const result = await response.json();
+	expect(result.intent).toBe('price');
+	expect(result.sources).toHaveLength(1);
+	expect(new URL(result.sources[0].url).pathname).toBe('/faq/');
+});
+
+test('chatbot remembers verified vehicle topic, not message text, then clears it', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	await expect(page.locator('[data-nt-chat-clear]')).toBeVisible();
+
+	await page.locator('#nt-assist-question').fill('Giá Honda Vision?');
+	await page.locator('.nt-assist__form button').click();
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText('Honda Vision', { timeout: 20000 });
+	await expect(page.locator('.nt-assist__status')).toBeHidden();
+
+	const stored = await page.evaluate(() => {
+		const memory = localStorage.getItem('nt-assist-topic-v2') || '';
+		return { memory, json: JSON.parse(memory) };
+	});
+	expect(stored.memory.length).toBeLessThan(512);
+	expect(stored.json.model).toBe('Honda Vision');
+	expect(stored.memory).not.toContain('Giá Honda Vision?');
+
+	await page.reload({ waitUntil: 'networkidle' });
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	await page.locator('#nt-assist-question').fill('Tháng thì sao?');
+	await page.locator('.nt-assist__form button').click();
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText('1.800.000', { timeout: 20000 });
+	await expect(page.locator('.nt-assist__message--bot').last().locator('.nt-assist__sources a')).toHaveAttribute('href', /\/faq\/$/);
+	await page.locator('[data-nt-chat-clear]').click();
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText('được xóa');
+	const keys = await page.evaluate(() => ({
+		topic: localStorage.getItem('nt-assist-topic-v2'),
+		sources: localStorage.getItem('nt-assist-sources-v2')
+	}));
+	expect(keys.topic).toBeNull();
+	expect(keys.sources).toBeNull();
+	await page.keyboard.press('Escape');
+	await expect(page.locator('[data-nt-qc-launch]')).toBeFocused();
+});
+
 test('grounded answers contain only public local sources and do not require AI API', async ({ request }) => {
 	test.skip(SIMS, 'native endpoint is intentionally disabled while MotoAI simulator runs');
 	const res = await request.post('/wp-json/nguyentu/v1/assist', { data: { question: 'Xe điện' } });
