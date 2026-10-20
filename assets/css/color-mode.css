@@ -150,7 +150,7 @@ html[data-nt-color-mode="dark"] .nt-assist__note a { color: #c0d9ff; }
 	.nt-header__actions { gap: 0; }
 	.nt-menu__item--d0 > .nt-menu__link { font-size: .85rem; padding-inline: 7px; }
 	.nt-menu__item--d0.nt-has-sub > .nt-menu__link { padding-right: 2px; }
-	.nt-menu__item--d0 > .nt-sub-toggle { width: 22px; margin-right: 2px; }
+	.nt-menu__item--d0 > .nt-sub-toggle { width: 28px; height: 28px; margin-right: 8px; }
 }
 @media print {
 	.nt-theme-toggle, .nt-hours-indicator { display: none !important; }
