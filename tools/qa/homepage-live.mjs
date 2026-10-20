@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { chromium } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 const baseline = JSON.parse(readFileSync('reports/homepage-baseline-2026-10-21.json', 'utf8'));
 const out = 'reports/homepage-live';
@@ -30,9 +31,10 @@ try {
     // A deliberately different browser timezone must not change the Hanoi opening state.
     const context = await browser.newContext({ viewport: { width, height }, locale: 'vi-VN', timezoneId: 'America/Los_Angeles' });
     const page = await context.newPage();
-    const result = { width, height, checks: [], consoleErrors: [], requestFailures: [] };
+    const result = { width, height, checks: [], consoleErrors: [], browserConsoleErrors: [], requestFailures: [] };
     proof.devices.push(result);
     page.on('pageerror', err => result.consoleErrors.push(String(err)));
+    page.on('console', msg => { if (msg.type() === 'error') result.browserConsoleErrors.push({ text: msg.text(), location: msg.location() }); });
     page.on('requestfailed', req => result.requestFailures.push({ url: req.url(), error: req.failure()?.errorText }));
     const response = await page.goto(baseline.url, { waitUntil: 'domcontentloaded' });
     assert.equal(response.status(), 200);
@@ -117,6 +119,10 @@ try {
     await page.locator('[data-nt-chat-form] button[type="submit"]').click();
     await page.waitForFunction(() => [...document.querySelectorAll('.nt-assist__message--bot')].some(el => el.textContent.includes('4–5 triệu')));
     result.chat = await page.locator('.nt-assist__message--bot').allTextContents();
+    const chatAxe = await new AxeBuilder({ page }).withRules(['target-size', 'label-content-name-mismatch']).analyze();
+    result.chatAccessibility = { violations: chatAxe.violations, incomplete: chatAxe.incomplete };
+    assert.deepEqual(chatAxe.violations, [], 'Open chatbot accessibility');
+    assert.deepEqual(chatAxe.incomplete, [], 'Open chatbot rules need manual review');
     await page.screenshot({ path: out + '/chat-' + width + '.png' });
     await page.locator('[data-nt-chat-close]').click();
     assert.equal(await page.locator('#nt-native-quickcall').isVisible(), true);
@@ -126,6 +132,7 @@ try {
     await page.waitForFunction(() => scrollY <= 20);
     result.checks.push('Chat price/context, hidden QuickCall while chat is open, close and Back to Top');
     assert.deepEqual(result.consoleErrors, []);
+    assert.deepEqual(result.browserConsoleErrors, []);
     await page.screenshot({ path: out + '/home-' + width + '-light.png', fullPage: true });
     await context.close();
   }

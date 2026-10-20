@@ -186,3 +186,12 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - Remaining: desktop target-size/name-label warnings and Lighthouse console flag, unused assets, older Yoast Person/Article fields. Native iPhone/iPad Safari and real keyboard untested; no CrUX/INP field data. No fabricated overall QA score.
 - Full report: reports/homepage-audit-2026-10-21.md; machine-readable evidence: reports/homepage-audit-results-2026-10-21.json.
 - LIVE_UNCHANGED = FALSE. Only repository theme code and authorized cache purge changed production; no content/taxonomy/menu destination/SEO option writes.
+
+
+## 2026-10-21 — Follow-up: inspect open UI before closing desktop P2 findings
+- Checkpoint: checkpoint/homepage-p2-2026-10-21 at 20811b6537a379533cfff452f56210d0682481f7.
+- Initial public-page diagnostics at 1365/390 passed the two named axe rules and had no console/HTTP errors. Inspecting the opened chatbot then reproduced serious label-content-name-mismatch on button[data-nt-chat-clear].
+- Reproduction: https://github.com/thuexemayhanoi/theme/actions/runs/39488703698. Visible text "Xóa ghi nhớ" differed from aria-label "Xóa bộ nhớ tư vấn trên thiết bị".
+- Minimal candidate fix: aria-label now starts with the exact visible text. No chat logic, stored data, URLs or SEO metadata changes.
+- Add opened-panel axe checks to all five native assistant viewport tests and public live QA. Diagnostic workflow remains read-only and records light/dark/search/drawer/QuickCall/chat states.
+- Full CI and deployed verification are pending for this candidate. LIVE_UNCHANGED = TRUE at this checkpoint.

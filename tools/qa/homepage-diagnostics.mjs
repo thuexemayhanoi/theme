@@ -5,7 +5,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 
 const out = 'reports/homepage-diagnostics';
 mkdirSync(out, { recursive: true });
-const proof = { started: new Date().toISOString(), code: process.env.GITHUB_SHA, url: 'https://thuexemaynguyentu.com/', scope: 'Chromium only; two named axe rules and console/HTTP diagnostics, not a complete accessibility certification', devices: [] };
+const proof = { started: new Date().toISOString(), code: process.env.GITHUB_SHA, url: 'https://thuexemaynguyentu.com/', scope: 'Chromium only; two named axe rules and console/HTTP diagnostics, not a complete accessibility certification', devices: [], failures: [] };
 const browser = await chromium.launch();
 try {
   for (const viewport of [{ width: 1365, height: 768 }, { width: 768, height: 1024 }, { width: 390, height: 844 }]) {
@@ -29,8 +29,7 @@ try {
       const check = { phase, violations: axe.violations, incomplete: axe.incomplete, passes: axe.passes.map(item => ({ id: item.id, count: item.nodes.length })) };
       result.phases.push(check);
       await page.screenshot({ path: out + '/' + phase + '-' + viewport.width + '.png', fullPage: phase === 'light' });
-      assert.deepEqual(check.violations, [], phase + ' accessibility violations');
-      assert.deepEqual(check.incomplete, [], phase + ' needs manual rule review');
+      if (check.violations.length || check.incomplete.length) proof.failures.push({ width: viewport.width, phase, violations: check.violations.map(item => ({ id: item.id, targets: item.nodes.map(node => node.target) })), incomplete: check.incomplete.map(item => item.id) });
       assert.deepEqual(result.uncaught, [], phase + ' uncaught JavaScript');
       assert.deepEqual(result.console.filter(msg => msg.type === 'error'), [], phase + ' browser console errors');
       assert.deepEqual(result.httpErrors, [], phase + ' HTTP errors');
@@ -58,12 +57,13 @@ try {
     await page.locator('[data-nt-chat-open]').first().click();
     await inspect('chat');
     await page.locator('[data-nt-chat-close]').click();
-    result.status = 'PASS';
+    result.status = result.phases.some(phase => phase.violations.length || phase.incomplete.length) ? 'FAIL' : 'PASS';
     // Preserve shutdown-related network failures separately from failures during interaction.
     closing = true;
     await context.close();
     console.log(JSON.stringify(result, null, 2));
   }
+  assert.deepEqual(proof.failures, [], 'Interactive accessibility findings');
   proof.status = 'PASS';
 } catch (err) {
   proof.status = 'FAIL';
