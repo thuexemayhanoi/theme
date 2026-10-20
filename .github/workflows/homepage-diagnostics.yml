@@ -1,0 +1,35 @@
+name: Homepage P2 diagnostics
+
+on:
+  push:
+    branches: ['audit/homepage-p2-*']
+    paths:
+      - 'tools/qa/homepage-diagnostics.mjs'
+      - '.github/workflows/homepage-diagnostics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: homepage-p2-diagnostics
+  cancel-in-progress: true
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/qa/homepage-diagnostics.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: homepage-p2-diagnostics
+          path: reports/homepage-diagnostics/
