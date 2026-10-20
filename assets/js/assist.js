@@ -223,7 +223,7 @@
 		var top = viewport ? viewport.offsetTop : 0;
 		var narrow = width < 768;
 		var keyboard = viewport && (window.innerHeight - viewport.height - viewport.offsetTop > 120);
-		var constrained = narrow || keyboard;
+		var constrained = narrow || keyboard || height < 520;
 		panel.classList.toggle('nt-assist__panel--viewport', !!constrained);
 		if (!constrained) { return; }
 		var margin = width < 390 ? 8 : 12;
@@ -267,7 +267,7 @@
 			toggleMenu(false);
 			// Avoid popping the iPhone keyboard before the visitor chooses to type.
 			// The close button is a safe initial focus target on narrow screens.
-			if (window.innerWidth < 768 && closeButton) { closeButton.focus({ preventScroll: true }); }
+			if ((window.innerWidth < 768 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) && closeButton) { closeButton.focus({ preventScroll: true }); }
 			else if (input) { input.focus({ preventScroll: true }); }
 		} else if (previousFocus && previousFocus.focus) {
 			// The chat was opened from a button inside the now-hidden QuickCall menu.
