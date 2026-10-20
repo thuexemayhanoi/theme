@@ -5,6 +5,22 @@ use PHPUnit\Framework\TestCase;
 
 final class HomeAssetsTest extends TestCase {
 
+	private $original_query;
+	private $original_widgets;
+
+	protected function setUp(): void {
+		$this->original_query   = $GLOBALS['wp_query'];
+		$this->original_widgets = wp_get_sidebars_widgets();
+		wp_set_sidebars_widgets( array_merge( $this->original_widgets, array( 'footer-extra' => array() ) ) );
+	}
+
+	protected function tearDown(): void {
+		$GLOBALS['wp_query'] = $this->original_query;
+		wp_set_sidebars_widgets( $this->original_widgets );
+		wp_dequeue_script( 'yith-wcwl-add-to-wishlist' );
+		wp_dequeue_style( 'yith-wcwl-main' );
+	}
+
 	public function test_editorial_home_omits_unused_wishlist_bundle_but_keeps_registration(): void {
 		$GLOBALS['wp_query'] = new WP_Query( array( 'page_id' => (int) get_option( 'page_on_front' ) ) );
 		wp_register_script( 'yith-wcwl-add-to-wishlist', '/wishlist.js', array( 'react' ), '1', true );
