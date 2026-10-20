@@ -81,6 +81,16 @@ final class MenuTest extends TestCase {
 		$this->assertSame( 1, $mega->length );
 		$this->assertSame( 'Cẩm nang', trim( $mega->item( 0 )->textContent ) );
 
+		// Differentiate the rental-product branch from the editorial electric-vehicle hub.
+		foreach ( array( 'xe-so' => 'Thuê xe số', 'xe-ga' => 'Thuê xe ga', 'xe-dien' => 'Thuê xe điện' ) as $slug => $text ) {
+			$link = $xp->query( '//a[contains(@class,"nt-menu__link") and contains(@href,"/danh-muc-san-pham/loai-xe/' . $slug . '/")]' );
+			$this->assertSame( 1, $link->length, $slug );
+			$this->assertSame( $text, trim( $link->item( 0 )->textContent ), $slug );
+		}
+		$blog_electric = $xp->query( '//a[contains(@class,"nt-menu__link") and contains(@href,"/blog/xe-dien/")]' );
+		$this->assertSame( 1, $blog_electric->length );
+		$this->assertSame( 'Xe điện', trim( $blog_electric->item( 0 )->textContent ) );
+
 		// Disclosure buttons point at lists that exist.
 		foreach ( $xp->query( '//button[@data-nt-sub-toggle]' ) as $btn ) {
 			$id = $btn->getAttribute( 'aria-controls' );
