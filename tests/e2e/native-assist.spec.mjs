@@ -36,7 +36,11 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 		await expect(page.locator('#nt-assist-dialog')).toBeVisible();
 		await expect(page.locator('body')).toHaveClass(/nt-chat-is-open/);
 		await expect(page.locator('.nt-assist__head')).toContainText('Tra cứu nội dung công khai');
-		await expect(page.locator('.nt-assist__form input')).toBeFocused();
+		if (width < 768) {
+			await expect(page.locator('[data-nt-chat-close]')).toBeFocused();
+		} else {
+			await expect(page.locator('.nt-assist__form input')).toBeFocused();
+		}
 		await page.locator('#nt-assist-question').fill('Tiền đặt cọc?');
 		await page.locator('.nt-assist__form button').click();
 		await expect(page.locator('.nt-assist__message--bot')).toContainText('2.000.000', { timeout: 20000 });
@@ -94,6 +98,70 @@ test('QuickCall yields to a full-screen blocking dialog instead of covering it',
 	await expect(page.locator('#nt-native-quickcall')).not.toHaveClass(/nt-qc--suspended/);
 });
 
+
+
+test('chat remains inside the visible viewport after keyboard-like resize and rotation', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	const fits = async () => page.evaluate(() => {
+		const panel = document.getElementById('nt-assist-dialog').getBoundingClientRect();
+		const composer = document.querySelector('.nt-assist__form').getBoundingClientRect();
+		const viewport = window.visualViewport;
+		const visibleTop = viewport ? viewport.offsetTop : 0;
+		const visibleBottom = visibleTop + (viewport ? viewport.height : window.innerHeight);
+		return panel.top >= visibleTop + 5 && panel.bottom <= visibleBottom - 5 &&
+			composer.bottom <= panel.bottom && composer.top >= panel.top &&
+			panel.left >= -1 && panel.right <= window.innerWidth + 1;
+	});
+	await expect.poll(fits).toBe(true);
+	await page.setViewportSize({ width: 390, height: 420 });
+	await expect.poll(fits).toBe(true);
+	await page.locator('#nt-assist-question').fill('Thuê xe Honda Vision');
+	await expect.poll(fits).toBe(true);
+	await noHorizontalScroll(page);
+	await page.setViewportSize({ width: 844, height: 390 });
+	await expect.poll(fits).toBe(true);
+	await page.setViewportSize({ width: 390, height: 844 });
+	await expect.poll(fits).toBe(true);
+});
+
+test('clearing memory cancels in-flight answers and cannot restore old context', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.addInitScript(() => {
+		const normalFetch = window.fetch;
+		window.fetch = function (url, options) {
+			if (String(url).includes('/nguyentu/v1/assist')) {
+				return new Promise((resolve) => {
+					window.__resolveChat = () => resolve({
+						ok: true,
+						json: async () => ({
+							answer: 'OLD_PENDING_RESPONSE',
+							intent: 'price',
+							context: { model: 'Honda Vision', period: 'month' },
+							sources: []
+						})
+					});
+				});
+			}
+			return normalFetch.call(window, url, options);
+		};
+	});
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/');
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	await page.locator('#nt-assist-question').fill('Giá thuê Honda Vision');
+	await page.locator('.nt-assist__form button').click();
+	await expect.poll(() => page.evaluate(() => typeof window.__resolveChat)).toBe('function');
+	await page.locator('[data-nt-chat-clear]').click();
+	await page.evaluate(() => window.__resolveChat());
+	await expect(page.locator('.nt-assist__message--bot').last()).not.toContainText('OLD_PENDING_RESPONSE');
+	await expect.poll(() => page.evaluate(() => localStorage.getItem('nt-assist-topic-v2'))).toBeNull();
+	await expect(page.locator('.nt-assist__status')).toBeHidden();
+});
 
 test('prices cite the published FAQ instead of unrelated electric articles', async ({ request }) => {
 	test.skip(SIMS, 'native endpoint is disabled while MotoAI simulation runs');
