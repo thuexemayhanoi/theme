@@ -170,7 +170,7 @@ add_action( 'wp_enqueue_scripts', 'nt_home_rental_assets', 100 );
  * Keep YITH assets and their shared dependencies available everywhere else.
  */
 function nt_editorial_home_wishlist_assets(): void {
-	if ( ! is_front_page() || 'editorial' !== nt_home_layout() || is_active_sidebar( 'footer-extra' ) ) {
+	if ( ! is_front_page() || 'editorial' !== nt_home_layout() || ( apply_filters( 'nguyentu_enable_footer_extra', false ) && is_active_sidebar( 'footer-extra' ) ) ) {
 		return;
 	}
 	wp_dequeue_script( 'yith-wcwl-add-to-wishlist' );
