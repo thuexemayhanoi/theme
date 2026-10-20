@@ -38,7 +38,7 @@ test('opening dot uses Hanoi local clock, not browser locale or cached HTML', as
 	const hours = page.locator('[data-nt-hours-status]');
 	await expect(hours).toHaveAttribute('data-nt-hours-state', 'open');
 	await expect(hours).toHaveAttribute('aria-label', /Cửa hàng đang mở/);
-	await expect(hours.locator('.nt-hours-indicator__dot')).toHaveCSS('background-color', 'rgb(0, 104, 255)');
+	await expect(hours.locator('.nt-hours-indicator__dot')).toHaveCSS('background-color', 'rgb(22, 128, 60)');
 	await page.clock.setFixedTime(new Date('2026-10-20T15:00:00Z')); // 22:00 Hanoi.
 	await page.reload();
 	await expect(page.locator('[data-nt-hours-status]')).toHaveAttribute('data-nt-hours-state', 'closed');
@@ -52,3 +52,18 @@ test('the indicator is visible without a written OPEN/CLOSED label', async ({ pa
 	await expect(badge).toHaveText('');
 	await expect(badge).toHaveAttribute('role', 'img');
 });
+
+for (const [time, before, after] of [
+	['2026-10-20T01:59:59Z', 'closed', 'open'],
+	['2026-10-20T13:59:59Z', 'open', 'closed'],
+]) {
+	test('opening indicator crosses Hanoi boundary ' + time + ' without reload', async ({ page }) => {
+		await page.clock.install({ time: new Date(new Date(time).getTime() - 10000) });
+		await page.goto('/');
+		await page.clock.pauseAt(new Date(time));
+		const hours = page.locator('[data-nt-hours-status]');
+		await expect(hours).toHaveAttribute('data-nt-hours-state', before);
+		await page.clock.runFor(1021);
+		await expect(hours).toHaveAttribute('data-nt-hours-state', after);
+	});
+}

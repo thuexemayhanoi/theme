@@ -15,7 +15,7 @@
 	transition: background-color .2s ease, box-shadow .2s ease;
 }
 .nt-hours-indicator[data-nt-hours-state="open"] .nt-hours-indicator__dot {
-	background: var(--nt-zalo); box-shadow: 0 0 0 3px rgb(0 104 255 / 16%);
+	background: #16803c; box-shadow: 0 0 0 3px rgb(22 128 60 / 16%);
 }
 .nt-hours-indicator[data-nt-hours-state="closed"] .nt-hours-indicator__dot {
 	background: #d43b36; box-shadow: 0 0 0 3px rgb(212 59 54 / 13%);

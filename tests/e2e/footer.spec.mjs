@@ -148,7 +148,8 @@ test('only strategic Hub, rental and information links; no copied 36-item menu',
 	await page.goto('/', { waitUntil: 'networkidle' });
 	const footer = page.locator('#site-footer');
 	await expect(footer.locator('h1')).toHaveCount(0);
-	await expect(footer.locator('.nt-footer__grid h2')).toHaveCount(3);
+	await expect(footer.locator('.nt-footer__grid h2')).toHaveCount(0);
+	await expect(footer.locator('p.nt-footer__title')).toHaveText(['Thuê xe', 'Cẩm nang', 'Thông tin']);
 	await expect(footer.locator('.nt-footer__grid h3')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__menu')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__widgets')).toHaveCount(0);

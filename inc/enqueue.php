@@ -107,6 +107,19 @@ function nt_enqueue_assets(): void {
 		)
 	);
 
+	if ( is_front_page() ) {
+		wp_enqueue_script(
+			'nt-rental',
+			nt_asset_uri( 'assets/js/rental.js' ),
+			array(),
+			nt_asset_ver( 'assets/js/rental.js' ),
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
+	}
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -140,3 +153,29 @@ function nt_preload_fonts(): void {
 	}
 }
 add_action( 'wp_head', 'nt_preload_fonts', 1 );
+
+/**
+ * Editorial home uses only the native calculator; preserve plugin assets on other pages.
+ */
+function nt_home_rental_assets(): void {
+	if ( is_front_page() && 'editorial' === nt_home_layout() ) {
+		wp_dequeue_script( 'nt-smart-rental' );
+		wp_dequeue_style( 'nt-smart-rental' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'nt_home_rental_assets', 100 );
+
+/**
+ * The editorial home renders plain catalogue cards, with no wishlist controls.
+ * Keep YITH assets and their shared dependencies available everywhere else.
+ */
+function nt_editorial_home_wishlist_assets(): void {
+	if ( ! is_front_page() || 'editorial' !== nt_home_layout() || is_active_sidebar( 'footer-extra' ) ) {
+		return;
+	}
+	wp_dequeue_script( 'yith-wcwl-add-to-wishlist' );
+	foreach ( array( 'yith-wcwl-add-to-wishlist', 'yith-wcwl-main', 'yith-wcwl-user-main', 'yith-wcwl-theme' ) as $handle ) {
+		wp_dequeue_style( $handle );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'nt_editorial_home_wishlist_assets', 101 );
