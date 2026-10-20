@@ -55,6 +55,12 @@ html[data-nt-color-mode="dark"] {
 html[data-nt-color-mode="dark"] .nt-header::before {
 	background: rgb(16 24 39 / 95%);
 }
+html[data-nt-color-mode="dark"] .nt-brand__mark {
+	background: #2d5084; color: #fff;
+}
+html[data-nt-color-mode="dark"] .nt-btn--ghost:hover {
+	background: #2d5084; color: #fff; border-color: #2d5084;
+}
 html[data-nt-color-mode="dark"] :is(.nt-hero__title, .nt-hero__lead, .nt-faq__a, .woocommerce-product-details__short-description) {
 	color: var(--nt-ink);
 }
