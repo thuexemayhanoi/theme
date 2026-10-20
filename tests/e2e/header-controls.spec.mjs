@@ -38,9 +38,11 @@ test('opening dot uses Hanoi local clock, not browser locale or cached HTML', as
 	const hours = page.locator('[data-nt-hours-status]');
 	await expect(hours).toHaveAttribute('data-nt-hours-state', 'open');
 	await expect(hours).toHaveAttribute('aria-label', /Cửa hàng đang mở/);
+	await expect(hours.locator('.nt-hours-indicator__dot')).toHaveCSS('background-color', 'rgb(0, 104, 255)');
 	await page.clock.setFixedTime(new Date('2026-10-20T15:00:00Z')); // 22:00 Hanoi.
 	await page.reload();
 	await expect(page.locator('[data-nt-hours-status]')).toHaveAttribute('data-nt-hours-state', 'closed');
+	await expect(page.locator('.nt-hours-indicator__dot')).toHaveCSS('background-color', 'rgb(212, 59, 54)');
 });
 
 test('the indicator is visible without a written OPEN/CLOSED label', async ({ page }) => {
