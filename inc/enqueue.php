@@ -108,7 +108,10 @@ function nt_enqueue_assets(): void {
 	);
 
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'nt-rental', nt_asset_uri( 'assets/js/rental.js' ), array(), nt_asset_ver( 'assets/js/rental.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script( 'nt-rental', nt_asset_uri( 'assets/js/rental.js' ), array(), nt_asset_ver( 'assets/js/rental.js' ), array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			) );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
