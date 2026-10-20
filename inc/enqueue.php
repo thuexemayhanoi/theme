@@ -86,6 +86,13 @@ function nt_enqueue_assets(): void {
 		);
 	}
 
+	wp_enqueue_style(
+		'nt-color-mode',
+		nt_asset_uri( 'assets/css/color-mode.css' ),
+		array( 'nt-main' ),
+		nt_asset_ver( 'assets/css/color-mode.css' )
+	);
+
 	wp_enqueue_script(
 		'nt-theme',
 		nt_asset_uri( 'assets/js/theme.js' ),
@@ -108,7 +115,13 @@ add_action( 'wp_enqueue_scripts', 'nt_enqueue_assets', 20 ); // after WooCommerc
  * Without JavaScript every menu stays fully visible and reachable.
  */
 function nt_head_js_flag(): void {
-	echo "<script>document.documentElement.classList.add('js');</script>\n";
+	echo '<script>(function(){'
+		. 'var root=document.documentElement;root.classList.add("js");'
+		. 'var mode="light";try{var saved=window.localStorage.getItem("nt-color-mode");'
+		. 'if(saved==="light"||saved==="dark"){mode=saved;}'
+		. 'else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){mode="dark";}'
+		. '}catch(e){}root.setAttribute("data-nt-color-mode",mode);'
+		. '})();</script>' . "\n";
 }
 add_action( 'wp_head', 'nt_head_js_flag', 0 );
 

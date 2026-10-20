@@ -52,6 +52,26 @@ defined( 'ABSPATH' ) || exit;
 		</nav>
 
 		<div class="nt-header__actions">
+			<span class="nt-hours-indicator" role="img" data-nt-hours-status
+				data-open="<?php echo esc_attr( nt_business( 'open' ) ); ?>"
+				data-close="<?php echo esc_attr( nt_business( 'close' ) ); ?>"
+				aria-label="Đang kiểm tra giờ hoạt động" title="Đang kiểm tra giờ hoạt động">
+				<span class="nt-hours-indicator__dot" aria-hidden="true"></span>
+			</span>
+			<button type="button" class="nt-iconbtn nt-theme-toggle" data-nt-theme-toggle
+				aria-label="Đổi giao diện sáng hoặc tối" aria-pressed="false" title="Đổi giao diện sáng hoặc tối">
+				<svg class="nt-mode-icon nt-mode-icon--moon" width="21" height="21" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" aria-hidden="true" focusable="false">
+					<path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"></path>
+				</svg>
+				<svg class="nt-mode-icon nt-mode-icon--sun" width="21" height="21" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" aria-hidden="true" focusable="false">
+					<circle cx="12" cy="12" r="4"></circle>
+					<path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+				</svg>
+			</button>
 			<button type="button" class="nt-iconbtn" data-nt-search-toggle aria-expanded="false" aria-controls="nt-search-panel">
 				<?php nt_the_icon( 'search', array( 'size' => 22 ) ); ?>
 				<span class="screen-reader-text">Mở ô tìm kiếm</span>
