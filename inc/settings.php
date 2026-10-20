@@ -373,10 +373,16 @@ function nt_settings_page(): void {
 			<h2>Trang chủ</h2>
 			<p>Chọn body gọn kiểu Cẩm nang + WooCommerce + bảng giá + tính tiền, hoặc quay về giao diện Flatsome tương thích. Chỉ đổi cách hiển thị, giữ nguyên dữ liệu Page #562 và SEO.</p>
 			<table class="form-table" role="presentation"><tbody><tr><th scope="row">Bố cục body trang chủ</th><td>
-			<?php nt_settings_select( 'nguyentu_options[home_layout]', (string) ( $opts['home_layout'] ?? 'editorial' ), array(
+			<?php
+			nt_settings_select(
+				'nguyentu_options[home_layout]',
+				(string) ( $opts['home_layout'] ?? 'editorial' ),
+				array(
 					'editorial' => 'Gọn kiểu Cẩm nang (khuyến nghị)',
 					'legacy'    => 'Bản cũ Flatsome (khôi phục)',
-				) ); ?>
+				)
+			);
+			?>
 			</td></tr></tbody></table>
 			<p>Các mục bật/tắt riêng bên dưới chỉ áp dụng cho bố cục cũ. Bố cục mới luôn hiển thị bảng giá và kết nối Smart Core để tính tiền.</p>
 			<table class="form-table" role="presentation"><tbody>
