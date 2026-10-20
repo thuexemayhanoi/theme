@@ -12,7 +12,7 @@
 .nt-qc__link:hover, .nt-qc__link:focus-visible { color: #fff; filter: brightness(.93); text-decoration: none; outline: 2px solid var(--nt-navy); outline-offset: 2px; }
 .nt-qc__link--call { background: var(--nt-contact-call, #d2381f); }
 .nt-qc__link--zalo { background: var(--nt-contact-zalo, #0869d5); }
-.nt-qc__link--whatsapp { background: #14773b; }
+.nt-qc__link--whatsapp { background: var(--nt-zalo, #0068ff); }
 .nt-qc__link--chat { background: var(--nt-navy, #1b2f5b); }
 .nt-qc__link--maps { background: var(--nt-contact-maps, #475775); }
 .nt-qc__link .nt-icon { flex: none; }
