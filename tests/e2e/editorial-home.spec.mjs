@@ -23,6 +23,10 @@ for (const width of [390, 768, 1440]) {
 		await expect(page.locator('main .nt-table--prices')).toHaveCount(1);
 		await expect(page.locator('main .nt-table--prices tbody tr').first()).toBeVisible();
 		await expect(page.locator('main .nt-policybox')).toHaveCount(1);
+		// The deposit checklist has the same blue as Zalo, not a third green accent.
+		expect(await page.locator('main .nt-checklist li').first().evaluate(
+			el => getComputedStyle(el, '::before').backgroundColor
+		)).toBe('rgb(0, 104, 255)');
 		// In production the activated Smart Core injects one calculator under the native price table.
 		// On sandbox installations without Smart Core, do not fabricate a second calculator.
 		expect(await page.locator('main .ntsc-rental').count()).toBeLessThanOrEqual(1);
