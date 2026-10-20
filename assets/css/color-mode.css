@@ -1,0 +1,157 @@
+/*
+ * Global color mode and two header micro-controls. No third-party scripts or images.
+ * This sheet is loaded last; existing light palette and theme.json stay unchanged.
+ */
+
+/* Header: visual-only status dot, with accessible labels provided by JavaScript. */
+.nt-hours-indicator {
+	display: inline-flex; align-items: center; justify-content: center;
+	width: 26px; height: 44px; flex: none;
+}
+.nt-hours-indicator__dot {
+	width: 12px; height: 12px; border-radius: 50%;
+	background: #858f9c; border: 2px solid var(--nt-paper);
+	box-shadow: 0 0 0 1px rgb(20 33 61 / 16%);
+	transition: background-color .2s ease, box-shadow .2s ease;
+}
+.nt-hours-indicator[data-nt-hours-state="open"] .nt-hours-indicator__dot {
+	background: #14995b; box-shadow: 0 0 0 3px rgb(20 153 91 / 16%);
+}
+.nt-hours-indicator[data-nt-hours-state="closed"] .nt-hours-indicator__dot {
+	background: #d43b36; box-shadow: 0 0 0 3px rgb(212 59 54 / 13%);
+}
+.nt-theme-toggle { flex: none; }
+.nt-theme-toggle .nt-mode-icon--sun { display: none; }
+html[data-nt-color-mode="dark"] .nt-theme-toggle .nt-mode-icon--moon { display: none; }
+html[data-nt-color-mode="dark"] .nt-theme-toggle .nt-mode-icon--sun { display: block; }
+
+/* Dark palette: readability first; never invert photographs or product imagery. */
+html[data-nt-color-mode="dark"] {
+	color-scheme: dark;
+	--nt-cream: #101827;
+	--nt-paper: #1b2940;
+	--nt-sand: #25344b;
+	--nt-line: #3d4a63;
+	--nt-ink: #f2f5ff;
+	--nt-muted: #c4cee0;
+	--nt-navy: #b9cff9;
+	--nt-navy-700: #deebff;
+	--nt-navy-900: #0a162b;
+	--nt-navy-100: #2c3d59;
+	--nt-accent: #ef7763;
+	--nt-accent-700: #ffa18d;
+	--nt-focus: #ffd77c;
+	--nt-shadow-sm: 0 1px 3px rgb(0 0 0 / 20%);
+	--nt-shadow: 0 10px 26px rgb(0 0 0 / 30%);
+	--nt-shadow-lg: 0 24px 48px rgb(0 0 0 / 42%);
+	--wp--preset--color--cream: #101827;
+	--wp--preset--color--paper: #1b2940;
+	--wp--preset--color--sand: #25344b;
+	--wp--preset--color--ink: #f2f5ff;
+	--wp--preset--color--navy: #b9cff9;
+	--wp--preset--color--navy-soft: #2c3d59;
+	--wp--preset--color--accent: #ef7763;
+}
+html[data-nt-color-mode="dark"] .nt-header::before {
+	background: rgb(16 24 39 / 95%);
+}
+html[data-nt-color-mode="dark"] .nt-brand__mark {
+	background: #2d5084; color: #fff;
+}
+html[data-nt-color-mode="dark"] .nt-btn--ghost:hover {
+	background: #2d5084; color: #fff; border-color: #2d5084;
+}
+html[data-nt-color-mode="dark"] :is(.nt-hero__title, .nt-hero__lead, .nt-faq__a, .woocommerce-product-details__short-description) {
+	color: var(--nt-ink);
+}
+html[data-nt-color-mode="dark"] .nt-hero::before {
+	background-image: radial-gradient(circle at 1px 1px, rgb(190 205 239 / 10%) 1px, transparent 0);
+}
+html[data-nt-color-mode="dark"] :is(.nt-prose tbody tr:nth-child(even), .nt-table--prices tbody tr:nth-child(even)) {
+	background: var(--nt-sand);
+}
+html[data-nt-color-mode="dark"] :is(.nt-card__placeholder, .nt-map) {
+	background: linear-gradient(135deg, var(--nt-navy-100), var(--nt-sand));
+}
+html[data-nt-color-mode="dark"] :is(.nt-hero__card, .nt-section--navy, .nt-ctabox) {
+	background: linear-gradient(155deg, #243c64, #0a162b);
+	color: #fff;
+}
+html[data-nt-color-mode="dark"] :is(.nt-section--navy, .nt-hero__card, .nt-ctabox) a {
+	color: #fff;
+}
+html[data-nt-color-mode="dark"] :is(.nt-btn--primary, .nt-search__btn, .wpcf7 .wpcf7-submit,
+	.nt-prose thead th, .nt-table--prices thead th, .nt-comments .form-submit input,
+	.nt-authorbox__badge, .nt-woocommerce .button, .page-numbers.current,
+	.woocommerce .button, .woocommerce .woocommerce-MyAccount-navigation .is-active a) {
+	color: #fff; background: #2d5084; border-color: #2d5084;
+}
+html[data-nt-color-mode="dark"] :is(.nt-btn--primary:hover, .nt-search__btn:hover,
+	.woocommerce .button:hover) { color: #fff; background: #4268a1; }
+html[data-nt-color-mode="dark"] :is(.nt-btn--call, .nt-ctabar__btn--call,
+	.woocommerce .button.alt, .woocommerce a.checkout-button) {
+	color: #fff; background: #b43c2a;
+}
+html[data-nt-color-mode="dark"] :is(a.nt-chip:hover, .nt-tags a:hover, .nt-share__btn:hover) {
+	color: #fff; background: #315a91;
+}
+html[data-nt-color-mode="dark"] .nt-ctabar { background: rgb(16 24 39 / 96%); }
+html[data-nt-color-mode="dark"] .nt-hero__facts { color: var(--nt-muted); }
+html[data-nt-color-mode="dark"] .nt-footer { background: #091529; }
+html[data-nt-color-mode="dark"] .woocommerce-product-gallery__trigger {
+	background: var(--nt-paper); color: var(--nt-ink);
+}
+/* Native quick-call stays legible; the assistant follows the requested mode. */
+html[data-nt-color-mode="dark"] :is(.nt-qc__launch, .nt-qc__link--chat,
+	.nt-assist__launch, .nt-assist__head, .nt-assist__message--user) {
+	background: #2d5084; color: #fff;
+}
+html[data-nt-color-mode="dark"] .nt-qc__menu {
+	background: var(--nt-paper); border-color: var(--nt-line);
+}
+html[data-nt-color-mode="dark"] .nt-assist__panel {
+	background: #1b2940; border-color: var(--nt-line); color: var(--nt-ink);
+}
+html[data-nt-color-mode="dark"] :is(.nt-assist__scroll, .nt-assist__status) {
+	background: #131f33; color: var(--nt-muted);
+}
+html[data-nt-color-mode="dark"] :is(.nt-assist__bot, .nt-assist__message,
+	.nt-assist__shortcuts, .nt-assist__form, .nt-assist__privacy, .nt-assist__note) {
+	background: #263650; color: var(--nt-ink); border-color: var(--nt-line);
+}
+html[data-nt-color-mode="dark"] :is(.nt-assist__form input, .nt-assist__shortcuts button,
+	.nt-assist__privacy button) {
+	background: var(--nt-paper); color: var(--nt-ink); border-color: var(--nt-line);
+}
+html[data-nt-color-mode="dark"] :is(.nt-assist__privacy span, .nt-assist__sources-title,
+	.nt-assist__note, .nt-assist__status) { color: var(--nt-muted); }
+html[data-nt-color-mode="dark"] .nt-assist__sources a,
+html[data-nt-color-mode="dark"] .nt-assist__note a { color: #c0d9ff; }
+
+/* Phones: preserve one row, tappable controls, and a full-width menu drawer. */
+@media (max-width: 639.98px) {
+	.nt-hours-indicator { width: 20px; }
+	.nt-theme-toggle { width: 40px; height: 44px; }
+	.nt-header__actions { gap: 1px; }
+}
+@media (max-width: 359.98px) {
+	.nt-header__inner { gap: 3px; }
+	.nt-header__actions { gap: 0; }
+	.nt-header__actions > .nt-iconbtn { width: 38px; }
+	.nt-hours-indicator { width: 18px; }
+	.nt-brand__mark { width: 32px; height: 32px; }
+	.nt-brand__link { gap: 5px; }
+	.nt-brand__name { font-size: .9rem; }
+}
+/* Narrow laptop: 9 existing menu groups + two controls without clipping. */
+@media (min-width: 1240px) and (max-width: 1499.98px) {
+	.nt-header__inner { gap: 6px; }
+	.nt-brand__tag { display: none; }
+	.nt-header__actions { gap: 0; }
+	.nt-menu__item--d0 > .nt-menu__link { font-size: .85rem; padding-inline: 7px; }
+	.nt-menu__item--d0.nt-has-sub > .nt-menu__link { padding-right: 2px; }
+	.nt-menu__item--d0 > .nt-sub-toggle { width: 28px; height: 28px; margin-right: 8px; }
+}
+@media print {
+	.nt-theme-toggle, .nt-hours-indicator { display: none !important; }
+}

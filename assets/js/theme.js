@@ -9,7 +9,81 @@
 	var body = doc.body;
 	var $ = function (sel, root) { return (root || doc).querySelector(sel); };
 	var $$ = function (sel, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(sel)); };
-	var desktop = window.matchMedia('(min-width: 1024px)');
+	var desktop = window.matchMedia('(min-width: 1240px)');
+
+	/* ---------- Accessible light/dark mode ---------- */
+	var modeBtn = $('[data-nt-theme-toggle]');
+	if (modeBtn) {
+		var modeRoot = doc.documentElement;
+		var updateModeButton = function () {
+			var dark = modeRoot.getAttribute('data-nt-color-mode') === 'dark';
+			modeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+			var label = dark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối';
+			modeBtn.setAttribute('aria-label', label);
+			modeBtn.setAttribute('title', label);
+		};
+		updateModeButton();
+		modeBtn.addEventListener('click', function () {
+			var next = modeRoot.getAttribute('data-nt-color-mode') === 'dark' ? 'light' : 'dark';
+			modeRoot.setAttribute('data-nt-color-mode', next);
+			try { window.localStorage.setItem('nt-color-mode', next); } catch { /* Privacy mode. */ }
+			updateModeButton();
+		});
+	}
+
+	/* ---------- Live store-hours indicator (never cache the state in PHP/HTML) ---------- */
+	var hoursBadge = $('[data-nt-hours-status]');
+	if (hoursBadge && window.Intl && window.Intl.DateTimeFormat) {
+		var hhmmToMinutes = function (value) {
+			var match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(value || '');
+			return match ? Number(match[1]) * 60 + Number(match[2]) : null;
+		};
+		var openAt = hhmmToMinutes(hoursBadge.getAttribute('data-open'));
+		var closeAt = hhmmToMinutes(hoursBadge.getAttribute('data-close'));
+		var hoursFormatter;
+		try {
+			hoursFormatter = new Intl.DateTimeFormat('en-GB', {
+				timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+			});
+		} catch { hoursFormatter = null; }
+		var refreshHours = function () {
+			if (!hoursFormatter || openAt === null || closeAt === null || openAt === closeAt) {
+				hoursBadge.removeAttribute('data-nt-hours-state');
+				hoursBadge.setAttribute('aria-label', 'Chưa thể xác định giờ hoạt động');
+				hoursBadge.title = 'Chưa thể xác định giờ hoạt động';
+				return;
+			}
+			try {
+				var parts = hoursFormatter.formatToParts(new Date());
+				var hours = null;
+				var minutes = null;
+				parts.forEach(function (part) {
+					if (part.type === 'hour') { hours = Number(part.value); }
+					if (part.type === 'minute') { minutes = Number(part.value); }
+				});
+				if (hours === null || minutes === null) { throw new Error('Missing timezone fields'); }
+				var now = hours * 60 + minutes;
+				var open = openAt < closeAt
+					? now >= openAt && now < closeAt
+					: now >= openAt || now < closeAt;
+				hoursBadge.setAttribute('data-nt-hours-state', open ? 'open' : 'closed');
+				var label = (open ? 'Cửa hàng đang mở' : 'Cửa hàng đã đóng') +
+					'. Giờ hoạt động ' + hoursBadge.getAttribute('data-open') +
+					'–' + hoursBadge.getAttribute('data-close') + ' (giờ Hà Nội)';
+				hoursBadge.setAttribute('aria-label', label);
+				hoursBadge.title = label;
+			} catch {
+				hoursBadge.removeAttribute('data-nt-hours-state');
+				hoursBadge.setAttribute('aria-label', 'Chưa thể xác định giờ hoạt động');
+				hoursBadge.title = 'Chưa thể xác định giờ hoạt động';
+			}
+		};
+		refreshHours();
+		window.setInterval(refreshHours, 30000);
+		doc.addEventListener('visibilitychange', function () {
+			if (!doc.hidden) { refreshHours(); }
+		});
+	}
 
 	/* ---------- Sticky header shadow ---------- */
 	var header = $('#site-header');
@@ -23,7 +97,7 @@
 		}).observe(sentinel);
 	}
 
-	/* ---------- Off-canvas menu (below 1024px) ---------- */
+	/* ---------- Off-canvas menu (below 1240px) ---------- */
 	var nav = $('#nt-nav');
 	var toggle = $('[data-nt-menu-toggle]');
 	var closeBtn = $('[data-nt-menu-close]');
