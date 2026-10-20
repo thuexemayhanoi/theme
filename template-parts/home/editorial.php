@@ -119,7 +119,7 @@ $nt_shortcuts = array(
 					?>
 				</li>
 				<?php ++$nt_featured_index; ?>
-			<?php
+				<?php
 			endwhile;
 			wp_reset_postdata();
 			?>
@@ -173,7 +173,7 @@ foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 			'post_status'         => 'publish',
 			'posts_per_page'      => 3,
 			'post__not_in'        => $nt_shown,
-			'tax_query'           => array(
+			'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded three-item category query; excludes duplicate posts.
 				array(
 					'taxonomy'         => 'category',
 					'field'            => 'term_id',
