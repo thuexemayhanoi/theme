@@ -31,6 +31,9 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__panel.nt-assist__panel--keyboard { top: var(--nt-chat-top, 8px); bottom: auto; height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
 .nt-assist__panel--keyboard .nt-assist__privacy,
 .nt-assist__panel--keyboard .nt-assist__note { display: none; }
+.nt-assist__panel--compact .nt-assist__shortcuts { display: none; }
+.nt-assist__panel--compact .nt-assist__head { padding-top: 6px; padding-bottom: 6px; }
+.nt-assist__panel--compact .nt-assist__scroll { padding: 8px; }
 .nt-assist__panel--keyboard .nt-assist__head,
 .nt-assist__panel--keyboard .nt-assist__shortcuts,
 .nt-assist__panel--keyboard .nt-assist__form,
