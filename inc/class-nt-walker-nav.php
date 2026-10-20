@@ -169,7 +169,7 @@ class NT_Walker_Nav extends Walker_Nav_Menu {
 
 		$title   = apply_filters( 'the_title', $item->title, $item->ID );
 		$title   = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
-		$title   = nt_navigation_label( (string) $title );
+		$title   = nt_navigation_label( (string) $title, (string) ( $item->object ?? '' ) );
 		$output .= '<a' . $attr_html . '>' . $title . '</a>';
 
 		if ( $has_sub ) {
