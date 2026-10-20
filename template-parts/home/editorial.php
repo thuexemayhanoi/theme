@@ -47,6 +47,11 @@ $nt_shortcuts = array(
 		'label' => 'Thuê xe điện',
 		'slug'  => 'xe-dien',
 	),
+	array(
+		'label'       => 'Xe máy 50cc',
+		'post_id'     => 895, // Published 50cc rental guide; resolve its real URL.
+		'fallback_id' => 669, // Original 50cc Woo product; available in the legacy snapshot.
+	),
 );
 ?>
 <section class="nt-home-mag__intro" aria-labelledby="nt-home-mag-title">
@@ -58,8 +63,10 @@ $nt_shortcuts = array(
 			<?php
 			nt_cta_buttons(
 				array(
-					'size'  => 'md',
-					'class' => 'nt-home-mag__actions',
+					'size'       => 'md',
+					'class'      => 'nt-home-mag__actions',
+					'zalo'       => false,
+					'call_label' => 'Gọi ngay',
 				)
 			);
 			?>
@@ -70,12 +77,25 @@ $nt_shortcuts = array(
 			<nav aria-label="Lối tắt thuê xe" class="nt-home-mag__shortcuts">
 				<?php
 				foreach ( $nt_shortcuts as $nt_shortcut ) :
-					$nt_term = get_term_by( 'slug', $nt_shortcut['slug'], 'product_cat' );
-					if ( ! $nt_term instanceof WP_Term ) {
-						continue;
+					$nt_url = '';
+					if ( isset( $nt_shortcut['post_id'] ) ) {
+						$nt_rental_guide = get_post( (int) $nt_shortcut['post_id'] );
+						if ( $nt_rental_guide instanceof WP_Post && 'post' === $nt_rental_guide->post_type && 'publish' === $nt_rental_guide->post_status ) {
+							$nt_url = get_permalink( $nt_rental_guide );
+						}
+						if ( ( ! is_string( $nt_url ) || '' === $nt_url ) && isset( $nt_shortcut['fallback_id'] ) ) {
+							$nt_product = get_post( (int) $nt_shortcut['fallback_id'] );
+							if ( $nt_product instanceof WP_Post && 'product' === $nt_product->post_type && 'publish' === $nt_product->post_status ) {
+								$nt_url = get_permalink( $nt_product );
+							}
+						}
+					} else {
+						$nt_term = get_term_by( 'slug', $nt_shortcut['slug'], 'product_cat' );
+						if ( $nt_term instanceof WP_Term ) {
+							$nt_url = get_term_link( $nt_term );
+						}
 					}
-					$nt_url = get_term_link( $nt_term );
-					if ( is_wp_error( $nt_url ) ) {
+					if ( ! is_string( $nt_url ) || '' === $nt_url ) {
 						continue;
 					}
 					?>
