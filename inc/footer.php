@@ -194,7 +194,7 @@ function nt_footer_resolve_link( array $item ): ?array {
 	}
 
 	return array(
-		'label' => $label,
+		'label' => nt_navigation_label( $label ),
 		'url'   => $url,
 	);
 }

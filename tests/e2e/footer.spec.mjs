@@ -162,8 +162,8 @@ test('only strategic Hub, rental and information links; no copied 36-item menu',
 		expect(n).toBeLessThanOrEqual(max);
 	}
 	await expect(footer.locator('.nt-footer__column--rental nav a')).toContainText([
-		'Bảng giá thuê xe máy', 'Thuê theo ngày', 'Thuê theo tuần', 'Thuê theo tháng',
-		'Xe ga 50cc', 'Xe số', 'Xe ga', 'Thuê xe máy điện', 'Thuê xe đạp điện',
+		'Bảng giá', 'Thuê ngày', 'Thuê tuần', 'Thuê tháng',
+		'Xe ga 50cc', 'Xe số', 'Xe ga', 'Xe máy điện', 'Xe đạp điện',
 	]);
 	const problems = await footer.locator('.nt-footer__list').evaluateAll((menus) => {
 		const links = menus.flatMap((el) => [...el.querySelectorAll('a')]);

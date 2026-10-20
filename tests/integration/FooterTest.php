@@ -28,6 +28,7 @@ final class FooterTest extends TestCase {
 		foreach ( $groups as $items ) {
 			foreach ( $items as $item ) {
 				$this->assertNotSame( '', $item['label'] );
+				$this->assertLessThanOrEqual( 3, nt_word_count( $item['label'] ) );
 				$this->assertStringStartsWith( home_url( '/' ), $item['url'] );
 				$urls[]   = $item['url'];
 				$labels[] = $item['label'];

@@ -79,7 +79,7 @@ final class MenuTest extends TestCase {
 		// Blog (3 levels) becomes the mega panel; simple dropdowns stay simple.
 		$mega = $xp->query( '//li[contains(@class,"nt-has-mega")]/a' );
 		$this->assertSame( 1, $mega->length );
-		$this->assertSame( 'Blog', trim( $mega->item( 0 )->textContent ) );
+		$this->assertSame( 'Cẩm nang', trim( $mega->item( 0 )->textContent ) );
 
 		// Disclosure buttons point at lists that exist.
 		foreach ( $xp->query( '//button[@data-nt-sub-toggle]' ) as $btn ) {
@@ -99,5 +99,22 @@ final class MenuTest extends TestCase {
 		// Resolution falls back to the legacy menu id when a location is not assigned.
 		$this->assertSame( 67, nt_resolve_menu_id( 'primary' ) );
 		$this->assertCount( 36, nt_menu_snapshot( 67 ) );
+	}
+
+	public function test_short_labels_preserve_every_href_and_stored_menu_value(): void {
+		$before = nt_menu_snapshot( 67 );
+		ob_start();
+		nt_render_menu( 'primary' );
+		$html = (string) ob_get_clean();
+		$urls = array();
+		foreach ( nt_it_xpath( $html )->query( '//a[contains(@class,"nt-menu__link")]' ) as $link ) {
+			$urls[] = $link->getAttribute( 'href' );
+			$this->assertLessThanOrEqual( 3, nt_word_count( $link->textContent ), $link->textContent );
+		}
+		$expected = array_column( $before, 'url' );
+		sort( $expected );
+		sort( $urls );
+		$this->assertSame( $expected, $urls, 'No destination added, removed or changed.' );
+		$this->assertSame( $before, nt_menu_snapshot( 67 ), 'Rendering must never edit stored menu data.' );
 	}
 }
