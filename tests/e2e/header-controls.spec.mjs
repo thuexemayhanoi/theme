@@ -16,7 +16,7 @@ for (const width of [360, 768, 1280]) {
 		});
 
 		test('switches dark/light, saves choice, and retains the mode after reload', async ({ page }) => {
-			await page.addInitScript(() => localStorage.setItem('nt-color-mode', 'light'));
+			await page.addInitScript(() => { if (localStorage.getItem('nt-color-mode') === null) { localStorage.setItem('nt-color-mode', 'light'); } });
 			await page.goto('/');
 			const mode = page.locator('[data-nt-theme-toggle]');
 			await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', 'light');
