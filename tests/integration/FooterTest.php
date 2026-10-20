@@ -23,6 +23,14 @@ final class FooterTest extends TestCase {
 		$this->assertCount( 9, $groups['rental'] );
 		$this->assertCount( 7, $groups['hubs'] );
 		$this->assertCount( 5, $groups['info'] );
+		$rental_labels = array_column( $groups['rental'], 'label' );
+		$this->assertContains( 'Thuê xe số', $rental_labels );
+		$this->assertContains( 'Thuê xe ga', $rental_labels );
+		$this->assertContains( 'Thuê xe điện', $rental_labels );
+		$this->assertNotContains( 'Xe số', $rental_labels );
+		$this->assertNotContains( 'Xe ga', $rental_labels );
+		$this->assertNotContains( 'Xe máy điện', $rental_labels );
+		$this->assertContains( 'Xe điện', array_column( $groups['hubs'], 'label' ) );
 		$urls   = array();
 		$labels = array();
 		foreach ( $groups as $items ) {
