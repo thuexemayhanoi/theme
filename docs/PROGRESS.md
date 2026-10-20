@@ -155,3 +155,11 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - Green CI: 72 integration tests, 53 recovery HTTP checks with zero failures, both partial-registration cases, 222 valid internal targets, browser/WooCommerce/SEO suites.
 - Production predeployment backup stored in `nguyentu_legacy_url_predeploy_20261019` (39 legacy rules + original registration snapshot). No production rewrite flush or content/term/SEO edits.
 - **Live plugin remains active v1.0.0; the old URL still returns 404.** Custom ZIP installation is pending because the connected installers only accept WordPress.org packages. Theme merge alone does not update the separate plugin. Do not claim live completion.
+
+## 2026-10-20 — Compact menu and footer labels
+
+- Owner requested short labels of 2–3 words throughout menu/footer, with every existing link preserved. `inc/navigation-labels.php` supplies one display-only mapping for the shared walker and footer resolver; unknown labels pass through. No database, permalink, category, title/H1, metadata or link target writes.
+- Footer group headings shortened to “Thuê xe”, “Cẩm nang”, “Thông tin”; casing made consistent. Stored menu order, hierarchy and object IDs remain authoritative.
+- Local validation: ESLint, 48 Node tests, CSS parsing, asset budgets and 33 contrast checks passed. PHP is unavailable locally, so PHP lint, standards and unit/integration checks run in GitHub CI. Existing footer assertions updated; menu regression compares all rendered hrefs and stored values.
+- Captured production menu/footer hrefs and homepage SEO before deployment. LIVE_UNCHANGED at this checkpoint; deploy through the existing main webhook after CI, then purge cache and compare the same links and SEO on live.
+- Rollback: revert this change through the existing deployment path; no database restoration is needed.

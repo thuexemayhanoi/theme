@@ -661,7 +661,10 @@ body.nt-has-chat .nt-footer__bottom { padding-right: 84px; }
 	body.nt-has-quickcall .nt-footer__bottom { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
 }
 body.nt-has-cta-bar { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+/* Legacy fixed QuickCall occupies the full bottom 56px even on wide screens.
+ * Keep Back-to-Top visible above that bar. Native QuickCall is handled in assist.css. */
 @media (min-width: 768px) {
+	body.nt-has-quickcall:not(.nt-has-native-quickcall) .nt-footer__bottom { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 	.nt-ctabar { display: none; }
 	body.nt-has-cta-bar { padding-bottom: 0; }
 }

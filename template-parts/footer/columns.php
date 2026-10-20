@@ -34,21 +34,21 @@ $nt_tagline       = nt_footer_tagline();
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--rental" aria-labelledby="nt-f-rental">
-		<h2 id="nt-f-rental" class="nt-footer__title">Thuê xe &amp; bảng giá</h2>
+		<h2 id="nt-f-rental" class="nt-footer__title">Thuê xe</h2>
 		<nav aria-label="Dịch vụ và bảng giá thuê xe máy">
 			<?php nt_footer_list( $nt_footer_groups['rental'] ); ?>
 		</nav>
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--blog" aria-labelledby="nt-f-blog">
-		<h2 id="nt-f-blog" class="nt-footer__title">Cẩm nang &amp; Blog</h2>
+		<h2 id="nt-f-blog" class="nt-footer__title">Cẩm nang</h2>
 		<nav aria-label="Các chuyên mục hướng dẫn và kinh nghiệm">
 			<?php nt_footer_list( $nt_footer_groups['hubs'] ); ?>
 		</nav>
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--contact" aria-labelledby="nt-f-contact">
-		<h2 id="nt-f-contact" class="nt-footer__title">Liên hệ &amp; thông tin</h2>
+		<h2 id="nt-f-contact" class="nt-footer__title">Thông tin</h2>
 		<nav aria-label="Giới thiệu, liên hệ và chính sách">
 			<?php nt_footer_list( $nt_footer_groups['info'] ); ?>
 		</nav>

@@ -5,6 +5,16 @@ use PHPUnit\Framework\TestCase;
 
 final class TextTest extends TestCase {
 
+	public function test_navigation_labels_handle_case_entities_and_preserve_unknown_items(): void {
+		$this->assertSame( 'So sánh xe', nt_navigation_label( 'Đánh Giá &amp; So Sánh Xe' ) );
+		$this->assertSame( 'Hướng dẫn', nt_navigation_label( 'Hướng dẫn thuê xe' ) );
+		$this->assertSame( 'Xe máy điện', nt_navigation_label( 'Thuê xe máy điện' ) );
+		$this->assertSame( 'Xe đạp điện', nt_navigation_label( 'Thuê xe đạp điện' ) );
+		$this->assertSame( 'Thuê theo phường', nt_navigation_label( 'Thuê xe máy theo phường Hà Nội' ) );
+		$this->assertSame( 'Mục mới chưa cấu hình', nt_navigation_label( 'Mục mới chưa cấu hình' ) );
+		$this->assertSame( '', nt_navigation_label( '' ) );
+	}
+
 	public function test_slugify_removes_vietnamese_diacritics(): void {
 		$this->assertSame( 'cho-thue-xe-may-ha-noi', nt_slugify( 'Cho Thuê Xe Máy Hà Nội' ) );
 		$this->assertSame( 'duong-nguyen-van-cu', nt_slugify( 'Đường Nguyễn Văn Cừ' ) );
