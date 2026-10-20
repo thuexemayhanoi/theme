@@ -98,6 +98,45 @@ html[data-nt-color-mode="dark"] :is(a.nt-chip:hover, .nt-tags a:hover, .nt-share
 html[data-nt-color-mode="dark"] .nt-ctabar { background: rgb(16 24 39 / 96%); }
 html[data-nt-color-mode="dark"] .nt-hero__facts { color: var(--nt-muted); }
 html[data-nt-color-mode="dark"] .nt-footer { background: #091529; }
+/* Contrast-safe surfaces: --nt-navy becomes a LIGHT text color in dark mode,
+ * so it cannot also be used as the background of the editorial closing CTA. */
+html[data-nt-color-mode="dark"] .nt-home-mag__closing {
+	background: #1b2f5b;
+	color: #fff;
+}
+html[data-nt-color-mode="dark"] .nt-home-mag__closing h2 { color: #fff; }
+html[data-nt-color-mode="dark"] .nt-home-mag__closing p { color: #e0e6f1; }
+
+/* Ghost CTAs must remain outlined and transparent over every dark surface,
+ * instead of the light-mode semi-opaque white background (grey on Safari). */
+html[data-nt-color-mode="dark"] .nt-btn--ghost {
+	color: #e5efff;
+	background: transparent;
+	border-color: #a9bfdf;
+	box-shadow: none;
+}
+html[data-nt-color-mode="dark"] .nt-btn--ghost:hover,
+html[data-nt-color-mode="dark"] .nt-btn--ghost:focus-visible {
+	color: #fff;
+	background: #2d5084;
+	border-color: #b9cff9;
+}
+
+/* The three footer CTAs must ALL match the site's outlined social pills.
+ * Override the stronger dark-mode call-button color rule above. */
+html[data-nt-color-mode="dark"] .nt-footer .nt-footer__contact .nt-cta .nt-btn:is(.nt-btn--call, .nt-btn--zalo, .nt-btn--ghost) {
+	color: #fff;
+	background: transparent;
+	border-color: rgb(255 255 255 / 38%);
+	box-shadow: none;
+}
+html[data-nt-color-mode="dark"] .nt-footer .nt-footer__contact .nt-cta .nt-btn:is(.nt-btn--call, .nt-btn--zalo, .nt-btn--ghost):is(:hover, :focus-visible) {
+	color: #fff;
+	background: rgb(255 255 255 / 12%);
+	border-color: rgb(255 255 255 / 38%);
+}
+
+
 html[data-nt-color-mode="dark"] .woocommerce-product-gallery__trigger {
 	background: var(--nt-paper); color: var(--nt-ink);
 }

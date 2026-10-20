@@ -190,3 +190,29 @@ test('footer is shared by core page, archive, WooCommerce and collection', async
 		await expect(page.locator('#site-footer h1')).toHaveCount(0);
 	}
 });
+
+for (const width of [390, 768, 1440]) {
+	test(`dark footer: three action pills stay outlined and match social links at ${width}px`, async ({ page }) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.addInitScript(() => localStorage.setItem('nt-color-mode', 'dark'));
+		await page.goto('/', { waitUntil: 'networkidle' });
+		await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', 'dark');
+		const footer = page.locator('#site-footer');
+		const cta = footer.locator('.nt-footer__column--contact .nt-cta > a');
+		await expect(cta).toHaveCount(3);
+		const styles = await cta.evaluateAll((items) => items.map((item) => {
+			const s = getComputedStyle(item);
+			return { background: s.backgroundColor, color: s.color, border: s.borderTopColor };
+		}));
+		const socialStyle = await footer.locator('.nt-footer__social a').first().evaluate((el) => {
+			const s = getComputedStyle(el);
+			return { background: s.backgroundColor, color: s.color, border: s.borderTopColor };
+		});
+		for (const style of styles) {
+			expect(style).toEqual(socialStyle);
+			expect(style.background).toBe('rgba(0, 0, 0, 0)');
+		}
+		await noHorizontalScroll(page);
+		expect(await overflowOffenders(page)).toEqual([]);
+	});
+}
