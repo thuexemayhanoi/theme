@@ -13,7 +13,32 @@
 	color: var(--nt-ink);
 }
 .nt-home-mag__lead { max-width: 62ch; margin: 0 0 20px; color: var(--nt-muted); font-size: clamp(1rem, .95rem + .3vw, 1.16rem); line-height: 1.7; }
-.nt-home-mag__actions { margin-top: 18px; }
+/* Exactly two hero actions: keep Call and Directions on one clear row on phones,
+ * tablets and laptops. Other CTAs (footer, closing band, Quick Call) are untouched. */
+.nt-home-mag__actions {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+	margin-top: 18px;
+	max-width: 500px;
+}
+.nt-home-mag__actions .nt-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-width: 0;
+	width: 100%;
+	padding: .75em .85em;
+	font-size: clamp(.86rem, 1.75vw, 1rem);
+	white-space: nowrap;
+}
+.nt-home-mag__actions .nt-btn--ghost { background: transparent; }
+@media (max-width: 359.98px) {
+	.nt-home-mag__actions { gap: 8px; }
+	.nt-home-mag__actions .nt-btn { gap: 6px; padding-inline: .55em; font-size: .84rem; }
+	.nt-home-mag__actions .nt-icon { width: 18px; height: 18px; }
+}
 .nt-home-mag__find {
 	min-width: 0; padding: clamp(20px, 3vw, 30px);
 	background: var(--nt-paper); border: 1px solid var(--nt-line);
