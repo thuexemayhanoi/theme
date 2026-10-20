@@ -259,3 +259,51 @@
 @media (max-width: 549px) { .nt-legacy .hide-for-small { display: none !important; } }
 @media (min-width: 550px) and (max-width: 849px) { .nt-legacy .hide-for-medium { display: none !important; } }
 @media (min-width: 550px) { .nt-legacy .show-for-small { display: none !important; } }
+
+
+/* Contact page #372 — protect old Flatsome shortcode content from fixed black/white
+ * surfaces and oversized inline spacing when displayed by the new theme.
+ * Scoped to this exact WordPress page; no other section or stored content changes.
+ */
+#post-372 .nt-lg-section {
+	min-height: 0;
+	padding-block: clamp(16px, 3vw, 40px);
+	background-color: var(--nt-cream) !important;
+	color: var(--nt-ink);
+}
+#post-372 .nt-lg-section__inner > .nt-lg-gap { display: none; }
+#post-372 .nt-lg-section__inner > .nt-lg-row > .nt-lg-col {
+	padding: clamp(16px, 4vw, 36px) !important;
+	background-color: var(--nt-paper) !important;
+	color: var(--nt-ink);
+	border: 1px solid var(--nt-line);
+	border-radius: var(--nt-radius);
+	box-shadow: var(--nt-shadow-sm);
+}
+#post-372 .nt-lg-section .nt-lg-text {
+	font-size: 1rem !important;
+	color: var(--nt-ink) !important;
+}
+#post-372 .nt-lg-section :is(h1, h2, h3, h4, p, li, label) { color: var(--nt-ink); }
+#post-372 .nt-lg-section h1 {
+	font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+	line-height: 1.22;
+	overflow-wrap: anywhere;
+}
+#post-372 .nt-lg-section .nt-lg-row .nt-lg-row { gap: clamp(18px, 3vw, 30px); }
+#post-372 .nt-lg-section .nt-lg-row .nt-lg-row > .nt-lg-col {
+	padding: 0 !important;
+	margin-top: 0 !important;
+}
+#post-372 .nt-lg-section a:not(.nt-btn) { color: var(--nt-navy); }
+#post-372 .nt-lg-section .nt-lg-html iframe {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 3;
+	border-radius: var(--nt-radius-sm);
+}
+/* The second archived map points to the former Moto Open listing.
+ * Hide it from this contact layout without deleting the legacy WP data.
+ */
+#post-372 .nt-lg-section .nt-lg-col > .nt-lg-html:last-child { display: none; }
