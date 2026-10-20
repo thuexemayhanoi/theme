@@ -13,6 +13,16 @@ test.describe('desktop menu (1280px)', () => {
 		await expect(page.locator('[data-nt-menu-toggle]')).toBeHidden();
 	});
 
+	test('rental catalogue has distinct link labels without changing destinations', async ({ page }) => {
+		await page.goto('/');
+		for (const [slug, label] of [['xe-so', 'Thuê xe số'], ['xe-ga', 'Thuê xe ga'], ['xe-dien', 'Thuê xe điện']]) {
+			const anchor = page.locator('#nt-nav a.nt-menu__link[href$="/danh-muc-san-pham/loai-xe/' + slug + '/"]');
+			await expect(anchor).toHaveCount(1);
+			await expect(anchor).toHaveText(label);
+		}
+		await expect(page.locator('#nt-nav a.nt-menu__link[href$="/blog/xe-dien/"]')).toHaveText('Xe điện');
+	});
+
 	test('keyboard: Tab to a parent, toggle opens it, Escape closes it and returns focus', async ({ page }) => {
 		await page.goto('/');
 		const blog = page.locator('li.nt-menu__item--d0.nt-has-mega');
