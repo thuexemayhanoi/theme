@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { noHorizontalScroll } from './helpers.mjs';
 
 const SIMS = (process.env.NT_SIMS ?? 'on') === 'on';
@@ -36,6 +37,12 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 		await expect(page.locator('#nt-assist-dialog')).toBeVisible();
 		await expect(page.locator('body')).toHaveClass(/nt-chat-is-open/);
 		await expect(page.locator('.nt-assist__head')).toContainText('Tra cứu nội dung công khai');
+		// Inspect the open panel: a closed dialog hides its visible-label and target-size defects.
+		const accessibility = await new AxeBuilder({ page })
+			.withRules(['target-size', 'label-content-name-mismatch'])
+			.analyze();
+		expect(accessibility.violations.map(item => ({ id: item.id, targets: item.nodes.map(node => node.target) }))).toEqual([]);
+
 		if (width < 768) {
 			await expect(page.locator('[data-nt-chat-close]')).toBeFocused();
 		} else {

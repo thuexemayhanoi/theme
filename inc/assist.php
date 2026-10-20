@@ -145,7 +145,7 @@ function nt_assist_render(): void {
 				<p class="nt-assist__status" data-nt-chat-status role="status" aria-live="polite" hidden>Đang tìm thông tin phù hợp…</p>
 				<div class="nt-assist__privacy">
 					<span>Chỉ nhớ chủ đề và tối đa 5 nguồn công khai trong trình duyệt, tự hết hạn. Không lưu lịch sử chat.</span>
-					<button type="button" data-nt-chat-clear aria-label="Xóa bộ nhớ tư vấn trên thiết bị">Xóa ghi nhớ</button>
+					<button type="button" data-nt-chat-clear aria-label="Xóa ghi nhớ tư vấn trên thiết bị">Xóa ghi nhớ</button>
 				</div>
 				<p class="nt-assist__note">Không nhập giấy tờ hay dữ liệu riêng tư. Giá và xe còn cần xác nhận. <a href="<?php echo esc_url( nt_zalo_url() ); ?>" target="_blank" rel="noopener noreferrer">Nhắn Zalo</a></p>
 			</section>
