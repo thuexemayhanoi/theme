@@ -130,3 +130,43 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 		expect(geometry.copyrightObscured, 'the bottom copyright must remain readable beside/above QuickCall').toBe(false);
 	});
 }
+
+
+// Regression for post #372: the former Flatsome shortcode layout shipped a fixed
+// white panel inside a black section, leaving invisible light-on-light copy in dark mode.
+for (const width of [390, 768, 1440]) {
+	test('contact legacy panel stays readable in light/dark at ' + width + 'px', async ({ page }) => {
+		await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
+		await page.addInitScript(() => localStorage.setItem('nt-color-mode', 'light'));
+		await page.goto('/lien-he/');
+		await expect(page.locator('#post-372 .nt-lg-section')).toBeVisible();
+		await expect(page.locator('#post-372 h1')).toHaveCount(1);
+		await expect(page.locator('#post-372 .nt-lg-html iframe')).toHaveCount(2);
+		await expect(page.locator('#post-372 .nt-lg-col > .nt-lg-html').last()).toBeHidden();
+
+		const inspect = async () => page.evaluate(() => {
+			const card = document.querySelector('#post-372 .nt-lg-section__inner > .nt-lg-row > .nt-lg-col');
+			const h1 = card.querySelector('h1');
+			const parse = (color) => [...color.matchAll(/[\d.]+/g)].slice(0, 3).map(x => Number(x[0]) / 255);
+			const luminance = (rgb) => rgb.map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4)
+				.reduce((s, x, i) => s + x * [.2126, .7152, .0722][i], 0);
+			const fg = luminance(parse(getComputedStyle(h1).color));
+			const bg = luminance(parse(getComputedStyle(card).backgroundColor));
+			return {
+				contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05),
+				overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+				sectionPadding: parseFloat(getComputedStyle(card).paddingLeft),
+				isGapHidden: getComputedStyle(document.querySelector('#post-372 .nt-lg-section__inner > .nt-lg-gap')).display === 'none'
+			};
+		});
+		for (const mode of ['light', 'dark']) {
+			if (mode === 'dark') await page.locator('[data-nt-theme-toggle]').click();
+			await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', mode);
+			const m = await inspect();
+			expect(m.contrast, mode + ' text contrast').toBeGreaterThanOrEqual(4.5);
+			expect(m.overflow, mode + ' horizontal overflow').toBe(false);
+			expect(m.sectionPadding, mode + ' card padding').toBeLessThanOrEqual(42);
+			expect(m.isGapHidden, mode + ' decorative gap').toBe(true);
+		}
+	});
+}
