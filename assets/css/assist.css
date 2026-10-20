@@ -27,7 +27,7 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__panel[hidden] { display: none; }
 /* Coordinates are measured from visualViewport: safe during iOS keyboard,
  * pinch-zoom, device rotation and landscape viewport panning. */
-.nt-assist__panel--viewport { top: var(--nt-chat-top, 8px); right: auto; bottom: auto; left: var(--nt-chat-left, 8px); width: var(--nt-chat-width, calc(100vw - 16px)); height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
+.nt-assist__panel.nt-assist__panel--viewport { top: var(--nt-chat-top, 8px); right: auto; bottom: auto; left: var(--nt-chat-left, 8px); width: var(--nt-chat-width, calc(100vw - 16px)); height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
 .nt-assist__panel--viewport .nt-assist__head,
 .nt-assist__panel--viewport .nt-assist__shortcuts,
 .nt-assist__panel--viewport .nt-assist__form,
