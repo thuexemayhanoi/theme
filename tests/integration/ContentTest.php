@@ -5,6 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 final class ContentTest extends TestCase {
 
+	public function test_editorial_home_keeps_original_homepage_h1_without_rendering_legacy_body(): void {
+		$front = get_post( 562 );
+		$this->assertInstanceOf( WP_Post::class, $front );
+		$this->assertSame( 'Cho Thuê Xe Máy Hà Nội – Giao Tận Nơi, Cọc Nhẹ', nt_home_editorial_h1( $front ) );
+	}
+
 	public function test_counts_match_the_baseline(): void {
 		$base  = nt_it_baseline()['baseline_counts'];
 		$posts = wp_count_posts( 'post' );

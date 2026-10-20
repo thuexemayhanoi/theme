@@ -239,5 +239,10 @@ function nt_home_editorial_h1( WP_Post $page ): string {
 			return $title;
 		}
 	}
-	return 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
+	// Page #562 previously displayed this H1 inside the Flatsome shortcode bridge.
+	// Keep its established homepage heading unchanged without rendering the long legacy body.
+	if ( 562 === (int) $page->ID ) {
+		return 'Cho Thuê Xe Máy Hà Nội – Giao Tận Nơi, Cọc Nhẹ';
+	}
+	return wp_strip_all_tags( get_the_title( $page ) );
 }
