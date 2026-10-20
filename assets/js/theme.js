@@ -26,7 +26,7 @@
 		modeBtn.addEventListener('click', function () {
 			var next = modeRoot.getAttribute('data-nt-color-mode') === 'dark' ? 'light' : 'dark';
 			modeRoot.setAttribute('data-nt-color-mode', next);
-			try { window.localStorage.setItem('nt-color-mode', next); } catch (e) { /* Privacy mode. */ }
+			try { window.localStorage.setItem('nt-color-mode', next); } catch { /* Privacy mode. */ }
 			updateModeButton();
 		});
 	}
@@ -45,7 +45,7 @@
 			hoursFormatter = new Intl.DateTimeFormat('en-GB', {
 				timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
 			});
-		} catch (e) { hoursFormatter = null; }
+		} catch { hoursFormatter = null; }
 		var refreshHours = function () {
 			if (!hoursFormatter || openAt === null || closeAt === null || openAt === closeAt) {
 				hoursBadge.removeAttribute('data-nt-hours-state');
@@ -72,7 +72,7 @@
 					'–' + hoursBadge.getAttribute('data-close') + ' (giờ Hà Nội)';
 				hoursBadge.setAttribute('aria-label', label);
 				hoursBadge.title = label;
-			} catch (e) {
+			} catch {
 				hoursBadge.removeAttribute('data-nt-hours-state');
 				hoursBadge.setAttribute('aria-label', 'Chưa thể xác định giờ hoạt động');
 				hoursBadge.title = 'Chưa thể xác định giờ hoạt động';
