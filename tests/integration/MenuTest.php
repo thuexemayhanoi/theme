@@ -87,7 +87,7 @@ final class MenuTest extends TestCase {
 			$this->assertSame( 1, $link->length, $slug );
 			$this->assertSame( $text, trim( $link->item( 0 )->textContent ), $slug );
 		}
-		$blog_electric = $xp->query( '//a[contains(@class,"nt-menu__link") and contains(@href,"/blog/xe-dien/")]' );
+		$blog_electric = $xp->query( '//a[contains(@class,"nt-menu__link") and @href="' . get_term_link( 157, 'category' ) . '"]' );
 		$this->assertSame( 1, $blog_electric->length );
 		$this->assertSame( 'Xe điện', trim( $blog_electric->item( 0 )->textContent ) );
 
