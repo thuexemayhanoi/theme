@@ -17,6 +17,9 @@
 	var log = assist && assist.querySelector('[data-nt-chat-log]');
 	var submit = form && form.querySelector('button[type="submit"]');
 	var previousFocus = null;
+	var chatViewportFrame = 0;
+	var requestGeneration = 0;
+	var activeRequest = null;
 	var status = assist && assist.querySelector('[data-nt-chat-status]');
 	var clearButton = assist && assist.querySelector('[data-nt-chat-clear]');
 	var memoryKey = 'nt-assist-topic-v2';
@@ -205,9 +208,56 @@
 		launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
 		launcher.setAttribute('aria-label', open ? 'Đóng các cách liên hệ' : 'Mở các cách liên hệ');
 	}
+	/*
+	 * Mobile Safari moves the visible viewport when the keyboard opens. Place the
+	 * chat in visual viewport coordinates instead of relying on 100dvh/fixed bottom.
+	 * The constrained layout also works in narrow landscape and at large zoom.
+	 */
+	function syncChatViewport() {
+		chatViewportFrame = 0;
+		if (!panel || panel.hidden) { return; }
+		var viewport = window.visualViewport;
+		var width = Math.max(1, viewport ? viewport.width : window.innerWidth);
+		var height = Math.max(1, viewport ? viewport.height : window.innerHeight);
+		var left = viewport ? viewport.offsetLeft : 0;
+		var top = viewport ? viewport.offsetTop : 0;
+		var narrow = width < 768;
+		var keyboard = viewport && (window.innerHeight - viewport.height - viewport.offsetTop > 120);
+		var constrained = narrow || keyboard || height < 520;
+		panel.classList.toggle('nt-assist__panel--viewport', !!constrained);
+		if (!constrained) { return; }
+		var margin = width < 390 ? 8 : 12;
+		var panelWidth = Math.max(1, Math.floor(Math.min(390, width - margin * 2)));
+		var panelHeight = Math.max(1, Math.floor(Math.min(600, height - margin * 2)));
+		var panelLeft = left + (narrow ? margin : width - panelWidth - margin);
+		var panelTop = top + Math.max(0, height - panelHeight - margin);
+		panel.style.setProperty('--nt-chat-left', Math.round(panelLeft) + 'px');
+		panel.style.setProperty('--nt-chat-top', Math.round(panelTop) + 'px');
+		panel.style.setProperty('--nt-chat-width', panelWidth + 'px');
+		panel.style.setProperty('--nt-chat-height', panelHeight + 'px');
+	}
+	function scheduleChatViewport() {
+		if (panel && !panel.hidden && !chatViewportFrame) {
+			chatViewportFrame = window.requestAnimationFrame(syncChatViewport);
+		}
+	}
+	if (panel) {
+		window.addEventListener('resize', scheduleChatViewport, { passive: true });
+		window.addEventListener('orientationchange', scheduleChatViewport, { passive: true });
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener('resize', scheduleChatViewport, { passive: true });
+			window.visualViewport.addEventListener('scroll', scheduleChatViewport, { passive: true });
+		}
+	}
 	function toggleChat(open) {
 		if (!panel) { return; }
+		if (panel.hidden === !open) { return; }
 		panel.hidden = !open;
+		if (open) { syncChatViewport(); }
+		else {
+			panel.classList.remove('nt-assist__panel--viewport');
+			if (chatViewportFrame) { window.cancelAnimationFrame(chatViewportFrame); chatViewportFrame = 0; }
+		}
 		doc.querySelectorAll('[data-nt-chat-open]').forEach(function (button) {
 			button.setAttribute('aria-expanded', open ? 'true' : 'false');
 		});
@@ -215,7 +265,10 @@
 		if (open) {
 			previousFocus = doc.activeElement;
 			toggleMenu(false);
-			if (input) { input.focus(); }
+			// Avoid popping the iPhone keyboard before the visitor chooses to type.
+			// The close button is a safe initial focus target on narrow screens.
+			if ((window.innerWidth < 768 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) && closeButton) { closeButton.focus({ preventScroll: true }); }
+			else if (input) { input.focus({ preventScroll: true }); }
 		} else if (previousFocus && previousFocus.focus) {
 			// The chat was opened from a button inside the now-hidden QuickCall menu.
 			if (launcher && menu && menu.contains(previousFocus)) { launcher.focus(); }
@@ -308,7 +361,9 @@
 		addMessage(text, 'user');
 		input.value = '';
 		busy(true);
+		var generation = ++requestGeneration;
 		var controller = new AbortController();
+		activeRequest = controller;
 		var timeout = setTimeout(function () { controller.abort(); }, 12000);
 		fetch(assist.getAttribute('data-endpoint'), {
 			method: 'POST',
@@ -321,10 +376,12 @@
 			if (!response.ok) { throw new Error('request unavailable'); }
 			return response.json();
 		}).then(function (data) {
+			if (generation !== requestGeneration) { return; }
 			addMessage(String(data.answer || 'Không có dữ liệu xác minh.'), 'bot', data.sources);
 			rememberContext(data.context);
 			saveSources(text, data.intent, data.sources);
 		}).catch(function () {
+			if (generation !== requestGeneration) { return; }
 			var saved = cachedSources(text);
 			if (saved.length) {
 				addMessage('Chưa kết nối được. Đây là các nguồn đã lưu tạm từ lần tra cứu trước, có thể đã cũ. Vui lòng xác nhận giá và điều kiện với cửa hàng.', 'bot', saved);
@@ -333,12 +390,18 @@
 			}
 		}).finally(function () {
 			clearTimeout(timeout);
+			if (generation !== requestGeneration) { return; }
+			activeRequest = null;
 			busy(false);
-			if (panel && !panel.hidden) { input.focus(); }
+			// Do not reopen the virtual keyboard after an answer arrives.
 		});
 	}
 	if (clearButton) {
 		clearButton.addEventListener('click', function () {
+			// Invalidate any pending response so it cannot repopulate cleared memory.
+			requestGeneration++;
+			if (activeRequest) { activeRequest.abort(); activeRequest = null; }
+			busy(false);
 			safeDelete(memoryKey);
 			safeDelete(sourcesKey);
 			currentContext = { model: '', period: '' };
