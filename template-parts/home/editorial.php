@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $nt_page      = get_post();
-$nt_h1         = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
+$nt_h1        = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
 $nt_hubs      = array_values(
 	array_filter(
 		nt_blog_hubs( 8 ),
@@ -119,10 +119,10 @@ $nt_shortcuts = array(
 					?>
 				</li>
 				<?php ++$nt_featured_index; ?>
-				<?php
-				endwhile;
-				wp_reset_postdata();
-				?>
+			<?php
+			endwhile;
+			wp_reset_postdata();
+			?>
 		</ul>
 	</div>
 </section>
@@ -169,11 +169,11 @@ get_template_part( 'template-parts/home/prices' );
 foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 	$nt_hub_posts = new WP_Query(
 		array(
-			'post_type'              => 'post',
-			'post_status'            => 'publish',
-			'posts_per_page'         => 3,
-			'post__not_in'           => $nt_shown,
-			'tax_query'              => array(
+			'post_type'           => 'post',
+			'post_status'         => 'publish',
+			'posts_per_page'      => 3,
+			'post__not_in'        => $nt_shown,
+			'tax_query'           => array(
 				array(
 					'taxonomy'         => 'category',
 					'field'            => 'term_id',
@@ -181,8 +181,8 @@ foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 					'include_children' => true,
 				),
 			),
-			'ignore_sticky_posts'    => true,
-			'no_found_rows'          => true,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
 		)
 	);
 	if ( ! $nt_hub_posts->have_posts() ) {
