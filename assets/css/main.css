@@ -51,7 +51,7 @@
 	--nt-contact-call: var(--nt-accent);
 	--nt-contact-zalo: var(--nt-zalo);
 	--nt-contact-maps: #475775;
-	--nt-success: var(--nt-zalo);
+	--nt-success: #0068ff;
 	--nt-focus: #1f5bff;
 
 	--nt-font: "Plus Jakarta Sans Variable", "Plus Jakarta Fallback", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
