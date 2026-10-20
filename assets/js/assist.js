@@ -18,6 +18,8 @@
 	var submit = form && form.querySelector('button[type="submit"]');
 	var previousFocus = null;
 	var chatViewportFrame = 0;
+	var chatMaxVisualHeight = 0;
+	var chatLastVisualWidth = 0;
 	var requestGeneration = 0;
 	var activeRequest = null;
 	var status = assist && assist.querySelector('[data-nt-chat-status]');
@@ -209,32 +211,37 @@
 		launcher.setAttribute('aria-label', open ? 'Đóng các cách liên hệ' : 'Mở các cách liên hệ');
 	}
 	/*
-	 * Mobile Safari moves the visible viewport when the keyboard opens. Place the
-	 * chat in visual viewport coordinates instead of relying on 100dvh/fixed bottom.
-	 * The constrained layout also works in narrow landscape and at large zoom.
+	 * /web reference: CSS controls horizontal edges; VisualViewport controls only
+	 * top and height when the real software keyboard is open.
 	 */
 	function syncChatViewport() {
 		chatViewportFrame = 0;
 		if (!panel || panel.hidden) { return; }
 		var viewport = window.visualViewport;
-		var width = Math.max(1, viewport ? viewport.width : window.innerWidth);
 		var height = Math.max(1, viewport ? viewport.height : window.innerHeight);
-		var left = viewport ? viewport.offsetLeft : 0;
-		var top = viewport ? viewport.offsetTop : 0;
-		var narrow = width < 768;
-		var keyboard = viewport && (window.innerHeight - viewport.height - viewport.offsetTop > 120);
-		var constrained = narrow || keyboard || height < 520;
-		panel.classList.toggle('nt-assist__panel--viewport', !!constrained);
-		if (!constrained) { return; }
-		var margin = width < 390 ? 8 : 12;
-		var panelWidth = Math.max(1, Math.floor(Math.min(390, width - margin * 2)));
-		var panelHeight = Math.max(1, Math.floor(Math.min(600, height - margin * 2)));
-		var panelLeft = left + (narrow ? margin : width - panelWidth - margin);
-		var panelTop = top + Math.max(0, height - panelHeight - margin);
-		panel.style.setProperty('--nt-chat-left', Math.round(panelLeft) + 'px');
-		panel.style.setProperty('--nt-chat-top', Math.round(panelTop) + 'px');
-		panel.style.setProperty('--nt-chat-width', panelWidth + 'px');
-		panel.style.setProperty('--nt-chat-height', panelHeight + 'px');
+		var width = Math.max(1, viewport ? viewport.width : window.innerWidth);
+		if (Math.abs(width - chatLastVisualWidth) > 48) {
+			chatMaxVisualHeight = height;
+			chatLastVisualWidth = width;
+		}
+		var focused = !!(input && doc.activeElement === input);
+		if (!focused && height > chatMaxVisualHeight) { chatMaxVisualHeight = height; }
+		var keyboardOpen = !!(viewport && focused && (
+			chatMaxVisualHeight - height > 80 ||
+			window.innerHeight - height - viewport.offsetTop > 120
+		));
+		panel.classList.toggle('nt-assist__panel--keyboard', keyboardOpen);
+		doc.body.classList.toggle('nt-chat-keyboard-open', keyboardOpen);
+		if (keyboardOpen) {
+			var gap = 8;
+			var panelHeight = Math.max(1, Math.floor(Math.min(600, height - gap * 2)));
+			var panelTop = viewport.offsetTop + Math.max(0, height - panelHeight - gap);
+			panel.style.setProperty('--nt-chat-top', Math.round(panelTop) + 'px');
+			panel.style.setProperty('--nt-chat-height', panelHeight + 'px');
+		} else {
+			panel.style.removeProperty('--nt-chat-top');
+			panel.style.removeProperty('--nt-chat-height');
+		}
 	}
 	function scheduleChatViewport() {
 		if (panel && !panel.hidden && !chatViewportFrame) {
@@ -244,9 +251,21 @@
 	if (panel) {
 		window.addEventListener('resize', scheduleChatViewport, { passive: true });
 		window.addEventListener('orientationchange', scheduleChatViewport, { passive: true });
+		window.addEventListener('pageshow', scheduleChatViewport, { passive: true });
 		if (window.visualViewport) {
 			window.visualViewport.addEventListener('resize', scheduleChatViewport, { passive: true });
 			window.visualViewport.addEventListener('scroll', scheduleChatViewport, { passive: true });
+		}
+		if (input) {
+			input.addEventListener('focus', function () {
+				scheduleChatViewport();
+				// Safari opens its keyboard asynchronously.
+				window.setTimeout(scheduleChatViewport, 80);
+				window.setTimeout(scheduleChatViewport, 260);
+			});
+			input.addEventListener('blur', function () {
+				window.setTimeout(scheduleChatViewport, 80);
+			});
 		}
 	}
 	function toggleChat(open) {
@@ -255,7 +274,10 @@
 		panel.hidden = !open;
 		if (open) { syncChatViewport(); }
 		else {
-			panel.classList.remove('nt-assist__panel--viewport');
+			panel.classList.remove('nt-assist__panel--keyboard');
+			doc.body.classList.remove('nt-chat-keyboard-open');
+			panel.style.removeProperty('--nt-chat-top');
+			panel.style.removeProperty('--nt-chat-height');
 			if (chatViewportFrame) { window.cancelAnimationFrame(chatViewportFrame); chatViewportFrame = 0; }
 		}
 		doc.querySelectorAll('[data-nt-chat-open]').forEach(function (button) {
