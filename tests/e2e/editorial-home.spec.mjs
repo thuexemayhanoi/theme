@@ -9,6 +9,7 @@ for (const width of [390, 768, 1440]) {
 
 		await expect(page.locator('main#main')).toHaveCount(1);
 		await expect(page.locator('main h1')).toHaveCount(1);
+		await expect(page.locator('main h1')).toHaveText('Cho Thuê Xe Máy Hà Nội – Giao Tận Nơi, Cọc Nhẹ');
 		await expect(page.locator('.nt-home-mag__intro')).toHaveCount(1);
 		await expect(page.locator('.nt-home__body'), 'legacy Flatsome HTML is preserved in DB but hidden from new home').toHaveCount(0);
 		await expect(page.locator('main .nt-legacy')).toHaveCount(0);
