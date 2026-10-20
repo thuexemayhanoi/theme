@@ -163,3 +163,14 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - Local validation: ESLint, 48 Node tests, CSS parsing, asset budgets and 33 contrast checks passed. PHP is unavailable locally, so PHP lint, standards and unit/integration checks run in GitHub CI. Existing footer assertions updated; menu regression compares all rendered hrefs and stored values.
 - Captured production menu/footer hrefs and homepage SEO before deployment. LIVE_UNCHANGED at this checkpoint; deploy through the existing main webhook after CI, then purge cache and compare the same links and SEO on live.
 - Rollback: revert this change through the existing deployment path; no database restoration is needed.
+
+
+## 2026-10-21 — Homepage audit, baseline and native estimate repair
+- User explicitly authorized audit → fix → QA → publish in /theme only. No URL, content, menu target or SEO option mutations.
+- Git checkpoint: checkpoint/homepage-audit-2026-10-21 at 27bc96b5a66140df1ead75c884170e462b259d44.
+- Live baseline: mobile Lighthouse Performance 69, Accessibility 100, Best Practices 96, SEO 100; LCP 5.3 s, CLS 0, TBT 0 ms. No field INP data.
+- P1 reproduced: installed Smart Core calculator multiplies daily rates for 7/30 days (Wave 1,050,000 / 4,500,000 VND); repo's newer plugin is not installed by a theme deploy.
+- Repair in theme: native component consumes nt_price_rows() for day/week/month/deposit. Known plugin hook removed only when rendering the native price component; plugin shortcode remains available.
+- P2: native estimate dark surface, opening dot green, minute-aligned hours refresh, footer navigation labels use paragraphs.
+- Exact native JavaScript executed with DOM stubs in host V8: 9 behavioral tests passed. Full WordPress/PHP/browser CI still pending at this checkpoint.
+- LIVE_UNCHANGED = TRUE at branch creation. Do not infer deployment from a successful Git push.

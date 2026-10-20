@@ -78,10 +78,16 @@
 				hoursBadge.title = 'Chưa thể xác định giờ hoạt động';
 			}
 		};
-		refreshHours();
-		window.setInterval(refreshHours, 30000);
+		var hoursTimer = 0;
+		function scheduleHours() {
+			window.clearTimeout(hoursTimer);
+			refreshHours();
+			// Align with the next wall-clock minute, including the 09:00 / 21:00 boundaries.
+			hoursTimer = window.setTimeout(scheduleHours, 60000 - (Date.now() % 60000) + 20);
+		}
+		scheduleHours();
 		doc.addEventListener('visibilitychange', function () {
-			if (!doc.hidden) { refreshHours(); }
+			if (!doc.hidden) { scheduleHours(); }
 		});
 	}
 

@@ -201,3 +201,13 @@
 	.nt-local__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
 	.nt-steps + .nt-trust { margin-top: 0; }
 }
+
+/* Native estimate shares theme surfaces in light and dark modes. */
+.ntsc-rental[data-nt-native-rental] { margin: 1.25rem 0; padding: 1.2rem; border: 1px solid var(--nt-line); border-radius: 14px; background: var(--nt-paper); color: var(--nt-ink); max-width: 840px; }
+[data-nt-native-rental] h3 { margin: 0 0 1rem; font-size: 1.25rem; }
+[data-nt-native-rental] .ntsc-rental__fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 1rem; }
+[data-nt-native-rental] label { display: flex; flex-direction: column; gap: .4rem; font-weight: 600; min-width: 0; }
+[data-nt-native-rental] select, [data-nt-native-rental] input { width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--nt-muted); border-radius: 8px; padding: .5rem; background: var(--nt-paper); color: var(--nt-ink); font: inherit; }
+[data-nt-native-rental] .ntsc-rental__result { font-weight: 700; font-size: 1.1rem; margin: 1rem 0 .5rem; }
+[data-nt-native-rental] .ntsc-rental__note { font-size: .9rem; line-height: 1.5; }
+[data-nt-native-rental] .ntsc-rental__link { display: inline-flex; min-height: 44px; align-items: center; padding: .6rem 1rem; border-radius: 8px; color: #fff; text-decoration: none; }
