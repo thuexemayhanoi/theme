@@ -11,9 +11,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$nt_page     = get_post();
-$nt_h1       = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
-$nt_hubs     = array_values(
+$nt_page       = get_post();
+$nt_h1         = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
+$nt_hubs       = array_values(
 	array_filter(
 		nt_blog_hubs( 8 ),
 		static function ( $term ): bool {
@@ -21,10 +21,10 @@ $nt_hubs     = array_values(
 		}
 	)
 );
-$nt_hubs     = array_slice( $nt_hubs, 0, 6 );
-$nt_blog_id  = nt_blog_root_id();
-$nt_blog     = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
-$nt_featured = new WP_Query(
+$nt_hubs       = array_slice( $nt_hubs, 0, 6 );
+$nt_blog_id    = nt_blog_root_id();
+$nt_blog       = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
+$nt_featured   = new WP_Query(
 	array(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
@@ -33,8 +33,8 @@ $nt_featured = new WP_Query(
 		'no_found_rows'       => true,
 	)
 );
-$nt_shown    = array();
-$nt_shortcuts = array(
+$nt_shown      = array();
+$nt_shortcuts  = array(
 	array(
 		'label' => 'Thuê xe số',
 		'slug'  => 'xe-so',
