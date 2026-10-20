@@ -20,7 +20,7 @@
         { "slug": "navy", "name": "Xanh navy", "color": "#1b2f5b" },
         { "slug": "navy-soft", "name": "Navy nhạt", "color": "#e8edf6" },
         { "slug": "accent", "name": "Đỏ nhấn", "color": "#d2381f" },
-        { "slug": "success", "name": "Xanh lá", "color": "#1b7f4b" }
+        { "slug": "success", "name": "Xanh lam", "color": "#0068ff" }
       ]
     },
     "typography": {
