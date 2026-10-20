@@ -133,7 +133,7 @@ function nt_sanitize_options( $input ): array {
 		$out['business'][ $key ] = $val;
 	}
 
-	$out['prices'] = isset( $input['prices'] ) ? sanitize_textarea_field( wp_unslash( (string) $input['prices'] ) ) : '';
+	$out['prices']      = isset( $input['prices'] ) ? sanitize_textarea_field( wp_unslash( (string) $input['prices'] ) ) : '';
 	$out['home_layout'] = in_array( (string) ( $input['home_layout'] ?? 'editorial' ), array( 'editorial', 'legacy' ), true ) ? (string) ( $input['home_layout'] ?? 'editorial' ) : 'editorial';
 
 	// Footer copy is presentation-only. It does not update the WP site description or SEO fields.
