@@ -128,6 +128,40 @@ test('chat remains inside the visible viewport after keyboard-like resize and ro
 	await expect.poll(fits).toBe(true);
 });
 
+test('iPhone keyboard regression: CSS contains the full composer while VisualViewport shrinks', async ({ page }) => {
+	test.skip(SIMS, 'native assistant is hidden by the legacy plugin simulator');
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	await page.locator('#nt-assist-question').focus();
+	await page.evaluate(() => {
+		// Chromium headless has no native software keyboard. Model iPhone's
+		// keyboard-induced VisualViewport shrink without changing layout width.
+		const original = window.visualViewport;
+		Object.defineProperty(window, 'visualViewport', {
+			configurable: true,
+			value: { width: 390, height: 330, offsetTop: 0, offsetLeft: 0 }
+		});
+		original.dispatchEvent(new Event('resize'));
+	});
+	await expect(page.locator('#nt-assist-dialog')).toHaveClass(/nt-assist__panel--keyboard/);
+	await expect(page.locator('#nt-assist-dialog')).toHaveClass(/nt-assist__panel--compact/);
+	await expect(page.locator('.nt-assist__privacy')).toBeHidden();
+	await expect.poll(() => page.evaluate(() => {
+		const panel = document.getElementById('nt-assist-dialog').getBoundingClientRect();
+		const input = document.getElementById('nt-assist-question').getBoundingClientRect();
+		const send = document.querySelector('.nt-assist__form button').getBoundingClientRect();
+		return panel.left >= 7 && panel.right <= innerWidth - 7 &&
+			panel.top >= 7 && panel.bottom <= 330 - 7 &&
+			input.left >= panel.left && send.right <= panel.right &&
+			input.bottom <= panel.bottom && send.bottom <= panel.bottom;
+	})).toBe(true);
+	await noHorizontalScroll(page);
+	await page.locator('[data-nt-chat-close]').click();
+	await expect(page.locator('body')).not.toHaveClass(/nt-chat-keyboard-open/);
+});
+
 test('clearing memory cancels in-flight answers and cannot restore old context', async ({ page }) => {
 	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
 	await page.addInitScript(() => {
