@@ -1,0 +1,102 @@
+{
+  "website": "https://thuexemaynguyentu.com/",
+  "runtimeCommit": "a8b7db20cd407f1b8397b774d84795179cc85492",
+  "baseline": "27bc96b5a66140df1ead75c884170e462b259d44",
+  "live": {
+    "status": "PASS",
+    "finished": "2026-10-20T18:13:24.930Z",
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844,
+        "checkGroups": [
+          "SEO, menu/footer URL parity, one calculator, no overflow or unused wishlist entry",
+          "Dark mode, calculator contrast and mode persistence after reload",
+          "Hanoi opening status and drawer close/scroll unlock",
+          "All six vehicle groups: 1/3/7/30 days, separate deposits and invalid input",
+          "Chat price/context, hidden QuickCall while chat is open, close and Back to Top"
+        ],
+        "uncaughtErrors": 0,
+        "navLinks": 42,
+        "footerLinks": 31,
+        "unusedWishlist": false
+      },
+      {
+        "width": 768,
+        "height": 1024,
+        "checkGroups": [
+          "SEO, menu/footer URL parity, one calculator, no overflow or unused wishlist entry",
+          "Dark mode, calculator contrast and mode persistence after reload",
+          "Hanoi opening status and drawer close/scroll unlock",
+          "All six vehicle groups: 1/3/7/30 days, separate deposits and invalid input",
+          "Chat price/context, hidden QuickCall while chat is open, close and Back to Top"
+        ],
+        "uncaughtErrors": 0,
+        "navLinks": 42,
+        "footerLinks": 31,
+        "unusedWishlist": false
+      },
+      {
+        "width": 1440,
+        "height": 900,
+        "checkGroups": [
+          "SEO, menu/footer URL parity, one calculator, no overflow or unused wishlist entry",
+          "Dark mode, calculator contrast and mode persistence after reload",
+          "Hanoi opening status and drawer close/scroll unlock",
+          "All six vehicle groups: 1/3/7/30 days, separate deposits and invalid input",
+          "Chat price/context, hidden QuickCall while chat is open, close and Back to Top"
+        ],
+        "uncaughtErrors": 0,
+        "navLinks": 42,
+        "footerLinks": 31,
+        "unusedWishlist": false
+      }
+    ],
+    "artifact": "https://github.com/thuexemayhanoi/theme/actions/runs/39472417529/artifacts/12288575069"
+  },
+  "mobile": {
+    "performance": 94,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "lcpSeconds": 1.8,
+    "cls": 0,
+    "tbtMs": 90,
+    "fcpSeconds": 1.5,
+    "speedIndexSeconds": 5.9,
+    "unusedCssKiB": 18,
+    "unusedJSKiB": 95,
+    "fieldData": false,
+    "source": "WPVibe PageSpeed fresh mobile measurement after live repair/purge"
+  },
+  "desktop": {
+    "performance": 100,
+    "accessibility": 97,
+    "bestPractices": 96,
+    "seo": 100,
+    "lcpSeconds": 0.4,
+    "cls": 0,
+    "tbtMs": 40,
+    "fcpSeconds": 0.4,
+    "speedIndexSeconds": 0.4,
+    "remaining": [
+      "target-size",
+      "label-content-name-mismatch",
+      "errors-in-console"
+    ],
+    "fieldData": false
+  },
+  "overallScore": null,
+  "nativeSafariTested": false,
+  "fullCI": {
+    "status": "PASS",
+    "run": "https://github.com/thuexemayhanoi/theme/actions/runs/39472417682",
+    "integrationTests": 87,
+    "integrationAssertions": 1244,
+    "browserTests": 224,
+    "screenshotCases": 42,
+    "runtimeCommit": "a8b7db20cd407f1b8397b774d84795179cc85492"
+  },
+  "deploymentVerified": true,
+  "openCriticalFindingsInTestedHomepageScope": 0
+}

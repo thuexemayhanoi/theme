@@ -174,3 +174,15 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - P2: native estimate dark surface, opening dot green, minute-aligned hours refresh, footer navigation labels use paragraphs.
 - Exact native JavaScript executed with DOM stubs in host V8: 9 behavioral tests passed. Full WordPress/PHP/browser CI still pending at this checkpoint.
 - LIVE_UNCHANGED = TRUE at branch creation. Do not infer deployment from a successful Git push.
+
+
+## 2026-10-21 — Homepage audit release verified
+- Runtime deployed: a8b7db20cd407f1b8397b774d84795179cc85492; PR #34 merge 376a0a5d7d07c5ee644593a30d5f07f5aa319bf4.
+- Auto-repair: assigned but hidden footer widgets must not retain YITH wishlist assets; match the existing nguyentu_enable_footer_extra display filter.
+- Final full CI PASS: https://github.com/thuexemayhanoi/theme/actions/runs/39472417682 — 87 integration tests / 1,244 assertions; 224 browser tests; 42 screenshot cases. Static checks PASS.
+- Final live Chromium QA PASS: https://github.com/thuexemayhanoi/theme/actions/runs/39472417529 at 390/768/1440 widths. Menu 42/footer 31 URLs and metadata unchanged; pricing, dark reload, hours, drawer, chat context/QuickCall and Back to Top verified.
+- Live image/proof artifact: https://github.com/thuexemayhanoi/theme/actions/runs/39472417529/artifacts/12288575069.
+- Lighthouse after: mobile Performance 94, Accessibility 100, Best Practices 100, SEO 100; LCP 1.8 s, CLS 0. Desktop Performance 100, Accessibility 97, Best Practices 96, SEO 100; LCP 0.4 s, CLS 0.
+- Remaining: desktop target-size/name-label warnings and Lighthouse console flag, unused assets, older Yoast Person/Article fields. Native iPhone/iPad Safari and real keyboard untested; no CrUX/INP field data. No fabricated overall QA score.
+- Full report: reports/homepage-audit-2026-10-21.md; machine-readable evidence: reports/homepage-audit-results-2026-10-21.json.
+- LIVE_UNCHANGED = FALSE. Only repository theme code and authorized cache purge changed production; no content/taxonomy/menu destination/SEO option writes.
