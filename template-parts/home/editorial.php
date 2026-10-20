@@ -11,9 +11,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$nt_page       = get_post();
+$nt_page      = get_post();
 $nt_h1         = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
-$nt_hubs       = array_values(
+$nt_hubs      = array_values(
 	array_filter(
 		nt_blog_hubs( 8 ),
 		static function ( $term ): bool {
@@ -21,10 +21,10 @@ $nt_hubs       = array_values(
 		}
 	)
 );
-$nt_hubs       = array_slice( $nt_hubs, 0, 6 );
-$nt_blog_id    = nt_blog_root_id();
-$nt_blog       = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
-$nt_featured   = new WP_Query(
+$nt_hubs      = array_slice( $nt_hubs, 0, 6 );
+$nt_blog_id   = nt_blog_root_id();
+$nt_blog      = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
+$nt_featured  = new WP_Query(
 	array(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
@@ -33,8 +33,8 @@ $nt_featured   = new WP_Query(
 		'no_found_rows'       => true,
 	)
 );
-$nt_shown      = array();
-$nt_shortcuts  = array(
+$nt_shown     = array();
+$nt_shortcuts = array(
 	array(
 		'label' => 'Thuê xe số',
 		'slug'  => 'xe-so',
@@ -55,7 +55,14 @@ $nt_shortcuts  = array(
 			<p class="nt-eyebrow">Thuê xe máy Hà Nội · Nguyễn Tú</p>
 			<h1 id="nt-home-mag-title" class="nt-home-mag__title"><?php echo esc_html( $nt_h1 ); ?></h1>
 			<p class="nt-home-mag__lead">Chọn xe số, xe ga hoặc xe điện; xem bảng giá, ước tính tiền thuê và đọc cẩm nang đi xe tại Hà Nội. Giá, tiền cọc và giao nhận được xác nhận trước khi thuê.</p>
-			<?php nt_cta_buttons( array( 'size' => 'md', 'class' => 'nt-home-mag__actions' ) ); ?>
+			<?php
+			nt_cta_buttons(
+				array(
+					'size'  => 'md',
+					'class' => 'nt-home-mag__actions',
+				)
+			);
+			?>
 		</div>
 		<div class="nt-home-mag__find">
 			<p class="nt-home-mag__find-title">Bạn đang tìm gì?</p>
@@ -112,10 +119,10 @@ $nt_shortcuts  = array(
 					?>
 				</li>
 				<?php ++$nt_featured_index; ?>
-			<?php
-			endwhile;
-			wp_reset_postdata();
-			?>
+				<?php
+				endwhile;
+				wp_reset_postdata();
+				?>
 		</ul>
 	</div>
 </section>
