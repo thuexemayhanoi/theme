@@ -23,17 +23,21 @@ body.nt-has-native-quickcall { padding-bottom: 0; }
 body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist { position: fixed; z-index: 920; right: 12px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist__launch { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; border: 0; border-radius: 999px; padding: 9px 15px; background: var(--nt-navy, #1b2f5b); color: #fff; font-family: inherit; font-size: .85rem; font-weight: 700; line-height: 1.3; box-shadow: 0 6px 20px rgb(0 0 0 / 18%); cursor: pointer; }
-.nt-assist__panel { --nt-chat-top: 8px; --nt-chat-left: 8px; --nt-chat-width: calc(100vw - 16px); --nt-chat-height: 76dvh; position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
+.nt-assist__panel { --nt-chat-top: 8px; --nt-chat-height: 76dvh; position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
 .nt-assist__panel[hidden] { display: none; }
-/* Coordinates are measured from visualViewport: safe during iOS keyboard,
- * pinch-zoom, device rotation and landscape viewport panning. */
-.nt-assist__panel.nt-assist__panel--viewport { top: var(--nt-chat-top, 8px); right: auto; bottom: auto; left: var(--nt-chat-left, 8px); width: var(--nt-chat-width, calc(100vw - 16px)); height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
-.nt-assist__panel--viewport .nt-assist__head,
-.nt-assist__panel--viewport .nt-assist__shortcuts,
-.nt-assist__panel--viewport .nt-assist__form,
-.nt-assist__panel--viewport .nt-assist__status,
-.nt-assist__panel--viewport .nt-assist__privacy,
-.nt-assist__panel--viewport .nt-assist__note { flex-shrink: 0; }
+/* While typing, the keyboard shrinks the visible height. Keep the horizontal
+ * left/right inset owned by CSS: Safari's VisualViewport offsets can pan/zoom,
+ * and setting JS left+width previously clipped the send button on real iPhones. */
+.nt-assist__panel.nt-assist__panel--keyboard { top: var(--nt-chat-top, 8px); bottom: auto; height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
+.nt-assist__panel--keyboard .nt-assist__privacy,
+.nt-assist__panel--keyboard .nt-assist__note { display: none; }
+.nt-assist__panel--compact .nt-assist__shortcuts { display: none; }
+.nt-assist__panel--compact .nt-assist__head { padding-top: 6px; padding-bottom: 6px; }
+.nt-assist__panel--compact .nt-assist__scroll { padding: 8px; }
+.nt-assist__panel--keyboard .nt-assist__head,
+.nt-assist__panel--keyboard .nt-assist__shortcuts,
+.nt-assist__panel--keyboard .nt-assist__form,
+.nt-assist__panel--keyboard .nt-assist__status { flex-shrink: 0; }
 .nt-assist__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; background: var(--nt-navy, #1b2f5b); color: #fff; }
 .nt-assist__head > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .nt-assist__head strong { font-size: .97rem; }
@@ -48,7 +52,7 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__sources a { color: #174d91; text-decoration: underline; text-underline-offset: 2px; font-weight: 650; }
 .nt-assist__shortcuts { display: flex; overflow-x: auto; gap: 7px; padding: 9px 10px; background: #fff; }
 .nt-assist__shortcuts button { flex: none; min-height: 36px; padding: 6px 11px; border: 1px solid #cbd5e2; border-radius: 999px; background: #fff; color: #243e68; font-family: inherit; font-size: .78rem; font-weight: 600; line-height: 1.4; cursor: pointer; }
-.nt-assist__form { display: flex; gap: 6px; padding: 9px 10px; background: #fff; }
+.nt-assist__form { display: flex; flex-shrink: 0; min-width: 0; width: 100%; box-sizing: border-box; gap: 6px; padding: 9px 10px; background: #fff; }
 .nt-assist__form input { min-width: 0; flex: 1; min-height: 44px; padding: 9px 11px; border: 1px solid #a6b4ca; border-radius: 12px; background: #fff; color: #182e51; font-family: inherit; font-size: .86rem; font-weight: 400; line-height: 1.4; }
 .nt-assist__form button { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--nt-accent, #ce4027); color: #fff; cursor: pointer; }
 .nt-assist__form button:disabled { opacity: .45; cursor: progress; }
@@ -74,11 +78,15 @@ body.nt-chat-is-open .nt-qc { visibility: hidden; pointer-events: none; }
 }
 /* Prevent Safari's automatic page zoom on tapping an input smaller than 16px. */
 @media (max-width: 767.98px) {
+	/* CSS insets, no JS-generated width/left: iPhone Safari-proof geometry. */
+	.nt-assist__panel { left: max(8px, env(safe-area-inset-left, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); width: auto; max-width: none; box-sizing: border-box; }
 	.nt-assist__form input { font-size: 16px; }
+}
+@media (max-height: 470px) {
+	.nt-assist__panel--keyboard .nt-assist__shortcuts { display: none; }
 }
 @media (max-width: 389.98px) {
 	.nt-qc { left: 10px; }
-	.nt-assist, .nt-assist__panel { right: 8px; }
-	.nt-assist__panel { width: calc(100vw - 16px); }
+	.nt-assist { right: 8px; }
 }
 @media print { .nt-qc, .nt-assist { display: none !important; } }
