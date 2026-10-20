@@ -231,6 +231,7 @@
 			window.innerHeight - height - viewport.offsetTop > 120
 		));
 		panel.classList.toggle('nt-assist__panel--keyboard', keyboardOpen);
+		panel.classList.toggle('nt-assist__panel--compact', keyboardOpen && height < 360);
 		doc.body.classList.toggle('nt-chat-keyboard-open', keyboardOpen);
 		if (keyboardOpen) {
 			var gap = 8;
@@ -274,7 +275,7 @@
 		panel.hidden = !open;
 		if (open) { syncChatViewport(); }
 		else {
-			panel.classList.remove('nt-assist__panel--keyboard');
+			panel.classList.remove('nt-assist__panel--keyboard', 'nt-assist__panel--compact');
 			doc.body.classList.remove('nt-chat-keyboard-open');
 			panel.style.removeProperty('--nt-chat-top');
 			panel.style.removeProperty('--nt-chat-height');
