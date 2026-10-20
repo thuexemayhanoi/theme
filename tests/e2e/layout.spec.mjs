@@ -77,8 +77,12 @@ test.describe('wide authored content', () => {
 		test.setTimeout(120_000);
 		const read = () => wp('eval', "$o = (array) get_option('nguyentu_options', array()); echo (string) ( $o['home']['quickfacts'] ?? '' );").trim();
 		const write = (value) => wp('eval', `$o = (array) get_option('nguyentu_options', array()); $o['home'] = (array) ( $o['home'] ?? array() ); ${value === '' ? "unset( $o['home']['quickfacts'] );" : `$o['home']['quickfacts'] = '${value}';`} update_option('nguyentu_options', $o);`);
+		const readLayout = () => wp('eval', "$o=(array)get_option('nguyentu_options',array());echo (string)($o['home_layout']??'');").trim();
+		const writeLayout = (mode) => wp('eval', `$o=(array)get_option('nguyentu_options',array());${mode ? `$o['home_layout']='${mode}';` : "unset($o['home_layout']);"}update_option('nguyentu_options',$o);`);
+		const originalLayout = readLayout();
 		const original = read();
 		try {
+			writeLayout('legacy');
 			write('auto');
 			await page.goto('/');
 			await expect(page.locator('h1')).toHaveCount(1);
@@ -97,6 +101,7 @@ test.describe('wide authored content', () => {
 			await expect(page.locator('.nt-quickfacts')).toHaveCount(0);
 		} finally {
 			write(original);
+			writeLayout(originalLayout);
 		}
 	});
 });
