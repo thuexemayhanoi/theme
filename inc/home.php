@@ -228,6 +228,8 @@ function nt_home_layout(): string {
 /**
  * Editorial hero uses the existing Page #562 H1 verbatim when present in its raw HTML.
  * Avoid rendering its enormous Flatsome shortcode body just to obtain a heading.
+ *
+ * @param WP_Post $page The existing published homepage.
  */
 function nt_home_editorial_h1( WP_Post $page ): string {
 	$raw = (string) $page->post_content;
