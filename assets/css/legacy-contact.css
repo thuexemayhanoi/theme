@@ -10,3 +10,7 @@
 #post-372 .nt-lg-section h2 {font-size:clamp(1.3rem,2.5vw,1.7rem)}
 #post-372 .nt-lg-section .nt-lg-col.nt-lg-align-center {text-align:left}
 #post-372 .nt-lg-section a:not(.nt-btn) {color:var(--nt-navy)}
+#post-372 .nt-lg-section .nt-lg-html iframe {display:block;width:100%;height:clamp(240px,32vw,380px);border:0;border-radius:12px}
+#post-372 .wpcf7 :is(input[type="text"],input[type="email"],textarea) {color:var(--nt-ink);background:var(--nt-cream);border:1px solid var(--nt-line)}
+#post-372 .wpcf7 .wpcf7-submit {color:#fff;background:#2d5084;border-color:#2d5084}
+#post-372 .wpcf7 .wpcf7-submit:focus-visible {outline:3px solid var(--nt-focus);outline-offset:3px}
