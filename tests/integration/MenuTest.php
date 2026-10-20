@@ -103,9 +103,16 @@ final class MenuTest extends TestCase {
 
 	public function test_short_labels_preserve_every_href_and_stored_menu_value(): void {
 		$before = nt_menu_snapshot( 67 );
-		ob_start();
-		nt_render_menu( 'primary' );
-		$html = (string) ob_get_clean();
+		// Production is a no-op for the staging host mapper. Reproduce that here
+		// so this check compares exact URLs, including custom absolute links.
+		add_filter( 'nguyentu_localize_menu_urls', '__return_false' );
+		try {
+			ob_start();
+			nt_render_menu( 'primary' );
+			$html = (string) ob_get_clean();
+		} finally {
+			remove_filter( 'nguyentu_localize_menu_urls', '__return_false' );
+		}
 		$urls = array();
 		foreach ( nt_it_xpath( $html )->query( '//a[contains(@class,"nt-menu__link")]' ) as $link ) {
 			$urls[] = $link->getAttribute( 'href' );
