@@ -29,7 +29,7 @@ for (const width of [390, 768, 1440]) {
 		expect(actionLayout[1].height).toBeGreaterThanOrEqual(44);
 		const shortcuts = hero.locator('.nt-home-mag__shortcuts a');
 		await expect(shortcuts).toHaveText(['Thuê xe số', 'Thuê xe ga', 'Thuê xe điện', 'Xe máy 50cc']);
-		await expect(shortcuts.last()).toHaveAttribute('href', /\/(?:thue-xe-may-50cc-ha-noi|san-pham\/xe-ga-50cc)\/?$/);
+		await expect(shortcuts.last()).toHaveAttribute('href', /\/(?:thue-xe-may-50cc-ha-noi|xe-ga-50cc)\/?$/);
 		// The shared CTA renderer remains unchanged for the footer/other page sections.
 		await expect(page.locator('.nt-home-mag__closing .nt-btn--zalo')).toHaveCount(1);
 		await expect(page.locator('.nt-home__body'), 'legacy Flatsome HTML is preserved in DB but hidden from new home').toHaveCount(0);
