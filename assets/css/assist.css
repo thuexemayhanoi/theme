@@ -23,7 +23,7 @@ body.nt-has-native-quickcall { padding-bottom: 0; }
 body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist { position: fixed; z-index: 920; right: 12px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
 .nt-assist__launch { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; border: 0; border-radius: 999px; padding: 9px 15px; background: var(--nt-navy, #1b2f5b); color: #fff; font-family: inherit; font-size: .85rem; font-weight: 700; line-height: 1.3; box-shadow: 0 6px 20px rgb(0 0 0 / 18%); cursor: pointer; }
-.nt-assist__panel { position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
+.nt-assist__panel { --nt-chat-top: 8px; --nt-chat-left: 8px; --nt-chat-width: calc(100vw - 16px); --nt-chat-height: 76dvh; position: fixed; right: 12px; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); width: min(390px, calc(100vw - 24px)); height: min(600px, 76dvh); max-height: calc(100dvh - 36px); display: flex; flex-direction: column; background: #fff; color: #14233c; border: 1px solid #cfd6e2; border-radius: 18px; box-shadow: 0 10px 40px rgb(0 0 0 / 27%); overflow: hidden; }
 .nt-assist__panel[hidden] { display: none; }
 /* Coordinates are measured from visualViewport: safe during iOS keyboard,
  * pinch-zoom, device rotation and landscape viewport panning. */
