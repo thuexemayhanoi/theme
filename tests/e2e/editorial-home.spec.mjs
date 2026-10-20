@@ -38,3 +38,28 @@ for (const width of [390, 768, 1440]) {
 		expect(await overflowOffenders(page)).toEqual([]);
 	});
 }
+
+for (const width of [390, 768, 1440]) {
+	test(`dark mode: editorial hero and closing CTA keep legible text and outlined directions at ${width}px`, async ({ page }) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.addInitScript(() => localStorage.setItem('nt-color-mode', 'dark'));
+		await page.goto('/', { waitUntil: 'networkidle' });
+		await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', 'dark');
+
+		const closing = page.locator('.nt-home-mag__closing');
+		await expect(closing).toHaveCSS('background-color', 'rgb(27, 47, 91)');
+		await expect(closing.locator('h2')).toHaveCSS('color', 'rgb(255, 255, 255)');
+		await expect(closing.locator('p')).toHaveCSS('color', 'rgb(224, 230, 241)');
+
+		for (const selector of ['.nt-home-mag__intro', '.nt-home-mag__closing']) {
+			const directions = page.locator(selector + ' .nt-btn--ghost');
+			await expect(directions).toHaveCount(1);
+			await expect(directions).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+			await expect(directions).toHaveCSS('color', 'rgb(229, 239, 255)');
+			await expect(directions).toHaveCSS('border-top-color', 'rgb(169, 191, 223)');
+			await expect(directions).toHaveAttribute('href', /^https?:\/\//);
+		}
+		await noHorizontalScroll(page);
+		expect(await overflowOffenders(page)).toEqual([]);
+	});
+}
