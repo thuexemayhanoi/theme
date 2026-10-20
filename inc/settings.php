@@ -134,6 +134,7 @@ function nt_sanitize_options( $input ): array {
 	}
 
 	$out['prices'] = isset( $input['prices'] ) ? sanitize_textarea_field( wp_unslash( (string) $input['prices'] ) ) : '';
+	$out['home_layout'] = in_array( (string) ( $input['home_layout'] ?? 'editorial' ), array( 'editorial', 'legacy' ), true ) ? (string) ( $input['home_layout'] ?? 'editorial' ) : 'editorial';
 
 	// Footer copy is presentation-only. It does not update the WP site description or SEO fields.
 	$out['footer'] = array(
@@ -370,7 +371,11 @@ function nt_settings_page(): void {
 			<textarea name="nguyentu_options[prices]" rows="9" class="large-text code" placeholder="<?php echo esc_attr( nt_format_price_lines( nt_price_defaults() ) ); ?>"><?php echo esc_textarea( (string) ( $opts['prices'] ?? '' ) ); ?></textarea>
 
 			<h2>Trang chủ</h2>
-			<p>Chế độ "Tự động" chỉ thêm một mục khi nội dung của trang chủ (page #562) chưa có mục đó, nhờ vậy không lặp nội dung.</p>
+			<p>Chọn body gọn kiểu Cẩm nang + WooCommerce + bảng giá + tính tiền, hoặc quay về giao diện Flatsome tương thích. Chỉ đổi cách hiển thị, giữ nguyên dữ liệu Page #562 và SEO.</p>
+			<table class="form-table" role="presentation"><tbody><tr><th scope="row">Bố cục body trang chủ</th><td>
+			<?php nt_settings_select( 'nguyentu_options[home_layout]', (string) ( $opts['home_layout'] ?? 'editorial' ), array( 'editorial' => 'Gọn kiểu Cẩm nang (khuyến nghị)', 'legacy' => 'Bản cũ Flatsome (khôi phục)' ) ); ?>
+			</td></tr></tbody></table>
+			<p>Các mục bật/tắt riêng bên dưới chỉ áp dụng cho bố cục cũ. Bố cục mới luôn hiển thị bảng giá và kết nối Smart Core để tính tiền.</p>
 			<table class="form-table" role="presentation"><tbody>
 			<?php foreach ( nt_settings_home_sections() as $key => $label ) : ?>
 				<tr>
