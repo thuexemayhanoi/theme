@@ -11,27 +11,43 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$nt_page    = get_post();
-$nt_h1      = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
-$nt_hubs    = array_values( array_filter(
-	nt_blog_hubs( 8 ),
-	static function ( $term ): bool {
-		return $term instanceof WP_Term && nt_term_total( $term ) > 0;
-	}
-) );
-$nt_hubs    = array_slice( $nt_hubs, 0, 6 );
-$nt_blog_id = nt_blog_root_id();
-$nt_blog    = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
-$nt_featured = new WP_Query(
-	array(
-		'post_type'              => 'post',
-		'post_status'            => 'publish',
-		'posts_per_page'         => 4,
-		'ignore_sticky_posts'    => false,
-		'no_found_rows'          => true,
+$nt_page     = get_post();
+$nt_h1       = $nt_page instanceof WP_Post ? nt_home_editorial_h1( $nt_page ) : 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
+$nt_hubs     = array_values(
+	array_filter(
+		nt_blog_hubs( 8 ),
+		static function ( $term ): bool {
+			return $term instanceof WP_Term && nt_term_total( $term ) > 0;
+		}
 	)
 );
-$nt_shown = array();
+$nt_hubs     = array_slice( $nt_hubs, 0, 6 );
+$nt_blog_id  = nt_blog_root_id();
+$nt_blog     = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
+$nt_featured = new WP_Query(
+	array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'posts_per_page'      => 4,
+		'ignore_sticky_posts' => false,
+		'no_found_rows'       => true,
+	)
+);
+$nt_shown    = array();
+$nt_shortcuts = array(
+	array(
+		'label' => 'Thuê xe số',
+		'slug'  => 'xe-so',
+	),
+	array(
+		'label' => 'Thuê xe ga',
+		'slug'  => 'xe-ga',
+	),
+	array(
+		'label' => 'Thuê xe điện',
+		'slug'  => 'xe-dien',
+	),
+);
 ?>
 <section class="nt-home-mag__intro" aria-labelledby="nt-home-mag-title">
 	<div class="nt-container nt-home-mag__intro-grid">
@@ -46,11 +62,7 @@ $nt_shown = array();
 			<?php get_search_form(); ?>
 			<nav aria-label="Lối tắt thuê xe" class="nt-home-mag__shortcuts">
 				<?php
-				foreach ( array(
-					array( 'label' => 'Thuê xe số', 'slug' => 'xe-so' ),
-					array( 'label' => 'Thuê xe ga', 'slug' => 'xe-ga' ),
-					array( 'label' => 'Thuê xe điện', 'slug' => 'xe-dien' ),
-				) as $nt_shortcut ) :
+				foreach ( $nt_shortcuts as $nt_shortcut ) :
 					$nt_term = get_term_by( 'slug', $nt_shortcut['slug'], 'product_cat' );
 					if ( ! $nt_term instanceof WP_Term ) {
 						continue;
@@ -86,13 +98,24 @@ $nt_shown = array();
 				$nt_featured->the_post();
 				$nt_shown[] = (int) get_the_ID();
 				?>
-				<li><?php get_template_part( 'template-parts/content/card', 'post', array(
-					'heading' => 'h3',
-					'lead'    => 0 === $nt_featured_index,
-					'eager'   => 0 === $nt_featured_index,
-				) ); ?></li>
+				<li>
+					<?php
+					get_template_part(
+						'template-parts/content/card',
+						'post',
+						array(
+							'heading' => 'h3',
+							'lead'    => 0 === $nt_featured_index,
+							'eager'   => 0 === $nt_featured_index,
+						)
+					);
+					?>
+				</li>
 				<?php ++$nt_featured_index; ?>
-			<?php endwhile; wp_reset_postdata(); ?>
+			<?php
+			endwhile;
+			wp_reset_postdata();
+			?>
 		</ul>
 	</div>
 </section>
@@ -115,7 +138,8 @@ get_template_part( 'template-parts/home/prices' );
 			<p class="nt-section__lead">Chọn một chuyên mục để đọc các hướng dẫn và kinh nghiệm phù hợp.</p>
 		</header>
 		<ul class="nt-home-mag__hub-grid">
-			<?php foreach ( $nt_hubs as $nt_hub ) :
+			<?php
+			foreach ( $nt_hubs as $nt_hub ) :
 				$nt_hub_link = get_term_link( $nt_hub );
 				if ( is_wp_error( $nt_hub_link ) ) {
 					continue;
@@ -168,26 +192,30 @@ foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 				<?php endif; ?>
 			</header>
 			<div class="nt-grid nt-grid--3">
-				<?php while ( $nt_hub_posts->have_posts() ) :
+				<?php
+				while ( $nt_hub_posts->have_posts() ) :
 					$nt_hub_posts->the_post();
 					$nt_shown[] = (int) get_the_ID();
 					get_template_part( 'template-parts/content/card', 'post', array( 'heading' => 'h3' ) );
 				endwhile;
-				wp_reset_postdata(); ?>
+				wp_reset_postdata();
+				?>
 			</div>
 		</div>
 	</section>
 <?php endforeach; ?>
 
 <?php
-$nt_latest = new WP_Query( array(
-	'post_type'           => 'post',
-	'post_status'         => 'publish',
-	'posts_per_page'      => 4,
-	'post__not_in'        => $nt_shown,
-	'ignore_sticky_posts' => true,
-	'no_found_rows'       => true,
-) );
+$nt_latest = new WP_Query(
+	array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'posts_per_page'      => 4,
+		'post__not_in'        => $nt_shown,
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	)
+);
 if ( $nt_latest->have_posts() ) :
 	?>
 	<section class="nt-section nt-home-mag__latest nt-section--tint" aria-labelledby="nt-home-latest-title">
@@ -199,11 +227,13 @@ if ( $nt_latest->have_posts() ) :
 				<?php endif; ?>
 			</header>
 			<div class="nt-grid nt-grid--4">
-				<?php while ( $nt_latest->have_posts() ) :
+				<?php
+				while ( $nt_latest->have_posts() ) :
 					$nt_latest->the_post();
 					get_template_part( 'template-parts/content/card', 'post', array( 'heading' => 'h3' ) );
 				endwhile;
-				wp_reset_postdata(); ?>
+				wp_reset_postdata();
+				?>
 			</div>
 		</div>
 	</section>
