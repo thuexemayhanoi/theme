@@ -35,7 +35,7 @@
 	var hoursBadge = $('[data-nt-hours-status]');
 	if (hoursBadge && window.Intl && window.Intl.DateTimeFormat) {
 		var hhmmToMinutes = function (value) {
-			var match = /^([01]\\d|2[0-3]):([0-5]\\d)$/.exec(value || '');
+			var match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(value || '');
 			return match ? Number(match[1]) * 60 + Number(match[2]) : null;
 		};
 		var openAt = hhmmToMinutes(hoursBadge.getAttribute('data-open'));
@@ -97,7 +97,7 @@
 		}).observe(sentinel);
 	}
 
-	/* ---------- Off-canvas menu (below 1024px) ---------- */
+	/* ---------- Off-canvas menu (below 1240px) ---------- */
 	var nav = $('#nt-nav');
 	var toggle = $('[data-nt-menu-toggle]');
 	var closeBtn = $('[data-nt-menu-close]');
