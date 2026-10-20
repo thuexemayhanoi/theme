@@ -1,1 +1,6 @@
-/* Contact page legacy layout styles. Scoped to #post-372. */
+/* Contact page 372: restore readable legacy layout in light and dark mode. */
+#post-372 .nt-lg-section {min-height:0!important;padding-block:24px;background:var(--nt-cream)!important;color:var(--nt-ink)}
+#post-372 .nt-lg-section__inner>.nt-lg-gap {display:none}
+#post-372 .nt-lg-section__inner>.nt-lg-row>.nt-lg-col {padding:24px!important;background:var(--nt-paper)!important;color:var(--nt-ink);border-radius:16px!important}
+#post-372 .nt-lg-section :is(h1,h2,h3,h4,p,li,strong) {color:var(--nt-ink)}
+#post-372 .nt-lg-section .nt-lg-html+.nt-lg-html {display:none}
