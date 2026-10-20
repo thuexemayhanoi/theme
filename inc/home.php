@@ -215,3 +215,29 @@ function nt_home_trust_points(): array {
 		),
 	);
 }
+
+/**
+ * Reversible homepage presentation only. Does not update Page #562 or its SEO fields.
+ * Default editorial; administrators can switch back to the original legacy body.
+ */
+function nt_home_layout(): string {
+	$layout = nt_option( 'home_layout', 'editorial' );
+	return 'legacy' === $layout ? 'legacy' : 'editorial';
+}
+
+/**
+ * Editorial hero uses the existing Page #562 H1 verbatim when present in its raw HTML.
+ * Avoid rendering its enormous Flatsome shortcode body just to obtain a heading.
+ *
+ * @param WP_Post $page The existing published homepage.
+ */
+function nt_home_editorial_h1( WP_Post $page ): string {
+	$raw = (string) $page->post_content;
+	if ( nt_html_has_h1( $raw ) ) {
+		$title = nt_html_first_h1_text( $raw );
+		if ( '' !== trim( $title ) ) {
+			return $title;
+		}
+	}
+	return 'Thuê Xe Máy Hà Nội – Nguyễn Tú';
+}

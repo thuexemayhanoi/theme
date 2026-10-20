@@ -24,6 +24,13 @@ get_header();
 	<?php
 	while ( have_posts() ) :
 		the_post();
+		// A compact editorial/services home leaves stored legacy Page #562 completely intact.
+		// Switch to the legacy view from Appearance > Nguyen Tu to roll back instantly.
+		if ( 'editorial' === nt_home_layout() ) {
+			get_template_part( 'template-parts/home/editorial' );
+			continue;
+		}
+
 		$nt_page     = get_post();
 		$nt_content  = nt_get_rendered_content();
 		$nt_hero     = $nt_page instanceof WP_Post ? nt_home_hero( $nt_page, $nt_content ) : array(

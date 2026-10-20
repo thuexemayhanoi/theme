@@ -96,7 +96,7 @@ fi
 
 if [ "$E2E" = 1 ]; then
 	echo "== Playwright (simulators ON) =="
-	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout menu header-controls footer blog woo seo-head a11y contact native-assist --reporter=list,json,html || fail "Playwright (simulators on)"
+	NT_SIMS=on PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-main.json npx playwright test layout editorial-home menu header-controls footer blog woo seo-head a11y contact native-assist --reporter=list,json,html || fail "Playwright (simulators on)"
 	echo "== Playwright (simulators OFF: theme contact bar) =="
 	bash $SB/activate-sims.sh --off >/dev/null 2>&1
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true

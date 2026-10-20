@@ -55,6 +55,9 @@ function nt_enqueue_assets(): void {
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'nt-home', nt_asset_uri( 'assets/css/home.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/home.css' ) );
 	}
+	if ( is_front_page() && 'editorial' === nt_home_layout() ) {
+		wp_enqueue_style( 'nt-home-editorial', nt_asset_uri( 'assets/css/home-editorial.css' ), array( 'nt-home' ), nt_asset_ver( 'assets/css/home-editorial.css' ) );
+	}
 	if ( nt_is_editorial_context() || is_front_page() ) {
 		wp_enqueue_style( 'nt-blog', nt_asset_uri( 'assets/css/blog.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/blog.css' ) );
 	}
@@ -68,7 +71,7 @@ function nt_enqueue_assets(): void {
 		}
 		wp_enqueue_style( 'nt-woo', nt_asset_uri( 'assets/css/woo.css' ), $nt_woo_deps, nt_asset_ver( 'assets/css/woo.css' ) );
 	}
-	if ( function_exists( 'nt_legacy_needs_css' ) && nt_legacy_needs_css() ) {
+	if ( function_exists( 'nt_legacy_needs_css' ) && nt_legacy_needs_css() && ! ( is_front_page() && 'editorial' === nt_home_layout() ) ) {
 		wp_enqueue_style( 'nt-legacy', nt_asset_uri( 'assets/css/legacy.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/legacy.css' ) );
 	}
 
