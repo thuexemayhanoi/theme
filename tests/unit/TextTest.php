@@ -9,6 +9,11 @@ final class TextTest extends TestCase {
 		$this->assertSame( 'So sánh xe', nt_navigation_label( 'Đánh Giá &amp; So Sánh Xe' ) );
 		$this->assertSame( 'Hướng dẫn', nt_navigation_label( 'Hướng dẫn thuê xe' ) );
 		$this->assertSame( 'Xe máy điện', nt_navigation_label( 'Thuê xe máy điện' ) );
+		$this->assertSame( 'Thuê xe số', nt_navigation_label( 'Xe số', 'product_cat' ) );
+		$this->assertSame( 'Thuê xe ga', nt_navigation_label( 'Xe ga', 'product_cat' ) );
+		$this->assertSame( 'Thuê xe điện', nt_navigation_label( 'Xe điện', 'product_cat' ) );
+		$this->assertSame( 'Xe điện', nt_navigation_label( 'Xe điện', 'category' ) );
+		$this->assertSame( 'Xe điện', nt_navigation_label( 'Xe điện' ) );
 		$this->assertSame( 'Xe đạp điện', nt_navigation_label( 'Thuê xe đạp điện' ) );
 		$this->assertSame( 'Thuê theo phường', nt_navigation_label( 'Thuê xe máy theo phường Hà Nội' ) );
 		$this->assertSame( 'Mục mới chưa cấu hình', nt_navigation_label( 'Mục mới chưa cấu hình' ) );

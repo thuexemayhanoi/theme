@@ -60,7 +60,7 @@ function nt_footer_manifest(): array {
 			array(
 				'type'  => 'post',
 				'id'    => 422,
-				'label' => 'Thuê xe máy điện',
+				'label' => 'Thuê xe điện',
 			),
 			array(
 				'type'  => 'post',
@@ -193,8 +193,9 @@ function nt_footer_resolve_link( array $item ): ?array {
 		return null;
 	}
 
+	$label_context = 'term' === ( $item['type'] ?? '' ) ? (string) ( $item['taxonomy'] ?? '' ) : '';
 	return array(
-		'label' => nt_navigation_label( $label ),
+		'label' => nt_navigation_label( $label, $label_context ),
 		'url'   => $url,
 	);
 }

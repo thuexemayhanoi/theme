@@ -12,9 +12,22 @@ defined( 'ABSPATH' ) || exit;
  * Unknown labels pass through so future menu items are never cut off arbitrarily.
  * Keys normalise spelling/case only; they are never used to build a URL.
  *
- * @param string $title Original navigation label.
+ * @param string $title   Original navigation label.
+ * @param string $context Optional taxonomy context, e.g. product_cat for rental categories.
  */
-function nt_navigation_label( string $title ): string {
+function nt_navigation_label( string $title, string $context = '' ): string {
+	$slug = nt_slugify( nt_plain_text( $title ) );
+	if ( 'product_cat' === $context ) {
+		// Rental catalogue: distinct from the editorial "Xe điện" hub.
+		static $rental_labels = array(
+			'xe-so'   => 'Thuê xe số',
+			'xe-ga'   => 'Thuê xe ga',
+			'xe-dien' => 'Thuê xe điện',
+		);
+		if ( isset( $rental_labels[ $slug ] ) ) {
+			return $rental_labels[ $slug ];
+		}
+	}
 	static $labels = array(
 		'trang-chu'                      => 'Trang chủ',
 		'gioi-thieu'                     => 'Giới thiệu',
@@ -71,5 +84,5 @@ function nt_navigation_label( string $title ): string {
 		'dieu-khoan'                     => 'Điều khoản',
 		'dieu-khoan-su-dung'             => 'Điều khoản',
 	);
-	return $labels[ nt_slugify( nt_plain_text( $title ) ) ] ?? $title;
+	return $labels[ $slug ] ?? $title;
 }
