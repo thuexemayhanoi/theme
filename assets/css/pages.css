@@ -8,7 +8,7 @@
 .nt-pagecontent .nt-prose :is(input, select, textarea, button) { max-width: 100%; }
 .nt-pagecontent .nt-prose :is(.wp-block-columns, .nt-lg-row, .nt-lg-col) { min-width: 0; }
 .nt-pagecontent .nt-prose :is(.wp-block-embed__wrapper, .nt-lg-video) { max-width: 100%; }
-.nt-service-page { --nt-service-gap: clamp(20px, 3vw, 34px); max-width: 100%; padding: clamp(20px, 3vw, 42px) 0 clamp(36px, 5vw, 70px); overflow-wrap: break-word; }
+.nt-service-page { --nt-service-gap: clamp(20px, 3vw, 34px); width: min(calc(100% - 2 * var(--nt-gutter)), var(--nt-container)); max-width: 100%; margin-inline: auto; padding: clamp(20px, 3vw, 42px) 0 clamp(36px, 5vw, 70px); overflow-wrap: break-word; }
 .nt-service-page, .nt-service-page * { min-width: 0; }
 .nt-service-page :where(h1, h2, h3) { line-height: 1.25; letter-spacing: -.02em; }
 .nt-service-page :where(h2) { margin: 0 0 .6em; font-size: clamp(1.35rem, 1.15rem + .9vw, 1.8rem); }
