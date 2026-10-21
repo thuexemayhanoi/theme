@@ -133,7 +133,7 @@ for (const width of [360, 390, 768, 1024, 1440]) {
 
 
 // Shared page-body regression: the old black/white UX Builder panel must never
-// return when color mode changes. The archived map is replaced by a directions link.
+// return when color mode changes. The owner-approved embedded map and the directions link stay usable.
 for (const width of [390, 768, 1440]) {
 	test('contact native body stays readable in light/dark at ' + width + 'px', async ({ page }) => {
 		await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
@@ -142,7 +142,11 @@ for (const width of [390, 768, 1440]) {
 		await expect(page.locator('#post-372 .nt-contact-page')).toBeVisible();
 		await expect(page.locator('#post-372 h1')).toHaveCount(1);
 		await expect(page.locator('#post-372 .nt-legacy')).toHaveCount(0);
-		await expect(page.locator('#post-372 iframe')).toHaveCount(0);
+		const map = page.locator('#post-372 .nt-contact-page__map-frame');
+		await expect(map).toHaveCount(1);
+		await expect(map).toHaveAttribute('title', /Nguyễn Tú/);
+		const mapSource = await map.evaluate((frame) => frame.getAttribute('data-src') || frame.getAttribute('src') || '');
+		expect(mapSource).toMatch(/maps\\.google\\.com\\/maps/);
 		await expect(page.getByRole('link', { name: 'Mở chỉ đường Google Maps' })).toHaveAttribute('href', /maps/);
 		for (const mode of ['light', 'dark']) {
 			if (mode === 'dark') await page.locator('[data-nt-theme-toggle]').click();
