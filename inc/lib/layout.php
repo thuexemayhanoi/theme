@@ -9,13 +9,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Whether a rendered body is a wide legacy layout (section, banner or row from the shortcode bridge)
+ * Whether a rendered body supplies its own wide layout (native service page or legacy bridge sections)
  * that supplies its own full-width structure.
  *
  * @param string $html Rendered page content.
  */
 function nt_content_is_wide( string $html ): bool {
-	return (bool) preg_match( '/nt-lg-(?:section|banner|row)/', $html );
+	// New native service pages also provide their own hero and responsive grid.
+	return (bool) preg_match( '/nt-lg-(?:section|banner|row)|class=["\x27][^"\x27]*\\bnt-service-page\\b/', $html );
 }
 
 /**
