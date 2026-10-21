@@ -306,4 +306,4 @@
 /* The second archived map points to the former Moto Open listing.
  * Hide it from this contact layout without deleting the legacy WP data.
  */
-#post-372 .nt-lg-section .nt-lg-col > .nt-lg-html:last-child { display: none; }
+#post-372 .nt-lg-section .nt-lg-col > .nt-lg-html + .nt-lg-html:last-child { display: none; }
