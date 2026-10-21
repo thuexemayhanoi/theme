@@ -1,3 +1,5 @@
+> **LATEST PRODUCTION STATUS — 2026-10-21:** This file retains an earlier build/staging record, including an obsolete `LIVE_UNCHANGED` assertion from before the theme was deployed. It is **historical, not current production evidence**. Read [CURRENT-PRODUCTION.md](CURRENT-PRODUCTION.md) and the P0 owner freeze in [AGENTS.md](../AGENTS.md) before acting. Do not rerun the previous migration or treat the old `NOT_TESTED` checks as results from the current live installation.
+
 # PROGRESS — Nguyễn Tú Editorial Commerce (theme độc lập v1)
 
 > Nhánh `feat/nguyentu-independent-theme-v1` · Repo `thuexemayhanoi/theme`
