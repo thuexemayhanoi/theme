@@ -14,7 +14,7 @@
 ## Added audit tooling — no theme runtime changes
 
 - `tools/seo/internal-link-graph-lib.mjs`: HTML link extraction and region/anchor classification, unique inbound vs contextual inbound, source/target silo, missing incoming link candidates.
-- `tools/seo/internal-link-graph.mjs`: bounded read-only GET crawl driven by the site's Yoast sitemap index. Defaults: maximum **250** URLs (CI chooses **300**), at most **two concurrent** HTTP connections and **500 ms pause per worker**; no arbitrary recursive discovery, no user data, no login, no plugin execution. URL cap / failed request → report `complete=false`, never claim a definitive orphan count.
+- `tools/seo/internal-link-graph.mjs`: bounded read-only GET crawl driven by the site's Yoast sitemap index. Defaults: maximum **250** URLs (CI chooses **1000**, enough for the 803 sitemap URLs independently observed on 2026-10-21), at most **two concurrent** HTTP connections and **500 ms pause per worker**; no arbitrary recursive discovery, no user data, no login, no plugin execution. URL cap / failed request → report `complete=false`, never claim a definitive orphan count.
 - `tests/node/internal-link-graph.test.mjs`: known fixtures guard deduplication, authority checks, link placement types, orphan vs contextual-only classification, noindex handling and CSV safety.
 - `.github/workflows/internal-link-graph.yml`: read-only PR/manual workflow, outputs downloadable artifact; not scheduled, avoids stressing shared hosting on each blog publication.
 
@@ -22,7 +22,7 @@ Run locally with Node 22 + `npm ci`:
 
 ```sh
 node --test tests/node/internal-link-graph.test.mjs
-node tools/seo/internal-link-graph.mjs --base https://thuexemaynguyentu.com --out reports/internal-link-graph --limit 300 --concurrency 2 --delay 500
+node tools/seo/internal-link-graph.mjs --base https://thuexemaynguyentu.com --out reports/internal-link-graph --limit 1000 --concurrency 2 --delay 500
 ```
 
 The generated artifact contains `summary.json`, `nodes.csv`, `edges.csv`, `opportunities.csv`, `excluded.json` and `outside-sitemap-targets.json`. Edges include anchor, placement (header/footer/breadcrumb/related/content/main), inferred silo, and whether a target belongs to the current sitemap. All output is in the CI artifact or local `reports/` directory, **not** persisted in WordPress.
@@ -42,3 +42,11 @@ The generated artifact contains `summary.json`, `nodes.csv`, `edges.csv`, `oppor
 - Prioritize commercially important published posts with **zero contextual incoming links** and a verified relevant category hub, not fake taxonomy tag archives.
 - Investigate author pagination redirects read-only; fixes can be outside the theme, and must not be guessed.
 - Present a small, source-backed link opportunity matrix (`supporting post → pillar/hub → rental commercial page`) before touching old post bodies. No bulk insertions.
+
+## First live graph preflight (2026-10-21, partial)
+
+The initial audited GitHub Action [run 39611680584](https://github.com/thuexemayhanoi/theme/actions/runs/39611680584) completed with **300 HTTP-200, indexable, self-canonical** sitemap pages. It discovered **803** published sitemap URLs from **9 child sitemaps**, with **503 URLs unscanned** in that run. Within the first 300 lexicographically selected URLs, it recorded 11,958 distinct source-target edges and 48 **partial-sample** zero-inbound candidates. **None of those 48 may be claimed as confirmed site-wide orphan posts.** The next run uses a 1,000-URL cap with identical 2-concurrent / 500-ms safeguards to cover all 803 currently published sitemap destinations.
+
+A real WordPress post (2026-10-21) showed Yoast breadcrumb `Home → current post` while its actual category link appeared in `.nt-article__chips`; the graph now reads that published category chip before setting `silo`. This is direct category evidence, not guesswork.
+
+Read-only validation of `/featured_item_tag/thue-xe-may-theo-ngay/` found `noindex, follow`, while `/featured_item/` returned `index, follow` with self-canonical. Avoid automatically linking all legacy tag archives; a genuine indexable archive must first be compared against `/bo-suu-tap/` for intent overlap.
