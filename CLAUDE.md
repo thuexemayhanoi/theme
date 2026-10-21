@@ -1,5 +1,7 @@
 # CLAUDE.md — Nguyễn Tú WordPress independent theme
 
+> **P0 CHANGE FREEZE — OWNER CONFIRMED 2026-10-21:** Read [AGENTS.md](AGENTS.md) first. Native Quick Call and Nguyễn Tú Assistant are working and **must not be modified, optimized, disabled, replaced, restyled, moved, reconfigured or deployed differently** without new **feature-specific explicit consent** from the owner. Read-only checks are allowed. This instruction supersedes earlier migration-era requests to rebuild Quick Call / AI chat and prohibits changes through shared CSS, token, enqueue or header/footer modifications if they alter protected behavior. Ask first for any proposed fix; do not use broad website optimization authorization to override this freeze.
+
 **SEO HULK is a P0 mandatory workstream.** Read and implement `docs/SEO-HULK.md` in full before coding: preserve live Yoast metadata, canonical, robots, XML sitemap, indexability, one meaningful H1, schema graph, internal link/navigation graph, WooCommerce/featured-item URLs, Core Web Vitals, local entity NAP and crawl integrity. Record real before/after SEO snapshots, automated tests and release gates. Implement SEO into templates and CI; do not just write a plan. Never claim rankings, scores or schema without proof.
 
 
