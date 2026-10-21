@@ -16,7 +16,7 @@ get_header();
 		the_post();
 		$nt_content  = nt_get_page_body();
 		$nt_print_h1 = nt_should_print_h1( $nt_content );
-		$nt_is_shop  = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() );
+		$nt_is_shop  = nt_is_shop_context();
 		// Legacy layouts bring their own sections; cart, checkout and account need the full container (tables, two columns).
 		$nt_is_wide  = nt_content_is_wide( $nt_content );
 		$nt_box_wide = $nt_is_wide || $nt_is_shop;

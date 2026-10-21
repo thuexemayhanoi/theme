@@ -8,9 +8,21 @@
 defined( 'ABSPATH' ) || exit;
 
 $nt_periods = array(
-	array( 'slug' => 'thue-ngay', 'title' => 'Thuê xe máy theo ngày', 'text' => 'Chuyến đi ngắn, lịch trình linh hoạt. Xác nhận giá hiện tại và thời gian nhận, trả xe.' ),
-	array( 'slug' => 'thue-tuan', 'title' => 'Thuê xe máy theo tuần', 'text' => 'Lưu trú và di chuyển nhiều ngày. Xác nhận mẫu xe, giá cho cả kỳ thuê và tiền cọc.' ),
-	array( 'slug' => 'thue-thang', 'title' => 'Thuê xe máy theo tháng', 'text' => 'Sử dụng dài ngày tại Hà Nội. Xác nhận giá theo mẫu xe, điều kiện thuê và hoàn cọc.' ),
+	array(
+		'slug'  => 'thue-ngay',
+		'title' => 'Thuê xe máy theo ngày',
+		'text'  => 'Chuyến đi ngắn, lịch trình linh hoạt. Xác nhận giá hiện tại và thời gian nhận, trả xe.',
+	),
+	array(
+		'slug'  => 'thue-tuan',
+		'title' => 'Thuê xe máy theo tuần',
+		'text'  => 'Lưu trú và di chuyển nhiều ngày. Xác nhận mẫu xe, giá cho cả kỳ thuê và tiền cọc.',
+	),
+	array(
+		'slug'  => 'thue-thang',
+		'title' => 'Thuê xe máy theo tháng',
+		'text'  => 'Sử dụng dài ngày tại Hà Nội. Xác nhận giá theo mẫu xe, điều kiện thuê và hoàn cọc.',
+	),
 );
 ?>
 <div class="nt-service-page nt-collection-page">
@@ -29,7 +41,9 @@ $nt_periods = array(
 					<h3><?php echo esc_html( $nt_period['title'] ); ?></h3>
 					<p><?php echo esc_html( $nt_period['text'] ); ?></p>
 					<?php $nt_url = nt_featured_term_url( $nt_period['slug'] ); ?>
-					<?php if ( '' !== $nt_url ) : ?><a class="nt-btn nt-btn--ghost" href="<?php echo esc_url( $nt_url ); ?>">Xem bảng giá</a><?php endif; ?>
+					<?php if ( '' !== $nt_url ) : ?>
+						<a class="nt-btn nt-btn--ghost" href="<?php echo esc_url( $nt_url ); ?>">Xem bảng giá</a>
+					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
 		</div>

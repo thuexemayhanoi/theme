@@ -16,7 +16,9 @@ defined( 'ABSPATH' ) || exit;
 	</section>
 	<nav class="nt-service-page__nav" aria-label="Nội dung liên hệ">
 		<a href="#nt-contact-details">Địa chỉ và giờ mở cửa</a><a href="#nt-contact-prepare">Thông tin cần gửi</a>
-		<?php if ( '' !== $args['form'] ) : ?><a href="#nt-contact-form">Gửi yêu cầu</a><?php endif; ?>
+		<?php if ( '' !== $args['form'] ) : ?>
+			<a href="#nt-contact-form">Gửi yêu cầu</a>
+		<?php endif; ?>
 	</nav>
 	<section id="nt-contact-details" class="nt-service-page__section" aria-labelledby="nt-contact-details-title">
 		<h2 id="nt-contact-details-title">Thông tin liên hệ Nguyễn Tú</h2>
