@@ -179,7 +179,7 @@ for (const width of [390, 768, 1440]) {
 				contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05),
 				overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
 				sectionPadding: parseFloat(getComputedStyle(card).paddingLeft),
-				isGapHidden: getComputedStyle(document.querySelector('#post-372 .nt-lg-section__inner > .nt-lg-gap')).display === 'none'
+				isGapHidden: (() => { const gap = document.querySelector('#post-372 .nt-lg-section__inner > .nt-lg-gap'); return !gap || getComputedStyle(gap).display === 'none'; })()
 			};
 		});
 		for (const mode of ['light', 'dark']) {
