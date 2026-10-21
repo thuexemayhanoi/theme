@@ -37,11 +37,22 @@ const exists = async (p) => readFile(new URL(p, root), 'utf8').then(() => true, 
 }
 
 // ---- static gates computed here ----
-const progress = await readFile(new URL('docs/PROGRESS.md', root), 'utf8').catch(() => '');
-results['live-unchanged'] = {
-	status: /LIVE_UNCHANGED\s*=\s*TRUE/i.test(progress) ? 'PASS' : 'FAIL',
-	detail: /LIVE_UNCHANGED\s*=\s*TRUE/i.test(progress) ? 'docs/PROGRESS.md records LIVE_UNCHANGED = TRUE (no activation, DB, option or file change on production)' : 'LIVE_UNCHANGED marker missing',
-};
+// Do NOT infer production integrity from docs/PROGRESS.md: historical migration text may
+// still contain a LIVE_UNCHANGED=TRUE marker after the site has gone live. This release gate
+// is intentionally NOT_TESTED unless a current, machine-recorded check exists in
+// reports/results/live-unchanged.json (with evidence and a valid timestamp).
+// In particular, a documentation string is never proof of an unmodified live site.
+if (results['live-unchanged']?.status === 'PASS') {
+	const recorded = results['live-unchanged'];
+	const stamp = Date.parse(recorded.at ?? '');
+	const age = Date.now() - stamp;
+	if (!recorded.evidence || !Number.isFinite(stamp) || age < 0 || age > 24 * 60 * 60 * 1000) {
+		results['live-unchanged'] = {
+			status: 'NOT_TESTED',
+			detail: 'Live-unchanged PASS has missing evidence or is older than 24 hours; verify production again.',
+		};
+	}
+}
 for (const [gate, file] of [['rollback-doc', 'docs/ROLLBACK.md'], ['deploy-doc', 'docs/DEPLOY.md'], ['legacy-matrix-doc', 'docs/LEGACY-COMPAT.md'], ['staging-checklist', 'docs/STAGING-CHECKLIST.md']]) {
 	results[gate] = (await exists(file)) ? { status: 'PASS', detail: `${file} exists` } : { status: 'FAIL', detail: `${file} missing` };
 }
@@ -91,7 +102,7 @@ const GATES = [
 	['quickcall-real', 'Real Moto QuickCall plugin compatibility (plugin not obtainable)', true],
 	['motoai-real', 'Real MotoAI chat widget compatibility (plugin not obtainable)', true],
 	['flatsome-real-content', 'Rendering of the real raw post_content of page #562 and siblings (needs staging with real DB)', true],
-	['live-unchanged', 'Production untouched: no activation, DB/option/file change, webhook or merge', true],
+	['live-unchanged', 'Production unaffected by this release attempt (current evidence required; historical docs are not proof)', true],
 	['secret-scan', 'No credentials, tokens or keys in tracked files', true],
 	['rollback-doc', 'Rollback plan documented', true],
 	['deploy-doc', 'Deployment plan documented', true],
@@ -104,7 +115,8 @@ const NOT_OBTAINABLE = {
 	'quickcall-real': 'Moto QuickCall Pro+ Social is not publicly obtainable; only a layout simulator was tested (see e2e-contact).',
 	'motoai-real': 'MotoAI Chat Widget is not publicly obtainable; only a layout simulator was tested (see e2e-contact).',
 	'flatsome-real-content': 'The raw post_content of page #562 is not readable without authenticated access; run `wp nguyentu legacy-scan` and the staging checklist on a copy of the production database.',
-	'seo-diff-live': 'The build container cannot reach https://thuexemaynguyentu.com (egress policy returns 403). Run the manual workflow seo-snapshot-live or tools/seo/snapshot.mjs from an allowed network.',
+	'seo-diff-live': 'Requires a verified current-site snapshot; use a read-only audit or authenticated staging workflow. Do not infer from older runs.',
+	'live-unchanged': 'Not verified in this run: provide dated evidence from deployment logs / read-only production checks, not docs/PROGRESS.md.',
 	lighthouse: 'Lighthouse could not be run in this environment unless a result is recorded.',
 };
 
