@@ -146,7 +146,7 @@ for (const width of [390, 768, 1440]) {
 		await expect(map).toHaveCount(1);
 		await expect(map).toHaveAttribute('title', /Nguyễn Tú/);
 		const mapSource = await map.evaluate((frame) => frame.getAttribute('data-src') || frame.getAttribute('src') || '');
-		expect(mapSource).toMatch(/maps\\.google\\.com\\/maps/);
+		expect(mapSource).toContain('maps.google.com/maps');
 		await expect(page.getByRole('link', { name: 'Mở chỉ đường Google Maps' })).toHaveAttribute('href', /maps/);
 		for (const mode of ['light', 'dark']) {
 			if (mode === 'dark') await page.locator('[data-nt-theme-toggle]').click();
