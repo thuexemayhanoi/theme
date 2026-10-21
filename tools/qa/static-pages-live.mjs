@@ -56,6 +56,13 @@ try {
         assert.equal(meta.images, 0, 'No decorative body images');
         for (const mode of ['light', 'dark']) {
           if ((await page.locator('html').getAttribute('data-nt-color-mode')) !== mode) await page.locator('[data-nt-theme-toggle]').click();
+          // Buttons animate their colors for 150ms. Measure the settled UI,
+          // rather than the previous mode's text on the next mode's background.
+          await page.locator('main').evaluate(async main => {
+            await Promise.all(main.getAnimations({ subtree: true })
+              .filter(animation => animation instanceof CSSTransition)
+              .map(animation => animation.finished.catch(() => {})));
+          });
           const metrics = await page.evaluate(() => {
             const root = document.querySelector('.nt-service-page') ?? document.querySelector('.nt-document-page');
             const rgb = value => value.match(/[\d.]+/g)?.slice(0, 3).map(Number).map(n => n / 255) ?? [];
