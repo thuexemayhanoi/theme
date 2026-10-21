@@ -263,7 +263,10 @@ function nt_footer_accordion_assets(): void {
 		nt_asset_uri( 'assets/js/footer-accordion.js' ),
 		array(),
 		nt_asset_ver( 'assets/js/footer-accordion.js' ),
-		array( 'strategy' => 'defer', 'in_footer' => true )
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
 	);
 }
 add_action( 'wp_enqueue_scripts', 'nt_footer_accordion_assets', 25 );
