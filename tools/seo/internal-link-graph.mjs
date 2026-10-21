@@ -30,8 +30,8 @@ if (base !== 'https://thuexemaynguyentu.com' && !/^(http:\/\/127\.0\.0\.1|http:\
   throw Error('Only approved Nguyen Tu production and localhost sandbox origins are allowed');
 }
 const limit = Number(opt.limit), concurrency = Number(opt.concurrency), delay = Number(opt.delay), timeout = Number(opt.timeout);
-if (![limit, concurrency, delay, timeout].every(Number.isInteger) || limit < 1 || limit > 350 || concurrency < 1 || concurrency > 2 || delay < 300 || timeout < 1000 || timeout > 30000) {
-  throw Error('Invalid safeguards: limit 1-350, concurrency 1-2, delay >=300ms, timeout 1000-30000ms');
+if (![limit, concurrency, delay, timeout].every(Number.isInteger) || limit < 1 || limit > 1000 || concurrency < 1 || concurrency > 2 || delay < 300 || timeout < 1000 || timeout > 30000) {
+  throw Error('Invalid safeguards: limit 1-1000, concurrency 1-2, delay >=300ms, timeout 1000-30000ms');
 }
 await mkdir(opt.out, { recursive: true });
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
