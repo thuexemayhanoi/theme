@@ -1,5 +1,7 @@
 # NGUYỄN TÚ — INDEPENDENT WORDPRESS THEME FACTORY
 
+> **P0 OWNER FREEZE (2026-10-21): QUICK CALL + NGUYỄN TÚ ASSISTANT — KEEP CURRENT LIVE BEHAVIOR.** Read [AGENTS.md](AGENTS.md) **before any work**. The owner explicitly forbids changes, optimization, refactors, replacement, disabling or plugin swaps for these two working features unless asked and approved for the **specific change** first. Read-only audit is allowed; preserve them during every other UI/SEO/performance update. This rule overrides older checklist items asking to build/optimize Quick Call or chatbot. **Current production has an independent theme and native contact+assistant; older 2026-10-17 migration notes below are historical baselines, not a live checklist.**
+
 > **SEO HULK — BẮT BUỘC, ƯU TIÊN P0:** Đọc và thực hiện toàn bộ [docs/SEO-HULK.md](docs/SEO-HULK.md) cùng README và CLAUDE.md. Giao diện đẹp thôi chưa đủ: bảo vệ canonical, robots, Yoast metadata/JSON-LD, sitemap, H1, category hierarchy, WooCommerce, Local SEO, internal links, Core Web Vitals và mọi URL cũ bằng báo cáo diff + kiểm thử. Không tự thay SEO cũ, không tạo schema trùng, không bịa score/ranking, không deploy live khi chưa đạt P0.
 
 
