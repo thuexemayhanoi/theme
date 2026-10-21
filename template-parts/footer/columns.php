@@ -34,24 +34,30 @@ $nt_tagline       = nt_footer_tagline();
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--rental" aria-labelledby="nt-f-rental">
-		<p id="nt-f-rental" class="nt-footer__title">Thuê xe</p>
+		<details class="nt-footer__disclosure" open>
+		<summary id="nt-f-rental" class="nt-footer__title">Thuê xe</summary>
 		<nav aria-label="Dịch vụ và bảng giá thuê xe máy">
 			<?php nt_footer_list( $nt_footer_groups['rental'] ); ?>
 		</nav>
+		</details>
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--blog" aria-labelledby="nt-f-blog">
-		<p id="nt-f-blog" class="nt-footer__title">Cẩm nang</p>
+		<details class="nt-footer__disclosure" open>
+		<summary id="nt-f-blog" class="nt-footer__title">Cẩm nang</summary>
 		<nav aria-label="Các chuyên mục hướng dẫn và kinh nghiệm">
 			<?php nt_footer_list( $nt_footer_groups['hubs'] ); ?>
 		</nav>
+		</details>
 	</section>
 
 	<section class="nt-footer__column nt-footer__column--contact" aria-labelledby="nt-f-contact">
-		<p id="nt-f-contact" class="nt-footer__title">Thông tin</p>
+		<details class="nt-footer__disclosure" open>
+		<summary id="nt-f-contact" class="nt-footer__title">Thông tin</summary>
 		<nav aria-label="Giới thiệu, liên hệ và chính sách">
 			<?php nt_footer_list( $nt_footer_groups['info'] ); ?>
 		</nav>
 		<?php get_template_part( 'template-parts/footer/contact', null, array( 'mode' => 'actions' ) ); ?>
+		</details>
 	</section>
 </div>
