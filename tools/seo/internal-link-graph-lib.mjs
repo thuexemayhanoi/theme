@@ -27,6 +27,7 @@ export function linkRegion($, el) {
   if (link.closest('footer, #site-footer').length) return 'footer';
   if (link.closest('.breadcrumbs, .breadcrumb, .yoast-breadcrumb, nav[aria-label*="readcrumb"]').length) return 'breadcrumb';
   if (link.closest('.nt-related, .related-posts, [data-related-posts]').length) return 'related';
+  if (link.closest('.nt-article__chips, .post-categories, .category-links').length) return 'category';
   if (link.closest('header, #nt-nav, .site-nav, .mobile-nav').length) return 'header';
   if (link.closest('aside, .sidebar').length) return 'sidebar';
   if (link.closest('article .entry-content, .post-content, .entry-content, .nt-single__content, .wp-block-post-content').length) return 'content';
@@ -58,7 +59,7 @@ export function inferSilo(path, outgoingEdges = []) {
   if (/^\/bo-suu-tap\//.test(path)) return 'bang-gia';
   // Post permalink is generally at the root. Follow an actual breadcrumb/category
   // link, never invent a silo from keywords in the title or slug.
-  const cats = outgoingEdges.filter(e => e.region === 'breadcrumb' && /^\/blog\/[^/]+\//.test(e.target));
+  const cats = outgoingEdges.filter(e => ['breadcrumb', 'category'].includes(e.region) && /^\/blog\/[^/]+\//.test(e.target));
   if (cats.length) {
     cats.sort((a, b) => b.target.split('/').length - a.target.split('/').length);
     return 'blog/' + cats[0].target.split('/')[2];
