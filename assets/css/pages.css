@@ -1,0 +1,48 @@
+/*
+ * Native static pages (Giới thiệu hub and its child pages).
+ * Scoped to WordPress page bodies. No global header, home or WooCommerce changes.
+ */
+.nt-pagecontent { min-width: 0; overflow-wrap: anywhere; }
+.nt-pagecontent .nt-prose { min-width: 0; }
+.nt-pagecontent .nt-prose :is(img, picture, video, iframe, embed, object) { max-width: 100%; }
+.nt-pagecontent .nt-prose :is(input, select, textarea, button) { max-width: 100%; }
+.nt-pagecontent .nt-prose :is(.wp-block-columns, .nt-lg-row, .nt-lg-col) { min-width: 0; }
+.nt-pagecontent .nt-prose :is(.wp-block-embed__wrapper, .nt-lg-video) { max-width: 100%; }
+.nt-service-page { --nt-service-gap: clamp(20px, 3vw, 34px); max-width: 100%; padding: clamp(20px, 3vw, 42px) 0 clamp(36px, 5vw, 70px); overflow-wrap: break-word; }
+.nt-service-page, .nt-service-page * { min-width: 0; }
+.nt-service-page :where(h1, h2, h3) { line-height: 1.25; letter-spacing: -.02em; }
+.nt-service-page :where(h2) { margin: 0 0 .6em; font-size: clamp(1.35rem, 1.15rem + .9vw, 1.8rem); }
+.nt-service-page :where(h3) { margin: 0 0 .55em; font-size: clamp(1.06rem, 1rem + .3vw, 1.2rem); }
+.nt-service-page :where(p, ul, ol) { margin: 0 0 1em; }
+.nt-service-page :where(p, li) { max-width: 72ch; }
+.nt-service-page__intro { border: 1px solid var(--nt-line); border-radius: var(--nt-radius-lg); background: var(--nt-paper); padding: clamp(20px, 4vw, 44px); box-shadow: var(--nt-shadow-sm); }
+.nt-service-page__eyebrow { color: var(--nt-accent-700); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px !important; }
+.nt-service-page__intro h1 { font-size: clamp(1.85rem, 1.4rem + 2.3vw, 3rem); max-width: 24ch; margin: 0 0 18px; }
+.nt-service-page__lead { font-size: clamp(1rem, .94rem + .4vw, 1.18rem); color: var(--nt-muted); line-height: 1.75; }
+.nt-service-page__actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.nt-service-page__actions a { min-height: 44px; max-width: 100%; }
+.nt-service-page__nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.nt-service-page__nav a { font-size: .9rem; text-decoration: none; font-weight: 700; padding: 8px 12px; border: 1px solid var(--nt-line); background: var(--nt-paper); border-radius: 999px; }
+.nt-service-page__section { margin-top: clamp(34px, 5vw, 62px); }
+.nt-service-page__section > p { color: var(--nt-muted); }
+.nt-service-page__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--nt-service-gap); }
+.nt-service-page__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.nt-service-page__card { padding: clamp(18px, 2.8vw, 28px); border: 1px solid var(--nt-line); border-radius: var(--nt-radius); background: var(--nt-paper); box-shadow: var(--nt-shadow-sm); }
+.nt-service-page__card :last-child { margin-bottom: 0; }
+.nt-service-page__index { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: 10px; color: var(--nt-navy); font-weight: 800; background: var(--nt-navy-100); }
+.nt-service-page__card a:not(.nt-btn) { display: inline-block; font-weight: 700; }
+.nt-service-page__notice { padding: clamp(18px, 3vw, 30px); margin-top: 28px; border-left: 4px solid var(--nt-accent); border-radius: 0 var(--nt-radius) var(--nt-radius) 0; background: var(--nt-navy-100); }
+.nt-service-page__notice :last-child { margin-bottom: 0; }
+.nt-service-page__closing { margin-top: clamp(34px, 5vw, 62px); padding: clamp(20px, 4vw, 40px); border: 1px solid var(--nt-line); border-radius: var(--nt-radius-lg); background: var(--nt-paper); }
+.nt-service-page__closing :last-child { margin-bottom: 0; }
+.nt-service-page__facts { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.nt-service-page__facts li { margin: 0; padding: 0 0 12px; border-bottom: 1px solid var(--nt-line); }
+.nt-service-page__facts li:last-child { padding-bottom: 0; border: 0; }
+.nt-service-page__facts strong { display: block; font-size: .875rem; color: var(--nt-muted); margin-bottom: 2px; }
+.nt-service-page__facts a { overflow-wrap: anywhere; }
+@media (max-width: 767.98px) {
+  .nt-service-page__grid, .nt-service-page__grid--3 { grid-template-columns: minmax(0, 1fr); }
+  .nt-service-page__actions { flex-direction: column; align-items: stretch; }
+  .nt-service-page__actions .nt-btn { display: flex; justify-content: center; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .nt-service-page * { scroll-behavior: auto; } }
