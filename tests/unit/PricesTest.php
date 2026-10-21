@@ -35,17 +35,28 @@ final class PricesTest extends TestCase {
 		$this->assertSame( '1.800.000–2.000.000đ', $rows['Honda Vision']['month'] );
 		$this->assertSame( '4–5 triệu', $rows['Honda Vision']['deposit'] );
 		$this->assertSame( '1.500.000đ', $rows['Honda Air Blade']['month'] );
-		// Owner-approved updated reference rates; deposits remain unchanged.
+		// Owner-approved authoritative rates; unspecified 50cc/electric packages are quote-on-request.
 		$this->assertSame( '200.000đ', $rows['Xe tay ga 50cc']['day'] );
-		$this->assertSame( '1.000.000đ', $rows['Xe tay ga 50cc']['week'] );
-		$this->assertSame( '1.800.000–2.000.000đ', $rows['Xe tay ga 50cc']['month'] );
+		$this->assertSame( 'Báo giá riêng', $rows['Xe tay ga 50cc']['week'] );
+		$this->assertSame( 'Báo giá riêng', $rows['Xe tay ga 50cc']['month'] );
 		$this->assertSame( '4 triệu', $rows['Xe tay ga 50cc']['deposit'] );
-		$this->assertSame( '200.000đ', $rows['Xe máy điện / Xe đạp điện']['day'] );
-		$this->assertSame( '1.000.000đ', $rows['Xe máy điện / Xe đạp điện']['week'] );
-		$this->assertSame( '1.800.000–2.000.000đ', $rows['Xe máy điện / Xe đạp điện']['month'] );
+		$this->assertSame( 'Liên hệ', $rows['Xe máy điện / Xe đạp điện']['day'] );
+		$this->assertSame( 'Liên hệ', $rows['Xe máy điện / Xe đạp điện']['week'] );
+		$this->assertSame( 'Liên hệ', $rows['Xe máy điện / Xe đạp điện']['month'] );
 		$this->assertSame( 'Xác nhận theo mẫu xe', $rows['Xe máy điện / Xe đạp điện']['deposit'] );
 		$this->assertCount( 6, $rows );
 	}
+
+
+	public function test_unpriced_packages_do_not_create_fabricated_price_minima(): void {
+		$rows = array_column( nt_price_defaults(), null, 'name' );
+		$this->assertNull( nt_price_cell_min( $rows['Xe tay ga 50cc']['week'] ) );
+		$this->assertNull( nt_price_cell_min( $rows['Xe tay ga 50cc']['month'] ) );
+		foreach ( array( 'day', 'week', 'month' ) as $period ) {
+			$this->assertNull( nt_price_cell_min( $rows['Xe máy điện / Xe đạp điện'][ $period ] ) );
+		}
+	}
+
 
 	public function test_cell_minimum_and_column_minimum(): void {
 		$this->assertSame( 900000, nt_price_cell_min( '900.000–1.200.000đ' ) );
