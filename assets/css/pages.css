@@ -21,6 +21,10 @@
 .nt-static-page .nt-prose .nt-btn--ghost { color: var(--nt-navy); }
 .nt-static-page .nt-table-wrap { max-width: 100%; overscroll-behavior-inline: contain; }
 .nt-static-page .nt-table-wrap:focus-visible { outline: 3px solid var(--nt-accent); outline-offset: 3px; }
+.nt-contact-page__map { margin-top: var(--nt-service-gap); }
+.nt-contact-page__map-frame { display: block; width: 100%; max-width: 100%; height: clamp(290px, 42vw, 420px); border: 0; border-radius: var(--nt-radius); }
+.nt-contact-page__map-link { margin: 14px 0 0; font-size: .9rem; }
+.nt-contact-page__map-link a { font-weight: 700; }
 .nt-contact-page__form { max-width: 760px; }
 .nt-contact-page__form .wpcf7 :is(input:not([type="hidden"]), textarea, select) { width: 100%; max-width: 100%; box-sizing: border-box; }
 .nt-contact-page__form .wpcf7 input[type="submit"] { min-height: 44px; width: auto; }
