@@ -35,7 +35,6 @@ if (![limit, concurrency, delay, timeout].every(Number.isInteger) || limit < 1 |
 }
 await mkdir(opt.out, { recursive: true });
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
-const records = [];
 const ua = 'NguyenTu-LinkGraph/1.0 (read-only sitemap audit)';
 async function fetchPage(url) {
   const res = await fetch(url, {
