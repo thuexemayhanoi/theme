@@ -42,6 +42,15 @@ test('all body links, correct regions, anchored duplicates deduplicated, old pag
   assert.equal(inferSilo('/completely-unclassified/', []), 'unclassified');
 });
 
+test('root-level post category chips are used as authoritative silo evidence', () => {
+  const page = '<main><article><nav class="nt-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a></nav>'
+    + '<div class="nt-article__chips"><a class="nt-chip" href="/blog/xe-dien/">Xe Điện</a></div>'
+    + '<div class="entry-content"><a href="/san-pham/xe-dap-dien/">Xem xe</a></div></article></main>';
+  const edges = extractInternalEdges(page, '/bao-nhieu-tuoi-duoc-di-xe-may-dien/', base);
+  assert.equal(edges.find(e => e.target === '/blog/xe-dien/').region, 'category');
+  assert.equal(inferSilo('/bao-nhieu-tuoi-duoc-di-xe-may-dien/', edges), 'blog/xe-dien');
+});
+
 test('graph separates contextual inbound, sitewide inbound, missing inbound and unknown targets', () => {
   const mk = (path, type = 'post') => ({ path, type, status: 200, indexable: true, selfCanonical: true });
   const pages = [mk('/','home'),mk('/blog/xe-dien/','category'),mk('/article-1/'),mk('/article-2/')];
