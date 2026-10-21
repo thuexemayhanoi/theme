@@ -4,13 +4,16 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
 final class StaticPagesIntegrationTest extends TestCase {
-	private function render( int $id ): string {
+	private function render( int $id, ?callable $before_body = null ): string {
 		global $post, $wp_query;
 		$prior_query = $wp_query;
 		$prior_post  = $post;
 		try {
 			$wp_query = new WP_Query( array( 'page_id' => $id ) );
 			$wp_query->the_post();
+			if ( null !== $before_body ) {
+				$before_body();
+			}
 			return nt_get_page_body();
 		} finally {
 			$wp_query = $prior_query;
@@ -47,14 +50,22 @@ final class StaticPagesIntegrationTest extends TestCase {
 		$source   = get_post_field( 'post_content', 372 );
 		$previous = $GLOBALS['shortcode_tags']['contact-form-7'] ?? null;
 		$runs     = 0;
+		$traces   = array();
 		try {
-			add_shortcode( 'contact-form-7', static function () use ( &$runs ): string {
+			add_shortcode( 'contact-form-7', static function () use ( &$runs, &$traces ): string {
 				++$runs;
+				$traces[] = wp_debug_backtrace_summary();
 				return '<form><input name="your-email"><input type="hidden" name="token" value="kept"></form>';
 			} );
 			wp_update_post( array( 'ID' => 372, 'post_content' => $source . '[contact-form-7 id="8"]' ) );
-			$html = $this->render( 372 );
-			$this->assertSame( 1, $runs );
+			// Save/index hooks and query setup may inspect shortcode content too.
+			// Count only callbacks caused by the visitor's page-body render.
+			$html = $this->render( 372, static function () use ( &$runs, &$traces ): void {
+				$runs   = 0;
+				$traces = array();
+			} );
+			$this->assertSame( 1, $runs, implode( ' | ', $traces ) );
+			$this->assertSame( 1, nt_html_count_tag( $html, 'form' ) );
 			$this->assertStringContainsString( 'name="your-email"', $html );
 			$this->assertStringContainsString( 'value="kept"', $html );
 		} finally {

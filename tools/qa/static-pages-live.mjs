@@ -38,7 +38,6 @@ try {
           footer: [...document.querySelectorAll('#site-footer a[href]')].map(el => el.getAttribute('href')),
           images: document.querySelectorAll('main img:not(form img)').length,
           marker: !!document.querySelector('[data-nt-page-body="20261021"]'),
-          pageStyles: !!document.querySelector('#nt-pages-css'),
           rawShortcodes: /\[\/?(?:ux_\w+|section|row|col|contact-form-7)(?=[\s\]/])/.test(document.querySelector('main').innerText),
         }));
         for (const key of ['title', 'description', 'canonical', 'robots', 'h1', 'nav', 'footer']) {
@@ -48,7 +47,6 @@ try {
         record.checks.push('200, title/meta/canonical/robots/H1 and navigation/footer URLs preserved');
         if ([562, 3040].includes(prior.id)) {
           assert.equal(meta.marker, false, 'Homepage/shop must stay outside the static-page body');
-          assert.equal(meta.pageStyles, false);
           assert.ok(meta.images > 0, 'Homepage/shop photos must remain');
           record.checks.push('Homepage/shop excluded; photos retained');
           continue;
@@ -56,7 +54,6 @@ try {
         assert.equal(meta.h1.length, 1);
         assert.equal(meta.marker, true);
         assert.equal(meta.images, 0, 'No decorative body images');
-        assert.equal(meta.pageStyles, true);
         for (const mode of ['light', 'dark']) {
           if ((await page.locator('html').getAttribute('data-nt-color-mode')) !== mode) await page.locator('[data-nt-theme-toggle]').click();
           const metrics = await page.evaluate(() => {
@@ -71,11 +68,16 @@ try {
               return (Math.max(bg, fg) + .05) / (Math.min(bg, fg) + .05);
             };
             const rect = root.getBoundingClientRect();
+            const card = root.matches('.nt-document-page') ? root : root.querySelector('.nt-service-page__intro');
             return { overflow: document.documentElement.scrollWidth > innerWidth + 1, left: rect.left, right: rect.right,
+              cardPadding: parseFloat(getComputedStyle(card).paddingLeft), cardBorder: parseFloat(getComputedStyle(card).borderTopWidth),
               lowContrast: [...root.querySelectorAll('h1,h2,h3,h4,p,li,label,.nt-btn')].filter(el => el.getBoundingClientRect().height > 0 && contrast(el) < 4.5).map(el => ({ text: el.innerText.slice(0, 80), contrast: contrast(el) })) };
           });
           assert.equal(metrics.overflow, false, `${prior.id} ${mode}: horizontal overflow`);
           assert.ok(metrics.left >= 12 && metrics.right <= width - 12, 'Readable side gutters');
+          // LiteSpeed combines stylesheets and removes their original link IDs.
+          // Verify the resulting card geometry, rather than a particular <link>.
+          assert.ok(metrics.cardPadding >= 18 && metrics.cardBorder >= 1, 'Page card styles applied');
           assert.deepEqual(metrics.lowContrast, [], `${prior.id} ${mode}: contrast`);
           await page.screenshot({ path: `${output}/${prior.id}-${width}-${mode}.png`, fullPage: width === 390 && [372, 494].includes(prior.id) });
           record.checks.push(`${mode}: no overflow, side gutters, text/button contrast >= 4.5`);
