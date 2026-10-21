@@ -370,6 +370,7 @@ function nt_assist_bm25_rerank( array $matches, array $terms ): array {
 		}
 		$length = max( 1, 3 * count( $title ) + count( $body ) );
 		$total += $length;
+
 		$docs[ $index ] = array(
 			'length' => $length,
 			'freq'   => $freq,
@@ -465,9 +466,9 @@ function nt_assist_public_search( string $query ): array {
 			continue;
 		}
 		$matches[] = array(
-			'score'   => $score,
-			'title'   => $title,
-			'url'     => $url,
+			'score'     => $score,
+			'title'     => $title,
+			'url'       => $url,
 			'excerpt'   => mb_substr( $summary, 0, 160, 'UTF-8' ),
 			'rank_text' => mb_substr( $summary, 0, 650, 'UTF-8' ),
 		);
