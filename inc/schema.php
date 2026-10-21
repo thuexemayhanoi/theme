@@ -73,3 +73,20 @@ function nt_yoast_enrich_organization( $data ) {
 	return $data;
 }
 add_filter( 'wpseo_schema_organization', 'nt_yoast_enrich_organization', 20 );
+
+/**
+ * The static service homepage is a WebPage, not the legacy editor's Article.
+ *
+ * Keep Yoast's other graph pieces and every other route unchanged. This filter
+ * deliberately matches the audited homepage ID rather than all WordPress pages.
+ *
+ * @param bool $needed Whether Yoast needs the Article piece.
+ * @return bool
+ */
+function nt_yoast_home_article_needed( bool $needed ): bool {
+	if ( is_front_page() && is_page( 562 ) ) {
+		return false;
+	}
+	return $needed;
+}
+add_filter( 'wpseo_schema_needs_article', 'nt_yoast_home_article_needed', 20 );
