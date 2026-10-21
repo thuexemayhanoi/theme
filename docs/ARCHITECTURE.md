@@ -1,3 +1,5 @@
+> **Production-state clarification (2026-10-21):** This architecture describes the independent PHP WordPress theme, which is now *active* on the primary website. Pre-migration limitations and old MotoAI/QuickCall simulation notes are historical, not proof of present live behavior. See [CURRENT-PRODUCTION.md](CURRENT-PRODUCTION.md) and the frozen-feature policy in [AGENTS.md](../AGENTS.md).
+
 # Kiến trúc theme Nguyễn Tú Editorial Commerce
 
 Theme **độc lập** (không `Template:` cha, không gọi hàm/tệp Flatsome — có test chặn). Thư mục gốc repo = thư mục theme để Deployer for Git cài trực tiếp.
