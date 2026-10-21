@@ -1,5 +1,5 @@
 /*
- * Native static pages (Giới thiệu hub and its child pages).
+ * Shared static-page bodies: service pages and reading pages.
  * Scoped to WordPress page bodies. No global header, home or WooCommerce changes.
  */
 .nt-pagecontent { min-width: 0; overflow-wrap: anywhere; }
@@ -8,6 +8,25 @@
 .nt-pagecontent .nt-prose :is(input, select, textarea, button) { max-width: 100%; }
 .nt-pagecontent .nt-prose :is(.wp-block-columns, .nt-lg-row, .nt-lg-col) { min-width: 0; }
 .nt-pagecontent .nt-prose :is(.wp-block-embed__wrapper, .nt-lg-video) { max-width: 100%; }
+.nt-static-page .nt-pagehead { padding: clamp(18px, 3vw, 32px) 0 0; }
+.nt-static-page .nt-pagehead__title { margin: 0 0 18px; font-size: clamp(1.85rem, 1.4rem + 2.3vw, 3rem); line-height: 1.25; letter-spacing: -.02em; }
+.nt-static-page .nt-breadcrumb { margin-bottom: 0; }
+.nt-static-page .nt-pagecontent { padding-bottom: clamp(36px, 5vw, 70px); }
+.nt-static-page .nt-pagecontent--wide { padding-bottom: 0; }
+.nt-static-page .nt-document-page { margin-top: clamp(20px, 3vw, 42px); padding: clamp(20px, 4vw, 44px); border: 1px solid var(--nt-line); border-radius: var(--nt-radius-lg); background: var(--nt-paper); box-shadow: var(--nt-shadow-sm); }
+.nt-static-page .nt-document-page h1 { margin: 0 0 24px; font-size: clamp(1.85rem, 1.4rem + 2.3vw, 3rem); line-height: 1.25; letter-spacing: -.02em; }
+.nt-static-page :is(.nt-document-page, .nt-service-page) :is(h1, h2, h3, h4) { scroll-margin-top: 110px; }
+.nt-static-page .nt-prose .nt-btn { text-decoration: none; }
+.nt-static-page .nt-prose :is(.nt-btn--call, .nt-btn--zalo, .nt-btn--maps, .nt-btn--primary) { color: #fff; }
+.nt-static-page .nt-prose .nt-btn--ghost { color: var(--nt-navy); }
+.nt-static-page .nt-table-wrap { max-width: 100%; overscroll-behavior-inline: contain; }
+.nt-static-page .nt-table-wrap:focus-visible { outline: 3px solid var(--nt-accent); outline-offset: 3px; }
+.nt-contact-page__form { max-width: 760px; }
+.nt-contact-page__form .wpcf7 :is(input:not([type="hidden"]), textarea, select) { width: 100%; max-width: 100%; box-sizing: border-box; }
+.nt-contact-page__form .wpcf7 input[type="submit"] { min-height: 44px; width: auto; }
+.nt-contact-page__form .wpcf7 label { display: block; }
+.nt-contact-page__form .wpcf7 textarea { min-height: 150px; resize: vertical; }
+.nt-contact-page__form .wpcf7 p { margin-bottom: 18px; }
 .nt-service-page { --nt-service-gap: clamp(20px, 3vw, 34px); width: min(calc(100% - 2 * var(--nt-gutter)), var(--nt-container)); max-width: 100%; margin-inline: auto; padding: clamp(20px, 3vw, 42px) 0 clamp(36px, 5vw, 70px); overflow-wrap: break-word; }
 .nt-service-page, .nt-service-page * { min-width: 0; }
 .nt-service-page :where(h1, h2, h3) { line-height: 1.25; letter-spacing: -.02em; }
@@ -21,6 +40,7 @@
 .nt-service-page__lead { font-size: clamp(1rem, .94rem + .4vw, 1.18rem); color: var(--nt-muted); line-height: 1.75; }
 .nt-service-page__actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
 .nt-service-page__actions a { min-height: 44px; max-width: 100%; }
+.nt-service-page__actions .nt-cta { display: flex; flex-wrap: wrap; gap: 10px; }
 .nt-service-page__nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
 .nt-service-page__nav a { font-size: .9rem; text-decoration: none; font-weight: 700; padding: 8px 12px; border: 1px solid var(--nt-line); background: var(--nt-paper); border-radius: 999px; }
 .nt-service-page__section { margin-top: clamp(34px, 5vw, 62px); }
@@ -44,5 +64,6 @@
   .nt-service-page__grid, .nt-service-page__grid--3 { grid-template-columns: minmax(0, 1fr); }
   .nt-service-page__actions { flex-direction: column; align-items: stretch; }
   .nt-service-page__actions .nt-btn { display: flex; justify-content: center; width: 100%; }
+  .nt-service-page__actions .nt-cta { width: 100%; flex-direction: column; }
 }
 @media (prefers-reduced-motion: reduce) { .nt-service-page * { scroll-behavior: auto; } }

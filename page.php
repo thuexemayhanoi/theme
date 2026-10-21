@@ -14,14 +14,14 @@ get_header();
 	<?php
 	while ( have_posts() ) :
 		the_post();
-		$nt_content  = nt_get_rendered_content();
+		$nt_content  = nt_get_page_body();
 		$nt_print_h1 = nt_should_print_h1( $nt_content );
-		$nt_is_shop  = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() );
+		$nt_is_shop  = nt_is_shop_context();
 		// Legacy layouts bring their own sections; cart, checkout and account need the full container (tables, two columns).
 		$nt_is_wide  = nt_content_is_wide( $nt_content );
 		$nt_box_wide = $nt_is_wide || $nt_is_shop;
 		?>
-		<article id="post-<?php the_ID(); ?>" class="nt-pagebody">
+		<article id="post-<?php the_ID(); ?>" class="nt-pagebody<?php echo ! $nt_is_shop ? ' nt-static-page' : ''; ?>"<?php echo ! $nt_is_shop ? ' data-nt-page-body="20261021"' : ''; ?>>
 			<?php if ( 'full' === nt_pagehead_mode( $nt_print_h1, $nt_is_wide ) ) : ?>
 				<header class="nt-pagehead">
 					<div class="nt-container<?php echo $nt_box_wide ? '' : ' nt-container--narrow'; ?>">
@@ -38,7 +38,7 @@ get_header();
 			<?php endif; ?>
 
 			<div class="nt-pagecontent<?php echo $nt_is_wide ? ' nt-pagecontent--wide' : ''; ?>">
-				<div class="<?php echo $nt_is_wide ? '' : ( $nt_is_shop ? 'nt-container ' : 'nt-container nt-container--narrow ' ); ?>nt-prose entry-content">
+				<div class="<?php echo $nt_is_wide ? '' : ( $nt_is_shop ? 'nt-container ' : 'nt-container nt-container--narrow nt-document-page ' ); ?>nt-prose entry-content">
 					<?php echo $nt_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content filter output. ?>
 				</div>
 			</div>

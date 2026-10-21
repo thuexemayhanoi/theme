@@ -53,6 +53,7 @@ $nt_modules = array(
 	'seo',
 	'schema',
 	'content',
+	'pages',
 	'related',
 	'template-tags',
 	'home',

@@ -87,7 +87,19 @@ jobs:
         run: |
           sudo -E env "PATH=$PATH" bash tools/sandbox/setup.sh
           sudo -E env "PATH=$PATH" bash tools/sandbox/seed.sh
-      - name: Run sandbox gates
+      - name: WordPress integration preflight
+        # Integration preflight gives fast feedback before the longer browser suite.
+        # Its disposable DB changes are discarded before the existing full gates.
+        run: |
+          sudo -E env "PATH=$PATH" bash -e -c '
+            . tools/sandbox/lib.sh
+            bash tools/sandbox/wp.sh plugin activate nguyentu-legacy-compat
+            bash tools/sandbox/wp.sh nguyentu-compat capture --force
+            bash tools/sandbox/wp.sh theme activate "$THEME_SLUG"
+            NT_WP_ROOT="$WP_ROOT" vendor/bin/phpunit -c phpunit.integration.xml.dist
+            bash tools/sandbox/snapshot.sh restore seeded
+          '
+      - name: Run full sandbox gates
         run: sudo -E env "PATH=$PATH" bash tools/qa/run-sandbox.sh
       - uses: actions/upload-artifact@v4
         if: always()

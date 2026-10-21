@@ -213,3 +213,13 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - CSS candidate changed from `.nt-lg-html:last-child` (could hide the only valid map) to `.nt-lg-html + .nt-lg-html:last-child`, which hides only a later adjacent embed in the same map column.
 - E2E now reconstructs two wrappers **only when sandbox has no iframe**, requires primary visible / archived hidden, and removes the archived wrapper to verify the remaining map stays visible. Preserves 390/768/1440 light/dark contrast, overflow and padding checks.
 - Status: candidate commits 9acc1a32, cb483a8d, 448db4ee pushed; full CI/merge/live verification **NOT YET VERIFIED** at checkpoint. Continue only when both CI jobs PASS, then purge LiteSpeed and test published `/lien-he/`. Keep original WordPress post, Contact Form 7, permalink and SEO untouched.
+
+### 2026-10-21 — Static-page body consistency (owner-authorized release)
+
+- Current WP inventory confirmed: 10 published Pages. Scope is eight informational pages (310, 424, 432, 372, 484, 326, 449, 494); homepage 562 and shop 3040 are excluded.
+- Fresh public baseline: `reports/static-pages/before-2026-10-21.json`, including exact titles, descriptions, canonicals, robots, H1s and header/footer destinations.
+- Root causes: contact and collection still render UX Builder presentation; FAQ has a decorative full-width image; document-page spacing was only defined in blog.css, which static pages do not enqueue.
+- Candidate: shared pages.css reading frame; native contact/collection presentation with central business data and real term links; static-page-only decorative image removal preserving functional form images/SVG icons. Contact Form 7 uses the original saved shortcode once. An editor-authored replacement body takes priority over native legacy templates.
+- Stored content, media, Yoast metadata, parent/child relationships, permalinks and all other templates are unchanged. Rollback: revert this release's theme files; no database restore needed.
+- Local checks: ESLint, CSS parsing, asset budgets and 57 Node tests passed. PHP and real WordPress/browser gates are delegated to repository CI because this workspace has no PHP runtime. Browser UI verification on the public site is required after deployment; native Safari remains untested.
+- LIVE_UNCHANGED = TRUE at candidate checkpoint. Owner explicitly requested testing, push and WordPress publication in this session; no new approval is required once gates pass.
