@@ -10,6 +10,7 @@ final class LayoutTest extends TestCase {
 		$this->assertTrue( nt_content_is_wide( '<div class="nt-legacy"><section class="nt-lg-section">x</section></div>' ) );
 		$this->assertTrue( nt_content_is_wide( '<div class="nt-lg-banner">x</div>' ) );
 		$this->assertTrue( nt_content_is_wide( '<div class="nt-lg-row">x</div>' ) );
+		$this->assertTrue( nt_content_is_wide( '<div class="nt-service-page"><section>Native page</section></div>' ) );
 		$this->assertFalse( nt_content_is_wide( '<h2>Giá thuê</h2><p>Văn bản thường.</p>' ) );
 		$this->assertFalse( nt_content_is_wide( '<div class="nt-lg-title">only a title</div>' ) );
 	}
