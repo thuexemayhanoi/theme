@@ -1,0 +1,45 @@
+name: Read-only SEO Internal Link Graph
+
+# Collect one reproducible PR artifact when the graph analyzer changes, or run
+# manually after future content releases. No WordPress endpoint writes.
+on:
+  pull_request:
+    paths:
+      - 'tools/seo/internal-link-graph*.mjs'
+      - 'tests/node/internal-link-graph.test.mjs'
+      - '.github/workflows/internal-link-graph.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-internal-graph-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  graph:
+    name: Current Yoast sitemap link graph (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Validate graph analysis on fixtures
+        run: node --test tests/node/internal-link-graph.test.mjs
+      - name: Crawl published sitemap URLs with bounded requests
+        run: |
+          node tools/seo/internal-link-graph.mjs \
+            --base https://thuexemaynguyentu.com \
+            --out reports/internal-link-graph \
+            --limit 300 --concurrency 2 --delay 500
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-internal-link-graph-evidence
+          retention-days: 14
+          path: reports/internal-link-graph/
