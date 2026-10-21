@@ -1,3 +1,5 @@
+> **CURRENT-PRODUCTION WARNING (2026-10-21):** The original guide below documents the *completed 17–19 Oct migration*, not the active production state. WordPress now runs the independent `theme` with Legacy Compat v1.1.0 active. **Do not repeat activation, plugin capture or rewrite flush as a routine deploy.** For current status and theme-only rollback, read [CURRENT-PRODUCTION.md](CURRENT-PRODUCTION.md) and the owner freeze in [AGENTS.md](../AGENTS.md). Any new release must use a verified GitHub commit, backup and production post-deploy QA. 
+
 # Triển khai theme Nguyễn Tú Editorial Commerce
 
 > **Không có bước nào dưới đây được thực hiện trong phiên build.** Production vẫn là Flatsome Child (xem `docs/PROGRESS.md`, `LIVE_UNCHANGED = TRUE`).
