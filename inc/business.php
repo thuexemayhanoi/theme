@@ -83,15 +83,15 @@ function nt_price_defaults(): array {
 		array(
 			'name'    => 'Xe tay ga 50cc',
 			'day'     => '200.000đ',
-			'week'    => '1.000.000đ',
-			'month'   => '1.800.000–2.000.000đ',
+			'week'    => 'Báo giá riêng',
+			'month'   => 'Báo giá riêng',
 			'deposit' => '4 triệu',
 		),
 		array(
 			'name'    => 'Xe máy điện / Xe đạp điện',
-			'day'     => '200.000đ',
-			'week'    => '1.000.000đ',
-			'month'   => '1.800.000–2.000.000đ',
+			'day'     => 'Liên hệ',
+			'week'    => 'Liên hệ',
+			'month'   => 'Liên hệ',
 			'deposit' => 'Xác nhận theo mẫu xe',
 		),
 	);
@@ -300,7 +300,7 @@ function nt_faq_items(): array {
 		),
 		array(
 			'q' => 'Có cho thuê xe máy điện và xe đạp điện không?',
-			'a' => 'Có. Giá tham khảo cho nhóm xe máy điện / xe đạp điện: 200.000đ/ngày, 1.000.000đ/tuần, 1.800.000–2.000.000đ/tháng. Mẫu xe và mức giá cụ thể cần xác nhận qua ' . nt_business( 'phone_display' ) . ' hoặc Zalo.',
+			'a' => 'Có. Với xe máy điện và xe đạp điện, giá thuê theo ngày, tuần và tháng cần liên hệ báo giá theo mẫu xe; tiền đặt cọc cũng cần xác nhận theo mẫu xe. Liên hệ ' . nt_business( 'phone_display' ) . ' hoặc Zalo để được tư vấn.',
 		),
 		array(
 			'q' => 'Cần xác nhận những gì trước khi nhận xe?',
