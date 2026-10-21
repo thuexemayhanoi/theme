@@ -189,5 +189,9 @@ for (const width of [390, 768, 1440]) {
 			expect(m.sectionPadding, mode + ' card padding').toBeLessThanOrEqual(42);
 			expect(m.isGapHidden, mode + ' decorative gap').toBe(true);
 		}
+		// If a future WordPress editor removes the archived embed, do not hide the only valid map.
+		await maps.last().evaluate(element => element.remove());
+		await expect(maps).toHaveCount(1);
+		await expect(maps.first(), 'single remaining map must stay visible').toBeVisible();
 	});
 }
