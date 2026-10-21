@@ -52,6 +52,11 @@ function nt_is_editorial_context(): bool {
 function nt_enqueue_assets(): void {
 	wp_enqueue_style( 'nt-main', nt_asset_uri( 'assets/css/main.css' ), array(), nt_asset_ver( 'assets/css/main.css' ) );
 
+	// Shared non-homepage Page layout: stays isolated from the homepage and shop.
+	if ( is_page() && ! is_front_page() && ! nt_is_shop_context() ) {
+		wp_enqueue_style( 'nt-pages', nt_asset_uri( 'assets/css/pages.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/pages.css' ) );
+	}
+
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'nt-home', nt_asset_uri( 'assets/css/home.css' ), array( 'nt-main' ), nt_asset_ver( 'assets/css/home.css' ) );
 	}
