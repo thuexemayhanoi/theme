@@ -16,6 +16,10 @@ for (const [width, expectedColumns] of widths) {
 
 		const footer = page.locator('#site-footer');
 		await expect(footer.locator('.nt-footer__grid > .nt-footer__column')).toHaveCount(4);
+		// On small screens, the information panel is intentionally collapsed.
+		if (width < 1024) {
+			await footer.locator('.nt-footer__column--contact summary').click();
+		}
 		const tracks = await footer.locator('.nt-footer__grid').evaluate((el) =>
 			getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length
 		);
@@ -149,7 +153,7 @@ test('only strategic Hub, rental and information links; no copied 36-item menu',
 	const footer = page.locator('#site-footer');
 	await expect(footer.locator('h1')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__grid h2')).toHaveCount(0);
-	await expect(footer.locator('p.nt-footer__title')).toHaveText(['Thuê xe', 'Cẩm nang', 'Thông tin']);
+	await expect(footer.locator('summary.nt-footer__title')).toHaveText(['Thuê xe', 'Cẩm nang', 'Thông tin']);
 	await expect(footer.locator('.nt-footer__grid h3')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__menu')).toHaveCount(0);
 	await expect(footer.locator('.nt-footer__widgets')).toHaveCount(0);
@@ -215,5 +219,36 @@ for (const width of [390, 768, 1440]) {
 		}
 		await noHorizontalScroll(page);
 		expect(await overflowOffenders(page)).toEqual([]);
+	});
+}
+
+for (const width of [390, 768, 1440]) {
+	test('Apple-like footer disclosure retains links and keyboard navigation at ' + width + 'px', async ({ page }) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.goto('/', { waitUntil: 'networkidle' });
+		const footer = page.locator('#site-footer');
+		const details = footer.locator('.nt-footer__disclosure');
+		await expect(details).toHaveCount(3);
+		const rental = details.first();
+		const rentalLinks = rental.locator('.nt-footer__list a');
+		const urlsBefore = await rentalLinks.evaluateAll((links) => links.map((link) => link.href));
+		expect(urlsBefore.length).toBeGreaterThanOrEqual(6);
+		if (width < 1024) {
+			await expect(rental).not.toHaveAttribute('open');
+			await expect(rentalLinks.first()).toBeHidden();
+			await rental.locator('summary').focus();
+			await page.keyboard.press('Enter');
+			await expect(rental).toHaveAttribute('open');
+			await expect(rentalLinks.first()).toBeVisible();
+			await expect(rentalLinks.first()).toHaveCSS('min-height', '44px');
+			await rental.locator('summary').click();
+			await expect(rental).not.toHaveAttribute('open');
+		} else {
+			await expect(rental).toHaveAttribute('open');
+			await expect(rentalLinks.first()).toBeVisible();
+		}
+		const urlsAfter = await rentalLinks.evaluateAll((links) => links.map((link) => link.href));
+		expect(urlsAfter).toEqual(urlsBefore);
+		await noHorizontalScroll(page);
 	});
 }
