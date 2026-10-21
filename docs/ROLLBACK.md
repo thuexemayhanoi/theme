@@ -1,3 +1,5 @@
+> **CURRENT ROLLBACK PRIORITY (2026-10-21):** Production currently runs Nguyễn Tú's independent `theme`. **Preferred rollback for a new theme-only regression is redeployment of the last verified good `theme` revision**, not switching to Flatsome Child. The steps below are an *older migration contingency* and must not be run automatically. Do not roll back plugin/database state without a separate validated plan. See [CURRENT-PRODUCTION.md](CURRENT-PRODUCTION.md) and [AGENTS.md](../AGENTS.md) (Quick Call/Assistant P0 freeze). 
+
 # Rollback
 
 Mục tiêu: trở về trạng thái cũ trong vài phút mà không mất dữ liệu. Theme mới **không ghi** bài viết, term, menu, media hay SEO nên không có gì
