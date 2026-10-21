@@ -34,3 +34,25 @@ jobs:
         with:
           name: legacy-url-live-evidence
           path: reports/live-legacy-redirect-pr/evidence.json
+
+
+  homepage-live:
+    name: Full homepage Chromium QA (read-only, premerge)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    needs: url-contract
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Verify current public homepage with PR QA code
+        run: node tools/qa/homepage-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: homepage-pr-live-evidence
+          path: reports/homepage-live/
