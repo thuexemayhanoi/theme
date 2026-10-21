@@ -1,0 +1,36 @@
+name: Legacy URL redirects (PR read-only)
+
+on:
+  pull_request:
+    paths:
+      - 'tools/qa/homepage-legacy-parity.mjs'
+      - 'tools/qa/homepage-live.mjs'
+      - 'tools/qa/legacy-live-pr.mjs'
+      - '.github/workflows/legacy-url-redirect-pr.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legacy-url-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  url-contract:
+    name: Four historic URLs redirect to self-canonical pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Public GET 301 and canonical preflight — no WordPress writes
+        run: node tools/qa/legacy-live-pr.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: legacy-url-live-evidence
+          path: reports/live-legacy-redirect-pr/evidence.json
