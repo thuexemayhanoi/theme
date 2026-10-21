@@ -46,7 +46,7 @@ function nt_business_defaults(): array {
 
 /**
  * Reference price table rows from the owner's data (VND). Reference only: must be
- * confirmed with the shop before booking. Electric bikes have no published price.
+ * confirmed with the shop before booking. All rows include owner's latest reference prices.
  *
  * @return array<int,array{name:string,day:string,week:string,month:string,deposit:string}>
  */
@@ -83,15 +83,15 @@ function nt_price_defaults(): array {
 		array(
 			'name'    => 'Xe tay ga 50cc',
 			'day'     => '200.000đ',
-			'week'    => 'Báo giá riêng',
-			'month'   => 'Báo giá riêng',
+			'week'    => '1.000.000đ',
+			'month'   => '1.800.000–2.000.000đ',
 			'deposit' => '4 triệu',
 		),
 		array(
 			'name'    => 'Xe máy điện / Xe đạp điện',
-			'day'     => 'Liên hệ',
-			'week'    => 'Liên hệ',
-			'month'   => 'Liên hệ',
+			'day'     => '200.000đ',
+			'week'    => '1.000.000đ',
+			'month'   => '1.800.000–2.000.000đ',
 			'deposit' => 'Xác nhận theo mẫu xe',
 		),
 	);
@@ -300,7 +300,7 @@ function nt_faq_items(): array {
 		),
 		array(
 			'q' => 'Có cho thuê xe máy điện và xe đạp điện không?',
-			'a' => 'Có. Giá và mẫu xe máy điện, xe đạp điện được báo theo từng mẫu, vui lòng gọi ' . nt_business( 'phone_display' ) . ' hoặc nhắn Zalo để được tư vấn.',
+			'a' => 'Có. Giá tham khảo cho nhóm xe máy điện / xe đạp điện: 200.000đ/ngày, 1.000.000đ/tuần, 1.800.000–2.000.000đ/tháng. Mẫu xe và mức giá cụ thể cần xác nhận qua ' . nt_business( 'phone_display' ) . ' hoặc Zalo.',
 		),
 		array(
 			'q' => 'Cần xác nhận những gì trước khi nhận xe?',
