@@ -167,11 +167,13 @@ for (const width of [390, 768, 1440]) {
 
 		const inspect = async () => page.evaluate(() => {
 			const card = document.querySelector('#post-372 .nt-lg-section__inner > .nt-lg-row > .nt-lg-col');
-			const h1 = card.querySelector('h1');
+			if (!card) throw new Error('Missing contact panel for contrast check');
+			// Production has an inner H1; the sandbox fixture uses a title H2.
+			const textNode = card.querySelector('h1, h2, h3, p') ?? card;
 			const parse = (color) => [...color.matchAll(/[\d.]+/g)].slice(0, 3).map(x => Number(x[0]) / 255);
 			const luminance = (rgb) => rgb.map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4)
 				.reduce((s, x, i) => s + x * [.2126, .7152, .0722][i], 0);
-			const fg = luminance(parse(getComputedStyle(h1).color));
+			const fg = luminance(parse(getComputedStyle(textNode).color));
 			const bg = luminance(parse(getComputedStyle(card).backgroundColor));
 			return {
 				contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05),
