@@ -64,18 +64,6 @@
   }
 }
 
-/* A fixed 58px Quick Call launcher sits 16px from the left edge. Reserve
- * its 74px footprint plus 14px breathing room in the mobile footer link rows.
- * Keep the actual anchor hit areas outside that rail rather than only
- * indenting the text. Quick Call itself remains completely unchanged. */
-@media (max-width: 639.98px) {
-  body.nt-has-native-quickcall .nt-footer__disclosure .nt-footer__list a {
-    box-sizing: border-box;
-    width: calc(100% - 88px);
-    margin-inline-start: 88px;
-  }
-}
-
 /* Tablet: retain the existing two-column grid, with a full-width NAP and information group. */
 @media (min-width: 640px) and (max-width: 1023.98px) {
   .nt-footer__grid { gap: 0 28px; }
