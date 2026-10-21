@@ -195,3 +195,21 @@ Chi tiết từng commit nằm trong lịch sử nhánh; PR do chủ site duyệ
 - Minimal candidate fix: aria-label now starts with the exact visible text. No chat logic, stored data, URLs or SEO metadata changes.
 - Add opened-panel axe checks to all five native assistant viewport tests and public live QA. Diagnostic workflow remains read-only and records light/dark/search/drawer/QuickCall/chat states.
 - Full CI and deployed verification are pending for this candidate. LIVE_UNCHANGED = TRUE at this checkpoint.
+
+
+## 2026-10-21 — iPhone inner-page legacy defects: 1 URL per cycle
+- Source: six real Safari iPhone screenshots supplied by the owner. Five distinct pages: /lien-he/ (#372), /faq/ (#484), /gioi-thieu/ (#310), /gioi-thieu/ve-chung-toi/ (#424), /gioi-thieu/su-menh-tam-nhin/ (#432).
+- Observed defects: original Flatsome shortcode styles rendered inside the native theme, creating inline black/white backgrounds that conflict with light/dark tokens; excessive legacy gaps, mobile type, oversized or unrelated artwork; illegible CTA labels.
+- First isolated change, **/lien-he/** only: branch fix/legacy-contact-iphone-2026-10-21. CSS scoped to #post-372 in assets/css/legacy.css, normalizes surface/text contrast, padding and title on phones/tablets/desktops, and hides the **second archival Moto Open map only in this contact layout** without deleting WP content/media. Contact Form 7, valid primary map, phone/Zalo, permalink, SEO and global theme remain intact.
+- Added tests/e2e/contact.spec.mjs regression for light/dark computed contrast, overflow, safe padding and extraneous embedded map at 390/768/1440.
+- State: **PENDING QA/CI and merge** at this checkpoint; not yet verified on the live site. Do not claim PASS before checking PR CI and real WordPress.
+- Next URLs: FAQ #484 (unrelated giant legacy image), introduction #310 (giant old banner), about-us #424 (black text on dark and oversized typography), mission #432 (white/light panel contrast and banner). Each URL requires its own scoped fix, CI and live verification; do not modify original WordPress post bodies, SEO fields, slugs or media library.
+- Automation: hourly, process one page per run, consult this checkpoint, stop when all five pass and owner-facing Safari findings are resolved or explicitly marked as requiring human device verification.
+
+
+## 2026-10-21 — Contact page #372: correct map selector and fixture regression
+- Continued existing PR #36 on branch `fix/legacy-contact-iphone-2026-10-21`; no new PR or URL created.
+- Root cause of the previous six `e2e-contact` failures: WordPress sandbox fixture `[map]` did not render either of the two production `.nt-lg-html` map iframes; assertion expected two. The production page has a primary Nguyễn Tú embed and an archived Moto Open embed.
+- CSS candidate changed from `.nt-lg-html:last-child` (could hide the only valid map) to `.nt-lg-html + .nt-lg-html:last-child`, which hides only a later adjacent embed in the same map column.
+- E2E now reconstructs two wrappers **only when sandbox has no iframe**, requires primary visible / archived hidden, and removes the archived wrapper to verify the remaining map stays visible. Preserves 390/768/1440 light/dark contrast, overflow and padding checks.
+- Status: candidate commits 9acc1a32, cb483a8d, 448db4ee pushed; full CI/merge/live verification **NOT YET VERIFIED** at checkpoint. Continue only when both CI jobs PASS, then purge LiteSpeed and test published `/lien-he/`. Keep original WordPress post, Contact Form 7, permalink and SEO untouched.
