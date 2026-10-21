@@ -1,0 +1,45 @@
+{
+  "/robots.txt": {
+    "sha256": "007f3b793e55ac384b0e491c5661a1681da4c72fda846b6c5165eb2871761a44",
+    "bytes": 483,
+    "text": "User-agent: *\nDisallow: /wp-content/uploads/wc-logs/\nDisallow: /wp-content/uploads/woocommerce_transient_files/\nDisallow: /wp-content/uploads/woocommerce_uploads/\nDisallow: /*?add-to-cart=\nDisallow: /*?*add-to-cart=\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\n# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow: /wp-json/\nDisallow: /?rest_route=\n\nSitemap: https://thuexemaynguyentu.com/sitemap_index.xml\n# ---------------------------\n# END YOAST BLOCK"
+  },
+  "/sitemap_index.xml": {
+    "sha256": "6ade825a375d43c7148ed0712b1046ac8f7b9985e327e7229f0d559e500e065c",
+    "bytes": 1507,
+    "urls": [
+      "https://thuexemaynguyentu.com/post-sitemap.xml",
+      "https://thuexemaynguyentu.com/page-sitemap.xml",
+      "https://thuexemaynguyentu.com/product-sitemap.xml",
+      "https://thuexemaynguyentu.com/featured_item-sitemap.xml",
+      "https://thuexemaynguyentu.com/category-sitemap.xml",
+      "https://thuexemaynguyentu.com/product_cat-sitemap.xml",
+      "https://thuexemaynguyentu.com/pa_dong-xe-sitemap.xml",
+      "https://thuexemaynguyentu.com/pa_loai-xe-sitemap.xml",
+      "https://thuexemaynguyentu.com/featured_item_category-sitemap.xml"
+    ]
+  },
+  "/page-sitemap.xml": {
+    "sha256": "08427f7692fc3afc45b251a5b8a139eace018a29619f5971e716d1a166f79b40",
+    "bytes": 2796,
+    "urls": [
+      "https://thuexemaynguyentu.com/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+      "https://thuexemaynguyentu.com/chinh-sach-bao-mat/",
+      "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Gia-thue-xe-may.jpeg",
+      "https://thuexemaynguyentu.com/shop/",
+      "https://thuexemaynguyentu.com/faq/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Hoi-dap-thue-xe-may.jpg",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Hoi-dap-thue-xe-may.jpg",
+      "https://thuexemaynguyentu.com/dieu-khoan-su-dung/",
+      "https://thuexemaynguyentu.com/lien-he/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/customer-service-line.png",
+      "https://thuexemaynguyentu.com/gioi-thieu/ve-chung-toi/",
+      "https://thuexemaynguyentu.com/gioi-thieu/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+      "https://thuexemaynguyentu.com/gioi-thieu/su-menh-tam-nhin/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-may-o-ha-noi-2.jpg"
+    ]
+  }
+}

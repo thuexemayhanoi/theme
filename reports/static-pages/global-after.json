@@ -1,0 +1,53 @@
+{
+  "/robots.txt": {
+    "sha256": "007f3b793e55ac384b0e491c5661a1681da4c72fda846b6c5165eb2871761a44",
+    "bytes": 483,
+    "same_text": true
+  },
+  "/sitemap_index.xml": {
+    "sha256": "7f36265d72eb58f63151ec2aec0efd3f45b316398f2bdd258a618faf63a484df",
+    "bytes": 1507,
+    "urls": [
+      "https://thuexemaynguyentu.com/post-sitemap.xml",
+      "https://thuexemaynguyentu.com/page-sitemap.xml",
+      "https://thuexemaynguyentu.com/product-sitemap.xml",
+      "https://thuexemaynguyentu.com/featured_item-sitemap.xml",
+      "https://thuexemaynguyentu.com/category-sitemap.xml",
+      "https://thuexemaynguyentu.com/product_cat-sitemap.xml",
+      "https://thuexemaynguyentu.com/pa_dong-xe-sitemap.xml",
+      "https://thuexemaynguyentu.com/pa_loai-xe-sitemap.xml",
+      "https://thuexemaynguyentu.com/featured_item_category-sitemap.xml"
+    ],
+    "same_urls": true,
+    "same_url_set": true,
+    "added_urls": [],
+    "removed_urls": []
+  },
+  "/page-sitemap.xml": {
+    "sha256": "65d5410fa356e9e6fcc74a36c974677e97bd4c59527aca76f4c357686ffdfabc",
+    "bytes": 2796,
+    "urls": [
+      "https://thuexemaynguyentu.com/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Iconchothuexemay.jpg",
+      "https://thuexemaynguyentu.com/shop/",
+      "https://thuexemaynguyentu.com/lien-he/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/customer-service-line.png",
+      "https://thuexemaynguyentu.com/gioi-thieu/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/BANNER-THUE-XE-MAY-1.png",
+      "https://thuexemaynguyentu.com/gioi-thieu/ve-chung-toi/",
+      "https://thuexemaynguyentu.com/gioi-thieu/su-menh-tam-nhin/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/cho-thue-xe-may-o-ha-noi-2.jpg",
+      "https://thuexemaynguyentu.com/faq/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Hoi-dap-thue-xe-may.jpg",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/09/Hoi-dap-thue-xe-may.jpg",
+      "https://thuexemaynguyentu.com/chinh-sach-bao-mat/",
+      "https://thuexemaynguyentu.com/dieu-khoan-su-dung/",
+      "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "https://thuexemaynguyentu.com/wp-content/uploads/2025/10/Gia-thue-xe-may.jpeg"
+    ],
+    "same_urls": false,
+    "same_url_set": true,
+    "added_urls": [],
+    "removed_urls": []
+  }
+}
