@@ -1,0 +1,80 @@
+/* Nguyễn Tú footer disclosures: shared across pages, isolated from content and Quick Call. */
+.nt-footer__disclosure { min-width: 0; }
+.nt-footer__disclosure > .nt-footer__title { list-style: none; }
+.nt-footer__disclosure > .nt-footer__title::-webkit-details-marker { display: none; }
+.nt-footer__disclosure > .nt-footer__title::marker { content: ''; }
+
+/* Mobile and iPad: show short, tappable Apple-style accordion rows. */
+@media (max-width: 1023.98px) {
+  .nt-footer__grid { row-gap: 0; padding-top: 36px; }
+  .nt-footer__column--brand { padding-bottom: 28px; }
+  .nt-footer__column:not(.nt-footer__column--brand) {
+    border-top: 1px solid rgb(255 255 255 / 24%);
+  }
+  .nt-footer__disclosure > .nt-footer__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 56px;
+    margin: 0;
+    padding: 12px 4px;
+    font-size: .9375rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    line-height: 1.35;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nt-footer__disclosure > .nt-footer__title::after {
+    content: '';
+    display: block;
+    flex: 0 0 9px;
+    width: 9px;
+    height: 9px;
+    margin: -4px 7px 0 0;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform .18s ease, margin .18s ease;
+  }
+  .nt-footer__disclosure[open] > .nt-footer__title::after {
+    margin-top: 5px;
+    transform: rotate(225deg);
+  }
+  .nt-footer__disclosure > .nt-footer__title:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border-radius: 4px;
+  }
+  .nt-footer__disclosure > nav { padding: 2px 0 12px; }
+  .nt-footer__disclosure .nt-footer__list li { margin: 0; }
+  .nt-footer__disclosure .nt-footer__list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    width: 100%;
+    padding: 8px 4px;
+    font-size: .9rem;
+    line-height: 1.4;
+  }
+  .nt-footer__column--contact .nt-footer__contact {
+    margin-top: 10px;
+    padding-bottom: 18px;
+  }
+}
+
+/* Tablet: retain the existing two-column grid, with a full-width NAP and information group. */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .nt-footer__grid { gap: 0 28px; }
+  .nt-footer__column--brand, .nt-footer__column--contact { grid-column: 1 / -1; }
+}
+
+/* Desktop: existing four-column SEO footer, all destinations visible. */
+@media (min-width: 1024px) {
+  .nt-footer__disclosure > .nt-footer__title { pointer-events: none; cursor: default; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nt-footer__disclosure > .nt-footer__title::after { transition: none; }
+}
