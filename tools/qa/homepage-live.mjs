@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { assertPreservedLinks, verifyLiveTermAliases } from './homepage-legacy-parity.mjs';
 
 const baseline = JSON.parse(readFileSync('reports/homepage-baseline-2026-10-21.json', 'utf8'));
 const out = 'reports/homepage-live';
@@ -17,8 +18,13 @@ try {
     if (response.ok() && (await response.text()).includes('data-nt-native-rental')) { ready = true; break; }
     await pause(10000);
   }
-  await probe.close();
   assert.ok(ready, 'Native calculator is not deployed; do not claim live success');
+  // The baseline predates the 19 Oct Legacy Compat URL recovery. Only treat the four
+  // renamed menu/footer links as equivalent after observing real HTTP 301 redirects
+  // and self-canonicals. Do not edit the archived SEO baseline or relax other URL checks.
+  const legacy = await verifyLiveTermAliases(probe.request, baseline.url);
+  proof.legacyAliasEvidence = legacy.evidence;
+  await probe.close();
   const rates = [
     ['Honda Wave', 150000, '700.000đ', '900.000–1.200.000đ', '2–3 triệu'],
     ['Honda Vision', 200000, '1.000.000đ', '1.800.000–2.000.000đ', '4–5 triệu'],
@@ -57,14 +63,14 @@ try {
     assert.deepEqual(meta.canonical, [baseline.url]);
     assert.deepEqual(meta.h1, [baseline.h1]);
     assert.equal(meta.main, 1);
-    assert.deepEqual(meta.nav, baseline.nav);
-    assert.deepEqual(meta.footer, baseline.footer);
+    assertPreservedLinks(meta.nav, baseline.nav, legacy.replacements);
+    assertPreservedLinks(meta.footer, baseline.footer, legacy.replacements);
     assert.equal(meta.overflow, false);
     assert.equal(meta.nativeCount, 1);
     assert.equal(meta.oldScript, false);
     assert.equal(meta.unusedWishlist, false);
     result.meta = meta;
-    result.checks.push('SEO, menu/footer URL parity, one calculator, no overflow or unused wishlist entry');
+    result.checks.push('SEO, menu/footer URL parity after verified 301 aliases, one calculator, no overflow or unused wishlist entry');
     await page.locator('[data-nt-theme-toggle]').click();
     const mode = await page.locator('html').getAttribute('data-nt-color-mode');
     await page.reload({ waitUntil: 'domcontentloaded' });
