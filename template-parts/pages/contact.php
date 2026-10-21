@@ -39,6 +39,21 @@ defined( 'ABSPATH' ) || exit;
 				<a class="nt-btn nt-btn--ghost" href="<?php echo esc_url( nt_maps_url() ); ?>" target="_blank" rel="noopener">Mở chỉ đường Google Maps</a>
 			</div>
 		</div>
+		<div class="nt-service-page__card nt-contact-page__map" aria-labelledby="nt-contact-map-title">
+			<h3 id="nt-contact-map-title">Bản đồ cửa hàng Nguyễn Tú</h3>
+			<p>Vị trí nhận xe: <?php echo esc_html( nt_address() ); ?></p>
+			<iframe
+				class="nt-contact-page__map-frame"
+				title="Bản đồ Cho Thuê Xe Máy Nguyễn Tú tại 112 Nguyễn Văn Cừ, Hà Nội"
+				src="<?php echo esc_url( 'https://maps.google.com/maps?q=' . rawurlencode( (string) nt_business( 'gbp_name' ) . ', ' . nt_address( false ) ) . '&hl=vi&z=16&output=embed' ); ?>"
+				width="960"
+				height="400"
+				loading="lazy"
+				referrerpolicy="strict-origin-when-cross-origin"
+				allowfullscreen
+			></iframe>
+			<p class="nt-contact-page__map-link"><a href="<?php echo esc_url( nt_maps_url() ); ?>" target="_blank" rel="noopener noreferrer">Xem vị trí chính xác trên Google Maps</a></p>
+		</div>
 	</section>
 	<section id="nt-contact-prepare" class="nt-service-page__section" aria-labelledby="nt-contact-prepare-title">
 		<h2 id="nt-contact-prepare-title">Thông tin cần chuẩn bị trước khi liên hệ</h2>
