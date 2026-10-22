@@ -53,6 +53,8 @@ $nt_shortcuts = array(
 		'fallback_id' => 669, // Original 50cc Woo product; available in the legacy snapshot.
 	),
 );
+
+// Image attributes are independent of the existing homepage query and shortcut state.
 $nt_hero_image_attrs = array(
 	'class'         => 'nt-home-mag__hero-img',
 	'loading'       => 'eager',
