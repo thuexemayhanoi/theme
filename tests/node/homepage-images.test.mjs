@@ -39,10 +39,12 @@ test('alt text must stay short and must not stuff keywords; an empty alt is only
   assert.match(empty.warnings.join('\n'), /empty alt/);
 });
 
-test('first-screen images are never lazy; below-the-fold uploads are lazy unless explicitly high priority', () => {
+test('first-screen images are never lazy; an eager image below the first screen is only reported', () => {
   assert.match(assess([hero, cardA, cardB, img({ firstScreenTop: 300, file: 'f.webp', baseFile: 'f.webp' })]).failures.join('\n'), /first-screen image is lazy loaded/);
-  assert.match(assess([hero, cardA, cardB, img({ loading: 'eager', file: 'g.webp', baseFile: 'g.webp' })]).failures.join('\n'), /below-the-fold image is not lazy loaded/);
-  assert.deepEqual(assess([hero, cardA, cardB, img({ loading: 'eager', fetchpriority: 'high', file: 'h.webp', baseFile: 'h.webp' })]).failures, []);
+  const eager = assess([hero, cardA, cardB, img({ loading: 'eager', firstScreenTop: 942, file: 'g.webp', baseFile: 'g.webp' })]);
+  assert.deepEqual(eager.failures, []);
+  assert.match(eager.warnings.join('\n'), /g\.webp.*below the first screen \(top 942px\) but not lazy loaded/);
+  assert.deepEqual(assess([hero, cardA, cardB, img({ loading: 'eager', fetchpriority: 'high', file: 'h.webp', baseFile: 'h.webp' })]).warnings, []);
   assert.deepEqual(assess([hero, cardA, cardB, img({ isUpload: false, loading: 'eager', file: 'avatar.png', baseFile: 'avatar.png' })]).failures, [], 'not a WordPress upload: no lazy rule');
 });
 

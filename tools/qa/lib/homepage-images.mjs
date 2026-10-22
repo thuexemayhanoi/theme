@@ -124,7 +124,8 @@ export function assessImages({ images, vitals, width, height }) {
     }
     const aboveFold = image.firstScreenTop < height;
     if (aboveFold && image.loading === 'lazy') failures.push(`${label(image)}: first-screen image is lazy loaded`);
-    if (!aboveFold && image.loading !== 'lazy' && image.fetchpriority !== 'high') failures.push(`${label(image)}: below-the-fold image is not lazy loaded`);
+    // What is below the first screen on a phone can be above it on a desktop, so an eager image there is a note, not a failure.
+    if (!aboveFold && image.loading !== 'lazy' && image.fetchpriority !== 'high') warnings.push(`${label(image)}: below the first screen (top ${image.firstScreenTop}px) but not lazy loaded`);
   }
   const hero = shown.filter(i => i.zone === EDITORIAL_ZONES.hero);
   const cards = shown.filter(i => i.zone === EDITORIAL_ZONES.service);
