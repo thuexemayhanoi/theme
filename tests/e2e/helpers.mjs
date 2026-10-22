@@ -81,3 +81,39 @@ export async function noHorizontalScroll(page) {
 	const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
 	expect(sw, `page scrolls horizontally (scrollWidth ${sw} > clientWidth ${cw})`).toBeLessThanOrEqual(cw);
 }
+
+/** WCAG contrast ratio of two computed rgb()/rgba() colour strings. */
+export function contrastRatio(a, b) {
+	const rgb = (s) => s.match(/[\d.]+/g).slice(0, 3).map(Number);
+	const luminance = ([r, g, b]) => {
+		const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+		return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+	};
+	const [hi, lo] = [luminance(rgb(a)), luminance(rgb(b))].sort((x, y) => y - x);
+	return (hi + 0.05) / (lo + 0.05);
+}
+
+/**
+ * Text colour of an element and the first opaque background behind it. Gradients and images are not
+ * resolved, so use it for text that sits on a flat surface (titles on the page, table cells).
+ */
+export async function textOnBackground(locator) {
+	return locator.evaluate((el) => {
+		let bg = 'rgb(255, 255, 255)';
+		for (let e = el; e; e = e.parentElement) {
+			const value = getComputedStyle(e).backgroundColor;
+			const parts = (value.match(/[\d.]+/g) || []).map(Number);
+			if (parts.length >= 3 && (parts.length < 4 || parts[3] > 0.99)) {
+				bg = value;
+				break;
+			}
+		}
+		return { color: getComputedStyle(el).color, bg };
+	});
+}
+
+/** The text of the element reaches WCAG AA for normal text (4.5:1) against the surface behind it. */
+export async function expectReadable(locator, label, minimum = 4.5) {
+	const { color, bg } = await textOnBackground(locator);
+	expect(contrastRatio(color, bg), `${label}: ${color} on ${bg}`).toBeGreaterThanOrEqual(minimum);
+}
