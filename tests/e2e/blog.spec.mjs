@@ -211,7 +211,7 @@ test.describe('post contents list position', () => {
 						inHeading: !!q('h1 .nt-toc, h2 .nt-toc, h3 .nt-toc, h4 .nt-toc'),
 						headingInList: !!q('.nt-toc :is(h1, h2, h3, h4, h5, h6)'),
 						h1s: document.querySelectorAll('h1').length,
-						headings: [...document.querySelectorAll('main h1, main h2, main h3, main h4')].map((e) => `${e.tagName.toLowerCase()}|${e.textContent.trim()}`),
+						headings: [document.querySelector('h1.nt-article__title'), ...document.querySelectorAll('.nt-prose h2, .nt-prose h3, .nt-prose h4')].map((e) => `${e.tagName.toLowerCase()}|${e.textContent.trim()}`),
 					};
 				});
 				expect(info.inProse, 'the inline list is inside the text').toBe(true);
@@ -279,7 +279,7 @@ test.describe('post contents list position', () => {
 						prev: inline?.previousElementSibling?.tagName.toLowerCase() ?? null,
 						next: inline?.nextElementSibling?.tagName.toLowerCase() ?? null,
 						visible: [...document.querySelectorAll('.nt-toc')].filter((el) => el.getClientRects().length > 0).length,
-						headings: [...document.querySelectorAll('main h1, main h2, main h3, main h4')].map((e) => `${e.tagName.toLowerCase()}|${e.textContent.trim()}`),
+						headings: [document.querySelector('h1.nt-article__title'), ...document.querySelectorAll('.nt-prose h2, .nt-prose h3, .nt-prose h4')].map((e) => `${e.tagName.toLowerCase()}|${e.textContent.trim()}`),
 					};
 				});
 				expect(info.placement, key).toBe('after-intro');

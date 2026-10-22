@@ -22,9 +22,14 @@ export function parseSitemapLocs(xml) {
 
 const text = ($el) => $el.text().replace(/\s+/g, ' ').trim();
 
-/** `tag|text|id` of every h1..h4 of the main content, in document order. */
-export function headingList($, scope = 'main') {
-  return $(`${scope} h1, ${scope} h2, ${scope} h3, ${scope} h4`).toArray().map((el) => `${el.tagName.toLowerCase()}|${text($(el))}|${$(el).attr('id') ?? ''}`);
+/**
+ * `tag|text|id` of the post's own headings in document order: its H1 and every h2..h4 inside the text. Related posts, the
+ * author box and the like have headings of their own that change from one render to the next and are not the post's.
+ */
+export function headingList($) {
+  const describe = (el) => `${el.tagName.toLowerCase()}|${text($(el))}|${$(el).attr('id') ?? ''}`;
+  const h1 = $('h1').first().get(0);
+  return [...(h1 ? [h1] : []), ...$('.nt-prose').first().find('h2, h3, h4').toArray()].map(describe);
 }
 
 /**
