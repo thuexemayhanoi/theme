@@ -64,6 +64,13 @@ html[data-nt-color-mode="dark"] .nt-btn--ghost:hover {
 html[data-nt-color-mode="dark"] :is(.nt-hero__title, .nt-hero__lead, .nt-faq__a, .woocommerce-product-details__short-description) {
 	color: var(--nt-ink);
 }
+/* --nt-navy-900 is a near-black navy (#0a162b) in this palette because it colours backgrounds (footer, CTA boxes).
+ * Titles and table row headers painted with it in light mode would be unreadable here (1.02:1 on the page, 1.2:1 on a
+ * table row), so they take the body ink. */
+html[data-nt-color-mode="dark"] :is(.nt-article__title, .nt-archive-head__title, .nt-pagehead__title,
+	.woocommerce-products-header__title, .product_title, .nt-table--prices tbody th) {
+	color: var(--nt-ink);
+}
 html[data-nt-color-mode="dark"] .nt-hero::before {
 	background-image: radial-gradient(circle at 1px 1px, rgb(190 205 239 / 10%) 1px, transparent 0);
 }

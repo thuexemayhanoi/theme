@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { noHorizontalScroll, overflowOffenders } from './helpers.mjs';
+import { expectReadable, noHorizontalScroll, overflowOffenders } from './helpers.mjs';
 
 for (const width of [390, 768, 1440]) {
 	test(`editorial-commerce homepage has one H1, real Woo products, one price table and topic links at ${width}px`, async ({ page }) => {
@@ -83,6 +83,14 @@ for (const width of [390, 768, 1440]) {
 			await expect(directions).toHaveCSS('color', 'rgb(229, 239, 255)');
 			await expect(directions).toHaveCSS('border-top-color', 'rgb(169, 191, 223)');
 			await expect(directions).toHaveAttribute('href', /^https?:\/\//);
+		}
+
+		// The row headers of the price table (the vehicle names) were painted with the near-black navy that dark mode keeps for
+		// backgrounds: 1.2:1 on the table row. Table at 768 and 1440 px, one card per row at 390 px.
+		const rowHeaders = page.locator('main .nt-table--prices tbody th');
+		expect(await rowHeaders.count()).toBeGreaterThan(0);
+		for (const header of await rowHeaders.all()) {
+			await expectReadable(header, `price table row header "${(await header.innerText()).trim()}" @${width}`);
 		}
 		await noHorizontalScroll(page);
 		expect(await overflowOffenders(page)).toEqual([]);

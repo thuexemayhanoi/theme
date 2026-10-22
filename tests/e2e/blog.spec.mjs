@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { noHorizontalScroll, overflowOffenders } from './helpers.mjs';
+import { expectReadable, noHorizontalScroll, overflowOffenders } from './helpers.mjs';
 
 /** WP-CLI of the disposable sandbox (tools/sandbox/wp.sh); only available when the suite runs against it. */
 const wp = (...args) => execFileSync('bash', ['tools/sandbox/wp.sh', ...args], { encoding: 'utf8' });
@@ -307,4 +307,39 @@ test.describe('post contents list position', () => {
 			expect(await page.locator('[data-nt-toc-placement], .nt-toc').count(), `${path} has no contents list`).toBe(0);
 		}
 	});
+});
+
+// The titles of a post, of the blog index and of a collection page were painted with --nt-navy-900, which dark mode redefines as
+// a near-black navy meant for backgrounds: 1.02:1 against the dark page. Every title must be readable in both colour modes.
+test.describe('titles are readable in light and dark mode', () => {
+	test.setTimeout(120_000);
+	let itemId = 0;
+	let itemPath = '';
+
+	test.beforeAll(() => {
+		itemId = Number(wp('eval', "echo wp_insert_post(array('post_type' => 'featured_item', 'post_status' => 'publish', 'post_title' => 'E2E tiêu đề bộ sưu tập (tạm thời)', 'post_content' => 'Nội dung ngắn của bộ sưu tập.'));").trim());
+		expect(itemId, 'the fixture featured item was created').toBeGreaterThan(0);
+		itemPath = new URL(wp('eval', `echo get_permalink(${itemId});`).trim()).pathname;
+	});
+	test.afterAll(() => {
+		if (itemId > 0) wp('eval', `wp_delete_post(${itemId}, true);`);
+	});
+
+	for (const mode of ['light', 'dark']) {
+		test(`post, blog index, category and collection page titles, ${mode} mode`, async ({ browser }) => {
+			for (const width of [390, 1440]) {
+				const ctx = await browser.newContext({ viewport: { width, height: 900 } });
+				await ctx.addInitScript((m) => localStorage.setItem('nt-color-mode', m), mode);
+				const page = await ctx.newPage();
+				await page.goto('/blog/ky-thuat-bao-duong/cham-soc-xe-may/');
+				const first = await page.locator('.nt-card--post .nt-card__title a').first().getAttribute('href');
+				for (const path of [first, '/blog/', '/blog/xe-dien/', itemPath]) {
+					await page.goto(path);
+					await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', mode);
+					await expectReadable(page.locator('h1').first(), `${path} @${width} ${mode}`);
+				}
+				await ctx.close();
+			}
+		});
+	}
 });

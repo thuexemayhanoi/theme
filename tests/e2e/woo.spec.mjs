@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
+import { expectReadable } from './helpers.mjs';
 
 /** WP-CLI of the disposable sandbox (tools/sandbox/wp.sh); only available when the suite runs against it. */
 const wp = (...args) => execFileSync('bash', ['tools/sandbox/wp.sh', ...args], { encoding: 'utf8' });
@@ -134,4 +135,21 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		await page.goto('/');
 		await expect(page.locator('.nt-cartlink')).toHaveCount(0);
 	});
+});
+
+// Same defect as the blog titles: --nt-navy-900 is near-black in dark mode (1.02:1 on the dark page).
+test.describe('shop and product titles are readable in light and dark mode', () => {
+	for (const mode of ['light', 'dark']) {
+		test(`shop, category and product titles, ${mode} mode`, async ({ browser }) => {
+			const ctx = await browser.newContext({ viewport: { width: 390, height: 900 } });
+			await ctx.addInitScript((m) => localStorage.setItem('nt-color-mode', m), mode);
+			const page = await ctx.newPage();
+			for (const path of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-so/', '/san-pham/honda-wave/']) {
+				await page.goto(path);
+				await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', mode);
+				await expectReadable(page.locator('h1').first(), `${path} ${mode}`);
+			}
+			await ctx.close();
+		});
+	}
 });
