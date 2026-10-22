@@ -43,6 +43,10 @@ try {
   const served = await get(`${base}/`);
   const fresh = await get(`${base}/?nt-image-probe=${Date.now()}`);
   evidence.pages = { served: describePage(served), cacheBusted: describePage(fresh) };
+  // The raw tag as the server sent it, to tell a missing attribute in the HTML from one dropped later in the browser.
+  const heroTag = fresh.text.match(/<figure[^>]*nt-home-mag__hero-visual[^>]*>\s*(<img\b[^>]*>)/i)?.[1] ?? '';
+  evidence.heroTag = { attributes: [...heroTag.matchAll(/\s([a-z-]+)=/gi)].map(m => m[1].toLowerCase()), fetchpriority: /fetchpriority=["']?high/i.test(heroTag), loading: heroTag.match(/loading=["']?(\w+)/i)?.[1] ?? '' };
+  console.log(`hero <img> in the origin HTML: ${JSON.stringify(evidence.heroTag)}`);
   for (const [name, page] of Object.entries(evidence.pages)) console.log(`${name}: HTTP ${page.status}, ${page.bytes} bytes, ${page.imgTags} <img>, zones ${JSON.stringify(page.zones)}, cache ${JSON.stringify(page.cache)}`);
   for (const href of evidence.pages.cacheBusted.stylesheets.slice(0, 25)) {
     const css = await get(href);

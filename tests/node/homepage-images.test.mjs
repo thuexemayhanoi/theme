@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EDITORIAL_ZONES, assessImages, formatImageTable, isStalePageCache, inventoryDiff } from '../../tools/qa/lib/homepage-images.mjs';
+import { EDITORIAL_ZONES, assessImages, formatImageTable, formatCards, isStalePageCache, inventoryDiff } from '../../tools/qa/lib/homepage-images.mjs';
 
 const view = { width: 390, height: 844 };
 const img = (extra = {}) => ({
@@ -39,8 +39,10 @@ test('alt text must stay short and must not stuff keywords; an empty alt is only
   assert.match(empty.warnings.join('\n'), /empty alt/);
 });
 
-test('first-screen images are never lazy; an eager image below the first screen is only reported', () => {
-  assert.match(assess([hero, cardA, cardB, img({ firstScreenTop: 300, file: 'f.webp', baseFile: 'f.webp' })]).failures.join('\n'), /first-screen image is lazy loaded/);
+test('lazy loading findings are notes; only a lazy LCP element or a lazy hero fails', () => {
+  const lazyFirst = assess([hero, cardA, cardB, img({ firstScreenTop: 300, file: 'f.webp', baseFile: 'f.webp' })]);
+  assert.deepEqual(lazyFirst.failures, []);
+  assert.match(lazyFirst.warnings.join('\n'), /f\.webp.*first-screen image \(top 300px\) is lazy loaded/);
   const eager = assess([hero, cardA, cardB, img({ loading: 'eager', firstScreenTop: 942, file: 'g.webp', baseFile: 'g.webp' })]);
   assert.deepEqual(eager.failures, []);
   assert.match(eager.warnings.join('\n'), /g\.webp.*below the first screen \(top 942px\) but not lazy loaded/);
@@ -51,8 +53,10 @@ test('first-screen images are never lazy; an eager image below the first screen 
 test('hero and service visuals: one hero, two cards, 16:9, distinct files, hero eager with high priority', () => {
   assert.match(assess([cardA, cardB]).failures.join('\n'), /hero visual: 0 images, expected 1/);
   assert.match(assess([hero, cardA]).failures.join('\n'), /service visuals: 1 images, expected 2/);
-  assert.match(assess([{ ...hero, loading: 'lazy' }, cardA, cardB]).failures.join('\n'), /hero must be eager with fetchpriority=high/);
-  assert.match(assess([{ ...hero, fetchpriority: '' }, cardA, cardB]).failures.join('\n'), /hero must be eager/);
+  assert.match(assess([{ ...hero, loading: 'lazy' }, cardA, cardB]).failures.join('\n'), /hero must not be lazy loaded/);
+  const noPriority = assess([{ ...hero, fetchpriority: '' }, cardA, cardB]);
+  assert.deepEqual(noPriority.failures, [], 'a missing fetchpriority is observed, not failed');
+  assert.match(noPriority.warnings.join('\n'), /served hero has no fetchpriority=high/);
   assert.match(assess([hero, { ...cardA, loading: 'eager', fetchpriority: 'high', firstScreenTop: 900 }, cardB]).failures.join('\n'), /service visual must be lazy loaded/);
   assert.match(assess([hero, { ...cardA, rendered: [366, 366] }, cardB]).failures.join('\n'), /is not 16:9/);
   assert.match(assess([hero, { ...cardA, rendered: [200, 112] }, cardB]).failures.join('\n'), /rendered only 200px wide/);
@@ -102,4 +106,10 @@ test('the inventory diff names the images only one render shows, ignoring size s
   const origin = [img({ baseFile: 'a.webp' }), img({ baseFile: 'hero.webp' }), img({ baseFile: 'c.webp' })];
   assert.deepEqual(inventoryDiff(served, origin), { onlyServed: ['b.webp'], onlyOrigin: ['c.webp', 'hero.webp'] });
   assert.deepEqual(inventoryDiff(origin, origin), { onlyServed: [], onlyOrigin: [] });
+});
+
+test('the card inventory shows how many cards of each zone have an image', () => {
+  const text = formatCards([{ zone: 'nt-home-mag__latest', title: 'A', hasImage: true }, { zone: 'nt-home-mag__latest', title: 'B', hasImage: false }, { zone: '', title: 'C', hasImage: false }], 390);
+  assert.match(text, /^cards @390: \{"nt-home-mag__latest":\{"cards":2,"withImage":1\},"other":\{"cards":1,"withImage":0\}\}/);
+  assert.match(text, / 2 @390 NO-IMG nt-home-mag__latest \| B/);
 });

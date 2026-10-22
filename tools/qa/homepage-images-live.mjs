@@ -11,7 +11,7 @@
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { chromium } from '@playwright/test';
-import { observeVitals, collectImages, assessImages, formatImageTable, isStalePageCache, inventoryDiff } from './lib/homepage-images.mjs';
+import { observeVitals, collectImages, collectCards, assessImages, formatImageTable, formatCards, isStalePageCache, inventoryDiff } from './lib/homepage-images.mjs';
 
 const base = 'https://thuexemaynguyentu.com';
 const out = 'reports/homepage-images';
@@ -30,11 +30,13 @@ try {
       assert.equal(response.status(), 200, `${label} @${width}: HTTP status`);
       await page.waitForLoadState('load');
       const images = await page.evaluate(collectImages);
+      const cards = await page.evaluate(collectCards);
       const audit = assessImages({ images, vitals: await page.evaluate(() => window.__ntVitals), width, height });
       const cache = response.headers()['x-litespeed-cache'] || '';
       result[label] = { images, audit };
-      proof.runs.push({ label, width, height, url: label === 'served' ? url : base + '/?nt-origin=…', litespeedCache: cache, summary: audit.summary, failures: audit.failures, warnings: audit.warnings, images });
+      proof.runs.push({ label, width, height, url: label === 'served' ? url : base + '/?nt-origin=…', litespeedCache: cache, summary: audit.summary, failures: audit.failures, warnings: audit.warnings, images, cards });
       console.log(`${label} @${width} (x-litespeed-cache: ${cache || 'n/a'}): ${JSON.stringify(audit.summary)}\n${formatImageTable(images, width)}`);
+      if (width === 390) console.log(formatCards(cards, width).replace(/^/, `${label} `));
       for (const warning of audit.warnings) console.log(`::warning title=Homepage images ${label} @${width}::${warning}`);
       for (const section of ['.nt-home-mag__hero-visual', '.nt-home-mag__visuals']) {
         const handle = page.locator(section).first();
@@ -54,8 +56,8 @@ try {
   await browser.close();
   proof.finished = new Date().toISOString();
   proof.status = proof.errors.length ? 'FAIL' : proof.verdicts.some(v => v.stalePageCache) ? 'PASS_ORIGIN_STALE_PAGE_CACHE' : 'PASS';
-  writeFileSync(`${out}/proof.json`, JSON.stringify({ ...proof, runs: proof.runs.map(({ images: _images, ...run }) => run) }, null, 2) + '\n');
-  writeFileSync(`${out}/inventory.json`, JSON.stringify(proof.runs.map(({ label, width, images }) => ({ label, width, images })), null, 2) + '\n');
+  writeFileSync(`${out}/proof.json`, JSON.stringify({ ...proof, runs: proof.runs.map(({ images: _images, cards: _cards, ...run }) => run) }, null, 2) + '\n');
+  writeFileSync(`${out}/inventory.json`, JSON.stringify(proof.runs.map(({ label, width, images, cards }) => ({ label, width, images, cards })), null, 2) + '\n');
   console.log(JSON.stringify({ status: proof.status, verdicts: proof.verdicts, errors: proof.errors }, null, 2));
 }
 assert.equal(proof.errors.length, 0, `${proof.errors.length} image audit failure(s): ${proof.errors.join(' || ')}`);

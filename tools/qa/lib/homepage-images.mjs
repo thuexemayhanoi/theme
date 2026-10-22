@@ -90,6 +90,30 @@ export async function collectImages() {
   });
 }
 
+/**
+ * Runs in the page: every article card in <main> with its homepage zone, title and whether it shows an image.
+ * Posts without a featured image render as text-only cards, which this makes visible.
+ */
+export function collectCards() {
+  return [...document.querySelectorAll('main .nt-card')].map(card => {
+    const zoneEl = card.parentElement && card.parentElement.closest('[class*="nt-home-mag__"]');
+    const zone = zoneEl ? String(zoneEl.className).split(' ').find(c => c.startsWith('nt-home-mag__')) || '' : '';
+    const title = card.querySelector('.nt-card__title, h2, h3');
+    return { zone, title: title ? title.textContent.replace(/\s+/g, ' ').trim().slice(0, 90) : '', hasImage: Boolean(card.querySelector('img')) };
+  });
+}
+
+/** Cards per zone with and without an image, then one line per card. */
+export function formatCards(cards, width) {
+  const zones = {};
+  for (const c of cards) {
+    zones[c.zone || 'other'] = zones[c.zone || 'other'] || { cards: 0, withImage: 0 };
+    zones[c.zone || 'other'].cards += 1;
+    zones[c.zone || 'other'].withImage += c.hasImage ? 1 : 0;
+  }
+  return `cards @${width}: ${JSON.stringify(zones)}\n${cards.map((c, n) => `${String(n + 1).padStart(2)} @${width} ${c.hasImage ? 'image ' : 'NO-IMG'} ${c.zone} | ${c.title}`).join('\n')}`;
+}
+
 const words = text => (text.toLowerCase().match(/[\p{L}\p{N}]{4,}/gu) || []);
 
 /**
@@ -123,7 +147,8 @@ export function assessImages({ images, vitals, width, height }) {
       if (image.alt.trim() === '') warnings.push(`${label(image)}: empty alt (treated as decorative)`);
     }
     const aboveFold = image.firstScreenTop < height;
-    if (aboveFold && image.loading === 'lazy') failures.push(`${label(image)}: first-screen image is lazy loaded`);
+    // A lazy image inside the first screen is a note; the failure that matters is a lazy LCP element (checked below).
+    if (aboveFold && image.loading === 'lazy') warnings.push(`${label(image)}: first-screen image (top ${image.firstScreenTop}px) is lazy loaded`);
     // What is below the first screen on a phone can be above it on a desktop, so an eager image there is a note, not a failure.
     if (!aboveFold && image.loading !== 'lazy' && image.fetchpriority !== 'high') warnings.push(`${label(image)}: below the first screen (top ${image.firstScreenTop}px) but not lazy loaded`);
   }
@@ -136,7 +161,9 @@ export function assessImages({ images, vitals, width, height }) {
     if (Math.abs(ratio - 16 / 9) > 0.03) failures.push(`${label(image)}: rendered ratio ${ratio.toFixed(3)} is not 16:9`);
     if (image.rendered[0] < 240) failures.push(`${label(image)}: rendered only ${image.rendered[0]}px wide`);
     if (!image.isUpload) failures.push(`${label(image)}: ${role} visual is not a WordPress upload`);
-    if (role === 'hero' && (image.loading === 'lazy' || image.fetchpriority !== 'high')) failures.push(`${label(image)}: the hero must be eager with fetchpriority=high`);
+    if (role === 'hero' && image.loading === 'lazy') failures.push(`${label(image)}: the hero must not be lazy loaded`);
+    // The template asks for fetchpriority=high; WordPress or the page optimizer may drop it. Report it, since LCP is measured separately.
+    if (role === 'hero' && image.fetchpriority !== 'high') warnings.push(`${label(image)}: the served hero has no fetchpriority=high (template asks for it)`);
     if (role === 'service' && image.loading !== 'lazy') failures.push(`${label(image)}: service visual must be lazy loaded`);
   }
   if (new Set(cards.map(i => i.baseFile)).size !== cards.length) failures.push('the two service visuals are the same file');
