@@ -11,13 +11,13 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
-import { OFFICIAL_SOURCE, assertOfficialUrl, checkAllProvisions } from './lib/legal-provisions.mjs';
+import { OFFICIAL_SOURCE, assertOfficialUrl, checkAllProvisions, probeIdentity } from './lib/legal-provisions.mjs';
 
 const { values } = parseArgs({ options: { url: { type: 'string', default: OFFICIAL_SOURCE } } });
 const url = assertOfficialUrl(values.url);
 const out = 'reports/legal-source';
 mkdirSync(out, { recursive: true });
-const proof = { checkedAt: new Date().toISOString(), source: url, status: 'NOT_TESTED', http: null, bytes: 0, sha256: '', textCharacters: 0, provisions: [] };
+const proof = { checkedAt: new Date().toISOString(), source: url, status: 'NOT_TESTED', http: null, bytes: 0, sha256: '', pdfInfo: '', textCharacters: 0, textStart: '', identity: [], provisions: [] };
 try {
   const response = await fetch(url, { headers: { 'user-agent': 'NguyenTu-LegalSourceCheck/1.0 (read-only; one GET)' }, signal: AbortSignal.timeout(90000) });
   proof.http = { status: response.status, contentType: response.headers.get('content-type'), lastModified: response.headers.get('last-modified'), contentLength: response.headers.get('content-length') };
@@ -29,6 +29,11 @@ try {
   writeFileSync(`${out}/source.pdf`, bytes);
   const text = execFileSync('pdftotext', ['-layout', `${out}/source.pdf`, '-'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   proof.textCharacters = text.length;
+  proof.textStart = text.replace(/\s+/g, ' ').trim().slice(0, 300);
+  try { proof.pdfInfo = execFileSync('pdfinfo', [`${out}/source.pdf`], { encoding: 'utf8' }).split('\n').filter(l => /^(Title|Pages|CreationDate|ModDate|Producer):/.test(l)).join(' | '); } catch { /* information only */ }
+  console.log(`PDF: ${proof.pdfInfo}\nText starts: ${proof.textStart}`);
+  proof.identity = probeIdentity(text);
+  for (const probe of proof.identity) console.log(`INFO ${probe.status === 'FOUND' ? 'seen    ' : 'not seen'} ${probe.cite}${probe.excerpts[0] ? ' …' + probe.excerpts[0] + '…' : ''}`);
   assert.ok(text.length > 20000, `Only ${text.length} characters could be extracted; the PDF may be scanned images`);
   proof.provisions = checkAllProvisions(text);
   for (const p of proof.provisions) {

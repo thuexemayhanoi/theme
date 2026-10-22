@@ -18,7 +18,7 @@ export const OFFICIAL_HOSTS = Object.freeze(['datafiles.chinhphu.vn']);
  * official PDF by tools/qa/legal-source-check.mjs.
  */
 export const PROVISIONS = Object.freeze([
-  { id: 'document', cite: 'Văn bản hợp nhất', fragments: ['văn bản hợp nhất', '55/vbhn-vpqh', 'luật trật tự, an toàn giao thông đường bộ'] },
+  { id: 'document', cite: 'Luật 36/2024/QH15', fragments: ['luật trật tự, an toàn giao thông đường bộ', '36/2024/qh15'] },
   { id: 'dieu-34-heading', cite: 'Điều 34', fragments: [/điều 34\.\s*phân loại phương tiện giao thông đường bộ/] },
   {
     id: 'xe-gan-may',
@@ -56,6 +56,16 @@ export const PROVISIONS = Object.freeze([
     cite: 'Điều 59 khoản 1',
     fragments: ['người đủ 16 tuổi trở lên được điều khiển xe gắn máy', /người đủ 18 tuổi trở lên được cấp giấy phép lái xe hạng a1/],
   },
+]);
+
+/**
+ * Facts about the document that are reported but never fail the check: the consolidated-text cover page (which
+ * may have no text layer in the PDF) and the amending laws that the consolidated text includes.
+ */
+export const IDENTITY_PROBES = Object.freeze([
+  { id: 'consolidated-cover', cite: 'Văn bản hợp nhất', fragments: ['văn bản hợp nhất'] },
+  { id: 'vbhn-number', cite: '55/VBHN-VPQH', fragments: ['55/vbhn-vpqh'] },
+  { id: 'amending-law-118-2025', cite: 'Luật 118/2025/QH15', fragments: ['118/2025/qh15'] },
 ]);
 
 /**
@@ -118,4 +128,15 @@ export function assertOfficialUrl(url) {
   const parsed = new URL(url);
   if (parsed.protocol !== 'https:' || !OFFICIAL_HOSTS.includes(parsed.hostname)) throw new Error(`Refusing to read a non-official source: ${url}`);
   return parsed.href;
+}
+
+/**
+ * Report which identity facts the document text shows (information only).
+ *
+ * @param {string} rawText Text extracted from the official document.
+ * @returns {ReturnType<typeof checkProvision>[]} One result per probe.
+ */
+export function probeIdentity(rawText) {
+  const normalized = normalizeLegalText(rawText);
+  return IDENTITY_PROBES.map(probe => checkProvision(normalized, probe));
 }

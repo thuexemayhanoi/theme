@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { OFFICIAL_SOURCE, PROVISIONS, normalizeLegalText, checkProvision, checkAllProvisions, assertOfficialUrl } from '../../tools/qa/lib/legal-provisions.mjs';
+import { OFFICIAL_SOURCE, PROVISIONS, IDENTITY_PROBES, normalizeLegalText, checkProvision, checkAllProvisions, probeIdentity, assertOfficialUrl } from '../../tools/qa/lib/legal-provisions.mjs';
 
 // Characters that PDF extraction produces, named so the source stays readable.
 const NBSP = String.fromCharCode(0xa0);
@@ -12,9 +12,9 @@ const EN_DASH = String.fromCharCode(0x2013);
 // SYNTHETIC fixture shaped like pdftotext output: the wording of the provisions as read from copies of the law
 // (not the official PDF; tools/qa/legal-source-check.mjs reads that). Used only to test the matching logic.
 const law = `VĂN BẢN HỢP NHẤT
-LUẬT
-TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ
+LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ
 Số: 55/VBHN-VPQH          Hà Nội, ngày 23 tháng 3 năm 2026
+Luật số 36/2024/QH15 ngày 27 tháng 6 năm 2024, được sửa đổi bởi Luật số 118/2025/QH15
 Điều 34. Phân loại phương tiện giao thông đường bộ
 g) Xe gắn máy là xe có hai hoặc ba bánh chạy bằng động cơ, được thiết kế, sản xuất để hoạt động
 trên đường bộ, có vận tốc thiết kế không lớn hơn 50 km/h; nếu động cơ dẫn động là động cơ nhiệt thì
@@ -77,4 +77,12 @@ test('only the official document host over HTTPS can be read', () => {
 
 test('the checked source is the one the live pages are tested to link', () => {
   assert.ok(readFileSync('tools/qa/seo-matrix-live.mjs', 'utf8').includes(OFFICIAL_SOURCE), 'seo-matrix-live asserts the same official link');
+});
+
+test('the cover page facts are information only: a text layer without them still passes the provisions', () => {
+  const body = law.split('\n').slice(4).join('\n') + '\nLuật số 36/2024/QH15 LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ';
+  assert.deepEqual(checkAllProvisions(body).filter(r => r.status !== 'FOUND'), []);
+  assert.deepEqual(probeIdentity(body).map(r => [r.id, r.status]), [['consolidated-cover', 'MISSING'], ['vbhn-number', 'MISSING'], ['amending-law-118-2025', 'MISSING']]);
+  assert.deepEqual(probeIdentity(law).map(r => r.status), ['FOUND', 'FOUND', 'FOUND']);
+  assert.equal(IDENTITY_PROBES.length, 3);
 });
