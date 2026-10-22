@@ -1,18 +1,21 @@
 <?php
 /**
  * Table of contents built from the real H2/H3 headings of the post (never invented).
- * Two variants share one data set: a collapsible block above the text on small screens and a
- * sticky list in the sidebar on wide screens (CSS switches between them).
+ * Two variants share one data set: a collapsible block inside the text on small screens (single.php
+ * puts it right after the first <h2>) and a sticky list in the sidebar on wide screens (CSS switches
+ * between them, so only one of them is ever visible).
  *
- * Args: items (array of id/text/level), variant (inline|sticky).
+ * Args: items (array of id/text/level), variant (inline|sticky), placement (after-first-h2 |
+ * after-intro | before-content: where single.php put the inline block; exposed as a data attribute).
  *
  * @package NguyenTu
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$nt_items   = (array) ( $args['items'] ?? array() );
-$nt_variant = 'sticky' === ( $args['variant'] ?? 'inline' ) ? 'sticky' : 'inline';
+$nt_items     = (array) ( $args['items'] ?? array() );
+$nt_variant   = 'sticky' === ( $args['variant'] ?? 'inline' ) ? 'sticky' : 'inline';
+$nt_placement = in_array( $args['placement'] ?? '', array( 'after-first-h2', 'after-intro', 'before-content' ), true ) ? (string) $args['placement'] : 'before-content';
 if ( array() === $nt_items ) {
 	return;
 }
@@ -36,7 +39,7 @@ $nt_list = static function ( array $items ): void {
 };
 ?>
 <?php if ( 'inline' === $nt_variant ) : ?>
-	<details class="nt-toc nt-toc--inline">
+	<details class="nt-toc nt-toc--inline" data-nt-toc-placement="<?php echo esc_attr( $nt_placement ); ?>">
 		<summary class="nt-toc__summary">Mục lục bài viết</summary>
 		<?php $nt_list( $nt_items ); ?>
 	</details>

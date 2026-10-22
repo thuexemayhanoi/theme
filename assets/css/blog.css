@@ -62,6 +62,11 @@
 	.nt-toc--inline { display: none; }
 	.nt-toc--sticky { display: block; }
 }
+/* The inline list now sits inside the text, right after the first <h2>: it keeps its own text metrics and list
+   reset there, and starts below any floated picture instead of running under it. */
+.nt-prose .nt-toc--inline { clear: both; line-height: 1.65; }
+.nt-prose .nt-toc__list { margin: 0; padding: 0; }
+.nt-prose .nt-toc__item { margin: 0; }
 
 /* ---------- Share, author, navigation ---------- */
 .nt-share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 2rem 0 0; padding: 16px 0; border-block: 1px solid var(--nt-line); }
