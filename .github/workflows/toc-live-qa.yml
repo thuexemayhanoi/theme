@@ -2,7 +2,8 @@ name: Post contents list live QA
 
 # Read-only GET checks of https://thuexemaynguyentu.com/ for the contents list of single posts (tools/qa/toc-live.mjs).
 #   pull request   baseline: the theme's own placement function is run on the text of ~150 real posts as served today and
-#                  checked with an independent HTML5 parser; nothing is deployed by a pull request.
+#                  checked with an independent HTML5 parser; the colour of the post title is read in light and dark mode on a
+#                  few posts. Nothing is deployed by a pull request.
 #   push to main   deployed: waits until the new template is served, then checks sampled posts on the origin render and on
 #                  the page as served, and in Chromium at 390/768/1024/1440 px in light and dark mode.
 #   manual         either mode, with a sample size.
@@ -65,9 +66,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Install Chromium (deployed mode only)
-        if: ${{ env.MODE == 'deployed' }}
-        run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium
       - name: Check the contents list on the live site
         env:
           SAMPLE: ${{ inputs.sample }}

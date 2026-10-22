@@ -24,7 +24,7 @@ const { values: opt } = parseArgs({
     base: { type: 'string', default: 'https://thuexemaynguyentu.com' },
     mode: { type: 'string', default: 'deployed' },
     sample: { type: 'string', default: '' },
-    'browser-sample': { type: 'string', default: '4' },
+    'browser-sample': { type: 'string', default: '' },
     'wait-minutes': { type: 'string', default: '12' },
     delay: { type: 'string', default: '700' },
     out: { type: 'string', default: 'reports/toc-live' },
@@ -34,6 +34,7 @@ if (!['baseline', 'deployed'].includes(opt.mode)) throw new Error('--mode must b
 const base = opt.base.replace(/\/$/, '');
 const delay = Math.max(300, Number(opt.delay) || 700);
 const sampleSize = Number(opt.sample) || (opt.mode === 'baseline' ? 150 : 24);
+const browserSample = opt['browser-sample'] === '' ? (opt.mode === 'baseline' ? 3 : 4) : Number(opt['browser-sample']);
 const UA = 'NguyenTu-TocQA/1.0 (read-only; few GET requests)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(opt.out, { recursive: true });
@@ -73,6 +74,34 @@ async function postUrls() {
 }
 
 const originUrl = (url) => `${url}${url.includes('?') ? '&' : '?'}nt-toc=${Date.now()}`;
+
+/** Colour of the post title against the page background in light and dark mode (informational: a title nobody can read matters for anyone checking dark mode). */
+async function probeTitles(urls, label) {
+  const rows = [];
+  const browser = await chromium.launch();
+  try {
+    for (const url of urls) {
+      for (const mode of ['light', 'dark']) {
+        const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'vi-VN', timezoneId: 'Asia/Ho_Chi_Minh' });
+        await ctx.addInitScript((m) => localStorage.setItem('nt-color-mode', m), mode);
+        const page = await ctx.newPage();
+        await page.goto(originUrl(url), { waitUntil: 'domcontentloaded' });
+        await page.waitForLoadState('load');
+        const c = await page.evaluate(() => {
+          const h1 = document.querySelector('h1');
+          return { mode: document.documentElement.getAttribute('data-nt-color-mode'), color: h1 ? getComputedStyle(h1).color : '', bg: getComputedStyle(document.body).backgroundColor };
+        });
+        const ratio = c.color ? Number(contrastRatio(c.color, c.bg).toFixed(2)) : null;
+        rows.push({ url, mode, applied: c.mode, color: c.color, background: c.bg, contrast: ratio });
+        if (ratio !== null && ratio < 3) warn(`${label}: ${new URL(url).pathname} (${mode} mode): the H1 is hard to read (contrast ${ratio}:1; ${c.color} on ${c.bg}); not caused by the contents list`);
+        await ctx.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+  return rows;
+}
 const stateOf = (a) => (hasNoList(a) ? 'NO_LIST' : isOldLayout(a) ? 'OLD' : a.toc.placement ? 'NEW' : 'UNKNOWN');
 
 async function runBaseline(urls) {
@@ -110,6 +139,11 @@ async function runBaseline(urls) {
   for (const m of mismatches) problem(`${m.url}: ${m.placement}: ${m.issues.join('; ')}`);
   const fallbacks = Object.entries(placed).filter(([, r]) => r.placement === 'before-content').map(([u]) => u);
   if (fallbacks.length) console.log(`posts that keep the old place (no safe position): ${fallbacks.slice(0, 15).join(' ')}${fallbacks.length > 15 ? ' …' : ''}`);
+  const titleSample = Math.max(0, browserSample || 0);
+  if (titleSample > 0) {
+    evidence.titles = await probeTitles(sampleEvenly(Object.keys(bodies), titleSample), 'baseline');
+    console.log(`post title contrast: ${JSON.stringify(evidence.titles.map((r) => `${r.mode} ${r.contrast}`))}`);
+  }
   evidence.verdict = mismatches.length ? 'FAIL' : 'BASELINE_OK';
 }
 
@@ -168,11 +202,11 @@ async function runDeployed(urls) {
     const hit = withOrigin.find(({ o }) => o.toc.placement === label);
     if (hit) picked.push(hit);
   }
-  for (const entry of withOrigin) if (picked.length < Number(opt['browser-sample']) && !picked.includes(entry)) picked.push(entry);
+  for (const entry of withOrigin) if (picked.length < browserSample && !picked.includes(entry)) picked.push(entry);
   const h1Warned = new Set();
   const browser = await chromium.launch();
   try {
-    for (const { url } of picked.slice(0, Math.max(1, Number(opt['browser-sample'])))) {
+    for (const { url } of picked.slice(0, Math.max(1, browserSample))) {
       for (const [width, height] of [[390, 844], [768, 1024], [1024, 768], [1440, 900]]) {
         for (const mode of ['light', 'dark']) {
           const tag = `${new URL(url).pathname} @${width} ${mode}`;
