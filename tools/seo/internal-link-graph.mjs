@@ -336,6 +336,14 @@ await finish(summary, {
 });
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, report);
 if (status === 'PARTIAL') console.log(`::warning title=SEO audit PARTIAL::${checked}/${records.length} URLs checked, ${errored} errored, ${pending} not requested. Re-run with --resume (workflow input resume_run_id).`);
-console.log(JSON.stringify({ ...summary, runs: undefined, byType: undefined }, null, 2));
+// The pages that need a decision go to the job log as well: logs stay readable where artifacts cannot be downloaded.
+const listing = (title, rows, line, max = 40) => {
+  if (!rows.length) return;
+  console.log(`--- ${title}: ${rows.length}${rows.length > max ? ` (first ${max}; the CSV files have all of them)` : ''} ---`);
+  for (const row of rows.slice(0, max)) console.log(line(row));
+};
+listing('Orphans and navigation-only pages (class, type, inbound, contextual inbound, path)', orphans.filter(r => !['LINKED', 'HOME'].includes(r.classification)), r => `${r.classification}\t${r.type}\t${r.inbound}\t${r.inboundContextual}\t${r.path}${r.reason ? `\t${r.reason}` : ''}`);
+listing('Findings (severity, code, path, detail)', issues, i => `${i.severity}\t${i.code}\t${i.path}\t${i.detail ?? ''}`);
+console.log(JSON.stringify({ ...summary, runs: undefined }, null, 2));
 if (status === 'FAILED') { console.log('::error title=SEO audit FAILED::no URL could be checked'); process.exitCode = 1; }
 else if (opt.strict && status !== 'COMPLETE') process.exitCode = 2;

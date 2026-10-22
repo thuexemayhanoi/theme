@@ -347,6 +347,11 @@ describe('command line audit against a simulated site', { concurrency: false }, 
       ['NOT_APPLICABLE_TAXONOMY_NOINDEX', 'NOT_APPLICABLE_NOINDEX', 'NOT_APPLICABLE_ROBOTS_BLOCKED', 'NOT_APPLICABLE_REDIRECT', 'NOT_APPLICABLE_HTTP_ERROR', 'NOT_CHECKED', 'NOT_APPLICABLE_NON_SELF_CANONICAL']);
     assert.deepEqual(Object.entries(orphan).filter(([, c]) => c === 'ORPHAN_CANDIDATE').map(([p]) => p).sort(), ['/flaky/', '/orphan/', '/tag/y/', '/two-h1/'], 'zero inbound, indexable and self-canonical');
     assert.equal(summary.orphanConfirmed, 0);
+    assert.match(result.stdout, /^--- Orphans and navigation-only pages[^\n]*---$/m, 'the pages that need a decision are in the job log, not only in the CSV artifacts');
+    assert.match(result.stdout, /^ORPHAN_CANDIDATE\t[^\t]+\t0\t0\t\/orphan\/$/m);
+    assert.match(result.stdout, /^--- Findings[^\n]*---$/m);
+    assert.match(result.stdout, /^error\tFETCH_ERROR\t\/always503\/\t/m);
+    assert.doesNotMatch(result.stdout, /^ORPHAN_CANDIDATE\t[^\t]+\t[^\t]+\t[^\t]+\t\/a\/$/m, 'a linked page is not listed');
     const groups = parseCsv(await readFile(join(out, 'canonical-groups.csv'), 'utf8'));
     assert.deepEqual(groups.map(g => [g.target, g.count, g.targetInSitemap]), [['/a/', '2', 'true'], ['/dup-target/', '3', 'true']], '/canon-other/ folds into /a/; /dup1/ and /dup2/ into /dup-target/');
     assert.match(await readFile(join(out, 'report.md'), 'utf8'), /SEO audit — PARTIAL/);
@@ -370,6 +375,8 @@ describe('command line audit against a simulated site', { concurrency: false }, 
     assert.equal(orphan['/a/'], 'LINKED');
     assert.deepEqual(Object.entries(orphan).filter(([, c]) => c === 'ORPHAN_CONFIRMED').map(([p]) => p).sort(), ['/always503/', '/flaky/', '/orphan/', '/tag/y/', '/two-h1/']);
     assert.equal(summary.orphanConfirmed, 5);
+    assert.match(result.stdout, /^ORPHAN_CONFIRMED\t[^\t]+\t0\t0\t\/orphan\/$/m, 'confirmed orphans are listed in the job log');
+    assert.match(result.stdout, /^ORPHAN_CONFIRMED\t[^\t]+\t0\t0\t\/tag\/y\/$/m);
     assert.equal(summary.orphanCandidates, 0);
   });
 
