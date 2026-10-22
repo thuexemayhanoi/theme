@@ -1,8 +1,8 @@
 {
   "date": "2026-10-22",
-  "status": "PREVIEW_ONLY_NOT_PUBLISHED",
+  "status": "PUBLISHED_DESKTOP_LIVE_VERIFIED",
   "ownerScopeApproved": true,
-  "writeGate": "WP Agent requires explicit user yes after these two previews; do not bypass.",
+  "writeGate": "Both confirmed native WooCommerce PUT requests returned HTTP 200. No account rotation.",
   "category73": {
     "method": "PUT",
     "path": "/wc/v3/products/categories/73",
@@ -47,7 +47,8 @@
     "patchMatches": "5 unique replacements",
     "dailyPricePreserved": "200.000đ",
     "rawContentComplete": true,
-    "postPublish": "NOT_RUN; nothing published",
+    "postPublish": "Public browser: category one H1 Xe Điện, description H2; product age/classification/source/new text and 200.000đ present; both self canonical/index-follow/no desktop overflow. Automated 76 viewport checks pending.",
     "protectedRuntime": "NO_CHANGE"
-  }
+  },
+  "publishedAtVietnam": "2026-10-22 19:30"
 }
