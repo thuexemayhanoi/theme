@@ -271,6 +271,7 @@ if ( $nt_latest->have_posts() ) :
 		<div>
 			<h2 id="nt-home-closing-title">Chọn xe và xác nhận điều kiện thuê</h2>
 			<p>Địa chỉ: <?php echo esc_html( nt_address() ); ?>. Mở cửa <?php echo esc_html( nt_hours_range() ); ?>. Giá thuê và tiền cọc được xác nhận khi đặt.</p>
+			<p>Chuẩn bị <a href="<?php echo esc_url( get_permalink( 829 ) ); ?>">giấy tờ và các bước nhận xe</a>, xem <a href="<?php echo esc_url( get_permalink( 847 ) ); ?>">điểm nhận xe tại Long Biên</a> hoặc hỏi <a href="<?php echo esc_url( get_permalink( 887 ) ); ?>">điều kiện và phí giao nhận</a> theo địa chỉ cụ thể trước khi chốt lịch.</p>
 		</div>
 		<?php nt_cta_buttons( array( 'size' => 'md' ) ); ?>
 	</div>

@@ -43,6 +43,7 @@ $nt_policy = nt_policy();
 				<?php endforeach; ?>
 			</tbody>
 		</table>
+		<p>Xem <a href="<?php echo esc_url( get_permalink( 476 ) ); ?>">giá thuê và các khoản cần dự trù</a> để tách tiền thuê với tiền cọc. Với nhu cầu dài ngày, đối chiếu <a href="<?php echo esc_url( get_permalink( 1060 ) ); ?>">giá và điều kiện thuê xe theo tháng</a> trước khi chọn kỳ thuê.</p>
 
 		<?php
 		// Own this component in the theme so a stale, separately installed plugin cannot quote daily multiples.
