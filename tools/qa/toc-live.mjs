@@ -141,7 +141,9 @@ async function runBaseline(urls) {
   if (fallbacks.length) console.log(`posts that keep the old place (no safe position): ${fallbacks.slice(0, 15).join(' ')}${fallbacks.length > 15 ? ' …' : ''}`);
   const titleSample = Math.max(0, browserSample || 0);
   if (titleSample > 0) {
-    evidence.titles = await probeTitles(sampleEvenly(Object.keys(bodies), titleSample), 'baseline');
+    // A few other templates too (static page, blog index, shop): they share the title colour token with posts.
+    const others = ['/gioi-thieu/', '/blog/', '/shop/'].map((path) => `${base}${path}`);
+    evidence.titles = await probeTitles([...sampleEvenly(Object.keys(bodies), titleSample), ...others], 'baseline');
     console.log(`post title contrast: ${JSON.stringify(evidence.titles.map((r) => `${r.mode} ${r.contrast}`))}`);
   }
   evidence.verdict = mismatches.length ? 'FAIL' : 'BASELINE_OK';
