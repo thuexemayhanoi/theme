@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "archivedBaseline": "reports/static-pages/before-2026-10-21.json",
+  "purpose": "Evidence ledger for WordPress-managed copy that changed on the live site after the archived baseline was captured (2026-10-21T03:37Z). The archived baseline stays untouched. Only title, description and H1 can be approved here; canonical, robots, menu and footer destinations can never be approved through this file. Legacy menu/footer aliases are accepted at run time only after a live HTTP 301 + 200 + self-canonical probe (tools/qa/homepage-legacy-parity.mjs).",
+  "decision": "A failing run of 'Static pages live QA' (run 39839840364, main@8251fab) compared the live site with that stale snapshot. The navigation difference is the documented Legacy Compat v1.1.0 URL recovery, not a regression (docs/LEGACY-URL-REPAIR.md). The two entries below are WordPress content edits made outside this repository; no theme commit changed them.",
+  "changes": [
+    {
+      "id": 494,
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "field": "title",
+      "from": "Bộ Sưu Tập Xe Máy Cho Thuê Hà Nội | Nguyễn Tú",
+      "to": "Các Gói Thuê Xe Máy Theo Ngày, Tuần, Tháng | Nguyễn Tú",
+      "classification": "VALID_WORDPRESS_CHANGE",
+      "observedIn": "https://github.com/thuexemayhanoi/theme/actions/runs/39839840364",
+      "observedAt": "2026-10-22T19:34Z",
+      "evidence": [
+        "Title comparison is the first assertion that failed for page 494. No runtime PHP in the theme or in plugins/ filters document titles or Yoast titles (only add_theme_support('title-tag'); no pre_get_document_title, document_title_parts, wp_title or wpseo_title filter), and the new string exists nowhere in this repository, so the value comes from the Yoast field stored in WordPress.",
+        "No runtime commit between the first static-page release (ff8575e) and c339a4b changed title, H1, canonical or robots output: git diff ff8575e..c339a4b over assets/, inc/, template-parts/ and plugins/ touches only wpseo_schema_needs_article filters, footer, CSS, pricing defaults, the contact map and links or images in homepage and page bodies.",
+        "SEO matrix live QA (run 39838071679, same minute, 390/360/844/1440 px) passed for /bo-suu-tap/: HTTP 200, exactly one H1, self canonical, no noindex.",
+        "The archived meta description of page 494 already promises 'bảng giá thuê xe máy Hà Nội theo ngày, tuần và tháng'; the new title states the same day/week/month scope.",
+        "docs/PROGRESS.md (merged with PR #53, section «2026-10-23 — Owner-approved SEO Matrix continuation») records owner-approved WordPress content patches in this same window and states that six explicit ON-PAGE proposals authorize metadata and H1 edits (slugs, canonical and robots stay protected). It does not list the six pages, so this entry is consistent with that approval, not proven by it."
+      ],
+      "followUp": "Owner confirmation recommended: the Yoast title was edited outside this repository. If the edit was not intended, restore the previous title in Yoast and revert this entry."
+    },
+    {
+      "id": 494,
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "field": "description",
+      "from": "Xem bảng giá thuê xe máy Hà Nội theo ngày, tuần và tháng. Chọn gói phù hợp, kiểm tra giá hiện tại và cách nhận xe tại Nguyễn Tú.",
+      "to": "Chọn gói thuê xe máy theo ngày, tuần hoặc tháng tại Nguyễn Tú. Xem điểm khác nhau, chi phí cần xác nhận và liên kết đến thông tin thuê phù hợp.",
+      "classification": "VALID_WORDPRESS_CHANGE",
+      "observedIn": "https://github.com/thuexemayhanoi/theme/actions/runs/39851250716",
+      "observedAt": "2026-10-22T20:44Z",
+      "evidence": [
+        "The meta description is a Yoast field; no runtime PHP in the theme or in plugins/ filters meta descriptions (wpseo_metadesc and similar filters are absent), and the new text exists nowhere in this repository.",
+        "Title, description and H1 of page 494 changed together and describe the same thing (rental packages by day, week or month), which points to one deliberate editorial rewrite in WordPress rather than template drift; URL, canonical, robots, menu and footer of the page did not change in the same live run.",
+        "Public live run 39851250716 (390/768/1440 px) read the value; the same page passed the other static-page checks (one H1, static-page body, no overflow, light and dark contrast).",
+        "docs/PROGRESS.md (merged with PR #53, section «2026-10-23 — Owner-approved SEO Matrix continuation») records owner-approved WordPress content patches in this same window and states that six explicit ON-PAGE proposals authorize metadata and H1 edits (slugs, canonical and robots stay protected). It does not list the six pages, so this entry is consistent with that approval, not proven by it."
+      ],
+      "followUp": "Owner confirmation recommended together with the title entry for the same page."
+    },
+    {
+      "id": 494,
+      "url": "https://thuexemaynguyentu.com/bo-suu-tap/",
+      "field": "h1",
+      "from": [
+        "Bộ Sưu Tập"
+      ],
+      "to": [
+        "Các gói thuê xe máy tại Nguyễn Tú"
+      ],
+      "classification": "VALID_WORDPRESS_CHANGE",
+      "observedIn": "https://github.com/thuexemayhanoi/theme/actions/runs/39851250716",
+      "observedAt": "2026-10-22T20:44Z",
+      "evidence": [
+        "For static pages the H1 is the first <h1> of the stored page content, or the page title when there is none (inc/pages.php nt_get_page_body: nt_html_first_h1_text($source), else get_the_title()). It is WordPress content; inc/pages.php was not changed after the first static-page release.",
+        "The page still has exactly one H1 in main and in the whole document, and the same live run confirms the unchanged canonical, robots, menu and footer, so no main heading was lost: the heading was rewritten, not removed.",
+        "The new H1 matches the rewritten title and description (rental packages by day, week or month) recorded in the two entries above.",
+        "docs/PROGRESS.md (merged with PR #53, section «2026-10-23 — Owner-approved SEO Matrix continuation») records owner-approved WordPress content patches in this same window and states that six explicit ON-PAGE proposals authorize metadata and H1 edits (slugs, canonical and robots stay protected). It does not list the six pages, so this entry is consistent with that approval, not proven by it."
+      ],
+      "followUp": "Owner confirmation recommended together with the title entry for the same page."
+    },
+    {
+      "id": 3040,
+      "url": "https://thuexemaynguyentu.com/shop/",
+      "field": "h1",
+      "from": [
+        "Cửa hàng",
+        "Chọn mẫu xe máy tại Nguyễn Tú"
+      ],
+      "to": [
+        "Cửa hàng"
+      ],
+      "classification": "VALID_WORDPRESS_CHANGE",
+      "observedIn": "https://github.com/thuexemayhanoi/theme/actions/runs/39839840364",
+      "observedAt": "2026-10-22T19:34Z",
+      "evidence": [
+        "The archived baseline recorded two H1 elements on the shop page; SEO-HULK requires one meaningful H1 per page, so the live state with one H1 meets the rule that the baseline did not.",
+        "SEO matrix live QA (run 39838071679, same minute) independently asserts exactly one H1 in the whole document, a self canonical and no noindex for /shop/, and passed.",
+        "The second heading was authored page content rendered below the WooCommerce page title; no runtime commit between ff8575e and c339a4b changed how headings, titles or canonicals are produced (git diff over assets/, inc/, template-parts/, plugins/), so the change is stored WordPress content, comparable to the owner-approved electric category H1→H2 edit recorded in PR #52.",
+        "No content was lost: public live run 39851250716 (390/768/1440 px) lists 'Chọn mẫu xe máy tại Nguyễn Tú' as the first H2 of the shop's main content, so the heading was demoted from H1 to H2, not removed.",
+        "docs/PROGRESS.md (merged with PR #53, section «2026-10-23 — Owner-approved SEO Matrix continuation») records owner-approved WordPress content patches in this same window and states that six explicit ON-PAGE proposals authorize metadata and H1 edits (slugs, canonical and robots stay protected). It does not list the six pages, so this entry is consistent with that approval, not proven by it."
+      ],
+      "followUp": "The retained H1 'Cửa hàng' is the original first H1 of the page. Whether the authored heading 'Chọn mẫu xe máy tại Nguyễn Tú' should lead the page instead is a content decision for the owner (WORDPRESS_ACTION_REQUIRED, optional); this repository does not change it."
+    }
+  ]
+}
