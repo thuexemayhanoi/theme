@@ -4,6 +4,12 @@
  * image, optional table of contents (real headings only), related posts, previous/next within the
  * same topic. All SEO metadata and schema come from Yoast; nothing is added here.
  *
+ * Reading order of a post: H1, meta, featured image, opening paragraph, first <h2>, table of
+ * contents, the rest of the text. The collapsible contents block (small screens) is inserted into
+ * the body right after the first <h2> by nt_html_toc_placement(); headings and text are not touched.
+ * Where that heading cannot be used safely the block goes before the first section, or stays in
+ * front of the text. Wide screens show the sticky list in the sidebar instead (CSS switches).
+ *
  * @package NguyenTu
  */
 
@@ -19,6 +25,30 @@ get_header();
 		$nt_content  = nt_get_rendered_content();
 		$nt_print_h1 = nt_should_print_h1( $nt_content );
 		$nt_toc      = nt_toc_items( $nt_id );
+		$nt_toc_at   = array(
+			'placement' => 'before-content',
+			'offset'    => 0,
+		);
+		$nt_toc_html = '';
+		if ( array() !== $nt_toc ) {
+			// Only a post (not another type that falls back to this template) gets the in-text placement.
+			if ( is_singular( 'post' ) ) {
+				$nt_toc_at = nt_html_toc_placement( $nt_content );
+			}
+			ob_start();
+			get_template_part(
+				'template-parts/content/toc',
+				null,
+				array(
+					'items'     => $nt_toc,
+					'variant'   => 'inline',
+					'placement' => $nt_toc_at['placement'],
+				)
+			);
+			$nt_toc_html = (string) ob_get_clean();
+		}
+		// The reading time above counts the body without the list; the list is added only to what is printed.
+		$nt_body     = 'before-content' === $nt_toc_at['placement'] ? $nt_content : nt_html_insert_at( $nt_content, $nt_toc_at['offset'], $nt_toc_html );
 		$nt_thumb_id = (int) get_post_thumbnail_id( $nt_id );
 		// Do not show the same picture twice when the writer already put it at the top of the body.
 		$nt_dupe_img = $nt_thumb_id > 0 && (bool) preg_match( '/wp-image-' . $nt_thumb_id . '\b/', $nt_content );
@@ -70,21 +100,12 @@ get_header();
 						</figure>
 					<?php endif; ?>
 
-					<?php if ( array() !== $nt_toc ) : ?>
-						<?php
-						get_template_part(
-							'template-parts/content/toc',
-							null,
-							array(
-								'items'   => $nt_toc,
-								'variant' => 'inline',
-							)
-						);
-						?>
+					<?php if ( 'before-content' === $nt_toc_at['placement'] ) : ?>
+						<?php echo $nt_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the template part. ?>
 					<?php endif; ?>
 
 					<div class="nt-prose entry-content">
-						<?php echo $nt_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content filter output. ?>
+						<?php echo $nt_body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content filter output, plus the contents block escaped in its template part. ?>
 					</div>
 
 					<?php
