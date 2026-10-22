@@ -4,6 +4,8 @@ import { chromium } from '@playwright/test';
 
 // Audited WordPress inventory, 21 October 2026. Read-only public verification.
 const targets = [
+  { id: 73, url: 'https://thuexemaynguyentu.com/danh-muc-san-pham/loai-xe/xe-dien/' },
+  { id: 669, url: 'https://thuexemaynguyentu.com/san-pham/xe-ga-50cc/' },
   {
     "id": 562,
     "url": "https://thuexemaynguyentu.com/"
@@ -157,12 +159,12 @@ const targets = [
     "url": "https://thuexemaynguyentu.com/app-thue-xe-may-ha-noi/"
   }
 ];
-const selected = new Set([562,372,494,3040,895,880,1060,1061,823,931]);
+const selected = new Set([562,372,494,3040,895,880,1060,1061,823,931,73,669]);
 const output = 'reports/seo-matrix-live';
 mkdirSync(output, { recursive: true });
 const proof = { started: new Date().toISOString(), commit: process.env.GITHUB_SHA,
   engine: 'Chromium viewport emulation; native iPhone Safari NOT_TESTED',
-  scope: '38 URLs at 390x844; ten representative URLs at 360x800, 844x390 and 1440x900',
+  scope: '40 URLs at 390x844; twelve representative URLs at 360x800, 844x390 and 1440x900',
   checks: [], errors: [] };
 const browser = await chromium.launch();
 try {
@@ -210,6 +212,21 @@ try {
             assert.ok(body.includes('không mặc định mọi xe máy điện đều cần hạng A1'), 'Vehicle-specific licence requirement');
             assert.ok(body.includes('Không suy phân loại pháp lý chỉ từ tên gọi'), 'Classify electric bicycles by legal criteria');
           }
+        }
+        if (target.id === 73) {
+          assert.deepEqual(result.meta.h1, ['Xe Điện'], 'Preserve the archive H1');
+          assert.ok(await page.getByRole('heading', { level: 2, name: 'Thuê Xe Máy Điện Hà Nội', exact: true }).count(), 'Description heading is H2');
+          assert.equal(result.meta.title, 'Thuê Xe Máy Điện Hà Nội | Nguyễn Tú', 'Preserve category SEO title');
+          assert.ok(!(await page.locator('main').innerText()).includes('[title'), 'Render the legacy title shortcode');
+        }
+        if (target.id === 669) {
+          const body = await page.locator('main').innerText();
+          assert.ok(body.includes('từ đủ 16 tuổi'), 'Publish the age condition');
+          assert.ok(body.includes('vận tốc thiết kế không lớn hơn 50 km/h'), 'Publish classification conditions');
+          assert.ok(body.includes('không mặc định mọi học sinh đều được lái xe 50cc'), 'Remove blanket student eligibility');
+          assert.ok(body.includes('200.000đ'), 'Preserve the published daily price');
+          assert.equal(await page.getByRole('heading', { level: 3, name: '1. Không cần bằng lái', exact: true }).count(), 0, 'Remove unconditional licence heading');
+          assert.ok(await page.locator('main a[href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/55-vbhn-vpqh.pdf"]').count(), 'Keep the official legal source');
         }
         assert.equal(page.url(),target.url,'Unexpected URL change');
         assert.equal(result.meta.h1.length,1,'One H1');
