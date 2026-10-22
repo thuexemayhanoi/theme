@@ -1,4 +1,4 @@
-# Internal Link Graph — audit checkpoint (2026-10-21)
+> **Current validated full-sitemap findings:** 803 URLs attempted, 802 accepted and 1 transient fetch error; see [INTERNAL-LINK-PRIORITIES-20261021.md](INTERNAL-LINK-PRIORITIES-20261021.md) for permanent statistics, honest scope limits and editorial review matrix. The first 300-URL preflight described below is historical and superseded by the full 803-URL report.\n\n# Internal Link Graph — audit checkpoint (2026-10-21)
 
 > **Scope:** independent native WordPress theme `thuexemayhanoi/theme`. Read-only diagnosis and QA tooling. Production content, Yoast settings, taxonomy/permalinks, menus, templates, Quick Call and Nguyễn Tú Assistant are **not modified**. `AGENTS.md` P0 owner freeze applies.
 
