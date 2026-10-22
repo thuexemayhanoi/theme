@@ -14,18 +14,20 @@
 ## Added audit tooling — no theme runtime changes
 
 - `tools/seo/internal-link-graph-lib.mjs`: HTML link extraction and region/anchor classification, unique inbound vs contextual inbound, source/target silo, missing incoming link candidates.
-- `tools/seo/internal-link-graph.mjs`: bounded read-only GET crawl driven by the site's Yoast sitemap index. Defaults: maximum **250** URLs (CI chooses **1000**, enough for the 803 sitemap URLs independently observed on 2026-10-21), at most **two concurrent** HTTP connections and **500 ms pause per worker**; no arbitrary recursive discovery, no user data, no login, no plugin execution. URL cap / failed request → report `complete=false`, never claim a definitive orphan count.
+- `tools/seo/internal-link-graph.mjs`: read-only GET audit of every URL in the site's Yoast sitemaps. Since 2026-10-22 it has no 1,000-URL cap, works in resumable batches and classifies the run as COMPLETE, PARTIAL or FAILED (see *Whole-site audit v2* below). Safeguards are unchanged in spirit: at most **three** concurrent requests, at least **300 ms** pause per worker, bounded retries, no arbitrary recursive discovery, no user data, no login, no plugin execution.
+- `tools/seo/crawl-lib.mjs`: sitemap discovery (nested indexes), robots.txt rules, retry/backoff, redirect chains, request ordering and checkpoint files; all network access is injected so it is tested offline.
 - `tests/node/internal-link-graph.test.mjs`: known fixtures guard deduplication, authority checks, link placement types, orphan vs contextual-only classification, noindex handling and CSV safety.
 - `.github/workflows/internal-link-graph.yml`: read-only PR/manual workflow, outputs downloadable artifact; not scheduled, avoids stressing shared hosting on each blog publication.
 
 Run locally with Node 22 + `npm ci`:
 
 ```sh
-node --test tests/node/internal-link-graph.test.mjs
-node tools/seo/internal-link-graph.mjs --base https://thuexemaynguyentu.com --out reports/internal-link-graph --limit 1000 --concurrency 2 --delay 500
+node --test tests/node/internal-link-graph.test.mjs tests/node/internal-link-graph-crawl.test.mjs
+node tools/seo/internal-link-graph.mjs --base https://thuexemaynguyentu.com --out reports/internal-link-graph --concurrency 2 --delay 500 --batch-size 100 --max-minutes 40
+node tools/seo/internal-link-graph.mjs --base https://thuexemaynguyentu.com --out reports/internal-link-graph --resume
 ```
 
-The generated artifact contains `summary.json`, `nodes.csv`, `edges.csv`, `opportunities.csv`, `excluded.json` and `outside-sitemap-targets.json`. Edges include anchor, placement (header/footer/breadcrumb/related/content/main), inferred silo, and whether a target belongs to the current sitemap. All output is in the CI artifact or local `reports/` directory, **not** persisted in WordPress.
+The output directory contains `summary.json`, `report.md`, `urls.csv`, `issues.csv`, `errors.csv`, `redirects.csv`, `canonical-groups.csv`, `orphans.csv`, `nodes.csv`, `edges.csv`, `opportunities.csv`, `excluded.json`, `outside-sitemap-targets.json` and a `checkpoint/` folder. Edges include anchor, placement (header/footer/breadcrumb/related/content/main), inferred silo, and whether a target belongs to the current sitemap. All output is in the CI artifact or the local `reports/` directory, **not** persisted in WordPress.
 
 ## Interpretation rules
 
@@ -50,3 +52,21 @@ The initial audited GitHub Action [run 39611680584](https://github.com/thuexemay
 A real WordPress post (2026-10-21) showed Yoast breadcrumb `Home → current post` while its actual category link appeared in `.nt-article__chips`; the graph now reads that published category chip before setting `silo`. This is direct category evidence, not guesswork.
 
 Read-only validation of `/featured_item_tag/thue-xe-may-theo-ngay/` found `noindex, follow`, while `/featured_item/` returned `index, follow` with self-canonical. Avoid automatically linking all legacy tag archives; a genuine indexable archive must first be compared against `/bo-suu-tap/` for intent overlap.
+
+## Whole-site audit v2 (2026-10-22)
+
+Upgrade of the existing tool and `.github/workflows/internal-link-graph.yml`; there is no second system. Everything is read-only: GET requests, no cookies, no writes, no edits of Yoast metadata or content.
+
+**Discovery.** `/sitemap_index.xml` first, then the `Sitemap:` lines of `robots.txt`, then `/wp-sitemap.xml`. Nested indexes are walked (depth 3, 200 files at most); each child sitemap type is recorded (post, page, product, category, product_cat, featured_item, taxonomy and author archives, …) with its kind (content, taxonomy, archive). Duplicate entries and off-site URLs are ignored; the homepage is added when the sitemap omits it.
+
+**Per-URL checks** (`urls.csv`, findings in `issues.csv`): HTTP status of the sitemap URL, the whole redirect chain (hops, loops, off-site targets, destination status), `noindex` from the robots meta tag **and** the `X-Robots-Tag` header, `robots.txt` blocking, canonical (missing, multiple, off-site, not self, several sitemap URLs folding into the same target), H1 count, title, and the internal links of every indexable self-canonical page.
+
+**Batches, politeness and retry.** `--batch-size` URLs per batch with a pause between batches; progress is saved after each batch. 429/503 answers pause every worker. A network failure, timeout or 408/425/429/5xx is retried with exponential backoff and jitter (honouring `Retry-After`, never above 60 s). A URL that never gets a definitive answer is **unchecked**, not a finding: it is listed in `errors.csv` and requested again on resume. 404, 410 and redirects are definitive answers. Partial runs sample every sitemap type (requests are interleaved by type, not alphabetical).
+
+**Checkpoint and resume.** `checkpoint/results.jsonl` holds one record per URL (internal links included); `--resume` re-reads the sitemaps, skips every URL with a definitive answer and requests only the unchecked or errored ones, so a site of any size can be finished over several runs. In GitHub Actions pass the earlier run's id as `resume_run_id`; the artifact `seo-internal-link-graph-evidence` of that run is downloaded first. `--limit N` caps the URLs requested in one run, `--max-minutes M` stops starting new URLs after M minutes (the run then saves its checkpoint), `--types post,page,…` audits only some sitemap types, `--strict` turns PARTIAL into exit code 2. A checkpoint of another site is refused.
+
+**Status is based only on URLs really checked.** `COMPLETE`: every discovered URL has a definitive answer and every sitemap file loaded. `PARTIAL`: anything in between (budget stop, unchecked or errored URLs, a failed sitemap file). With `--types`, COMPLETE only means the selected types are done: `scope` says so and orphans stay candidates. `FAILED`: no usable sitemap, or not one URL checked (exit code 1). `summary.json` states `urlsDiscovered`, `urlsChecked`, `urlsErrored`, `urlsPending` and the coverage; the report is also the GitHub job summary.
+
+**Orphans, defined carefully** (`orphans.csv`). Only a page that answers 200, is indexable and is its own canonical is in the denominator. With zero inbound links from another such page it is `ORPHAN_CONFIRMED` after a COMPLETE whole-site audit and otherwise `ORPHAN_CANDIDATE`. Pages that are not expected to receive links are classified instead of counted: `NOT_APPLICABLE_TAXONOMY_NOINDEX` (noindex tag or author archives), `NOT_APPLICABLE_NOINDEX`, `NOT_APPLICABLE_ROBOTS_BLOCKED`, `NOT_APPLICABLE_REDIRECT`, `NOT_APPLICABLE_NON_SELF_CANONICAL`, `NOT_APPLICABLE_HTTP_ERROR` and `NOT_CHECKED`. Links from unlisted pages or other sites are unknown, so even a confirmed orphan is a prompt for review, never a reason to add links automatically.
+
+**Running it.** Start `Read-only SEO Internal Link Graph` by hand (`limit` 0 audits every unchecked URL). Pull requests that change the tool only run a 120-URL sample. No schedule is configured on purpose; if one is wanted later, keep it monthly or sparser. Real-run results are recorded in `reports/seo-audit-2026-10-22.md` only after a run has completed.

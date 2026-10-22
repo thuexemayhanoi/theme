@@ -1,17 +1,46 @@
 name: Read-only SEO Internal Link Graph
 
-# Collect one reproducible PR artifact when the graph analyzer changes, or run
-# manually after future content releases. No WordPress endpoint writes.
+# Audit of every URL in the live Yoast sitemaps: HTTP status, redirect chains, indexability, canonical, H1,
+# internal links and orphan analysis. GET requests only; nothing on WordPress is written.
+#
+# Run it by hand (workflow_dispatch) for the whole site: it works in bounded batches (at most 3 concurrent
+# requests, pause per worker, retry with backoff, time budget) and saves a checkpoint, so a long site can be
+# finished over several runs with `resume_run_id`. It is not scheduled: a full crawl on every publication
+# would stress shared hosting. A pull request that changes the tool only audits a small sample.
 on:
   pull_request:
     paths:
       - 'tools/seo/internal-link-graph*.mjs'
-      - 'tests/node/internal-link-graph.test.mjs'
+      - 'tools/seo/crawl-lib.mjs'
+      - 'tests/node/internal-link-graph*.test.mjs'
       - '.github/workflows/internal-link-graph.yml'
   workflow_dispatch:
+    inputs:
+      limit:
+        description: 'URLs to request in this run (0 = every unchecked URL)'
+        default: '0'
+      max_minutes:
+        description: 'Stop starting new URLs after this many minutes (the checkpoint is saved)'
+        default: '40'
+      batch_size:
+        description: 'URLs per batch; progress is saved after each batch'
+        default: '100'
+      concurrency:
+        description: 'Concurrent requests (1-3)'
+        default: '2'
+      delay_ms:
+        description: 'Pause per worker after each request, in milliseconds (300 or more)'
+        default: '500'
+      types:
+        description: 'Optional sitemap types to audit, comma separated (post,page,product,category,...). Empty = all'
+        default: ''
+      resume_run_id:
+        description: 'Run ID of an earlier audit whose checkpoint should be continued. Empty = start fresh'
+        default: ''
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: seo-internal-graph-${{ github.ref }}
@@ -19,9 +48,9 @@ concurrency:
 
 jobs:
   graph:
-    name: Current Yoast sitemap link graph (read-only)
+    name: Sitemap audit (read-only)
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,17 +58,38 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Validate graph analysis on fixtures
-        run: node --test tests/node/internal-link-graph.test.mjs
-      - name: Crawl published sitemap URLs with bounded requests
+      - name: Validate the audit on fixtures and a simulated site
+        run: node --test tests/node/internal-link-graph.test.mjs tests/node/internal-link-graph-crawl.test.mjs
+      - name: Download the checkpoint of an earlier run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.resume_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: seo-internal-link-graph-evidence
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+          path: reports/internal-link-graph
+      - name: Audit published sitemap URLs in bounded batches
+        env:
+          EVENT: ${{ github.event_name }}
+          LIMIT: ${{ inputs.limit }}
+          MAX_MINUTES: ${{ inputs.max_minutes }}
+          BATCH_SIZE: ${{ inputs.batch_size }}
+          CONCURRENCY: ${{ inputs.concurrency }}
+          DELAY_MS: ${{ inputs.delay_ms }}
+          TYPES: ${{ inputs.types }}
+          RESUME_RUN_ID: ${{ inputs.resume_run_id }}
         run: |
-          node tools/seo/internal-link-graph.mjs \
-            --base https://thuexemaynguyentu.com \
-            --out reports/internal-link-graph \
-            --limit 1000 --concurrency 2 --delay 500
+          # A pull request only samples 120 URLs; the whole site is audited by hand-started runs.
+          if [ "$EVENT" = pull_request ]; then LIMIT=120; MAX_MINUTES=12; BATCH_SIZE=40; CONCURRENCY=2; DELAY_MS=500; TYPES=''; RESUME_RUN_ID=''; fi
+          args=(--base https://thuexemaynguyentu.com --out reports/internal-link-graph
+            --limit "$LIMIT" --max-minutes "$MAX_MINUTES" --batch-size "$BATCH_SIZE"
+            --concurrency "$CONCURRENCY" --delay "$DELAY_MS")
+          if [ -n "$TYPES" ]; then args+=(--types "$TYPES"); fi
+          if [ -n "$RESUME_RUN_ID" ]; then args+=(--resume); fi
+          node tools/seo/internal-link-graph.mjs "${args[@]}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: seo-internal-link-graph-evidence
-          retention-days: 14
+          retention-days: 30
           path: reports/internal-link-graph/
