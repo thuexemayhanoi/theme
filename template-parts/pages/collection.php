@@ -51,6 +51,7 @@ $nt_periods = array(
 	<section class="nt-service-page__section" aria-labelledby="nt-collection-choose">
 		<h2 id="nt-collection-choose">Chọn hình thức thuê xe máy phù hợp</h2>
 		<p>Thời gian lưu trú và lịch trình thực tế giúp bạn chọn gói thuê. Giá và tình trạng xe cần được xác nhận theo mẫu xe và thời điểm đặt.</p>
+		<p>Đối chiếu <a href="<?php echo esc_url( get_permalink( 476 ) ); ?>">chi phí thuê theo từng mẫu xe</a>. Nếu dùng xe dài ngày, đọc <a href="<?php echo esc_url( get_permalink( 1060 ) ); ?>">giá và điều kiện thuê theo tháng</a>; không lấy đơn giá ngày nhân 30 để suy ra báo giá tháng.</p>
 		<table><thead><tr><th scope="col">Hình thức thuê</th><th scope="col">Phù hợp với</th><th scope="col">Nên xác nhận trước khi đặt</th></tr></thead><tbody>
 			<tr><th scope="row">Theo ngày</th><td>Chuyến đi ngắn, lịch trình linh hoạt</td><td>Xe còn sẵn, giá hiện tại, giờ nhận và trả</td></tr>
 			<tr><th scope="row">Theo tuần</th><td>Lưu trú và di chuyển nhiều ngày</td><td>Mẫu xe, giá theo thời gian thuê, tiền cọc</td></tr>
