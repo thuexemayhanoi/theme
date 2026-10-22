@@ -10,12 +10,22 @@ on:
       - 'assets/css/pages.css'
       - 'template-parts/pages/**'
       - 'tools/qa/static-pages-live.mjs'
+      - 'tools/qa/lib/static-baseline.mjs'
+      - 'reports/static-pages/*.json'
+  # Read-only public GET checks, so a PR that touches the QA code or its baseline is verified live before merge.
+  pull_request:
+    paths:
+      - 'tools/qa/static-pages-live.mjs'
+      - 'tools/qa/lib/static-baseline.mjs'
+      - 'tools/qa/homepage-legacy-parity.mjs'
+      - 'reports/static-pages/*.json'
+      - '.github/workflows/static-pages-live-qa.yml'
 
 permissions:
   contents: read
 
 concurrency:
-  group: static-pages-live-qa
+  group: static-pages-live-qa-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
