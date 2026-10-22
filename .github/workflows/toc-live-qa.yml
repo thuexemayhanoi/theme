@@ -1,0 +1,82 @@
+name: Post contents list live QA
+
+# Read-only GET checks of https://thuexemaynguyentu.com/ for the contents list of single posts (tools/qa/toc-live.mjs).
+#   pull request   baseline: the theme's own placement function is run on the text of ~150 real posts as served today and
+#                  checked with an independent HTML5 parser; the colour of the post title is read in light and dark mode on a
+#                  few posts. Nothing is deployed by a pull request.
+#   push to main   deployed: waits until the new template is served, then checks sampled posts on the origin render and on
+#                  the page as served, and in Chromium at 390/768/1024/1440 px in light and dark mode.
+#   manual         either mode, with a sample size.
+# A page cache that still serves the old layout is reported, never fixed from here. Nothing is written to WordPress.
+on:
+  pull_request:
+    paths:
+      - 'tools/qa/toc-live.mjs'
+      - 'tools/qa/lib/toc-structure.mjs'
+      - 'tools/qa/toc-placement-cli.php'
+      - 'inc/lib/html.php'
+      - 'single.php'
+      - 'template-parts/content/toc.php'
+      - '.github/workflows/toc-live-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/qa/toc-live.mjs'
+      - 'tools/qa/lib/toc-structure.mjs'
+      - 'tools/qa/toc-placement-cli.php'
+      - 'inc/lib/html.php'
+      - 'single.php'
+      - 'template-parts/content/toc.php'
+      - 'assets/css/blog.css'
+      - '.github/workflows/toc-live-qa.yml'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'baseline (before the change is live) or deployed (after it)'
+        default: 'deployed'
+      sample:
+        description: 'Posts to sample (empty = 150 for baseline, 24 for deployed)'
+        default: ''
+      wait_minutes:
+        description: 'Deployed mode: minutes to wait for the new template'
+        default: '15'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: toc-live-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Post contents list on the live site (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      MODE: ${{ github.event_name == 'pull_request' && 'baseline' || (github.event_name == 'push' && 'deployed') || inputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Check the contents list on the live site
+        env:
+          SAMPLE: ${{ inputs.sample }}
+          WAIT_MINUTES: ${{ inputs.wait_minutes || '15' }}
+        run: |
+          args=(--mode "$MODE" --wait-minutes "$WAIT_MINUTES")
+          if [ -n "$SAMPLE" ]; then args+=(--sample "$SAMPLE"); fi
+          node tools/qa/toc-live.mjs "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toc-live-evidence
+          path: reports/toc-live/
