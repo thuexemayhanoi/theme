@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-22",
+  "approvedByOwner": true,
+  "status": "Published two posts; category and product pending",
+  "edits": [
+    {
+      "post_id": 931,
+      "find_text": "<td>Cần GPLX A1</td>",
+      "replace_text": "<td>Phải xác định đúng phân loại xe, công suất động cơ và giấy phép phù hợp; không mặc định mọi xe máy điện đều cần hạng A1. Xe gắn máy và xe mô tô điện có điều kiện điều khiển khác nhau. Đối chiếu Điều 34, 56, 57 và 59 của <a href=\"https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/55-vbhn-vpqh.pdf\">Luật Trật tự, an toàn giao thông đường bộ (văn bản hợp nhất)</a> và giá trị sử dụng của giấy phép trước khi lái.</td>"
+    },
+    {
+      "post_id": 823,
+      "find_text": "<strong>Giữ khoảng cách an toàn</strong>: Luôn giữ khoảng cách với xe phía trước ít nhất 2-3 mét.",
+      "replace_text": "<strong>Giữ khoảng cách an toàn</strong>: Điều chỉnh khoảng cách với xe phía trước theo tốc độ, mật độ giao thông, mặt đường, thời tiết và tầm nhìn để có đủ thời gian phản ứng, phanh an toàn. Không lấy 2–3 mét làm khoảng cách an toàn chung cho mọi tình huống."
+    },
+    {
+      "post_id": 823,
+      "find_text": "<h3>Khi gặp tai nạn giao thông</h3>\r\n<strong>Bước 1</strong>: Đảm bảo an toàn\r\n<ul>\r\n \t<li>Di chuyển xe ra khỏi làn đường nếu có thể</li>\r\n \t<li>Bật đèn khẩn cấp hoặc đặt biển báo</li>\r\n \t<li>Kiểm tra thương tích của bản thân và người khác</li>\r\n</ul>\r\n<strong>Bước 2</strong>: Gọi cấp cứu nếu cần thiết\r\n<ul>\r\n \t<li>Cấp cứu: 115</li>\r\n \t<li>Cảnh sát giao thông: 113</li>\r\n \t<li>Cứu hỏa: 114</li>\r\n</ul>\r\n<strong>Bước 3</strong>: Báo cáo và giải quyết\r\n<ul>\r\n \t<li>Chụp ảnh hiện trường</li>\r\n \t<li>Trao đổi thông tin với các bên liên quan</li>\r\n \t<li>Báo cáo cho công ty bảo hiểm</li>\r\n \t<li>Thông báo cho cửa hàng cho thuê xe</li>\r\n</ul>\r\n",
+      "replace_text": "<h3>Khi gặp tai nạn giao thông</h3>\n<p><strong>Dừng xe và báo tin:</strong> Nếu liên quan đến tai nạn, hãy dừng phương tiện, cảnh báo nguy hiểm, bảo vệ hiện trường và hỗ trợ người bị nạn trong khả năng của mình. Báo ngay cho cơ quan Công an, cơ sở khám chữa bệnh hoặc Ủy ban nhân dân nơi gần nhất; yêu cầu hỗ trợ cấp cứu khi có người bị thương.</p>\n<p><strong>Không tự ý di chuyển xe để dọn đường:</strong> Giữ nguyên hiện trường và thực hiện theo hướng dẫn của cơ quan có thẩm quyền. Nếu không còn phương tiện nào khác và phải dùng xe liên quan đến tai nạn để đưa nạn nhân đi cấp cứu, cần xác định vị trí xe và nạn nhân, tránh làm mất dấu vết liên quan.</p>\n<p><strong>Ở lại và phối hợp:</strong> Người liên quan cần ở lại chờ cơ quan Công an, trừ trường hợp phải đi cấp cứu, đưa người bị nạn đi cấp cứu hoặc bị đe dọa đến tính mạng, sức khỏe; khi thuộc trường hợp ngoại lệ phải trình báo ngay cho cơ quan Công an hoặc Ủy ban nhân dân gần nhất. Cung cấp thông tin trung thực và lưu lại thông tin, hình ảnh khi có thể thực hiện an toàn.</p>\n<p>Thông báo cho Nguyễn Tú và doanh nghiệp bảo hiểm liên quan (nếu có) để phối hợp xử lý; việc này không thay thế nghĩa vụ báo tin và bảo vệ hiện trường. Tham khảo Điều 80–81 của <a href=\"https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/55-vbhn-vpqh.pdf\">Luật Trật tự, an toàn giao thông đường bộ (văn bản hợp nhất)</a>.</p>\n"
+    },
+    {
+      "post_id": 931,
+      "find_text": "<td>Không cần</td>",
+      "replace_text": "<td>Không yêu cầu giấy phép lái xe khi đúng là xe đạp máy, gồm xe đạp điện, theo Điều 34: có trợ lực và động cơ ngắt khi dừng đạp hoặc khi đạt 25 km/h. Không suy phân loại pháp lý chỉ từ tên gọi bán hàng “xe đạp điện”.</td>"
+    }
+  ]
+}

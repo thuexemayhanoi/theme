@@ -157,12 +157,12 @@ const targets = [
     "url": "https://thuexemaynguyentu.com/app-thue-xe-may-ha-noi/"
   }
 ];
-const selected = new Set([562,372,494,3040,895,880,1060,1061]);
+const selected = new Set([562,372,494,3040,895,880,1060,1061,823,931]);
 const output = 'reports/seo-matrix-live';
 mkdirSync(output, { recursive: true });
 const proof = { started: new Date().toISOString(), commit: process.env.GITHUB_SHA,
   engine: 'Chromium viewport emulation; native iPhone Safari NOT_TESTED',
-  scope: '38 URLs at 390x844; eight representative URLs at 360x800, 844x390 and 1440x900',
+  scope: '38 URLs at 390x844; ten representative URLs at 360x800, 844x390 and 1440x900',
   checks: [], errors: [] };
 const browser = await chromium.launch();
 try {
@@ -196,6 +196,21 @@ try {
             contact:[...main.querySelectorAll('a[href^="tel:"],a[href*="zalo.me"]')].map(e=>({text:e.textContent.trim(),href:e.href})),
           };
         });
+        if ([823,931].includes(target.id)) {
+          const body = await page.locator('main').innerText();
+          const law = page.locator('main a[href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/55-vbhn-vpqh.pdf"]');
+          assert.ok(await law.count(), 'Keep the official legal source');
+          if (target.id === 823) {
+            assert.ok(body.includes('Không lấy 2–3 mét làm khoảng cách an toàn chung'), 'No universal 2–3 metre advice');
+            assert.ok(body.includes('Không tự ý di chuyển xe để dọn đường:'), 'Preserve accident scene advice');
+            assert.ok(!body.includes('Di chuyển xe ra khỏi làn đường nếu có thể'), 'Remove unconditional scene alteration');
+            assert.ok(!body.includes('Cảnh sát giao thông: 113'), 'Remove incorrect emergency service label');
+          } else {
+            assert.ok(!body.includes('Cần GPLX A1'), 'Remove blanket A1 claim');
+            assert.ok(body.includes('không mặc định mọi xe máy điện đều cần hạng A1'), 'Vehicle-specific licence requirement');
+            assert.ok(body.includes('Không suy phân loại pháp lý chỉ từ tên gọi'), 'Classify electric bicycles by legal criteria');
+          }
+        }
         assert.equal(page.url(),target.url,'Unexpected URL change');
         assert.equal(result.meta.h1.length,1,'One H1');
         assert.deepEqual(result.meta.canonicals,[target.url],'Self canonical');
