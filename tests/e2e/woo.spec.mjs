@@ -135,3 +135,27 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		await expect(page.locator('.nt-cartlink')).toHaveCount(0);
 	});
 });
+
+// Same defect as the blog titles: --nt-navy-900 is near-black in dark mode (1.02:1 on the dark page).
+test.describe('shop and product titles are readable in light and dark mode', () => {
+	const contrastOf = (a, b) => {
+		const rgb = (s) => s.match(/[\d.]+/g).slice(0, 3).map(Number);
+		const lum = ([r, g, b2]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b2); };
+		const [hi, lo] = [lum(rgb(a)), lum(rgb(b))].sort((x, y) => y - x);
+		return (hi + 0.05) / (lo + 0.05);
+	};
+	for (const mode of ['light', 'dark']) {
+		test(`shop, category and product titles, ${mode} mode`, async ({ browser }) => {
+			const ctx = await browser.newContext({ viewport: { width: 390, height: 900 } });
+			await ctx.addInitScript((m) => localStorage.setItem('nt-color-mode', m), mode);
+			const page = await ctx.newPage();
+			for (const path of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-so/', '/san-pham/honda-wave/']) {
+				await page.goto(path);
+				await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', mode);
+				const c = await page.locator('h1').first().evaluate((h) => ({ color: getComputedStyle(h).color, bg: getComputedStyle(document.body).backgroundColor }));
+				expect(contrastOf(c.color, c.bg), `${path} ${mode}: ${c.color} on ${c.bg}`).toBeGreaterThanOrEqual(4.5);
+			}
+			await ctx.close();
+		});
+	}
+});

@@ -6,6 +6,8 @@
 .woocommerce-products-header { padding: clamp(24px, 4vw, 48px) 0 16px; }
 .woocommerce-products-header__title, .product_title { margin: 0 0 .4em; letter-spacing: -.03em; color: var(--nt-navy-900); }
 .woocommerce-products-header__title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); }
+/* Same reason as the blog titles: --nt-navy-900 is near-black in dark mode, so the shop and product titles use the body ink there. */
+html[data-nt-color-mode="dark"] :is(.woocommerce-products-header__title, .product_title) { color: var(--nt-ink); }
 .term-description { max-width: 70ch; color: var(--nt-muted); }
 .woocommerce-result-count { margin: 0 0 16px; font-size: .9375rem; color: var(--nt-muted); }
 .woocommerce-ordering { margin: 0 0 16px; }

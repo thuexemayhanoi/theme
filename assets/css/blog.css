@@ -9,6 +9,9 @@
 .nt-archive-head--center .nt-search { margin-inline: auto; }
 .nt-archive-head__title { margin: 0 0 .4em; font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); letter-spacing: -.03em; color: var(--nt-navy-900); }
 .nt-archive-head__desc, .nt-archive-head__meta { max-width: 70ch; color: var(--nt-muted); }
+/* Dark mode redefines --nt-navy-900 as a very dark navy meant for backgrounds (#0a162b); a title painted with it is
+   unreadable on the dark page (contrast 1.02:1), so these titles take the body ink there. Light mode is unchanged. */
+html[data-nt-color-mode="dark"] :is(.nt-article__title, .nt-archive-head__title) { color: var(--nt-ink); }
 .nt-archive-head--center .nt-archive-head__desc { margin-inline: auto; }
 .nt-archive-head .nt-search { margin-top: 1rem; }
 .nt-subcats ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 1.25rem 0 0; padding: 0; list-style: none; }
