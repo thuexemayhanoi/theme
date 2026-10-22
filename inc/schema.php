@@ -90,3 +90,24 @@ function nt_yoast_home_article_needed( bool $needed ): bool {
 	return $needed;
 }
 add_filter( 'wpseo_schema_needs_article', 'nt_yoast_home_article_needed', 20 );
+
+/**
+ * Audited business pages are not articles. Preserve all other Yoast graph pieces.
+ * A replacement front page still requires its own audit; ordinary posts are excluded.
+ *
+ * @param bool $needed Whether Yoast needs the Article piece.
+ * @return bool
+ */
+function nt_yoast_matrix_page_article_needed( bool $needed ): bool {
+	if ( is_front_page() ) {
+		return $needed;
+	}
+	if ( is_page( array( 310, 424, 432, 372, 484, 326, 449, 494, 3040 ) ) ) {
+		return false;
+	}
+	if ( function_exists( 'is_shop' ) && is_shop() && 3040 === (int) get_queried_object_id() ) {
+		return false;
+	}
+	return $needed;
+}
+add_filter( 'wpseo_schema_needs_article', 'nt_yoast_matrix_page_article_needed', 21 );

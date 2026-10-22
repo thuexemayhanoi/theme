@@ -71,6 +71,7 @@ defined( 'ABSPATH' ) || exit;
 			<h2 id="nt-contact-form-title">Gửi yêu cầu tư vấn</h2>
 			<div class="nt-service-page__card nt-contact-page__form">
 				<p>Điền thông tin liên hệ và nhu cầu thuê xe. Nếu cần trao đổi ngay, hãy gọi hoặc nhắn Zalo theo số ở trên.</p>
+				<p>Thông tin gửi qua biểu mẫu được dùng để tiếp nhận và phản hồi yêu cầu tư vấn. Đọc <a href="<?php echo esc_url( get_permalink( 326 ) ); ?>">chính sách bảo mật</a> trước khi gửi; không ghi mật khẩu, mã OTP hoặc thông tin thanh toán vào nội dung yêu cầu.</p>
 				<?php echo $args['form']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- exact CF7 shortcode from this page; the_content renders it once. ?>
 			</div>
 		</section>

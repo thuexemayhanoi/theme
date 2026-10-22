@@ -53,6 +53,15 @@ $nt_shortcuts = array(
 		'fallback_id' => 669, // Original 50cc Woo product; available in the legacy snapshot.
 	),
 );
+
+// Image attributes are independent of the existing homepage query and shortcut state.
+$nt_hero_image_attrs = array(
+	'class'         => 'nt-home-mag__hero-img',
+	'loading'       => 'eager',
+	'decoding'      => 'async',
+	'fetchpriority' => 'high',
+	'sizes'         => '(min-width: 900px) 55vw, 100vw',
+);
 ?>
 <section class="nt-home-mag__intro" aria-labelledby="nt-home-mag-title">
 	<div class="nt-container nt-home-mag__intro-grid">
@@ -70,6 +79,12 @@ $nt_shortcuts = array(
 				)
 			);
 			?>
+			<?php if ( wp_attachment_is_image( 4990 ) ) : ?>
+				<figure class="nt-home-mag__hero-visual">
+					<?php echo wp_get_attachment_image( 4990, 'large', false, $nt_hero_image_attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by WordPress image helper. ?>
+					<figcaption>Ảnh minh họa</figcaption>
+				</figure>
+			<?php endif; ?>
 		</div>
 		<div class="nt-home-mag__find">
 			<p class="nt-home-mag__find-title">Bạn đang tìm gì?</p>
@@ -154,7 +169,35 @@ get_template_part( 'template-parts/home/products' );
 
 // Retain exactly one authoritative price table and Smart Core's live estimate hook.
 get_template_part( 'template-parts/home/prices' );
+
+// Uploaded visual assets; optional and non-destructive if an attachment is later removed.
+$nt_service_visuals     = array(
+	4987 => 'Chọn xe và tìm hiểu điều kiện thuê',
+	4978 => 'Kiểm tra và nhận xe',
+);
+$nt_has_service_visuals = array_filter( array_keys( $nt_service_visuals ), 'wp_attachment_is_image' );
+
+$nt_visual_image_attrs = array(
+	'class'    => 'nt-home-mag__visual-img',
+	'loading'  => 'lazy',
+	'decoding' => 'async',
+	'sizes'    => '(min-width: 900px) 48vw, 100vw',
+);
 ?>
+<?php if ( array() !== $nt_has_service_visuals ) : ?>
+<section class="nt-home-mag__visuals" aria-label="Hình minh họa dịch vụ thuê xe">
+	<div class="nt-container nt-home-mag__visual-grid">
+		<?php foreach ( $nt_service_visuals as $nt_visual_id => $nt_visual_label ) : ?>
+			<?php if ( wp_attachment_is_image( $nt_visual_id ) ) : ?>
+			<figure class="nt-home-mag__visual-card">
+				<?php echo wp_get_attachment_image( $nt_visual_id, 'large', false, $nt_visual_image_attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by WordPress image helper. ?>
+				<figcaption><strong><?php echo esc_html( $nt_visual_label ); ?></strong><span>Ảnh AI minh họa, không phải ảnh chụp cửa hàng hoặc nhân viên.</span></figcaption>
+			</figure>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
+</section>
+<?php endif; ?>
 
 <?php if ( array() !== $nt_hubs ) : ?>
 <section class="nt-section nt-home-mag__hubs nt-section--tint" aria-labelledby="nt-home-hubs-title">
@@ -271,6 +314,7 @@ if ( $nt_latest->have_posts() ) :
 		<div>
 			<h2 id="nt-home-closing-title">Chọn xe và xác nhận điều kiện thuê</h2>
 			<p>Địa chỉ: <?php echo esc_html( nt_address() ); ?>. Mở cửa <?php echo esc_html( nt_hours_range() ); ?>. Giá thuê và tiền cọc được xác nhận khi đặt.</p>
+			<p>Chuẩn bị <a href="<?php echo esc_url( get_permalink( 829 ) ); ?>">giấy tờ và các bước nhận xe</a>, xem <a href="<?php echo esc_url( get_permalink( 847 ) ); ?>">điểm nhận xe tại Long Biên</a> hoặc hỏi <a href="<?php echo esc_url( get_permalink( 887 ) ); ?>">điều kiện và phí giao nhận</a> theo địa chỉ cụ thể trước khi chốt lịch.</p>
 		</div>
 		<?php nt_cta_buttons( array( 'size' => 'md' ) ); ?>
 	</div>

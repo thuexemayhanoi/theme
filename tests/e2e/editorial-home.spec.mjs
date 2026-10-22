@@ -70,7 +70,11 @@ for (const width of [390, 768, 1440]) {
 		const closing = page.locator('.nt-home-mag__closing');
 		await expect(closing).toHaveCSS('background-color', 'rgb(27, 47, 91)');
 		await expect(closing.locator('h2')).toHaveCSS('color', 'rgb(255, 255, 255)');
-		await expect(closing.locator('p')).toHaveCSS('color', 'rgb(224, 230, 241)');
+		const closingParagraphs = closing.locator('p');
+		expect(await closingParagraphs.count()).toBeGreaterThan(0);
+		for (const paragraph of await closingParagraphs.all()) {
+			await expect(paragraph).toHaveCSS('color', 'rgb(224, 230, 241)');
+		}
 
 		for (const selector of ['.nt-home-mag__intro', '.nt-home-mag__closing']) {
 			const directions = page.locator(selector + ' .nt-btn--ghost');
