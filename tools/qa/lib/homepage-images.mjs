@@ -170,3 +170,23 @@ export function assessImages({ images, vitals, width, height }) {
 export function formatImageTable(images, width) {
   return images.map((i, n) => `${String(n + 1).padStart(2)} @${width} ${i.visible ? '' : '[hidden] '}${i.isUpload ? 'upload' : 'other'} ${i.file} | ${i.rendered.join('x')} (natural ${i.natural.join('x')}, attrs ${i.widthAttr}x${i.heightAttr}) | ${i.loading || 'auto'}${i.fetchpriority ? '+' + i.fetchpriority : ''} | top ${i.firstScreenTop} | alt=${JSON.stringify(i.alt)} | ${i.section || i.zone}`).join('\n');
 }
+
+/**
+ * Whether a served page differs from the origin render only because the three editorial images are missing from it,
+ * which is what a stale page cache looks like. Any other failure on the served page is a real failure.
+ *
+ * @param {string[]} servedFailures Failures of the page as served (possibly from a page cache).
+ * @param {string[]} originFailures Failures of the same page rendered by the origin (cache bypassed).
+ * @returns {boolean} True when the origin passes and the served page only lacks the hero and service visuals.
+ */
+export function isStalePageCache(servedFailures, originFailures) {
+  return originFailures.length === 0 && servedFailures.length > 0 && servedFailures.every(f => /^(?:hero visual: 0 images|service visuals: 0 images)/.test(f));
+}
+
+/** Files shown by one render and not by the other, as base file names. */
+export function inventoryDiff(servedImages, originImages) {
+  const names = images => new Set(images.filter(i => i.visible).map(i => i.baseFile));
+  const served = names(servedImages);
+  const origin = names(originImages);
+  return { onlyServed: [...served].filter(n => !origin.has(n)).sort(), onlyOrigin: [...origin].filter(n => !served.has(n)).sort() };
+}

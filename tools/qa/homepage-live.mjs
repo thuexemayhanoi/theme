@@ -3,7 +3,6 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { assertPreservedLinks, verifyLiveTermAliases } from './homepage-legacy-parity.mjs';
-import { observeVitals, collectImages, assessImages, formatImageTable } from './lib/homepage-images.mjs';
 
 const baseline = JSON.parse(readFileSync('reports/homepage-baseline-2026-10-21.json', 'utf8'));
 const out = 'reports/homepage-live';
@@ -43,8 +42,6 @@ try {
     page.on('pageerror', err => result.consoleErrors.push(String(err)));
     page.on('console', msg => { if (msg.type() === 'error') result.browserConsoleErrors.push({ text: msg.text(), location: msg.location() }); });
     page.on('requestfailed', req => result.requestFailures.push({ url: req.url(), error: req.failure()?.errorText }));
-    // Layout shifts and the LCP element are recorded from the first byte, for the image audit below.
-    await page.addInitScript(observeVitals);
     const response = await page.goto(baseline.url, { waitUntil: 'domcontentloaded' });
     assert.equal(response.status(), 200);
     await page.waitForFunction(() => document.querySelector('[data-nt-rental-result]')?.textContent.includes('150.000'));
@@ -74,15 +71,6 @@ try {
     assert.equal(meta.unusedWishlist, false);
     result.meta = meta;
     result.checks.push('SEO, menu/footer URL parity after verified 301 aliases, one calculator, no overflow or unused wishlist entry');
-    // Image audit: the hero and two service visuals (PR #54) and every other image in <main>. Failures are rules
-    // that hold for the published markup; network-dependent or content-dependent findings are warnings.
-    const images = await page.evaluate(collectImages);
-    const imageAudit = assessImages({ images, vitals: await page.evaluate(() => window.__ntVitals), width, height });
-    result.images = { summary: imageAudit.summary, warnings: imageAudit.warnings, list: images };
-    console.log(`Homepage images @${width}: ${JSON.stringify(imageAudit.summary)}\n${formatImageTable(images, width)}`);
-    for (const warning of imageAudit.warnings) console.log(`::warning title=Homepage images @${width}::${warning}`);
-    assert.equal(imageAudit.failures.length, 0, 'Homepage image audit:\n' + imageAudit.failures.join('\n'));
-    result.checks.push('Images: loaded, size attributes, alt hygiene, lazy-loading policy, hero priority, no image-caused layout shift, LCP not lazy');
     await page.locator('[data-nt-theme-toggle]').click();
     const mode = await page.locator('html').getAttribute('data-nt-color-mode');
     await page.reload({ waitUntil: 'domcontentloaded' });

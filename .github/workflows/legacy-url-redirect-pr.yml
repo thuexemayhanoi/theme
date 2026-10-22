@@ -5,7 +5,6 @@ on:
     paths:
       - 'tools/qa/homepage-legacy-parity.mjs'
       - 'tools/qa/homepage-live.mjs'
-      - 'tools/qa/lib/homepage-images.mjs'
       - 'tools/qa/legacy-live-pr.mjs'
       - '.github/workflows/legacy-url-redirect-pr.yml'
 

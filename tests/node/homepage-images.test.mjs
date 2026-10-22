@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EDITORIAL_ZONES, assessImages, formatImageTable } from '../../tools/qa/lib/homepage-images.mjs';
+import { EDITORIAL_ZONES, assessImages, formatImageTable, isStalePageCache, inventoryDiff } from '../../tools/qa/lib/homepage-images.mjs';
 
 const view = { width: 390, height: 844 };
 const img = (extra = {}) => ({
@@ -86,4 +86,20 @@ test('the inventory prints one readable line per image', () => {
   assert.equal(table.length, 2);
   assert.match(table[0], /^ 1 @390 upload hero\.webp \| 366x206 \(natural 1024x576, attrs 1024x576\) \| eager\+high \| top 520 \| alt="Xe máy trong phố cổ"/);
   assert.match(table[1], /\[hidden\]/);
+});
+
+test('a served page that only lacks the editorial images while the origin passes is a stale page cache', () => {
+  const missing = ['hero visual: 0 images, expected 1', 'service visuals: 0 images, expected 2'];
+  assert.equal(isStalePageCache(missing, []), true);
+  assert.equal(isStalePageCache(missing.slice(0, 1), []), true);
+  assert.equal(isStalePageCache([...missing, 'a.webp: did not load'], []), false, 'another failure is real');
+  assert.equal(isStalePageCache(missing, ['x']), false, 'the origin render must pass');
+  assert.equal(isStalePageCache([], []), false, 'nothing is stale when nothing fails');
+});
+
+test('the inventory diff names the images only one render shows, ignoring size suffixes', () => {
+  const served = [img({ baseFile: 'a.webp' }), img({ baseFile: 'b.webp' }), img({ baseFile: 'hidden.webp', visible: false })];
+  const origin = [img({ baseFile: 'a.webp' }), img({ baseFile: 'hero.webp' }), img({ baseFile: 'c.webp' })];
+  assert.deepEqual(inventoryDiff(served, origin), { onlyServed: ['b.webp'], onlyOrigin: ['c.webp', 'hero.webp'] });
+  assert.deepEqual(inventoryDiff(origin, origin), { onlyServed: [], onlyOrigin: [] });
 });

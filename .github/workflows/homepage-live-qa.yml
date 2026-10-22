@@ -9,6 +9,7 @@ on:
       - 'template-parts/**'
       - 'tools/qa/homepage-live.mjs'
       - 'tools/qa/lib/homepage-images.mjs'
+      - 'tools/qa/homepage-images-live.mjs'
       - 'tools/qa/homepage-image-probe.mjs'
       - '.github/workflows/homepage-live-qa.yml'
   workflow_dispatch:
@@ -35,7 +36,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Wait for native component and verify public frontend
         run: node tools/qa/homepage-live.mjs
-      - name: Probe whether the PR #54 images are served (read-only, never fails the job)
+      - name: Audit homepage images as served and as rendered by the origin (read-only)
+        if: always()
+        run: node tools/qa/homepage-images-live.mjs
+      - name: Probe why images are or are not served (read-only, never fails the job)
         if: always()
         continue-on-error: true
         run: node tools/qa/homepage-image-probe.mjs
@@ -45,4 +49,5 @@ jobs:
           name: homepage-live-evidence
           path: |
             reports/homepage-live/
+            reports/homepage-images/
             reports/homepage-image-probe/
