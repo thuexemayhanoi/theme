@@ -52,3 +52,15 @@ All three carry `width`/`height` 760 × 428 (a 16:9 box reserved before the file
 ## Not tested
 
 Real iPhone/Android devices and Safari (Chromium viewport emulation only); Lighthouse and field Core Web Vitals; human review of the screenshots; behaviour after the cache is purged (it needs the purge first — re-run *Homepage live QA* afterwards; the audit then reports `PASS` instead of `PASS_ORIGIN_STALE_PAGE_CACHE`).
+
+## Update — after the cached homepage was replaced (22 October 2026, 22:10–22:11 UTC)
+
+This supersedes the answer "Do visitors see them now? No" and the purge action above. Run [39862851088](https://github.com/thuexemayhanoi/theme/actions/runs/39862851088) (`main@8d77b6d`), conclusion success, audit status **`PASS`**:
+
+- At 390, 768 and 1440 px: origin PASS, served PASS, `stalePageCache` false, and no image only in the served or only in the origin render.
+- The served homepage (`x-litespeed-cache: hit`) now carries `nt-home-mag__hero-visual`, `nt-home-mag__visuals` and `nt-home-mag__visual-card` ("VERDICT DISPLAYED: the served homepage contains the PR #54 hero zone"); media 4990, 4987 and 4978 answer HTTP 200.
+- 14 images in `main` at every width (all visible, 14 distinct uploads), layout shift 0, the LCP element is still the lead paragraph (served 1.46 to 1.47 s on the runner at the three widths; informational).
+- The cached copy was replaced by a purge or by the cache's own refresh; the run cannot tell which. No action is left for the homepage cache.
+- Unchanged from above: 11 of 14 article cards have no featured image (content, owner decision), and the served hero still has no `fetchpriority="high"` (LiteSpeed lazy-load rewrite; no measured effect).
+
+Status for the homepage images: **LIVE_VERIFIED** at 390, 768 and 1440 px in Chromium emulation. Real Safari and a human look at the screenshots remain NOT_TESTED.
