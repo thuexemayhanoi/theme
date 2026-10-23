@@ -116,3 +116,31 @@
 .nt-home-mag__visual-card figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; padding: 12px 16px; font-size: .94rem; }
 .nt-home-mag__visual-card figcaption span { color: var(--nt-muted); font-size: .78rem; }
 @media (max-width: 639.98px) { .nt-home-mag__visual-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Narrow magazine side-cards show the icon/brand without squeezing long category names. */
+.nt-home-mag__featured-grid > li:not(:first-child) .nt-card__placeholder--editorial {
+	align-items: center; text-align: center; padding: 10px;
+}
+.nt-home-mag__featured-grid > li:not(:first-child) .nt-card__placeholder-topic { display: none; }
+
+/* Latest writing remains discoverable without needing 1,000 featured photographs. */
+.nt-home-mag__fresh { border-top: 1px solid var(--nt-line); }
+.nt-home-mag__fresh-list {
+	display: grid; grid-template-columns: minmax(0, 1fr);
+	gap: 12px; list-style: none; margin: 0; padding: 0;
+}
+.nt-home-mag__fresh-list > li {
+	min-width: 0; display: flex; flex-direction: column; gap: 8px;
+	padding: 15px 18px; border: 1px solid var(--nt-line);
+	border-radius: var(--nt-radius); background: var(--nt-paper);
+}
+.nt-home-mag__fresh-list a {
+	font-weight: 750; line-height: 1.45; text-decoration: none;
+	color: var(--nt-ink); overflow-wrap: anywhere;
+}
+.nt-home-mag__fresh-list a:hover,
+.nt-home-mag__fresh-list a:focus-visible { color: var(--nt-accent-700); text-decoration: underline; }
+.nt-home-mag__fresh-list time { font-size: .78rem; color: var(--nt-muted); }
+@media (min-width: 768px) {
+	.nt-home-mag__fresh-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
