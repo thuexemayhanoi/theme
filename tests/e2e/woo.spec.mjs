@@ -36,6 +36,23 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		}
 	});
 
+	test('Woo breadcrumbs have a readable touch hit-area at mobile and tablet widths', async ({ page }) => {
+		for (const width of [360, 390, 768]) {
+			await page.setViewportSize({ width, height: 844 });
+			for (const route of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-dien/', '/san-pham/honda-wave/']) {
+				await page.goto(route);
+				const links = await page.locator('main.nt-shop .nt-breadcrumb a').evaluateAll(elements =>
+					elements.map(el => ({ label: el.textContent.trim(), width: el.getBoundingClientRect().width, height: el.getBoundingClientRect().height }))
+				);
+				expect(links.length, route + ': breadcrumb links exist').toBeGreaterThan(0);
+				for (const link of links) {
+					expect(link.height, route + ' / ' + width + ' / ' + link.label + ': target height').toBeGreaterThanOrEqual(28);
+					expect(link.width, route + ' / ' + width + ' / ' + link.label + ': target width').toBeGreaterThanOrEqual(24);
+				}
+			}
+		}
+	});
+
 	// Geometry guards: WooCommerce's float/percentage widths once squeezed grid cards to ~60px and the
 	// gallery to 275px while every DOM assertion still passed.
 	for (const [label, width, minCards, minCard] of [['desktop', 1440, 4, 200], ['tablet', 768, 3, 170], ['phone', 360, 2, 140]]) {
