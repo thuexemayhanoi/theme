@@ -339,13 +339,40 @@
 		}
 	});
 
-	function addMessage(text, style, sources) {
+	var actionLabels = { call: 'Gọi điện', zalo: 'Nhắn Zalo', maps: 'Chỉ đường' };
+	var actionHosts = { zalo: /^zalo\.me$/, maps: /^(maps\.google\.com|(www\.)?google\.com|share\.google|maps\.app\.goo\.gl|goo\.gl)$/ };
+	// Only the shop's own phone, Zalo and Maps targets may become buttons, whatever the server sends.
+	function safeActionUrl(type, raw) {
+		try {
+			var url = new URL(raw);
+			var ok = type === 'call' ? /^tel:\+?\d{6,15}$/.test(url.href)
+				: url.protocol === 'https:' && !url.username && !url.password && actionHosts[type].test(url.hostname);
+			return ok ? url.href : '';
+		} catch { return ''; }
+	}
+	function addMessage(text, style, sources, actions, suggested) {
 		if (!log) { return; }
 		var box = doc.createElement('div');
 		box.className = 'nt-assist__message nt-assist__message--' + style;
 		var body = doc.createElement('p');
 		body.textContent = text;
 		box.appendChild(body);
+		if (Array.isArray(actions)) {
+			var bar = doc.createElement('div');
+			bar.className = 'nt-assist__actions';
+			actions.slice(0, 3).forEach(function (action) {
+				var type = action && action.type;
+				var href = actionLabels[type] ? safeActionUrl(type, String(action.url)) : '';
+				if (!href) { return; }
+				var link = doc.createElement('a');
+				link.className = 'nt-assist__cta nt-assist__cta--' + type;
+				link.href = href;
+				link.textContent = actionLabels[type];
+				if (type !== 'call') { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+				bar.appendChild(link);
+			});
+			if (bar.children.length) { box.appendChild(bar); }
+		}
 		if (Array.isArray(sources) && sources.length) {
 			var list = doc.createElement('ul');
 			list.className = 'nt-assist__sources';
@@ -367,7 +394,7 @@
 			if (list.children.length) {
 				var heading = doc.createElement('strong');
 				heading.className = 'nt-assist__sources-title';
-				heading.textContent = 'Đọc thêm từ website:';
+				heading.textContent = suggested ? 'Gợi ý đọc từ website:' : 'Đọc thêm từ website:';
 				box.appendChild(heading);
 				box.appendChild(list);
 			}
@@ -400,7 +427,7 @@
 			return response.json();
 		}).then(function (data) {
 			if (generation !== requestGeneration) { return; }
-			addMessage(String(data.answer || 'Không có dữ liệu xác minh.'), 'bot', data.sources);
+			addMessage(String(data.answer || 'Không có dữ liệu xác minh.'), 'bot', data.sources, data.actions, data.intent === 'search');
 			rememberContext(data.context);
 			saveSources(text, data.intent, data.sources);
 		}).catch(function () {

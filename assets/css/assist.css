@@ -31,7 +31,7 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__panel.nt-assist__panel--keyboard { top: var(--nt-chat-top, 8px); bottom: auto; height: var(--nt-chat-height, 76dvh); max-height: none; box-sizing: border-box; }
 .nt-assist__panel--keyboard .nt-assist__privacy,
 .nt-assist__panel--keyboard .nt-assist__note { display: none; }
-.nt-assist__panel--compact .nt-assist__shortcuts { display: none; }
+.nt-assist__panel--keyboard .nt-assist__shortcuts { display: none; }
 .nt-assist__panel--compact .nt-assist__head { padding-top: 6px; padding-bottom: 6px; }
 .nt-assist__panel--compact .nt-assist__scroll { padding: 8px; }
 .nt-assist__panel--keyboard .nt-assist__head,
@@ -50,8 +50,8 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__sources { list-style: none; padding: 8px 0 0; margin: 7px 0 0; border-top: 1px solid #d9dfeb; }
 .nt-assist__sources li { margin: 5px 0; }
 .nt-assist__sources a { color: #174d91; text-decoration: underline; text-underline-offset: 2px; font-weight: 650; }
-.nt-assist__shortcuts { display: flex; overflow-x: auto; gap: 7px; padding: 9px 10px; background: #fff; }
-.nt-assist__shortcuts button { flex: none; min-height: 36px; padding: 6px 11px; border: 1px solid #cbd5e2; border-radius: 999px; background: #fff; color: #243e68; font-family: inherit; font-size: .78rem; font-weight: 600; line-height: 1.4; cursor: pointer; }
+.nt-assist__shortcuts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 8px 10px; background: #fff; }
+.nt-assist__shortcuts button { min-height: 44px; padding: 6px 8px; border: 1px solid #cbd5e2; border-radius: 999px; background: #fff; color: #243e68; font-family: inherit; font-size: .78rem; font-weight: 600; line-height: 1.4; cursor: pointer; }
 .nt-assist__form { display: flex; flex-shrink: 0; min-width: 0; width: 100%; box-sizing: border-box; gap: 6px; padding: 9px 10px; background: #fff; }
 .nt-assist__form input { min-width: 0; flex: 1; min-height: 44px; padding: 9px 11px; border: 1px solid #a6b4ca; border-radius: 12px; background: #fff; color: #182e51; font-family: inherit; font-size: .86rem; font-weight: 400; line-height: 1.4; }
 .nt-assist__form button { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--nt-accent, #ce4027); color: #fff; cursor: pointer; }
@@ -62,6 +62,14 @@ body.nt-has-native-quickcall .nt-footer__bottom { padding-bottom: calc(104px + e
 .nt-assist__privacy span { flex: 1; min-width: 0; color: #485a72; font-size: .66rem; line-height: 1.5; }
 .nt-assist__privacy button { flex: none; min-height: 36px; padding: 5px 8px; color: #234c80; font-family: inherit; font-size: .7rem; font-weight: 700; background: #f1f4fa; border: 1px solid #bdc9d9; border-radius: 9px; cursor: pointer; }
 .nt-assist__privacy button:hover, .nt-assist__privacy button:focus-visible { background: #e2eaf5; }
+.nt-assist__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.nt-assist__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 14px; border-radius: 12px; color: #fff; font-size: .85rem; font-weight: 700; line-height: 1.3; text-decoration: none; }
+.nt-assist__cta:hover, .nt-assist__cta:focus-visible { color: #fff; filter: brightness(.93); text-decoration: none; }
+.nt-assist__cta--call { background: var(--nt-contact-call, #d2381f); }
+.nt-assist__cta--zalo { background: var(--nt-contact-zalo, #0869d5); }
+.nt-assist__cta--maps { background: var(--nt-contact-maps, #475775); }
+/* The dark accent (#ef7763) gives white text 2.8:1; this deeper red gives 5.1:1. */
+html[data-nt-color-mode="dark"] .nt-assist__cta--call { background: #c93a22; }
 .nt-assist__sources-title { display: block; margin: 9px 0 3px; font-size: .74rem; color: #425471; }
 .nt-assist__scroll { scrollbar-width: thin; }
 .nt-assist__note { margin: 0; padding: 5px 11px 12px; font-size: .69rem; line-height: 1.5; color: #425471; background: #fff; }
@@ -82,11 +90,17 @@ body.nt-chat-is-open .nt-qc { visibility: hidden; pointer-events: none; }
 	.nt-assist__panel { left: max(8px, env(safe-area-inset-left, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); width: auto; max-width: none; box-sizing: border-box; }
 	.nt-assist__form input { font-size: 16px; }
 }
-@media (max-height: 470px) {
-	.nt-assist__panel--keyboard .nt-assist__shortcuts { display: none; }
-}
 @media (max-width: 389.98px) {
 	.nt-qc { left: 10px; }
 	.nt-assist { right: 8px; }
+}
+/* Short screens: the second chip row needs room, so the panel takes the free height. */
+@media (max-height: 640px) {
+	.nt-assist__panel { --nt-room: calc(100dvh - 24px - env(safe-area-inset-bottom, 0px)); height: min(600px, var(--nt-room)); max-height: var(--nt-room); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-height: 360px) { .nt-assist__note { display: none; } }
+@media (max-height: 520px) {
+	.nt-assist__shortcuts { display: flex; overflow-x: auto; padding: 6px 10px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent); }
+	.nt-assist__shortcuts button { flex: none; min-height: 36px; padding: 6px 11px; }
 }
 @media print { .nt-qc, .nt-assist { display: none !important; } }
