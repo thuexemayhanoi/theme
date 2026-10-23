@@ -208,6 +208,39 @@ final class AssistTest extends TestCase {
 		}
 	}
 
+	public function test_the_vehicle_overview_gives_way_to_the_subject_the_visitor_asked_about(): void {
+		// Found by the differential run against main: "thuê xe 50cc cần gì" was answered with the overview, the 50cc
+		// price and deposit and then the papers. A vehicle type next to another subject names the vehicle, not the overview.
+		$expected = array(
+			'thuê xe 50cc cần gì'        => array( 'documents' ),
+			'xe 50cc cần giấy tờ gì'     => array( 'documents' ),
+			'còn xe 50cc không'          => array( 'availability' ),
+			'xe 50cc đặt trước được không' => array( 'availability' ),
+			'xe 50cc giao tận nơi không' => array( 'delivery' ),
+			'xe 50cc bằng lái'           => array( 'licence' ),
+			'cọc xe 50cc bao nhiêu'      => array( 'deposit' ),
+			'giá xe máy điện'            => array( 'price' ),
+			'giá xe số'                  => array( 'price' ),
+		);
+		foreach ( $expected as $question => $topics ) {
+			$context = self::blank();
+			$reply   = $this->ask( $question, $context );
+			$this->assertSame( $topics, $reply['topics'], $question );
+			$this->assertStringNotContainsString( 'Website Nguyễn Tú có thông tin về', $reply['answer'], $question );
+		}
+
+		$context = self::blank();
+		$this->assertDoesNotMatchRegularExpression( self::MONEY, $this->ask( 'thuê xe 50cc cần gì', $context )['answer'], 'papers are not a price answer' );
+		$this->assertSame( '', $context['model'], 'a question about papers does not choose a vehicle' );
+		$this->assertDoesNotMatchRegularExpression( self::MONEY, $this->ask( 'còn xe 50cc không', $context )['answer'], 'stock is not a price answer' );
+		$this->assertSame( 'Xe tay ga 50cc', $context['model'], 'a stock question names the vehicle the next question is about' );
+
+		// A vehicle type on its own still asks for the overview, with the price and deposit of that vehicle.
+		foreach ( array( 'Xe máy điện', 'thuê xe 50cc', 'xe tay ga 50cc', 'xe số', 'xe ga' ) as $question ) {
+			$this->assertSame( array( 'vehicles' ), $this->topics( $question ), $question );
+		}
+	}
+
 	public function test_buying_a_vehicle_is_not_a_rental_price_question(): void {
 		foreach ( array( 'giá mua xe điện mới', 'giá xe điện cũ', 'cần bán xe wave' ) as $question ) {
 			$this->assertNotContains( 'price', $this->topics( $question ), $question );

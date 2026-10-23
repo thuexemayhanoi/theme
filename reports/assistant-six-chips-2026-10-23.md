@@ -22,11 +22,11 @@ Status of this record: **candidate, written before the merge**. Merge, deploy an
 
 ### Reproduced on `main`, same tool, same questions
 
-`tools/qa/assist-live.mjs` asks 36 questions (five are short conversations) of a running site and opens the chat in Chromium. It was run against the code of `main@e0ab823` and against this branch on the same local harness (the theme's real PHP, CSS and JS; WordPress itself and the page corpus are stand-ins, so this is **not** a live measurement):
+`tools/qa/assist-live.mjs` asks 38 questions (five are short conversations) of a running site and opens the chat in Chromium. It was run against the code of `main@e0ab823` and against this branch on the same local harness (the theme's real PHP, CSS and JS; WordPress itself and the page corpus are stand-ins, so this is **not** a live measurement):
 
 | | main `e0ab823` | this branch |
 | --- | --- | --- |
-| REST cases passing | **5 of 36** | **36 of 36** |
+| REST cases passing | **6 of 38** | **38 of 38** |
 | Browser runs passing (390 px light and dark, 360, 768, 1024, 1440 px) | **0 of 7** (4 chips) | **7 of 7** |
 
 The live "before" run (workflow `Assistant live QA`, label `before`, SHA-256 of the served `assist.js`/`assist.css`, SEO fingerprint and Quick Call menu hash) and the live "after" run are recorded in `docs/PROGRESS.md`.
@@ -48,18 +48,22 @@ Ten viewports in light and dark mode, then the software keyboard, hostile answer
 
 | Suite | New | Runs |
 | --- | --- | --- |
-| PHPUnit unit (`tests/unit/AssistTest.php`, pure PHP) | **160** (257 in the suite, 2,775 assertions) | workspace and CI `static` job |
-| Node (`tests/node/assist-cases.test.mjs`) | 10 | workspace and CI `static` job |
+| PHPUnit unit (`tests/unit/AssistTest.php`, pure PHP) | **161** (258 in the suite, 2,802 assertions) | workspace and CI `static` job |
+| Node (`tests/node/assist-cases.test.mjs`) | 11 | workspace and CI `static` job |
 | PHPUnit integration on real WordPress (`NativeAssistTest.php`) | 16 | CI `sandbox` job only |
 | Playwright (`native-assist.spec.mjs`) | 21 | CI `sandbox` job; also run in the workspace against the local harness |
 
 The unit cases include 55 question phrasings for contact and address (Vietnamese with and without marks, abbreviations, English, typos), 21 look-alikes that must **not** trigger them (parking, refuelling, another destination, "cân bằng"), price and deposit combinations, four conversations (price → month → deposit, vehicle switch, address between price questions, period before vehicle), quote-only models, licence, stock, delivery, hostile input, the buttons and the ranking (the two PR #49 tests unchanged). Mutation check: breaking the contact words, the amount test, the period reset or the Maps URL makes the suite fail each time.
 
-Local results on this branch: `php -l` clean, PHPCS 0 errors, PHPUnit unit 257/257, ESLint clean, Node tests all pass, CSS gate, contrast gate (33 pairs) and byte budgets pass, `native-assist` e2e 38 passed and 1 skipped (the legacy-simulator test) against the local harness. **Not run in the workspace** (no WordPress sandbox here): the integration suite and the WordPress e2e: CI does.
+Local results on this branch: `php -l` clean, PHPCS 0 errors, PHPUnit unit 258/258, ESLint clean, Node tests all pass, CSS gate, contrast gate (33 pairs) and byte budgets pass, `native-assist` e2e 38 passed and 1 skipped (the legacy-simulator test) against the local harness. **Not run in the workspace** (no WordPress sandbox here): the integration suite and the WordPress e2e: CI does.
 
 ### Automated review of the first push
 
 The Codex review of the pull request found two regressions, both reproduced with the real reply function and fixed with regression tests (mutation-checked): `Chi phí giao xe bao nhiêu?` with a remembered vehicle was answered with that vehicle's monthly rental price instead of the delivery statement, and `Vision cọc bao nhiêu?` (the vehicle already remembered) forgot the month that the visitor had asked for. Combined questions (`Giá thuê và phí giao xe`) still get both parts.
+
+### Differential run against `main`
+
+Before the merge the same 127 questions (once without memory, once with the Vision month remembered) were put to the code of `main@e0ab823` and to this branch, and every answer that changed was read. Nearly all differences are the intended ones: contact, address, licence, quote-only figures, everyday wording, price with the asked period. One was a defect of this change itself and is fixed with a regression test (mutation-checked): a vehicle type next to another subject (`thuê xe 50cc cần gì`, `còn xe 50cc không`) was answered with the vehicle overview and the vehicle's price on top of the real answer. The overview is now the answer only when nothing else claims the question; `Xe máy điện`, `thuê xe 50cc` and `các loại xe` still get it. Recorded, not changed: `xe ga hay xe số tốt hơn` (an opinion) no longer gets the overview; it gets the honest hand-off to call and Zalo.
 
 ### Budgets
 

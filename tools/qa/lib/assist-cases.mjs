@@ -199,6 +199,11 @@ export function buildCases(rows) {
   add('licence-50cc', 'legal', [{ q: 'xe 50cc có cần bằng lái không', expect: { intent: 'licence', include: ['55/VBHN-VPQH', 'không suy ra từ tên gọi'], exclude: ['không cần bằng lái'], actions: ['call', 'zalo'], sources: { min: 0, max: 2 } } }]);
   add('stock', 'availability', [{ q: 'còn Vision không?', expect: { intent: 'availability', include: ['không có dữ liệu tồn kho'], actions: ['call', 'zalo'] } }]);
 
+  // A vehicle type next to another subject names the vehicle, not the overview ("thuê xe 50cc cần gì" asks for papers, not for the catalogue).
+  const overview = 'Website Nguyễn Tú có thông tin về';
+  add('type-papers', 'topic', [{ q: 'thuê xe 50cc cần gì', expect: { intent: 'documents', include: ['giấy tờ bảo đảm'], exclude: [overview], noMoney: true, noActions: true, ...fact } }]);
+  add('type-stock', 'topic', [{ q: 'còn xe 50cc không', expect: { intent: 'availability', include: ['không có dữ liệu tồn kho'], exclude: [overview], noMoney: true, actions: ['call', 'zalo'] } }]);
+
   // Look-alike wording must not become contact, and article suggestions stay few, same-site and labelled.
   add('not-contact-goi-y', 'false-positive', [{ q: 'gợi ý xe cho 2 người đi chơi', expect: { intent: 'search', exclude: [NAP.phone] } }]);
   add('not-contact-goi-la', 'false-positive', [{ q: 'xe tay ga 50cc gọi là gì', expect: { intent: 'search', exclude: [NAP.phone] } }]);

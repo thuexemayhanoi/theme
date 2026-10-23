@@ -350,8 +350,9 @@ function nt_assist_topics( string $question, ?array $named = null ): array {
 
 	$technical = $has( 'pin|chai|sac|ngap|nuoc|phanh|loi|hong|ip67|bao duong|bao hanh|sua chua|xang|tiet kiem|toc do|quang duong|bao xa|km' );
 	// A vehicle type named in a short question ("Xe máy điện", "thuê xe 50cc") asks for the overview; a longer one is an article question.
-	$catalog  = $has( 'co xe de thue|co cho thue xe|co nhung xe|nhung xe nao|loai xe nao|dong xe nao|cac loai xe|cac dong xe|co xe gi|what bikes|which bikes|what scooters' );
-	$vehicles = $words <= 6 && ! $trade && ! $technical && ! $licence && ( $catalog || ( $words <= 5 && $has( 'xe dien|xe may dien|xe dap dien|dap dien|50cc|xe so|xe ga|xe tay ga|electric bikes?|electric scooters?|ebikes?|e bikes?|scooters?' ) ) );
+	$catalog = $has( 'co xe de thue|co cho thue xe|co nhung xe|nhung xe nao|loai xe nao|dong xe nao|cac loai xe|cac dong xe|co xe gi|what bikes|which bikes|what scooters' );
+	// The overview is the answer only when nothing else claims the question: "còn xe 50cc không" is about stock, "thuê xe 50cc cần gì" about papers.
+	$vehicles = ! $other && ! $price && ! $deposit && $words <= 6 && ! $trade && ! $technical && ( $catalog || ( $words <= 5 && $has( 'xe dien|xe may dien|xe dap dien|dap dien|50cc|xe so|xe ga|xe tay ga|electric bikes?|electric scooters?|ebikes?|e bikes?|scooters?' ) ) );
 	if ( null !== $named && ! ( $other || $price || $deposit || $vehicles ) && nt_assist_is_bare_model( $q ) ) {
 		// A vehicle name alone ("Wave thì sao?") asks for that vehicle's price and deposit.
 		$price   = true;

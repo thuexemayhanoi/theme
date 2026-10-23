@@ -102,7 +102,7 @@ test('the case list covers Issue #62 and builds its expectations from the price 
   assert.deepEqual(flow.turns[2].expect.include, ['4–5 triệu']);
   assert.equal(cases.find((c) => c.id === 'electric-price').turns[0].expect.noMoney, true);
   assert.deepEqual(cases.find((c) => c.id === 'chip-dia-chi').turns[0].expect.mapsUrl, NAP.maps);
-  for (const group of ['contact', 'address', 'colloquial', 'context', 'quote', 'legal', 'false-positive', 'search']) assert.ok(cases.some((c) => c.group === group), `group ${group}`);
+  for (const group of ['contact', 'address', 'colloquial', 'context', 'quote', 'legal', 'topic', 'false-positive', 'search']) assert.ok(cases.some((c) => c.group === group), `group ${group}`);
 });
 
 test('a case that needs a price row the site does not serve is reported as not tested, never dropped', () => {
