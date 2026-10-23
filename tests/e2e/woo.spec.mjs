@@ -16,6 +16,43 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		await expect(page.locator('.nt-price-contact').first()).toContainText('Liên hệ báo giá');
 	});
 
+	test('catalogue buttons expose accessible names beginning with the visible action text', async ({ page }) => {
+		for (const path of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-so/', '/danh-muc-san-pham/loai-xe/xe-ga/', '/danh-muc-san-pham/loai-xe/xe-dien/']) {
+			await page.goto(path);
+			const actions = await page.locator('ul.products li.product a.button').evaluateAll((buttons) =>
+				buttons.map((button) => ({
+					visible: button.textContent.trim().replace(/\s+/g, ' '),
+					name: button.getAttribute('aria-label') || button.textContent.trim(),
+					href: button.href,
+				}))
+			);
+			expect(actions.length, `${path}: all products have an action`).toBeGreaterThan(0);
+			for (const action of actions) {
+				expect(action.visible.length, `${path}: no icon-only or blank product action`).toBeGreaterThan(0);
+				expect(action.name.toLocaleLowerCase('vi-VN').startsWith(action.visible.toLocaleLowerCase('vi-VN')),
+					`${path}: accessible name "${action.name}" must start with visible "${action.visible}"`).toBe(true);
+				expect(action.href, `${path}: product action has a real destination`).toMatch(/^https?:\/\//);
+			}
+		}
+	});
+
+	test('Woo breadcrumbs have a readable touch hit-area at mobile and tablet widths', async ({ page }) => {
+		for (const width of [360, 390, 768]) {
+			await page.setViewportSize({ width, height: 844 });
+			for (const route of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-dien/', '/san-pham/honda-wave/']) {
+				await page.goto(route);
+				const links = await page.locator('main.nt-shop .nt-breadcrumb a').evaluateAll(elements =>
+					elements.map(el => ({ label: el.textContent.trim(), width: el.getBoundingClientRect().width, height: el.getBoundingClientRect().height }))
+				);
+				expect(links.length, route + ': breadcrumb links exist').toBeGreaterThan(0);
+				for (const link of links) {
+					expect(link.height, route + ' / ' + width + ' / ' + link.label + ': target height').toBeGreaterThanOrEqual(28);
+					expect(link.width, route + ' / ' + width + ' / ' + link.label + ': target width').toBeGreaterThanOrEqual(24);
+				}
+			}
+		}
+	});
+
 	// Geometry guards: WooCommerce's float/percentage widths once squeezed grid cards to ~60px and the
 	// gallery to 275px while every DOM assertion still passed.
 	for (const [label, width, minCards, minCard] of [['desktop', 1440, 4, 200], ['tablet', 768, 3, 170], ['phone', 360, 2, 140]]) {
