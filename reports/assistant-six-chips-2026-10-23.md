@@ -2,7 +2,7 @@
 
 Request: GitHub Issue #62 ("OWNER APPROVED: Chatbot 6 chips (Liên hệ/Địa chỉ) + fix intent/price/context/source quality"). The owner approved the fix inside the Issue and a scoped exception to the P0 Owner Lock for `inc/assist.php`, `assets/js/assist.js`, `assets/css/assist.css` and their tests. Quick Call, SEO output, WordPress content, `color-mode.css`, `inc/enqueue.php` and `functions.php` are not touched.
 
-Status of this record: **candidate, written before the merge**. Merge, deploy and the live check are recorded in `docs/PROGRESS.md` after they happen; nothing below claims them.
+Status of this record: **merged as `5517faf` and deployed to the origin; not yet LIVE_VERIFIED** because the page cache still serves the old home page to visitors (see "Release and live verification"). The sections up to "Budgets" were written before the merge; the measurements in them are workspace and CI-sandbox measurements, not live ones.
 
 ## What a visitor gets now
 
@@ -68,6 +68,27 @@ Before the merge the same 127 questions (once without memory, once with the Visi
 ### Budgets
 
 `assist.js` 19.6 KB raw / 6.5 KB gzip (cap raised from 19 / 6.2 to 20 / 6.7) and `assist.css` 10.3 KB / 2.9 KB gzip (cap raised from 9 / 3 to 10.5 / 3). The growth is the second chip row, the answer buttons and the short-screen rules; both files load only with the assistant. The critical path (`main.css` gzip + fonts) is unchanged at 42.5 KB of 60.
+
+## Release and live verification
+
+All times 23 October 2026, UTC. Everything below was read from GitHub Actions runs; the workspace cannot reach the live site.
+
+| Step | Run / commit | Result |
+| --- | --- | --- |
+| CI on the exact head `33245af` | CI run `39958818539` | Lint, unit and QA gates pass; WordPress sandbox passes (release gates PASS 31, FAIL 0, NOT_TESTED 6: gates the sandbox cannot run, among them `seo-diff-live`, `quickcall-real`, `motoai-real`, `flatsome-real-content` and `live-unchanged`); candidate capture on the sandbox: 38 of 38 questions, 7 of 7 browser runs |
+| Live **before** (label `before`, 13:09, the old assistant still deployed) | `Assistant live QA` run `39958818513` | 4 chips, each 36 px high; 6 of 38 questions pass; 0 of 7 browser runs pass (the reproduced bugs) |
+| Merge | squash commit `5517faf` on `main`, 13:24 | PR #63 |
+| CI on `main` | CI run `39960926898` | both jobs pass (static 13:25, WordPress sandbox 13:36) |
+| Live **after** (label `after`, 13:25, 40 s after the merge) | `Assistant live QA` run `39960926928` | origin page: **6 chips**, **38 of 38 questions pass**, **7 of 7 browser runs pass** (390 px light and dark with every chip clicked, 360, 768, 1024, 1440 px light, 1440 px dark; chips 113×44 at 390, 103×44 at 360, 119×44 from 768); SEO fingerprint and Quick Call menu hash identical to `before`; overall verdict **FAIL**: "the cached page shows 4 chips while the origin shows 6" |
+| Homepage live QA | run `39960926600` | pass (home page images as served and as rendered by the origin at 390, 768 and 1440 px); it is not an assistant check |
+
+Unchanged between `before` and `after`: title «Thuê Xe Máy Hà Nội – Theo Ngày, Tháng | Nguyễn Tú», canonical `https://thuexemaynguyentu.com/`, robots `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1`, one H1, two JSON-LD blocks (`c038ff03244de481`), Quick Call menu SHA-256 `c277f0fa698783ddc9eb720a7ea1c575f8878dada39eab5e55eace27dd5e32ac`. The 390 px screenshots are in the workflow artifacts `assistant-live-evidence-before` (12503398680) and `assistant-live-evidence-after` (12504282871); they were not opened in the workspace (the artifact host is outside its network policy), the numbers above are the tool's measurements.
+
+**What this proves and what it does not.** The origin runs the new theme code and the public REST endpoint (which no page cache stores) already answers with the new logic for every visitor. The tool reads the home page twice: once with a cache-busting query (the origin) and once as a visitor gets it. The origin shows six chips; the **cached home page still shows four**, so visitors served from the LiteSpeed page cache see the old chips and the old script until that cache is purged or expires. Such visitors send the same four questions and get the new answers; the old script ignores the new `actions` key, so they see no buttons (by design, not measured live). The cache-busted response of the homepage run carries `x-litespeed-cache-control: public,max-age=604800` (up to seven days); the age of the copy being served is not known. The tool does not purge caches and neither does this repository.
+
+Status: `MERGED`, `DEPLOYED` (LIVE_CHANGED for the theme code only; WordPress content, options, menus, SEO output and Quick Call are unchanged), **LIVE_VERIFIED = NO** until the cached home page shows six chips.
+
+**One step for the owner:** purge the LiteSpeed page cache once (WordPress admin → LiteSpeed Cache → Toolbox → Purge All). Then run the workflow `Assistant live QA` manually with label `after`: it must report 38 of 38, 7 of 7 and no cache problem. The result is added to `docs/PROGRESS.md`.
 
 ## Decisions on the other PRs
 
