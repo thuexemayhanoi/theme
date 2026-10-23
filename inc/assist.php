@@ -337,9 +337,13 @@ function nt_assist_topics( string $question, ?array $named = null ): array {
 	$period  = nt_assist_period( $question );
 	$counted = 1 === preg_match( '/\b(?:\d+|theo|thue|moi|tung|mot|nua)\s+(?:ngay|tuan|thang|week|month|day)\b/', $q );
 	// "Tháng thì sao?" is a price follow-up; "hoàn cọc sau 3 ngày" and "mở cửa hằng ngày" are not.
-	$span  = '' !== $period && ! $refund && ( null !== $named || $counted || ( $words <= 4 && ! $other ) );
-	$price = ! $trade && (
-		$has( 'gia|bang gia|chi phi|tien thue|phi thue|tinh tien|bao gia|thue theo|theo gio|theo ngay|theo tuan|theo thang|price|prices|cost|rate|rates|fee|fees|per day|per week|per month' )
+	$span = '' !== $period && ! $refund && ( null !== $named || $counted || ( $words <= 4 && ! $other ) );
+	// "Chi phí giao xe", "giá giao xe" and "giao xe có mất phí không" ask what delivery costs, not what a vehicle costs. A rental price
+	// is still added when it is asked for in so many words ("giá thuê", "bảng giá", "theo tháng") or a vehicle is named.
+	$delivery_cost = $delivery && $has( '(?:chi phi|phi|gia|tien|cost|fee|fees|price) (?:giao|ship|nhan|tra|delivery|deliver|drop|pick)|(?:giao xe|giao tan noi|giao tan|giao nhan|ship xe|nhan xe|tra xe|delivery|deliver)(?: [a-z0-9]+){0,3} (?:chi phi|phi|gia|tien|cost|fee|fees|price)' );
+	$rental_price  = null !== $named || $has( 'gia thue|bang gia|tien thue|phi thue|tinh tien|theo gio|theo ngay|theo tuan|theo thang|per day|per week|per month' );
+	$price         = ! $trade && (
+		( $has( 'gia|bang gia|chi phi|tien thue|phi thue|tinh tien|bao gia|thue theo|theo gio|theo ngay|theo tuan|theo thang|price|prices|cost|rate|rates|fee|fees|per day|per week|per month' ) && ! ( $delivery_cost && ! $rental_price ) )
 		|| $span
 		|| ( ! $other && ! $deposit && ! $has( 'km|kg|nguoi|phut|lit|met|lan|cc|xang|toc do|quang duong' ) && $has( 'bao nhieu|bao nhiu|bn|nhieu tien|nhiu tien|may trieu|how much' ) )
 	);
@@ -402,7 +406,8 @@ function nt_assist_context( $value ): array {
 
 /**
  * Context after this question: a vehicle named in a price, deposit, stock or licence question replaces the
- * remembered one and starts a fresh price question (the old duration never carries over to another vehicle); a duration
+ * remembered one and starts a fresh price question (the old duration never carries over to another vehicle, but it stays
+ * when the same vehicle is named again); a duration
  * counts only in a price question. Other subjects (address, contact, papers, an article search) leave the
  * remembered vehicle and duration alone.
  *
@@ -414,7 +419,7 @@ function nt_assist_context( $value ): array {
  */
 function nt_assist_next_context( array $context, string $question, ?array $named, array $topics ): array {
 	if ( null !== $named && array() !== array_intersect( $topics, array( 'price', 'deposit', 'vehicles', 'availability', 'licence' ) ) ) {
-		if ( '' !== $context['model'] ) {
+		if ( '' !== $context['model'] && $context['model'] !== (string) $named['name'] ) {
 			$context['period'] = '';
 		}
 		$context['model'] = (string) $named['name'];

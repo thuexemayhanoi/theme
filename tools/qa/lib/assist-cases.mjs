@@ -167,6 +167,15 @@ export function buildCases(rows) {
     { q: 'Số điện thoại?', expect: { ...shop, context: { model: vision?.name ?? '' } } },
     { q: 'Tháng thì sao?', expect: { intent: 'price', include: [vision?.month ?? ''], context: { model: vision?.name ?? '', period: 'month' } } },
   ], need(vision, 'Honda Vision'));
+  add('flow-same-vehicle', 'context', [
+    { q: 'Giá Vision tháng', expect: { intent: 'price', include: [vision?.month ?? ''], context: { model: vision?.name ?? '', period: 'month' } } },
+    { q: 'Vision cọc bao nhiêu?', expect: { intent: 'deposit', include: [vision?.deposit ?? ''], context: { model: vision?.name ?? '', period: 'month' } } },
+    { q: 'Giá bao nhiêu?', expect: { intent: 'price', include: [vision?.month ?? ''], exclude: vision && vision.week !== vision.month ? [vision.week] : [], context: { model: vision?.name ?? '', period: 'month' } } },
+  ], need(vision, 'Honda Vision'));
+  add('flow-delivery-cost', 'context', [
+    { q: 'Giá Vision tháng', expect: { intent: 'price', include: [vision?.month ?? ''], context: { model: vision?.name ?? '' } } },
+    { q: 'Chi phí giao xe bao nhiêu?', expect: { intent: 'delivery', include: ['cần được cửa hàng xác nhận'], exclude: [vision?.month ?? '', 'Honda Vision'].filter(Boolean), actions: ['call', 'zalo'], context: { model: vision?.name ?? '', period: 'month' } } },
+  ], need(vision, 'Honda Vision'));
   add('combined-price-deposit', 'context', [{ q: 'Giá Vision thuê tháng và cọc bao nhiêu?', expect: { intent: 'price', include: [vision?.month ?? '', vision?.deposit ?? ''].filter(Boolean), exclude: vision && vision.week !== vision.month ? [vision.week] : [] } }], need(vision, 'Honda Vision'));
 
   // Models without a published price are never given one; the visitor is sent to the shop.

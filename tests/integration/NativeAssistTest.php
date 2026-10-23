@@ -272,6 +272,24 @@ final class NativeAssistTest extends TestCase {
 		$this->assertStringContainsString( '2–3 triệu', $wave['answer'] );
 	}
 
+	public function test_delivery_cost_with_a_remembered_vehicle_is_not_a_rental_price_and_the_period_survives_the_same_vehicle(): void {
+		$remembered = array(
+			'model'  => 'Honda Vision',
+			'period' => 'month',
+		);
+		$delivery   = $this->ask( 'Chi phí giao xe bao nhiêu?', $remembered );
+		$this->assertSame( 'delivery', $delivery['intent'] );
+		$this->assertStringNotContainsString( '1.800.000', $delivery['answer'] );
+		$this->assertSame( array( 'call', 'zalo' ), array_column( $delivery['actions'], 'type' ) );
+		$this->assertSame( array( get_permalink( 372 ) ), array_column( $delivery['sources'], 'url' ) );
+		$this->assertSame( $remembered, $delivery['context'] );
+
+		$deposit = $this->ask( 'Vision cọc bao nhiêu?', $remembered );
+		$this->assertSame( $remembered, $deposit['context'], 'naming the same vehicle again keeps the month' );
+		$price = $this->ask( 'Giá bao nhiêu?', $deposit['context'] );
+		$this->assertStringContainsString( 'Honda Vision theo tháng: 1.800.000–2.000.000đ', $price['answer'] );
+	}
+
 	public function test_a_hostile_context_and_markup_in_the_question_change_nothing(): void {
 		$data = $this->ask(
 			'<script>alert(1)</script> Cọc bao nhiêu?',

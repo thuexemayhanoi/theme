@@ -256,6 +256,59 @@ final class AssistTest extends TestCase {
 		$this->assertSame( '', $context['period'] );
 	}
 
+	public function test_naming_the_remembered_vehicle_again_keeps_the_period(): void {
+		// Codex review of the pull request: "Vision cọc bao nhiêu?" must not forget that the visitor was looking at the month.
+		$context = self::blank();
+		$this->ask( 'Giá Vision tháng', $context );
+		$deposit = $this->ask( 'Vision cọc bao nhiêu?', $context );
+		$this->assertStringContainsString( 'Honda Vision: 4–5 triệu', $deposit['answer'] );
+		$this->assertSame( array( 'model' => 'Honda Vision', 'period' => 'month' ), $context );
+
+		$price = $this->ask( 'Giá bao nhiêu?', $context );
+		$this->assertStringContainsString( 'Honda Vision theo tháng: 1.800.000–2.000.000đ', $price['answer'] );
+		$this->assertStringNotContainsString( 'theo tuần', $price['answer'] );
+
+		$this->ask( 'Wave thì sao?', $context );
+		$this->assertSame( array( 'model' => 'Honda Wave', 'period' => '' ), $context, 'another vehicle still starts without the old period' );
+	}
+
+	/** @return array<string,array{0:string}> */
+	public static function delivery_cost_questions(): array {
+		$phrases = array( 'Chi phí giao xe bao nhiêu?', 'Giá giao xe bao nhiêu', 'Giao xe có mất phí không?', 'Phí giao xe tận nơi?', 'phí ship xe tới khách sạn', 'delivery fee', 'how much is delivery' );
+		return array_combine( $phrases, array_map( static fn( string $p ): array => array( $p ), $phrases ) );
+	}
+
+	#[DataProvider( 'delivery_cost_questions' )]
+	public function test_a_delivery_cost_question_does_not_quote_the_remembered_rental_price( string $question ): void {
+		// Codex review of the pull request: "Chi phí giao xe bao nhiêu?" asks about delivery, not about the Vision month.
+		$context = array(
+			'model'  => 'Honda Vision',
+			'period' => 'month',
+		);
+		$reply = $this->ask( $question, $context );
+		$this->assertSame( array( 'delivery' ), $reply['topics'], $question );
+		$this->assertStringNotContainsString( '1.800.000', $reply['answer'] );
+		$this->assertStringNotContainsString( 'Honda Vision', $reply['answer'] );
+		$this->assertStringContainsString( 'cần được cửa hàng xác nhận', $reply['answer'] );
+		$this->assertSame( array( 'model' => 'Honda Vision', 'period' => 'month' ), $context, 'the remembered vehicle and period are left alone' );
+	}
+
+	/** @return array<string,array{0:string}> */
+	public static function rental_and_delivery_questions(): array {
+		$phrases = array( 'Giá thuê và phí giao xe', 'Giá Vision và phí giao xe?', 'Giá thuê Vision và phí giao xe?', 'Bảng giá và chi phí giao xe', 'giá wave và giao xe', 'Giá Vision và giao xe tận nơi được không?' );
+		return array_combine( $phrases, array_map( static fn( string $p ): array => array( $p ), $phrases ) );
+	}
+
+	#[DataProvider( 'rental_and_delivery_questions' )]
+	public function test_a_question_that_asks_for_both_the_rental_price_and_delivery_gets_both( string $question ): void {
+		$context = self::blank();
+		$reply   = $this->ask( $question, $context );
+		$this->assertContains( 'price', $reply['topics'], $question );
+		$this->assertContains( 'delivery', $reply['topics'], $question );
+		$this->assertMatchesRegularExpression( '/Giá thuê (?:trong bảng là giá tham khảo|tùy mẫu xe và thời hạn)/u', $reply['answer'], 'the rental part: a vehicle price, or the general statement when no vehicle is known' );
+		$this->assertStringContainsString( 'giao nhận xe', $reply['answer'], 'the delivery part' );
+	}
+
 	public function test_address_and_contact_between_price_questions_pull_no_old_price(): void {
 		$context = self::blank();
 		$this->ask( 'Giá Vision?', $context );
