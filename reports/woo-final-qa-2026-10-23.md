@@ -27,6 +27,15 @@
 - Shop-mobile CLS 0.512 is important. **The source of shifting has not been proven**. The new `tools/qa/woo-final-live.mjs` records PerformanceObserver layout-shift sources, console messages, touch target candidates and Chromium geometry at 390/768/1440 across light/dark on four bounded pages. Analyze evidence before any CSS/LiteSpeed change.
 - Live HTML uses LiteSpeed SVG `src` placeholders with true image URLs in `data-src`; this does not itself prove a rendering defect or LCP cause.
 
+## First read-only live QA result
+
+PR pre-deploy run [39894492806](https://github.com/thuexemayhanoi/theme/actions/runs/39894492806) **PASS** (public site still on old main): **13/13 product HTML pages passed**; **24/24 Chromium emulation visits** passed HTTP/H1/theme/overflow invariants. Found **144 accessibility-label mismatches** (repeated across 390/768/1440, light/dark, shop and category/related products), substantiating this PR's fix.
+
+- **CLS in ordinary unthrottled Chromium:** 0 in each tested route/view. Lighthouse mobile `/shop/` previously recorded **0.512**. This is a genuine *conflict in test conditions*, not proof of a regression or resolution. Reproduce with Lighthouse/CPU-network throttling before changing Woo layout or LiteSpeed.
+- **Console errors:** the same YITH Wishlist plugin REST API call `/wp-json/yith/wishlist/v1/lists/?_locale=user` returned **401** on all 24 visits for an unauthenticated visitor. This is **external plugin-related evidence**, not proven to originate in theme code. No YITH plugin setting, script enqueue or security exception was changed.
+- **Touch targets:** live 390px Shop breadcrumb `Home` was **41 × 18 px**; product breadcrumb links were also 18px tall. Scope a minimal touch-area increase to `.nt-shop .nt-breadcrumb a` on phone/tablet widths only; retain global breadcrumbs and locked controls as before. Add sandbox geometry checks.
+- **Images:** the full-page Shop screenshot showed several below-fold lazy-load placeholder cells; that screenshot alone cannot distinguish correct delayed loading from a fault. The next revision actively scrolls each of the 13 product cards into view and tests actual decoded image URLs. Never infer an image is broken merely because an unscrolled screenshot shows its placeholder.
+
 ## Release and owner-lock rules
 
 - No existing product image or owner-approved pricing policy changes. No WordPress database updates, media copies, bulk post operations, taxonomy edits, or destructive actions. No change to H1/H2/H3, menu, Yoast, canonical, sitemap or 301 aliases.
