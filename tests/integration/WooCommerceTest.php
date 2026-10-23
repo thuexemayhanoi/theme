@@ -42,6 +42,27 @@ final class WooCommerceTest extends TestCase {
 		$this->assertSame( 1, substr_count( $html, 'class="nt-card__title"' ) );
 	}
 
+	public function test_loop_accessible_name_starts_with_visible_woocommerce_button_label(): void {
+		$product = wc_get_product( 659 );
+		$this->assertInstanceOf( WC_Product::class, $product );
+		$this->assertNotFalse( has_filter( 'woocommerce_loop_add_to_cart_args', 'nt_wc_loop_button_accessible_label' ) );
+		$args = array(
+			'attributes' => array(
+				'aria-label' => 'A label that does not contain the visible action',
+				'data-product_id' => 659,
+			),
+			'quantity' => 1,
+		);
+		$fixed = nt_wc_loop_button_accessible_label( $args, $product );
+		$this->assertSame( $product->add_to_cart_text() . ': ' . $product->get_name(), $fixed['attributes']['aria-label'] );
+		$this->assertSame( $args['attributes']['data-product_id'], $fixed['attributes']['data-product_id'] );
+		$this->assertSame( $args['quantity'], $fixed['quantity'] );
+		$matching = $fixed;
+		$matching['attributes']['aria-label'] = 'Prefix ' . $product->add_to_cart_text() . ' included';
+		$this->assertSame( $matching, nt_wc_loop_button_accessible_label( $matching, $product ) );
+		$this->assertSame( $args, nt_wc_loop_button_accessible_label( $args, null ) );
+	}
+
 	public function test_woo_wrapper_hooks_replace_the_default_layout(): void {
 		$this->assertFalse( has_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' ) );
 		$this->assertNotFalse( has_action( 'woocommerce_before_main_content', 'nt_wc_wrapper_start' ) );
