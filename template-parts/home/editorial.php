@@ -24,15 +24,54 @@ $nt_hubs      = array_values(
 $nt_hubs      = array_slice( $nt_hubs, 0, 6 );
 $nt_blog_id   = nt_blog_root_id();
 $nt_blog      = $nt_blog_id > 0 ? get_term_link( $nt_blog_id, 'category' ) : '';
-$nt_featured  = new WP_Query(
-	array(
+// These 14 already-published posts each own one of the uploaded illustrations 01–14.
+// Keep homepage imagery relevant and stable while the AI article factory publishes new posts.
+// The three separate service illustrations 15–17 remain in their existing positions.
+// Do not duplicate media or modify WordPress Featured Image settings here.
+$nt_curated = array(
+	'featured'            => array( 4895, 4893, 4890, 4894 ),
+	'chia-se'             => array( 4827, 4898, 4892 ),
+	'danh-gia-so-sanh-xe' => array( 4788, 4786, 4787 ),
+	'more'                => array( 4897, 4887, 4896, 4891 ),
+);
+
+// Restrict curated cards to existing published posts, respecting the category of each row.
+// Fall back to current posts if a curated group was deleted/unpublished (e.g. test sandbox).
+$nt_curated_query = static function ( array $pinned, int $limit, array $excluded = array(), array $tax_filters = array() ): WP_Query {
+	$pinned = array_values(
+		array_filter(
+			array_diff(
+				array_unique( array_map( 'absint', $pinned ) ),
+				array_map( 'absint', $excluded )
+			)
+		)
+	);
+	$query_args = array(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
-		'posts_per_page'      => 4,
+		'posts_per_page'      => $limit,
 		'ignore_sticky_posts' => true,
 		'no_found_rows'       => true,
-	)
-);
+	);
+	if ( array() !== $tax_filters ) {
+		$query_args['tax_query'] = $tax_filters; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded curated category row.
+	}
+	if ( array() !== $pinned ) {
+		$query_args['post__in'] = $pinned;
+		$query_args['orderby']  = 'post__in';
+		$selected               = new WP_Query( $query_args );
+		if ( $selected->have_posts() ) {
+			return $selected;
+		}
+		unset( $query_args['post__in'], $query_args['orderby'] );
+	}
+	if ( array() !== $excluded ) {
+		$query_args['post__not_in'] = array_map( 'absint', $excluded );
+	}
+	return new WP_Query( $query_args );
+};
+
+$nt_featured  = $nt_curated_query( $nt_curated['featured'], 4 );
 $nt_shown     = array();
 $nt_shortcuts = array(
 	array(
@@ -227,25 +266,31 @@ $nt_visual_image_attrs = array(
 <?php endif; ?>
 
 <?php
-// Magazine-style topical rows: published posts from the real category and its children.
-// Never repeat an article already shown in the featured or previous rows.
-foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
-	$nt_hub_posts = new WP_Query(
+// Keep two topic rows editorially stable, using published posts from the actual term trees.
+// When the curated terms are not present (e.g. sandbox fixtures), retain the prior two hubs.
+$nt_topic_hubs = array_values(
+	array_filter(
+		$nt_hubs,
+		static function ( $term ) use ( $nt_curated ): bool {
+			return $term instanceof WP_Term && isset( $nt_curated[ $term->slug ] );
+		}
+	)
+);
+if ( array() === $nt_topic_hubs ) {
+	$nt_topic_hubs = array_slice( $nt_hubs, 0, 2 );
+}
+foreach ( $nt_topic_hubs as $nt_hub ) :
+	$nt_hub_posts = $nt_curated_query(
+		$nt_curated[ $nt_hub->slug ] ?? array(),
+		3,
+		$nt_shown,
 		array(
-			'post_type'           => 'post',
-			'post_status'         => 'publish',
-			'posts_per_page'      => 3,
-			'post__not_in'        => $nt_shown,
-			'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded three-item category query; excludes duplicate posts.
-				array(
-					'taxonomy'         => 'category',
-					'field'            => 'term_id',
-					'terms'            => array( (int) $nt_hub->term_id ),
-					'include_children' => true,
-				),
+			array(
+				'taxonomy'         => 'category',
+				'field'            => 'term_id',
+				'terms'            => array( (int) $nt_hub->term_id ),
+				'include_children' => true,
 			),
-			'ignore_sticky_posts' => true,
-			'no_found_rows'       => true,
 		)
 	);
 	if ( ! $nt_hub_posts->have_posts() ) {
@@ -276,22 +321,13 @@ foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 <?php endforeach; ?>
 
 <?php
-$nt_latest = new WP_Query(
-	array(
-		'post_type'           => 'post',
-		'post_status'         => 'publish',
-		'posts_per_page'      => 4,
-		'post__not_in'        => $nt_shown,
-		'ignore_sticky_posts' => true,
-		'no_found_rows'       => true,
-	)
-);
+$nt_latest = $nt_curated_query( $nt_curated['more'], 4, $nt_shown );
 if ( $nt_latest->have_posts() ) :
 	?>
 	<section class="nt-section nt-home-mag__latest nt-section--tint" aria-labelledby="nt-home-latest-title">
 		<div class="nt-container">
 			<header class="nt-section__head nt-section__head--row">
-				<h2 id="nt-home-latest-title" class="nt-section__title">Bài viết mới nhất</h2>
+				<h2 id="nt-home-latest-title" class="nt-section__title">Bài viết chọn lọc</h2>
 				<?php if ( is_string( $nt_blog ) && '' !== $nt_blog ) : ?>
 					<a class="nt-link-arrow" href="<?php echo esc_url( $nt_blog ); ?>">Xem thêm <?php nt_the_icon( 'arrow-right', array( 'size' => 18 ) ); ?></a>
 				<?php endif; ?>
@@ -300,6 +336,7 @@ if ( $nt_latest->have_posts() ) :
 				<?php
 				while ( $nt_latest->have_posts() ) :
 					$nt_latest->the_post();
+					$nt_shown[] = (int) get_the_ID();
 					get_template_part( 'template-parts/content/card', 'post', array( 'heading' => 'h3' ) );
 				endwhile;
 				wp_reset_postdata();
@@ -308,6 +345,44 @@ if ( $nt_latest->have_posts() ) :
 		</div>
 	</section>
 <?php endif; ?>
+
+
+// New posts still get homepage discovery links without displacing curated artwork.
+// Text-only links avoid demanding a Featured Image for every AI-written post.
+$nt_fresh = new WP_Query(
+	array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'posts_per_page'      => 5,
+		'post__not_in'        => $nt_shown,
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	)
+);
+if ( $nt_fresh->have_posts() ) :
+	?>
+	<section class="nt-section nt-home-mag__fresh" aria-labelledby="nt-home-fresh-title">
+		<div class="nt-container">
+			<header class="nt-section__head nt-section__head--row">
+				<h2 id="nt-home-fresh-title" class="nt-section__title">Bài viết mới nhất</h2>
+				<?php if ( is_string( $nt_blog ) && '' !== $nt_blog ) : ?>
+					<a class="nt-link-arrow" href="<?php echo esc_url( $nt_blog ); ?>">Xem toàn bộ bài viết <?php nt_the_icon( 'arrow-right', array( 'size' => 18 ) ); ?></a>
+				<?php endif; ?>
+			</header>
+			<ul class="nt-home-mag__fresh-list">
+				<?php while ( $nt_fresh->have_posts() ) : ?>
+					<?php $nt_fresh->the_post(); ?>
+					<li>
+						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						<?php echo nt_date_html( (int) get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in helper. ?>
+					</li>
+				<?php endwhile; ?>
+			</ul>
+		</div>
+	</section>
+	<?php
+	wp_reset_postdata();
+endif;
 
 <section class="nt-home-mag__closing" aria-labelledby="nt-home-closing-title">
 	<div class="nt-container nt-home-mag__closing-grid">
