@@ -100,7 +100,23 @@ function nt_card_image( int $post_id, array $args = array() ): string {
 			return $html;
 		}
 	}
-	return '<span class="nt-card__placeholder" aria-hidden="true">' . nt_icon( 'scooter', array( 'size' => 56 ) ) . '</span>';
+	// Editorial illustration for posts without a featured image. Real category text, no
+	// pretend photo, network request or automatically assigned WordPress media.
+	$topic_label = 'Cẩm nang xe máy';
+	$topic_ids   = nt_topic_terms( $post_id )['topic'] ?? array();
+	foreach ( $topic_ids as $topic_id ) {
+		$topic = get_term( (int) $topic_id, 'category' );
+		if ( $topic instanceof WP_Term ) {
+			$topic_label = nt_decode( $topic->name );
+			break;
+		}
+	}
+	$tone = absint( $post_id ) % 3;
+	return '<span class="nt-card__placeholder nt-card__placeholder--editorial nt-card__placeholder--tone-' . $tone . '" aria-hidden="true">'
+		. '<span class="nt-card__placeholder-mark">NGUYỄN TÚ</span>'
+		. nt_icon( 'scooter', array( 'size' => 48 ) )
+		. '<span class="nt-card__placeholder-topic">' . esc_html( $topic_label ) . '</span>'
+		. '</span>';
 }
 
 /**
