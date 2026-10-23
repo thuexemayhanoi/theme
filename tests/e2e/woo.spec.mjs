@@ -21,7 +21,7 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 			await page.goto(path);
 			const actions = await page.locator('ul.products li.product a.button').evaluateAll((buttons) =>
 				buttons.map((button) => ({
-					visible: button.textContent.trim().replace(/\\s+/g, ' '),
+					visible: button.textContent.trim().replace(/\s+/g, ' '),
 					name: button.getAttribute('aria-label') || button.textContent.trim(),
 					href: button.href,
 				}))
@@ -31,7 +31,7 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 				expect(action.visible.length, `${path}: no icon-only or blank product action`).toBeGreaterThan(0);
 				expect(action.name.toLocaleLowerCase('vi-VN').startsWith(action.visible.toLocaleLowerCase('vi-VN')),
 					`${path}: accessible name "${action.name}" must start with visible "${action.visible}"`).toBe(true);
-				expect(action.href, `${path}: product action has a real destination`).toMatch(/^https?:\\/\\//);
+				expect(action.href, `${path}: product action has a real destination`).toMatch(/^https?:\/\//);
 			}
 		}
 	});
