@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { noHorizontalScroll } from './helpers.mjs';
+import { expectReadable, noHorizontalScroll } from './helpers.mjs';
+import { CHIPS, MONEY, NAP } from '../../tools/qa/lib/assist-cases.mjs';
 
 const SIMS = (process.env.NT_SIMS ?? 'on') === 'on';
 
@@ -270,4 +271,335 @@ test('grounded answers contain only public local sources and do not require AI A
 	}
 	const bad = await request.post('/wp-json/nguyentu/v1/assist', { data: { question: 'x'.repeat(181) } });
 	expect(bad.status()).toBe(400);
+});
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Issue #62: six quick questions, contact and address answers with safe buttons, no script or foreign link from an answer.
+// ---------------------------------------------------------------------------------------------------------------------
+
+async function openChat(page) {
+	await page.locator('[data-nt-qc-launch]').click();
+	await page.locator('[data-nt-chat-open]').first().click();
+	await expect(page.locator('#nt-assist-dialog')).toBeVisible();
+}
+
+/** Boxes of everything a visitor touches in the open panel, and what overlaps what. */
+function chatGeometry(page) {
+	return page.evaluate(() => {
+		const q = (selector) => document.querySelector(selector);
+		const rect = (el) => { const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, r: b.right, b: b.bottom, w: b.width, h: b.height }; };
+		const overlap = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.y, b.y));
+		const panel = rect(q('#nt-assist-dialog'));
+		const chips = [...document.querySelectorAll('.nt-assist__shortcuts button')].map((el) => ({ label: el.textContent.trim(), ...rect(el), clipped: el.scrollWidth > el.clientWidth + 1 }));
+		const controls = { input: rect(q('#nt-assist-question')), send: rect(q('.nt-assist__form button')), close: rect(q('[data-nt-chat-close]')), clear: rect(q('[data-nt-chat-clear]')) };
+		const overlaps = [];
+		for (const chip of chips) for (const [name, box] of Object.entries(controls)) if (overlap(chip, box) > 2) overlaps.push(chip.label + ' x ' + name);
+		const vw = document.documentElement.clientWidth;
+		return {
+			chips, controls, overlaps, panel,
+			panelInside: panel.x >= -0.5 && panel.r <= vw + 0.5 && panel.y >= -0.5 && panel.b <= window.innerHeight + 0.5,
+			logHeight: rect(q('[data-nt-chat-log]')).h,
+			quickCall: getComputedStyle(q('.nt-qc')).visibility,
+		};
+	});
+}
+
+for (const mode of ['light', 'dark']) {
+	for (const width of [360, 390, 768, 1024, 1440]) {
+		test(`six quick questions fit above the input at ${width}px in ${mode} mode`, async ({ page }) => {
+			test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+			await page.addInitScript((value) => localStorage.setItem('nt-color-mode', value), mode);
+			await page.setViewportSize({ width, height: 844 });
+			await page.goto('/', { waitUntil: 'networkidle' });
+			await expect(page.locator('html')).toHaveAttribute('data-nt-color-mode', mode);
+			await openChat(page);
+
+			const g = await chatGeometry(page);
+			expect(g.chips.map((c) => c.label)).toEqual(CHIPS.map((c) => c.label));
+			await expect(page.locator('.nt-assist__shortcuts button')).toHaveText(CHIPS.map((c) => c.label));
+			for (const c of g.chips) {
+				expect(c.h, `${c.label} height`).toBeGreaterThanOrEqual(44);
+				expect(c.w, `${c.label} width`).toBeGreaterThanOrEqual(44);
+				expect(c.clipped, `${c.label} text is clipped`).toBe(false);
+			}
+			expect(g.overlaps, 'chips must not overlap the input, send, close or clear buttons').toEqual([]);
+			expect(g.panelInside).toBe(true);
+			expect(g.logHeight, 'the answer area keeps room for an answer').toBeGreaterThanOrEqual(120);
+			expect(g.quickCall, 'Quick Call steps aside while the chat is open').toBe('hidden');
+			await noHorizontalScroll(page);
+			for (const chip of CHIPS) await expectReadable(page.locator('.nt-assist__shortcuts button', { hasText: chip.label }), `chip "${chip.label}" ${mode} ${width}px`);
+			if (width === 390) {
+				// Target size, accessible name containing the visible label, and contrast of the open panel in this colour mode.
+				const axe = await new AxeBuilder({ page }).include('#nt-assist-dialog').withRules(['target-size', 'label-content-name-mismatch', 'color-contrast']).analyze();
+				expect(axe.violations.map((item) => ({ id: item.id, targets: item.nodes.map((node) => node.target) }))).toEqual([]);
+				expect(axe.incomplete.filter((item) => item.id !== 'color-contrast').map((item) => item.id), 'axe could not decide target size or label').toEqual([]);
+			}
+		});
+	}
+}
+
+for (const mode of ['light', 'dark']) {
+	test(`each of the six chips sends its own question and shows a real answer, ${mode} mode`, async ({ page }, testInfo) => {
+		test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+		test.setTimeout(120_000);
+		await page.addInitScript((value) => localStorage.setItem('nt-color-mode', value), mode);
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto('/', { waitUntil: 'networkidle' });
+		await openChat(page);
+		const checks = {
+			'Bảng giá': async (bot) => {
+				await expect(bot).toContainText('150.000đ');
+				await expect(bot.locator('.nt-assist__cta')).toHaveCount(0);
+			},
+			'Đặt cọc': async (bot) => {
+				await expect(bot).toContainText('2.000.000đ đến 5.000.000đ');
+				await expect(bot).not.toContainText('Honda');
+			},
+			'Thủ tục': async (bot) => {
+				await expect(bot).toContainText('giấy tờ bảo đảm');
+				await expect(bot.locator('.nt-assist__cta')).toHaveCount(0);
+			},
+			'Xe điện': async (bot) => {
+				await expect(bot).toContainText('xe điện');
+				expect(await bot.locator('p').first().innerText(), 'no price for a model without one').not.toMatch(MONEY);
+				await expect(bot.locator('.nt-assist__cta--call')).toHaveAttribute('href', NAP.tel);
+				await expect(bot.locator('.nt-assist__cta--zalo')).toHaveAttribute('href', NAP.zalo);
+			},
+			'Liên hệ': async (bot) => {
+				await expect(bot).toContainText(NAP.phone);
+				await expect(bot).not.toContainText('Honda');
+				const call = bot.locator('.nt-assist__cta--call');
+				const zalo = bot.locator('.nt-assist__cta--zalo');
+				await expect(call).toHaveText('Gọi điện');
+				await expect(call).toHaveAttribute('href', NAP.tel);
+				await expect(zalo).toHaveText('Nhắn Zalo');
+				await expect(zalo).toHaveAttribute('href', NAP.zalo);
+				await expect(zalo).toHaveAttribute('rel', /noopener/);
+				await expect(bot.locator('.nt-assist__cta--maps')).toHaveCount(0);
+				for (const button of [call, zalo]) {
+					expect((await button.boundingBox()).height, 'button target').toBeGreaterThanOrEqual(44);
+					await expectReadable(button, `${mode} button`);
+				}
+			},
+			'Địa chỉ': async (bot) => {
+				await expect(bot).toContainText(NAP.address);
+				await expect(bot).toContainText(NAP.hours);
+				const maps = bot.locator('.nt-assist__cta--maps');
+				await expect(maps).toHaveText('Chỉ đường');
+				await expect(maps).toHaveAttribute('href', NAP.maps);
+				await expect(maps).toHaveAttribute('target', '_blank');
+				await expect(maps).toHaveAttribute('rel', /noopener/);
+				await expect(bot.locator('.nt-assist__cta--call')).toHaveCount(0);
+				await expectReadable(maps, `${mode} directions button`);
+			},
+		};
+		for (const chip of CHIPS) {
+			await page.locator('[data-nt-chat-clear]').click(); // every chip starts from an empty memory
+			const before = await page.locator('.nt-assist__message--bot').count();
+			await page.locator('.nt-assist__shortcuts button', { hasText: chip.label }).click();
+			await expect(page.locator('.nt-assist__message--user').last()).toHaveText(chip.question);
+			await expect(page.locator('.nt-assist__message--bot')).toHaveCount(before + 1, { timeout: 20_000 });
+			await expect(page.locator('.nt-assist__status')).toBeHidden();
+			const bot = page.locator('.nt-assist__message--bot').last();
+			await expect(bot).not.toContainText('Chưa tra cứu được');
+			await checks[chip.label](bot);
+			await noHorizontalScroll(page);
+			if (['Liên hệ', 'Địa chỉ'].includes(chip.label)) {
+				const file = testInfo.outputPath(`chip-${chip.label === 'Liên hệ' ? 'lien-he' : 'dia-chi'}-390-${mode}.png`);
+				await page.screenshot({ path: file });
+				await testInfo.attach(`chip ${chip.label} 390px ${mode}`, { path: file, contentType: 'image/png' });
+			}
+		}
+		// Quick Call is untouched by all of this: its own directions link is still the share link the owner approved.
+		await page.locator('[data-nt-chat-close]').click();
+		await page.locator('[data-nt-qc-launch]').click();
+		await expect(page.locator('.nt-qc__link--maps')).toHaveAttribute('href', NAP.quickCallMaps);
+		await expect(page.locator('.nt-qc__link--call')).toHaveAttribute('href', NAP.tel);
+	});
+}
+
+test('chips are reached with Tab in order and sent with Enter or Space', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.setViewportSize({ width: 1440, height: 900 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	await page.locator('[data-nt-chat-close]').focus();
+	const order = [];
+	for (let i = 0; i < CHIPS.length; i += 1) {
+		await page.keyboard.press('Tab');
+		order.push(await page.evaluate(() => document.activeElement.textContent.trim()));
+	}
+	expect(order).toEqual(CHIPS.map((c) => c.label));
+	await expect(page.locator('.nt-assist__shortcuts button:focus-visible')).toHaveCSS('outline-style', 'solid');
+
+	await page.locator('.nt-assist__shortcuts button', { hasText: 'Liên hệ' }).focus();
+	await page.keyboard.press('Enter');
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText(NAP.phone, { timeout: 20_000 });
+	await page.locator('.nt-assist__shortcuts button', { hasText: 'Địa chỉ' }).focus();
+	await page.keyboard.press('Space');
+	const answer = page.locator('.nt-assist__message--bot').last();
+	await expect(answer).toContainText(NAP.address, { timeout: 20_000 });
+	// The buttons that came with the answer are real links, reachable by keyboard.
+	await answer.locator('.nt-assist__cta--maps').focus();
+	await expect(answer.locator('.nt-assist__cta--maps')).toBeFocused();
+	await page.keyboard.press('Escape');
+	await expect(page.locator('#nt-assist-dialog')).toBeHidden();
+	await expect(page.locator('[data-nt-qc-launch]')).toBeFocused();
+});
+
+test('an address question between two price questions pulls no old model or price, and the price follow-up still works', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	test.setTimeout(90_000);
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	const lastAnswer = () => page.locator('.nt-assist__message--bot').last();
+	const ask = async (question, expected) => {
+		const before = await page.locator('.nt-assist__message--bot').count();
+		await page.locator('#nt-assist-question').fill(question);
+		await page.locator('.nt-assist__form button').click();
+		await expect(page.locator('.nt-assist__message--bot')).toHaveCount(before + 1, { timeout: 20_000 });
+		await expect(lastAnswer()).toContainText(expected);
+	};
+	await ask('Giá Vision?', 'Honda Vision');
+	await page.locator('.nt-assist__shortcuts button', { hasText: 'Địa chỉ' }).click();
+	await expect(page.locator('.nt-assist__message--bot')).toHaveCount(2, { timeout: 20_000 });
+	await expect(lastAnswer()).toContainText(NAP.address);
+	await expect(lastAnswer()).not.toContainText('Vision');
+	await expect(lastAnswer()).not.toContainText('1.800.000');
+	await ask('Tháng thì sao?', 'Honda Vision theo tháng');
+	await ask('Cọc bao nhiêu?', 'Tiền cọc tham khảo Honda Vision');
+	await ask('Wave thì sao?', 'Honda Wave');
+	await expect(lastAnswer()).not.toContainText('Vision');
+});
+
+test('a hostile answer creates no script, no foreign link and no unsafe button', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.addInitScript(() => { window.__xss = 0; });
+	await page.route('**/wp-json/nguyentu/v1/assist', (route) => route.fulfill({
+		status: 200,
+		contentType: 'application/json',
+		body: JSON.stringify({
+			mode: 'tra-cuu-noi-dung',
+			intent: 'contact',
+			answer: '<img src=x onerror="window.__xss=1"><script>window.__xss=2</script> [x](javascript:window.__xss=3)',
+			sources: [
+				{ title: 'Liên hệ', url: new URL('/lien-he/', page.url()).href },
+				{ title: 'js', url: 'javascript:window.__xss=4' },
+				{ title: 'data', url: 'data:text/html,<script>window.__xss=5</script>' },
+				{ title: 'evil', url: 'https://evil.example/phish' },
+				{ title: 'lookalike', url: 'https://127.0.0.1.evil.example/x' },
+			],
+			actions: [
+				{ type: 'call', url: 'javascript:window.__xss=6' }, { type: 'zalo', url: 'https://zalo.me.evil.example/x' },
+				{ type: 'maps', url: 'https://evil.example/maps' }, { type: 'exec', url: 'tel:0942467674' }, null, 'text',
+			],
+			context: { model: '', period: '' },
+			contact: {},
+		}),
+	}));
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	await page.locator('#nt-assist-question').fill('thử payload độc hại');
+	await page.locator('.nt-assist__form button').click();
+	const bot = page.locator('.nt-assist__message--bot').last();
+	await expect(bot).toContainText('<script>');
+	expect(await page.evaluate(() => window.__xss), 'nothing from the answer ran').toBe(0);
+	await expect(bot.locator('img, script, iframe')).toHaveCount(0);
+	await expect(bot.locator('.nt-assist__cta')).toHaveCount(0);
+	const links = await bot.locator('a').evaluateAll((anchors) => anchors.map((a) => a.href));
+	expect(links.filter((href) => !href.startsWith(new URL(page.url()).origin))).toEqual([]);
+	expect(links.some((href) => href.includes('javascript:') || href.startsWith('data:'))).toBe(false);
+});
+
+for (const [label, handler] of [
+	['the network fails', (route) => route.abort('failed')],
+	['the server answers 500', (route) => route.fulfill({ status: 500, contentType: 'application/json', body: '{"code":"x"}' })],
+	['the answer is not JSON', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '<<not json' })],
+]) {
+	test(`when ${label} a chip shows a calm fallback and the chat stays usable`, async ({ page }) => {
+		test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+		await page.route('**/wp-json/nguyentu/v1/assist', handler);
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto('/', { waitUntil: 'networkidle' });
+		await openChat(page);
+		await page.locator('.nt-assist__shortcuts button', { hasText: 'Liên hệ' }).click();
+		await expect(page.locator('.nt-assist__message--bot').last()).toContainText('gọi Nguyễn Tú hoặc nhắn Zalo');
+		await expect(page.locator('.nt-assist__form button')).toBeEnabled();
+		await expect(page.locator('.nt-assist__status')).toBeHidden();
+		await expect(page.locator('.nt-assist__shortcuts button')).toHaveCount(6);
+		await noHorizontalScroll(page);
+	});
+}
+
+test('a request that never answers is given up after 12 seconds and the chat is usable again', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	test.setTimeout(60_000);
+	await page.route('**/wp-json/nguyentu/v1/assist', () => { /* never answered */ });
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	await page.locator('.nt-assist__shortcuts button', { hasText: 'Địa chỉ' }).click();
+	await expect(page.locator('.nt-assist__status')).toBeVisible();
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText('Chưa tra cứu được', { timeout: 20_000 });
+	await expect(page.locator('.nt-assist__form button')).toBeEnabled();
+	await expect(page.locator('.nt-assist__status')).toBeHidden();
+});
+
+test('on a short landscape phone the six chips stay reachable and the panel stays inside the screen', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.setViewportSize({ width: 844, height: 390 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	const g = await chatGeometry(page);
+	expect(g.chips).toHaveLength(6);
+	expect(g.panelInside).toBe(true);
+	expect(g.overlaps).toEqual([]);
+	expect(g.logHeight, 'room for at least a few lines of answer').toBeGreaterThanOrEqual(60);
+	for (const chip of CHIPS) {
+		const button = page.locator('.nt-assist__shortcuts button', { hasText: chip.label });
+		await button.scrollIntoViewIfNeeded();
+		await expect(button).toBeVisible();
+		expect((await button.boundingBox()).height, `${chip.label} target`).toBeGreaterThanOrEqual(36);
+	}
+	await page.locator('.nt-assist__shortcuts button', { hasText: 'Địa chỉ' }).click();
+	await expect(page.locator('.nt-assist__message--bot').last()).toContainText(NAP.address, { timeout: 20_000 });
+	await noHorizontalScroll(page);
+	expect((await chatGeometry(page)).panelInside).toBe(true);
+});
+
+test('the chips make room for the iPhone keyboard and come back when it closes', async ({ page }) => {
+	test.skip(SIMS, 'native widget is hidden by MotoAI simulator');
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/', { waitUntil: 'networkidle' });
+	await openChat(page);
+	await expect(page.locator('.nt-assist__shortcuts')).toBeVisible();
+	await page.locator('#nt-assist-question').focus();
+	await page.evaluate(() => {
+		// Chromium headless has no software keyboard; model the VisualViewport shrink of an iPhone (as the test above does).
+		window.__realViewport = window.visualViewport;
+		Object.defineProperty(window, 'visualViewport', { configurable: true, value: { width: 390, height: 508, offsetTop: 0, offsetLeft: 0 } });
+		window.__realViewport.dispatchEvent(new Event('resize'));
+	});
+	await expect(page.locator('#nt-assist-dialog')).toHaveClass(/nt-assist__panel--keyboard/);
+	await expect(page.locator('.nt-assist__shortcuts')).toBeHidden();
+	await expect.poll(() => page.evaluate(() => {
+		const panel = document.getElementById('nt-assist-dialog').getBoundingClientRect();
+		const input = document.getElementById('nt-assist-question').getBoundingClientRect();
+		const send = document.querySelector('.nt-assist__form button').getBoundingClientRect();
+		const close = document.querySelector('[data-nt-chat-close]').getBoundingClientRect();
+		const log = document.querySelector('[data-nt-chat-log]').getBoundingClientRect();
+		return panel.top >= 7 && panel.bottom <= 508 - 7 && input.bottom <= panel.bottom && send.bottom <= panel.bottom && send.right <= panel.right && close.top >= panel.top && log.height >= 120;
+	})).toBe(true);
+	await noHorizontalScroll(page);
+	await page.locator('#nt-assist-question').blur();
+	await page.evaluate(() => {
+		Object.defineProperty(window, 'visualViewport', { configurable: true, value: { width: 390, height: 844, offsetTop: 0, offsetLeft: 0 } });
+		window.__realViewport.dispatchEvent(new Event('resize'));
+	});
+	await expect(page.locator('#nt-assist-dialog')).not.toHaveClass(/nt-assist__panel--keyboard/);
+	await expect(page.locator('.nt-assist__shortcuts')).toBeVisible();
+	await expect(page.locator('.nt-assist__shortcuts button')).toHaveCount(6);
 });

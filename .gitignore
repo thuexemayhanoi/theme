@@ -14,6 +14,8 @@ Thumbs.db
 /reports/link-check-after.json
 /reports/sitemap-urls-after.json
 /reports/seo-diff.json
+/reports/assistant-candidate/
+/reports/assistant-live/
 /playwright-report/
 
 # Local sandbox runtime, never committed (lives outside the repo by default)

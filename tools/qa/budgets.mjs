@@ -15,8 +15,10 @@ const BUDGETS = [
 	['assets/css/woo.css', 16 * KB, 4 * KB],
 	['assets/css/legacy.css', 18 * KB, 5 * KB],
 	['assets/js/theme.js', 14 * KB, 4.5 * KB],
-	['assets/js/assist.js', 19 * KB, 6.2 * KB],
-	['assets/css/assist.css', 9 * KB, 3 * KB],
+	// Issue #62: six quick questions, call/Zalo/Maps answer buttons and room for the second chip row added about 1.4 KB of script
+	// and 1.1 KB of CSS (2.8 KB gzip). The files load only with the assistant and stay far below the page-level budgets.
+	['assets/js/assist.js', 20 * KB, 6.7 * KB],
+	['assets/css/assist.css', 10.5 * KB, 3 * KB],
 ];
 const rows = [];
 let fails = 0;

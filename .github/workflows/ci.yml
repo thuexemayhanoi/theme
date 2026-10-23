@@ -100,6 +100,8 @@ jobs:
             bash tools/sandbox/snapshot.sh restore seeded
           '
       - name: Run full sandbox gates
+        env:
+          NT_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: sudo -E env "PATH=$PATH" bash tools/qa/run-sandbox.sh
       - uses: actions/upload-artifact@v4
         if: always()
@@ -112,5 +114,6 @@ jobs:
             reports/seo-after.json
             reports/seo-rules-after.json
             reports/legacy-recovery-sandbox.json
+            reports/assistant-candidate
             playwright-report
             test-results
