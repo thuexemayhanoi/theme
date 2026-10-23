@@ -114,7 +114,29 @@ try {
             report.errors.push('Render invariant: ' + route + '/' + size.width + '/' + theme);
           }
           if (route === '/shop/' && entry.productCount !== 13) report.errors.push('Shop product count: ' + entry.productCount);
-          if (size.width === 390 && theme === 'light' && route === '/shop/') await page.screenshot({ path:output+'/shop-mobile.png', fullPage:true });
+          // A full-page screenshot alone does not trigger lazy-loaded images below
+          // the viewport. Scroll through the actual shop first, then confirm the
+          // 13 image URLs resolve to real decoded media (not SVG placeholders).
+          if (size.width === 390 && theme === 'light' && route === '/shop/') {
+            const thumbs = page.locator('main ul.products > li.product img');
+            const loaded = [];
+            for (let index = 0, count = await thumbs.count(); index < count; index++) {
+              const img = thumbs.nth(index);
+              await img.scrollIntoViewIfNeeded();
+              const element = await img.elementHandle();
+              const realImage = await page.waitForFunction(
+                e => !!e && e.complete && e.naturalWidth > 0 && /^https?:/.test(e.currentSrc || e.src),
+                element, { timeout:8000 }
+              ).then(() => true).catch(() => false);
+              loaded.push(realImage);
+            }
+            entry.shopImages = { total:loaded.length, loaded:loaded.filter(Boolean).length };
+            if (loaded.length !== 13 || loaded.some(ok => !ok)) {
+              report.errors.push('Shop lazy image load: ' + loaded.filter(Boolean).length + '/' + loaded.length);
+            }
+            await page.evaluate(() => scrollTo(0,0));
+            await page.screenshot({ path:output+'/shop-mobile.png', fullPage:true });
+          }
         } catch (error) {
           entry.error = String(error);
           report.errors.push('Render request: ' + route + '/' + size.width + '/' + theme + ': ' + error);
