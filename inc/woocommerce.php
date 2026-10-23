@@ -41,6 +41,7 @@ function nt_wc_hooks(): void {
 	add_action( 'woocommerce_after_main_content', 'nt_wc_wrapper_end', 10 );
 	add_action( 'woocommerce_single_product_summary', 'nt_wc_contact_box', 35 );
 	add_filter( 'woocommerce_empty_price_html', 'nt_wc_empty_price' );
+	add_filter( 'woocommerce_loop_add_to_cart_args', 'nt_wc_loop_button_accessible_label', 20, 2 );
 	add_filter( 'woocommerce_output_related_products_args', 'nt_wc_related_args' );
 	add_filter( 'woocommerce_enqueue_styles', 'nt_wc_styles' );
 	add_action( 'wp_enqueue_scripts', 'nt_wc_lean_scripts', 99 );
@@ -106,6 +107,39 @@ function nt_wc_wrapper_start(): void {
  */
 function nt_wc_wrapper_end(): void {
 	echo '</div></main>';
+}
+
+/**
+ * Match each WooCommerce loop button's accessible name to its visible text.
+ *
+ * Woo currently prints "Đọc tiếp" for quote-only products, but its default
+ * aria-label is "Đọc thêm về …". Lighthouse flags this as WCAG 2.5.3 Label in
+ * Name because the visible words are missing from the accessible name.
+ *
+ * Change ONLY the aria-label argument; preserve URL, price, stock state,
+ * product type, existing description and add-to-cart behaviour.
+ *
+ * @param array<string,mixed> $args    WooCommerce loop button arguments.
+ * @param mixed               $product Current product.
+ * @return array<string,mixed>
+ */
+function nt_wc_loop_button_accessible_label( array $args, $product ): array {
+	if ( ! $product instanceof WC_Product || ! isset( $args['attributes'] ) || ! is_array( $args['attributes'] ) ) {
+		return $args;
+	}
+	$visible = trim( wp_strip_all_tags( (string) $product->add_to_cart_text() ) );
+	if ( '' === $visible ) {
+		return $args;
+	}
+	$original = isset( $args['attributes']['aria-label'] ) && is_string( $args['attributes']['aria-label'] )
+		? (string) $args['attributes']['aria-label']
+		: '';
+	// Keep compliant plugin-provided accessible names as-is.
+	if ( '' !== $original && false !== mb_stripos( $original, $visible ) ) {
+		return $args;
+	}
+	$args['attributes']['aria-label'] = $visible . ': ' . wp_strip_all_tags( (string) $product->get_name() );
+	return $args;
 }
 
 /**
