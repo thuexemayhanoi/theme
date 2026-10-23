@@ -66,7 +66,8 @@ export function safeAction(action) {
  *
  * @param {object} turn   REST response: answer, intent, sources, actions, context.
  * @param {object} expect include / exclude texts, noMoney, intent, actions (exact types), mapsUrl, sources {min,max},
- *                        reading (suggestions must be labelled), context.
+ *                        reading (suggestions must be labelled), emptyHandoff (labelled suggestions or nothing found + call/Zalo),
+ *                        context.
  * @param {string} origin Site origin; every source must be on it.
  */
 export function judge(turn, expect = {}, origin = '') {
@@ -106,6 +107,15 @@ export function judge(turn, expect = {}, origin = '') {
     }
   }
   if (expect.reading && sources.length > 0 && !/gợi ý đọc/i.test(answer)) fails.push('reading suggestions are not labelled as such');
+  if (expect.emptyHandoff) {
+    // Whatever the site has published, the answer is one of two honest things: labelled suggestions, or "nothing found" plus call and Zalo.
+    if (sources.length === 0) {
+      if (!/chưa tìm được nguồn/.test(answer)) fails.push('nothing found but the answer does not say so');
+      if (JSON.stringify(types) !== JSON.stringify(['call', 'zalo'])) fails.push(`nothing found but the buttons are [${types}] instead of [call,zalo]`);
+    } else if (types.length > 0) {
+      fails.push(`suggestions together with the buttons [${types}]`);
+    }
+  }
   for (const [key, value] of Object.entries(expect.context ?? {})) {
     if ((turn?.context ?? {})[key] !== value) fails.push(`context.${key} is "${(turn?.context ?? {})[key]}" instead of "${value}"`);
   }
@@ -193,6 +203,8 @@ export function buildCases(rows) {
   add('not-contact-goi-y', 'false-positive', [{ q: 'gợi ý xe cho 2 người đi chơi', expect: { intent: 'search', exclude: [NAP.phone] } }]);
   add('not-contact-goi-la', 'false-positive', [{ q: 'xe tay ga 50cc gọi là gì', expect: { intent: 'search', exclude: [NAP.phone] } }]);
   add('search-pin', 'search', [{ q: 'pin xe điện bị chai', expect: { intent: 'search', reading: true } }]);
-  add('search-unrelated', 'search', [{ q: 'thời tiết hôm nay thế nào', expect: { intent: 'search', sources: { min: 0, max: 0 }, actions: ['call', 'zalo'], include: ['chưa tìm được nguồn'] } }]);
+  // The published articles decide whether a weather question finds a suggestion (a Hanoi weather guide would be one), so only the
+  // honest shape is checked: labelled suggestions, or "nothing found" with call and Zalo; never a price, a phone number or a fact.
+  add('search-unrelated', 'search', [{ q: 'thời tiết hôm nay thế nào', expect: { intent: 'search', noMoney: true, exclude: [NAP.phone], reading: true, emptyHandoff: true } }]);
   return cases;
 }

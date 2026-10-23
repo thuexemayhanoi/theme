@@ -67,6 +67,20 @@ test('judge catches a price quoted for a model that has none, and unlabelled rea
   assert.match(judge({ answer: '' }, {}).join(), /empty answer/);
 });
 
+test('judge accepts only the two honest shapes for a question the shop data cannot answer', () => {
+  const expect = { intent: 'search', noMoney: true, reading: true, emptyHandoff: true };
+  const call = { type: 'call', url: NAP.tel };
+  const zalo = { type: 'zalo', url: NAP.zalo };
+  const found = { intent: 'search', answer: 'Các bài công khai dưới đây có thể liên quan (gợi ý đọc, không phải câu trả lời chính thức).', sources: [{ title: 'Thời tiết Hà Nội', url: `${ORIGIN}/thoi-tiet/` }], actions: [] };
+  const nothing = { intent: 'search', answer: 'Tôi chưa tìm được nguồn đủ phù hợp để trả lời. Vui lòng gọi Nguyễn Tú hoặc nhắn Zalo.', sources: [], actions: [call, zalo] };
+  assert.deepEqual(judge(found, expect, ORIGIN), [], 'labelled suggestions are fine');
+  assert.deepEqual(judge(nothing, expect, ORIGIN), [], 'nothing found with call and Zalo is fine');
+  assert.match(judge({ ...nothing, actions: [] }, expect, ORIGIN).join(), /nothing found but the buttons are \[\]/);
+  assert.match(judge({ ...nothing, answer: 'Không có.' }, expect, ORIGIN).join(), /does not say so/);
+  assert.match(judge({ ...found, actions: [call, zalo] }, expect, ORIGIN).join(), /suggestions together with the buttons/);
+  assert.match(judge({ ...found, answer: 'Các bài sau có thể liên quan.' }, expect, ORIGIN).join(), /not labelled/);
+});
+
 test('judge compares the remembered vehicle and period of a follow-up', () => {
   const turn = { intent: 'price', answer: 'Honda Vision theo tháng', context: { model: 'Honda Vision', period: 'month' }, actions: [] };
   assert.deepEqual(judge(turn, { context: { model: 'Honda Vision', period: 'month' } }), []);

@@ -102,6 +102,9 @@ async function fingerprint(html) {
   };
 }
 
+/** One asset of the page for the log: its SHA-256, or the fact that a page cache has folded it into a combined file. */
+const assetLine = (asset, name) => (asset ? `${name} ${asset.sha256.slice(0, 12)} (${asset.bytes} B)` : `${name} not served as a separate file`);
+
 const chipsAreSix = (fp) => fp.chips.length === 6 && CHIPS.every((chip, i) => fp.chips[i]?.label === chip.label && fp.chips[i]?.question === chip.question);
 
 async function loadHome() {
@@ -125,7 +128,7 @@ async function main() {
   }
   const servedFp = served.status === 200 ? await fingerprint(served.text) : null;
   evidence.home = { status: page.status, cache: page.cache, servedStatus: served.status, servedCache: served.cache, servedChips: servedFp?.chips.length ?? null, fingerprint: fp };
-  console.log(`home: ${fp.chips.length} chips [${fp.chips.map((c) => c.label).join(', ')}] · quick call ${fp.quickCall.present ? 'present' : 'ABSENT'} · assist.js ${fp.assets.js?.sha256?.slice(0, 12) ?? 'none'} · assist.css ${fp.assets.css?.sha256?.slice(0, 12) ?? 'none'}`);
+  console.log(`home: ${fp.chips.length} chips [${fp.chips.map((c) => c.label).join(', ')}] · quick call ${fp.quickCall.present ? 'present' : 'ABSENT'} · ${assetLine(fp.assets.js, 'assist.js')} · ${assetLine(fp.assets.css, 'assist.css')}`);
   if (!chipsAreSix(fp)) problem(`the page shows ${fp.chips.length} chips, not the six of Issue #62`);
   if (servedFp && servedFp.chips.length !== fp.chips.length) problem(`the cached page shows ${servedFp.chips.length} chips while the origin shows ${fp.chips.length}`);
   if (!fp.quickCall.present) problem('Quick Call is missing from the page');
@@ -278,7 +281,7 @@ function summary() {
   const fp = evidence.home.fingerprint;
   if (fp) {
     lines.push(`- chips on the page: **${fp.chips.length}** (${fp.chips.map((x) => x.label).join(', ')}) · page cache \`${evidence.home.cache || 'n/a'}\``,
-      `- assist.js \`${fp.assets.js?.sha256 ?? 'none'}\` (${fp.assets.js?.bytes ?? 0} B, ver ${fp.assets.js?.version ?? ''}) · assist.css \`${fp.assets.css?.sha256 ?? 'none'}\` (${fp.assets.css?.bytes ?? 0} B)`,
+      `- ${assetLine(fp.assets.js, 'assist.js')}${fp.assets.js ? ` · full SHA-256 \`${fp.assets.js.sha256}\`` : ''} · ${assetLine(fp.assets.css, 'assist.css')}${fp.assets.css ? ` · full SHA-256 \`${fp.assets.css.sha256}\`` : ''}`,
       `- Quick Call menu sha256 \`${fp.quickCall.menuSha256}\``,
       `- SEO: title «${fp.seo.title}» · canonical ${fp.seo.canonical} · robots \`${fp.seo.robots || '—'}\` · H1 ×${fp.seo.h1.length} · JSON-LD ×${fp.seo.jsonldBlocks} \`${fp.seo.jsonldSha256.slice(0, 16)}\``);
   }
