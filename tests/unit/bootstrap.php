@@ -80,7 +80,50 @@ if ( ! function_exists( 'esc_url' ) ) {
 	}
 }
 
-foreach ( array( 'lib/text', 'lib/html', 'lib/css', 'lib/prices', 'lib/layout', 'business', 'navigation-labels', 'legacy/helpers', 'pages' ) as $nt_unit_file ) {
+if ( ! function_exists( 'add_action' ) ) {
+	/**
+	 * Hook stand-in (hooks are not fired in unit tests).
+	 *
+	 * @param string   $hook     Hook.
+	 * @param callable $callback Callback.
+	 */
+	function add_action( string $hook, $callback ): bool {
+		unset( $hook, $callback );
+		return true;
+	}
+}
+if ( ! function_exists( 'remove_accents' ) ) {
+	/**
+	 * Accent stripping stand-in with ICU, the same fallback nt_slugify() uses without WordPress.
+	 *
+	 * @param string $text Text.
+	 */
+	function remove_accents( string $text ): string {
+		return (string) transliterator_transliterate( 'Any-Latin; Latin-ASCII', $text );
+	}
+}
+if ( ! function_exists( 'sanitize_text_field' ) ) {
+	/**
+	 * Text sanitising stand-in (tags removed, whitespace collapsed).
+	 *
+	 * @param string $text Text.
+	 */
+	function sanitize_text_field( string $text ): string {
+		return trim( (string) preg_replace( '/\s+/', ' ', strip_tags( $text ) ) );
+	}
+}
+if ( ! function_exists( 'sanitize_key' ) ) {
+	/**
+	 * Key sanitising stand-in.
+	 *
+	 * @param string $key Key.
+	 */
+	function sanitize_key( string $key ): string {
+		return (string) preg_replace( '/[^a-z0-9_\-]/', '', strtolower( $key ) );
+	}
+}
+
+foreach ( array( 'lib/text', 'lib/html', 'lib/css', 'lib/prices', 'lib/layout', 'business', 'navigation-labels', 'legacy/helpers', 'pages', 'assist' ) as $nt_unit_file ) {
 	require_once NT_TEST_ROOT . '/inc/' . $nt_unit_file . '.php';
 }
 unset( $nt_unit_file );
