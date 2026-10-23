@@ -790,7 +790,7 @@ foreach ( $base['menus']['main_items'] as $it ) {
 $phase( 'nav_menu 67: 36 items (menu 66 stays empty)' );
 
 // ---------------------------------------------------------------------------------------------
-// 10. 160 blog posts (IDs 10001-10160) + ~40 featured images (9200-9239)
+// 10. 160 synthetic blog posts (12 audited Matrix IDs + remaining IDs 10013-10160) + ~40 featured images (9200-9239)
 // ---------------------------------------------------------------------------------------------
 $slots = array();   // title => cats[]
 foreach ( $data['post_titles'] as $cat => $titles ) {
@@ -815,8 +815,25 @@ $step        = (int) floor( $span / $n_posts );
 $img_counter = 0;
 $word_total  = 0;
 $post_cat_counts = array();
+// Reserve real Matrix IDs for homepage curation tests; content/categories remain synthetic.
+$home_matrix_ids = array( 476, 1060, 895, 829, 847, 841, 862, 836, 857, 1062, 823, 887 );
+// Use verified slugs too: the existing 50cc shortcut resolves Post 895 before its product fallback.
+$home_matrix_slugs = array(
+	476 => 'thue-xe-may-ha-noi-gia-re',
+	1060 => 'thue-xe-may-theo-thang-ha-noi-gia-re-xe-ga-xe-so',
+	895 => 'thue-xe-may-50cc-ha-noi',
+	829 => 'huong-dan-thu-tuc-thue-xe-may-ha-noi-don-gian-tien-loi',
+	847 => 'cho-thue-xe-may-long-bien',
+	841 => 'thue-xe-may-gan-ho-hoan-kiem',
+	862 => 'cho-thue-xe-may-tay-ho',
+	836 => 'thue-xe-may-o-pho-co',
+	857 => 'thue-xe-may-ba-dinh',
+	1062 => 'thue-xe-ga-xe-so-ha-noi-cach-chon-xe-phu-hop',
+	823 => 'kinh-nghiem-thue-xe-may-ha-noi',
+	887 => 'chi-phi-giao-xe-may-tan-noi-ha-noi',
+);
 foreach ( $entries as $i => $e ) {
-	$pid     = 10001 + $i;
+	$pid     = $home_matrix_ids[ $i ] ?? ( 10001 + $i );
 	$ts      = $anchor_ts - ( $n_posts - 1 - $i ) * $step - ( 3600 * ( 1 + ( $i * 7 ) % 10 ) ) - ( ( $i * 13 ) % 60 ) * 60;
 	$classic = ( 2 === $i % 3 );
 	$built   = nt_seed_build_post( $data, $i, $e['title'], $e['cats'], $classic, ( 0 === $i % 5 ), ( 1 === $i % 4 ) );
@@ -836,7 +853,7 @@ foreach ( $entries as $i => $e ) {
 			'post_type'      => 'post',
 			'post_status'    => 'publish',
 			'post_title'     => $e['title'],
-			'post_name'      => sanitize_title( $e['title'] ),
+			'post_name'      => $home_matrix_slugs[ $pid ] ?? sanitize_title( $e['title'] ),
 			'post_content'   => $built['content'],
 			'post_excerpt'   => ( 1 === $i % 3 ) ? nt_seed_trim( $built['intro'], 200 ) : '',
 			'post_author'    => $editor_id,
@@ -909,7 +926,7 @@ $wpdb->query( 'ALTER TABLE ' . $wpdb->term_taxonomy . ' AUTO_INCREMENT = ' . ( $
 wp_cache_flush();
 
 $manifest['notes'] = array(
-	'sandbox_only_ids' => 'pages 9001-9003 (classic WooCommerce pages), attachments 9100-9113 + 9120 (logo) + 9200-9239, blog posts 10001-10160, user nguyentu-editor',
+	'sandbox_only_ids' => 'pages 9001-9003 (classic WooCommerce pages), attachments 9100-9113 + 9120 (logo) + 9200-9239, synthetic blog posts: 12 Matrix IDs + 10013-10160, user nguyentu-editor',
 	'attachment_count' => 'Baseline had 123 attachments; the sandbox only has the generated ones (+ the WooCommerce placeholder).',
 	'category_names'   => 'Names with &amp; in the baseline are stored decoded (plain &).',
 	'shared_post'      => 'Exactly one post carries two categories: ' . $data['shared_post']['title'] . ' (157 + 156).',

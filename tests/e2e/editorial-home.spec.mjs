@@ -1,5 +1,13 @@
+import { execFileSync } from 'node:child_process';
 import { test, expect } from '@playwright/test';
 import { expectReadable, noHorizontalScroll, overflowOffenders } from './helpers.mjs';
+
+const curatedGroups = [[476, 1060, 895, 829], [847, 841, 862, 836, 857], [1062, 823, 887]];
+let curatedUrls;
+test.beforeAll(() => {
+	curatedUrls = JSON.parse(execFileSync('bash', ['tools/sandbox/wp.sh', 'eval',
+		'echo wp_json_encode(array_map("get_permalink", array(476,1060,895,829,847,841,862,836,857,1062,823,887)));'], { encoding: 'utf8' }));
+});
 
 for (const width of [390, 768, 1440]) {
 	test(`editorial-commerce homepage has one H1, real Woo products, one price table and topic links at ${width}px`, async ({ page }) => {
@@ -37,6 +45,12 @@ for (const width of [390, 768, 1440]) {
 
 		await expect(page.locator('.nt-home-mag__find form input[type="search"]')).toHaveCount(1);
 		await expect(page.locator('.nt-home-mag__featured .nt-card--post')).toHaveCount(4);
+		for (const [index, selector] of ['.nt-home-mag__featured', '[aria-labelledby="nt-home-topic-areas"]', '[aria-labelledby="nt-home-topic-rental-guides"]'].entries()) {
+			const start = curatedGroups.slice(0, index).reduce((sum, group) => sum + group.length, 0);
+			expect(await page.locator(selector + ' .nt-card__title a').evaluateAll(links => links.map(a => a.href)))
+				.toEqual(curatedUrls.slice(start, start + curatedGroups[index].length));
+		}
+		await expect(page.locator('.nt-home-mag__latest .nt-card--post')).toHaveCount(4);
 		await expect(page.locator('.nt-home-mag__hubs .nt-home-mag__hub').first()).toHaveAttribute('href', /\/blog\//);
 
 		await expect(page.locator('.nt-section #nt-products-title')).toHaveCount(1);

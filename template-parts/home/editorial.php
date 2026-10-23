@@ -29,6 +29,8 @@ $nt_featured  = new WP_Query(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
 		'posts_per_page'      => 4,
+		'post__in'            => array( 476, 1060, 895, 829 ), // Approved Matrix: price, monthly, 50cc, procedures.
+		'orderby'             => 'post__in',
 		'ignore_sticky_posts' => true,
 		'no_found_rows'       => true,
 	)
@@ -227,23 +229,32 @@ $nt_visual_image_attrs = array(
 <?php endif; ?>
 
 <?php
-// Magazine-style topical rows: published posts from the real category and its children.
-// Never repeat an article already shown in the featured or previous rows.
-foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
+// Curated Matrix clusters reuse the existing topic rows; publishing does not replace these links.
+// Keep the real category navigation above and the automatic latest-post query below.
+$nt_clusters = array(
+	array(
+		'id'    => 'areas',
+		'title' => 'Thuê xe máy theo khu vực',
+		'posts' => array( 847, 841, 862, 836, 857 ),
+	),
+	array(
+		'id'    => 'rental-guides',
+		'title' => 'Kinh nghiệm chọn xe và giao nhận',
+		'posts' => array( 1062, 823, 887 ),
+	),
+);
+foreach ( $nt_clusters as $nt_cluster ) :
+	$nt_cluster_ids = array_values( array_diff( $nt_cluster['posts'], $nt_shown ) );
+	if ( array() === $nt_cluster_ids ) {
+		continue; // An empty post__in would otherwise query every published post.
+	}
 	$nt_hub_posts = new WP_Query(
 		array(
 			'post_type'           => 'post',
 			'post_status'         => 'publish',
-			'posts_per_page'      => 3,
-			'post__not_in'        => $nt_shown,
-			'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded three-item category query; excludes duplicate posts.
-				array(
-					'taxonomy'         => 'category',
-					'field'            => 'term_id',
-					'terms'            => array( (int) $nt_hub->term_id ),
-					'include_children' => true,
-				),
-			),
+			'posts_per_page'      => count( $nt_cluster_ids ),
+			'post__in'            => $nt_cluster_ids,
+			'orderby'             => 'post__in',
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => true,
 		)
@@ -251,15 +262,11 @@ foreach ( array_slice( $nt_hubs, 0, 2 ) as $nt_hub ) :
 	if ( ! $nt_hub_posts->have_posts() ) {
 		continue;
 	}
-	$nt_hub_link = get_term_link( $nt_hub );
 	?>
-	<section class="nt-section nt-home-mag__topic" aria-labelledby="nt-home-topic-<?php echo esc_attr( (string) $nt_hub->term_id ); ?>">
+	<section class="nt-section nt-home-mag__topic" aria-labelledby="nt-home-topic-<?php echo esc_attr( $nt_cluster['id'] ); ?>">
 		<div class="nt-container">
 			<header class="nt-section__head nt-section__head--row">
-				<div><p class="nt-eyebrow">Theo chuyên mục</p><h2 class="nt-section__title" id="nt-home-topic-<?php echo esc_attr( (string) $nt_hub->term_id ); ?>"><?php echo esc_html( $nt_hub->name ); ?></h2></div>
-				<?php if ( ! is_wp_error( $nt_hub_link ) ) : ?>
-					<a class="nt-link-arrow" href="<?php echo esc_url( $nt_hub_link ); ?>">Xem chuyên mục <?php nt_the_icon( 'arrow-right', array( 'size' => 18 ) ); ?></a>
-				<?php endif; ?>
+				<div><p class="nt-eyebrow">Hướng dẫn thuê xe</p><h2 class="nt-section__title" id="nt-home-topic-<?php echo esc_attr( $nt_cluster['id'] ); ?>"><?php echo esc_html( $nt_cluster['title'] ); ?></h2></div>
 			</header>
 			<div class="nt-grid nt-grid--3">
 				<?php
@@ -282,6 +289,8 @@ $nt_latest = new WP_Query(
 		'post_status'         => 'publish',
 		'posts_per_page'      => 4,
 		'post__not_in'        => $nt_shown,
+		'orderby'             => 'date',
+		'order'               => 'DESC',
 		'ignore_sticky_posts' => true,
 		'no_found_rows'       => true,
 	)
