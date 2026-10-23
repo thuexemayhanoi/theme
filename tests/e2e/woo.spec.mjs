@@ -16,6 +16,26 @@ test.describe('WooCommerce (classic cart and checkout pages)', () => {
 		await expect(page.locator('.nt-price-contact').first()).toContainText('Liên hệ báo giá');
 	});
 
+	test('catalogue buttons expose accessible names beginning with the visible action text', async ({ page }) => {
+		for (const path of ['/shop/', '/danh-muc-san-pham/loai-xe/xe-so/', '/danh-muc-san-pham/loai-xe/xe-ga/', '/danh-muc-san-pham/loai-xe/xe-dien/']) {
+			await page.goto(path);
+			const actions = await page.locator('ul.products li.product a.button').evaluateAll((buttons) =>
+				buttons.map((button) => ({
+					visible: button.textContent.trim().replace(/\\s+/g, ' '),
+					name: button.getAttribute('aria-label') || button.textContent.trim(),
+					href: button.href,
+				}))
+			);
+			expect(actions.length, `${path}: all products have an action`).toBeGreaterThan(0);
+			for (const action of actions) {
+				expect(action.visible.length, `${path}: no icon-only or blank product action`).toBeGreaterThan(0);
+				expect(action.name.toLocaleLowerCase('vi-VN').startsWith(action.visible.toLocaleLowerCase('vi-VN')),
+					`${path}: accessible name "${action.name}" must start with visible "${action.visible}"`).toBe(true);
+				expect(action.href, `${path}: product action has a real destination`).toMatch(/^https?:\\/\\//);
+			}
+		}
+	});
+
 	// Geometry guards: WooCommerce's float/percentage widths once squeezed grid cards to ~60px and the
 	// gallery to 275px while every DOM assertion still passed.
 	for (const [label, width, minCards, minCard] of [['desktop', 1440, 4, 200], ['tablet', 768, 3, 170], ['phone', 360, 2, 140]]) {
