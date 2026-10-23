@@ -342,6 +342,77 @@ function nt_assist_verified_sources( string $intent ): array {
 }
 
 /**
+ * Re-rank only already-relevant, bounded WordPress candidates with mini BM25.
+ * Title tokens are weighted three times; no visitor-side crawl or persisted index.
+ * Existing overlap/visibility gates run before this function, avoiding poor matches.
+ *
+ * @param array<int,array<string,mixed>> $matches Gated public candidates.
+ * @param string[]                       $terms   Normalized question terms.
+ * @return array<int,array<string,mixed>> Highest-scoring first.
+ */
+function nt_assist_bm25_rerank( array $matches, array $terms ): array {
+	if ( count( $matches ) < 2 || array() === $terms ) {
+		return $matches;
+	}
+
+	$docs  = array();
+	$df    = array_fill_keys( $terms, 0 );
+	$total = 0;
+	foreach ( $matches as $index => $item ) {
+		$title = array_filter( explode( ' ', nt_assist_normalize( (string) ( $item['title'] ?? '' ) ) ), 'strlen' );
+		$body  = array_filter( explode( ' ', nt_assist_normalize( (string) ( $item['rank_text'] ?? '' ) ) ), 'strlen' );
+		$freq  = array();
+		foreach ( $title as $token ) {
+			$freq[ $token ] = ( $freq[ $token ] ?? 0 ) + 3;
+		}
+		foreach ( $body as $token ) {
+			$freq[ $token ] = ( $freq[ $token ] ?? 0 ) + 1;
+		}
+		$length = max( 1, 3 * count( $title ) + count( $body ) );
+		$total += $length;
+
+		$docs[ $index ] = array(
+			'length' => $length,
+			'freq'   => $freq,
+		);
+		foreach ( $terms as $term ) {
+			if ( isset( $freq[ $term ] ) ) {
+				++$df[ $term ];
+			}
+		}
+	}
+	$count = count( $matches );
+	$avg   = max( 1, $total / $count );
+	$k1    = 1.5;
+	$b     = 0.75;
+
+	foreach ( $matches as $index => &$item ) {
+		$doc   = $docs[ $index ];
+		$score = 0.0;
+		foreach ( $terms as $term ) {
+			$freq = $doc['freq'][ $term ] ?? 0;
+			if ( 0 === $freq ) {
+				continue;
+			}
+			$idf    = log( 1 + ( $count - $df[ $term ] + 0.5 ) / ( $df[ $term ] + 0.5 ) );
+			$score += $idf * ( $freq * ( $k1 + 1 ) ) / ( $freq + $k1 * ( 1 - $b + $b * $doc['length'] / $avg ) );
+		}
+		$item['bm25_score'] = $score;
+	}
+	unset( $item );
+
+	usort(
+		$matches,
+		static function ( array $a, array $b ): int {
+			return ( $b['bm25_score'] <=> $a['bm25_score'] )
+				?: ( $b['score'] <=> $a['score'] )
+				?: strcmp( (string) $a['title'], (string) $b['title'] );
+		}
+	);
+	return $matches;
+}
+
+/**
  * Find public, topically relevant content with a bounded WordPress search.
  * Titles and summaries are scored locally; generic word matches must not
  * accidentally return unrelated electric-bike or touring articles.
@@ -395,22 +466,18 @@ function nt_assist_public_search( string $query ): array {
 			continue;
 		}
 		$matches[] = array(
-			'score'   => $score,
-			'title'   => $title,
-			'url'     => $url,
-			'excerpt' => mb_substr( $summary, 0, 160, 'UTF-8' ),
+			'score'     => $score,
+			'title'     => $title,
+			'url'       => $url,
+			'excerpt'   => mb_substr( $summary, 0, 160, 'UTF-8' ),
+			'rank_text' => mb_substr( $summary, 0, 650, 'UTF-8' ),
 		);
 	}
 	wp_reset_postdata();
-	usort(
-		$matches,
-		static function ( array $a, array $b ): int {
-			return $b['score'] <=> $a['score'];
-		}
-	);
+	$matches = nt_assist_bm25_rerank( $matches, $terms );
 	return array_map(
 		static function ( array $item ): array {
-			unset( $item['score'] );
+			unset( $item['score'], $item['bm25_score'], $item['rank_text'] );
 			return $item;
 		},
 		array_slice( $matches, 0, 3 )
@@ -441,9 +508,23 @@ function nt_assist_fact_answer( string $question, array $context = array() ): st
 		return nt_address() . '. Mở cửa ' . nt_hours_range() . ' mỗi ngày.';
 	}
 	if ( 'deposit' === $intent ) {
-		return $row
-			? 'Tiền cọc tham khảo ' . $row['name'] . ': ' . $row['deposit'] . '. Giá trị và điều kiện cọc thực tế cần xác nhận theo hợp đồng.'
-			: $policy['deposit_range'] . ' Giá trị và điều kiện cọc cần xác nhận theo xe và hợp đồng.';
+		if ( $row ) {
+			$q = nt_assist_normalize( $question );
+			// One combined question can ask for both the rental price and the deposit.
+			if ( preg_match( '/\\b(gia|tien thue|bao gia|theo ngay|theo tuan|theo thang|ngay|tuan|thang|day|week|month)\\b/', $q ) ) {
+				$names = array(
+					'day'   => 'ngày',
+					'week'  => 'tuần',
+					'month' => 'tháng',
+				);
+				$price = isset( $names[ $period ] )
+					? 'theo ' . $names[ $period ] . ': ' . $row[ $period ]
+					: 'theo ngày ' . $row['day'] . ', theo tuần ' . $row['week'] . ', theo tháng ' . $row['month'];
+				return 'Giá tham khảo ' . $row['name'] . ' ' . $price . '. Tiền cọc: ' . $row['deposit'] . '. ' . $policy['price_note'];
+			}
+			return 'Tiền cọc tham khảo ' . $row['name'] . ': ' . $row['deposit'] . '. Giá trị và điều kiện cọc thực tế cần xác nhận theo hợp đồng.';
+		}
+		return $policy['deposit_range'] . ' Giá trị và điều kiện cọc cần xác nhận theo xe và hợp đồng.';
 	}
 	if ( 'documents' === $intent ) {
 		return 'Thủ tục và phương án giấy tờ bảo đảm được xác nhận theo từng hợp đồng. ' . $policy['documents'];

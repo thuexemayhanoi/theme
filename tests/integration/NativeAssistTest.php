@@ -55,6 +55,36 @@ final class NativeAssistTest extends TestCase {
 		$this->assertStringContainsString( 'không có dữ liệu tồn kho', nt_assist_fact_answer( 'Có chắc xe Vision còn hàng lúc 17h?' ) );
 	}
 
+
+	public function test_verified_combined_price_and_deposit_uses_live_price_rows(): void {
+		$answer = nt_assist_fact_answer( 'Giá Vision tháng và cọc bao nhiêu?' );
+		$this->assertStringContainsString( 'Honda Vision', $answer );
+		$this->assertStringContainsString( '1.800.000–2.000.000đ', $answer );
+		$this->assertStringContainsString( '4–5 triệu', $answer );
+		$this->assertStringNotContainsString( '700.000đ', $answer, 'Never reuse legacy MotoAI price defaults.' );
+		$this->assertStringContainsString( '3 triệu', nt_assist_fact_answer( 'Cọc Honda Air Blade?' ) );
+	}
+
+	public function test_bounded_bm25_prefers_exact_relevant_title_and_never_leaks_ranking_fields(): void {
+		$documents = array(
+			array(
+				'title'     => 'Giới thiệu dịch vụ',
+				'excerpt'   => 'Thông tin cửa hàng',
+				'rank_text' => 'Pin và chai là những từ khóa phụ trong danh sách dài',
+				'score'     => 6,
+			),
+			array(
+				'title'     => 'Pin xe điện bị chai',
+				'excerpt'   => 'Kiểm tra pin xe điện',
+				'rank_text' => 'Hướng dẫn kiểm tra và xử lý pin xe điện bị chai',
+				'score'     => 6,
+			),
+		);
+		$ranked = nt_assist_bm25_rerank( $documents, array( 'pin', 'chai' ) );
+		$this->assertSame( 'Pin xe điện bị chai', $ranked[0]['title'] );
+		$this->assertSame( 2, count( $ranked ) );
+	}
+
 	public function test_public_search_excludes_private_and_passworded_content(): void {
 		add_filter( 'nguyentu_chat_widget_active', '__return_false' );
 		$sources = nt_assist_public_search( 'xe' );
