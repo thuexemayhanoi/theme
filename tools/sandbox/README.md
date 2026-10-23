@@ -135,7 +135,7 @@ Disk after a full install: downloads 236 MB, WordPress 258 MB, MariaDB datadir 1
 ## Known limits
 
 * **Synthetic content.** Blog posts, product/featured_item texts, placeholder pages and all images are generated filler (marked `_nt_sandbox_synthetic` / "Nội dung mô phỏng").
-  Production has 123 attachments, the sandbox 55-56. No real prices other than the six given in the brief. Blog post IDs are invented (10001-10160); the real ones are unknown.
+  Production has 123 attachments, the sandbox 55-56. No real prices other than the six given in the brief. Twelve blog fixtures use the audited homepage Matrix IDs (476, 1060, 895, 829, 847, 841, 862, 836, 857, 1062, 823, 887); remaining blog IDs are invented (10013-10160). All blog text and category assignments remain synthetic.
 * **Simulators, not the real plugins.** The QuickCall bar and the MotoAI bubble follow only what the brief states (position, size, z-index, links). The Flatsome registration is reduced to the brief's facts
   (CPT `featured_item`, taxonomy `featured_item_category`, slugs); its real `register_post_type` arguments (labels, `has_archive`, capabilities ...) were not read from production.
 * **Not installed / not reproduced:** Yoast SEO Premium, Contact Form 7, GTranslate, LiteSpeed Cache, WPCode, Site Kit, WPVibe, YLabs agent, VibeSEO, real Flatsome code, production's Yoast settings (only a company name + generated logo, `stripcategorybase`, and per-page titles/descriptions are set), the 123 attachments, comments, orders, users other than admin and `nguyentu-editor`.
