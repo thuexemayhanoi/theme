@@ -33,8 +33,10 @@ Rollback: revert the curation commit; no database restore is needed. New publish
 - Local Node suite: 135 PASS, 1 SKIP, 0 failures (136 total).
 - ESLint on modified browser tests: PASS. `git diff --check`: PASS.
 - Integration tests exercise new publishing without displacing curated cards, automatic latest updates, duplicate exclusion and hiding a selected draft. Browser tests assert all three groups and their order using actual sandbox permalinks.
-- Sandbox keeps exactly 160 synthetic Posts: twelve existing fixtures use the verified Matrix IDs; the remaining IDs stay 10013–10160. Text and categories remain explicitly synthetic, not production copies.
+- Sandbox keeps exactly 160 synthetic Posts: twelve existing fixtures use the verified Matrix IDs and slugs; the remaining IDs stay 10013–10160. Text and categories remain explicitly synthetic, not production copies.
 - PHP lint/PHPCS/PHPUnit and sandbox browser testing are performed by the PR's GitHub CI; this local environment has no PHP runtime. See PR checks for their independently recorded results.
 - Native iPhone/iPad Safari and ranking impact: NOT_TESTED. Chromium responsive QA does not imply native Safari coverage.
 
 Release status at authoring: feature branch prepared, LIVE_UNCHANGED. Merge/deployment and public verification are recorded separately in the task's completion result.
+
+QA correction: the first browser run exposed a synthetic-slug mismatch at Post 895 (the existing 50cc shortcut now resolves this fixture). Reused all twelve verified production slugs in the disposable fixtures; production templates and WordPress content require no further change. Three homepage assertions failed in that run; 221 other browser tests passed. Full CI must pass after this fixture-only correction.

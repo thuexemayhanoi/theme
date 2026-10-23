@@ -817,6 +817,21 @@ $word_total  = 0;
 $post_cat_counts = array();
 // Reserve real Matrix IDs for homepage curation tests; content/categories remain synthetic.
 $home_matrix_ids = array( 476, 1060, 895, 829, 847, 841, 862, 836, 857, 1062, 823, 887 );
+// Use verified slugs too: the existing 50cc shortcut resolves Post 895 before its product fallback.
+$home_matrix_slugs = array(
+	476 => 'thue-xe-may-ha-noi-gia-re',
+	1060 => 'thue-xe-may-theo-thang-ha-noi-gia-re-xe-ga-xe-so',
+	895 => 'thue-xe-may-50cc-ha-noi',
+	829 => 'huong-dan-thu-tuc-thue-xe-may-ha-noi-don-gian-tien-loi',
+	847 => 'cho-thue-xe-may-long-bien',
+	841 => 'thue-xe-may-gan-ho-hoan-kiem',
+	862 => 'cho-thue-xe-may-tay-ho',
+	836 => 'thue-xe-may-o-pho-co',
+	857 => 'thue-xe-may-ba-dinh',
+	1062 => 'thue-xe-ga-xe-so-ha-noi-cach-chon-xe-phu-hop',
+	823 => 'kinh-nghiem-thue-xe-may-ha-noi',
+	887 => 'chi-phi-giao-xe-may-tan-noi-ha-noi',
+);
 foreach ( $entries as $i => $e ) {
 	$pid     = $home_matrix_ids[ $i ] ?? ( 10001 + $i );
 	$ts      = $anchor_ts - ( $n_posts - 1 - $i ) * $step - ( 3600 * ( 1 + ( $i * 7 ) % 10 ) ) - ( ( $i * 13 ) % 60 ) * 60;
@@ -838,7 +853,7 @@ foreach ( $entries as $i => $e ) {
 			'post_type'      => 'post',
 			'post_status'    => 'publish',
 			'post_title'     => $e['title'],
-			'post_name'      => sanitize_title( $e['title'] ),
+			'post_name'      => $home_matrix_slugs[ $pid ] ?? sanitize_title( $e['title'] ),
 			'post_content'   => $built['content'],
 			'post_excerpt'   => ( 1 === $i % 3 ) ? nt_seed_trim( $built['intro'], 200 ) : '',
 			'post_author'    => $editor_id,
