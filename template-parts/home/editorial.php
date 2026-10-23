@@ -99,6 +99,7 @@ $nt_hero_image_attrs = array(
 	'loading'       => 'eager',
 	'decoding'      => 'async',
 	'fetchpriority' => 'high',
+	'data-no-lazy'  => '1', // LiteSpeed: avoid turning the above-fold hero into a JS placeholder.
 	'sizes'         => '(min-width: 900px) 55vw, 100vw',
 );
 ?>
@@ -187,7 +188,7 @@ $nt_hero_image_attrs = array(
 						array(
 							'heading' => 'h3',
 							'lead'    => 0 === $nt_featured_index,
-							'eager'   => 0 === $nt_featured_index,
+							'eager'   => false, // The hero owns high network priority; curated post art is lower down.
 						)
 					);
 					?>
