@@ -101,6 +101,10 @@ if [ "$E2E" = 1 ]; then
 	bash $SB/activate-sims.sh --off >/dev/null 2>&1
 	bash $SB/serve.sh restart >/dev/null 2>&1 || true
 	NT_SIMS=off PLAYWRIGHT_JSON_OUTPUT_FILE=reports/results/raw/pw-sims-off.json npx playwright test contact native-assist --reporter=list,json || fail "Playwright (simulators off)"
+	# The pull-request build of the assistant, read like the live site is read: six chips, the questions of Issue #62,
+	# call / Zalo / Maps buttons, layout at 390/360/768/1024/1440 px in light and dark. Evidence: reports/assistant-candidate.
+	echo "== Assistant candidate capture (simulators off) =="
+	node tools/qa/assist-live.mjs --base "$SITE_URL" --label candidate --out reports/assistant-candidate --delay 150 || fail "assistant candidate capture (see reports/assistant-candidate/summary.md)"
 	if [ "$SHOTS" = 1 ]; then
 		# WordPress moved the previous theme's default widgets (Archives, Categories) into the new footer area on
 		# activation; that is a property of the sandbox, so evidence screenshots are taken without them.
