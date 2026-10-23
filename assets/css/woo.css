@@ -7,6 +7,19 @@
 .woocommerce-products-header__title, .product_title { margin: 0 0 .4em; letter-spacing: -.03em; color: var(--nt-navy-900); }
 .woocommerce-products-header__title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); }
 .term-description { max-width: 70ch; color: var(--nt-muted); }
+/* Measured on the real shop/category/product mobile pages: Woo breadcrumbs have
+ * 18px-tall links; expand the touch area without changing markup or site-wide
+ * breadcrumb, footer or Owner-Lock controls. */
+@media (max-width: 899.98px) {
+	.nt-shop .nt-breadcrumb a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 32px;
+		padding: 5px 6px;
+		border-radius: 6px;
+	}
+}
+
 .woocommerce-result-count { margin: 0 0 16px; font-size: .9375rem; color: var(--nt-muted); }
 .woocommerce-ordering { margin: 0 0 16px; }
 .woocommerce-ordering select, .woocommerce select, .woocommerce input[type="text"], .woocommerce input[type="email"], .woocommerce input[type="tel"],
