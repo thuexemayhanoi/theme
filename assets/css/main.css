@@ -488,6 +488,38 @@ html:not(.js) .nt-searchpanel[hidden] { display: block; }
 	color: var(--nt-navy);
 	background: linear-gradient(135deg, var(--nt-navy-100), #f6efe0);
 }
+
+/* Image-free articles receive a deliberately illustrated editorial tile, not a false
+   post photograph. All artwork is CSS/SVG with no extra HTTP request or layout shift. */
+.nt-card__placeholder--editorial {
+	position: relative; isolation: isolate; overflow: hidden;
+	display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+	gap: clamp(7px, 1vw, 13px); min-width: 0;
+	padding: clamp(14px, 2vw, 26px);
+	color: #19324c;
+	background: linear-gradient(145deg, #d8e9f0, #f3f7f8);
+}
+.nt-card__placeholder--tone-1 { background: linear-gradient(145deg, #d8e9df, #f6f5e9); }
+.nt-card__placeholder--tone-2 { background: linear-gradient(145deg, #e8e2f4, #f6f0e9); }
+.nt-card__placeholder--editorial::before {
+	content: ""; position: absolute; width: 72%; aspect-ratio: 1;
+	top: -45%; right: -25%; border-radius: 50%;
+	border: 22px solid rgb(25 50 76 / 8%); pointer-events: none;
+}
+.nt-card__placeholder--editorial .nt-icon {
+	position: relative; flex: none; width: clamp(28px, 4vw, 48px); height: auto;
+	color: #274d6a;
+}
+.nt-card__placeholder-mark {
+	position: relative; font-size: clamp(.58rem, .75vw, .72rem);
+	font-weight: 800; letter-spacing: .13em; line-height: 1.35;
+}
+.nt-card__placeholder-topic {
+	position: relative; display: -webkit-box; -webkit-box-orient: vertical;
+	-webkit-line-clamp: 2; overflow: hidden; max-width: 100%;
+	font-size: clamp(.78rem, 1vw, 1.05rem); font-weight: 800; line-height: 1.35;
+	overflow-wrap: anywhere;
+}
 .nt-card__body { display: flex; flex-direction: column; flex: 1; padding: 18px 20px 20px; }
 .nt-card__chips { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .nt-card__title { margin: 0 0 8px; font-size: 1.125rem; line-height: 1.35; letter-spacing: -.01em; }
