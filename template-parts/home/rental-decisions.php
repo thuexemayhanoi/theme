@@ -42,7 +42,7 @@ defined( 'ABSPATH' ) || exit;
 		</details>
 		<details>
 			<summary>Cần chuẩn bị giấy tờ và tiền cọc gì?</summary>
-			<p>Chuẩn bị giấy tờ tùy thân còn hiệu lực và giấy phép lái xe phù hợp với phương tiện. Mức cọc theo từng dòng xe được ghi trong bảng giá; phương án bảo đảm và điều kiện hoàn cọc phải được xác nhận trong hợp đồng. Không mặc định thuê xe không cần cọc.</p>
+			<p>Chuẩn bị giấy tờ tùy thân còn hiệu lực và giấy phép lái xe phù hợp với phương tiện. Mức cọc theo từng dòng xe được ghi trong bảng giá; phương án bảo đảm và điều kiện hoàn cọc phải được xác nhận trong hợp đồng. Mức cọc cụ thể phải được chốt trước khi nhận xe.</p>
 		</details>
 		<details>
 			<summary>Có thể nhận xe ở Phố Cổ hoặc sân bay Nội Bài không?</summary>
