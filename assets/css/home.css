@@ -211,3 +211,11 @@
 [data-nt-native-rental] .ntsc-rental__result { font-weight: 700; font-size: 1.1rem; margin: 1rem 0 .5rem; }
 [data-nt-native-rental] .ntsc-rental__note { font-size: .9rem; line-height: 1.5; }
 [data-nt-native-rental] .ntsc-rental__link { display: inline-flex; min-height: 44px; align-items: center; padding: .6rem 1rem; border-radius: 8px; color: #fff; text-decoration: none; }
+
+/* Homepage-only rental decisions: no selectors or tokens shared with fixed contact/assistant UI. */
+.nt-home-mag__decision-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0; }
+.nt-home-mag__decision-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-underline-offset: .2em; }
+.nt-home-mag__decisions details { margin-block: 12px; padding: 12px 16px; border: 1px solid var(--nt-line); border-radius: 8px; }
+.nt-home-mag__decisions summary { min-height: 44px; padding-block: 8px; font-weight: 700; cursor: pointer; }
+.nt-home-mag__decisions [lang="en"] { margin-block: 32px; }
+.nt-home-mag__decisions h2 { scroll-margin-top: 110px; }

@@ -62,6 +62,7 @@ $nt_hero_image_attrs = array(
 	'loading'       => 'eager',
 	'decoding'      => 'async',
 	'fetchpriority' => 'high',
+	'data-no-lazy'  => '1',
 	'sizes'         => '(min-width: 900px) 55vw, 100vw',
 );
 ?>
@@ -70,7 +71,14 @@ $nt_hero_image_attrs = array(
 		<div class="nt-home-mag__intro-copy">
 			<p class="nt-eyebrow">Thuê xe máy Hà Nội · Nguyễn Tú</p>
 			<h1 id="nt-home-mag-title" class="nt-home-mag__title"><?php echo esc_html( $nt_h1 ); ?></h1>
-			<p class="nt-home-mag__lead">Chọn xe số, xe ga hoặc xe điện; xem bảng giá, ước tính tiền thuê và đọc cẩm nang đi xe tại Hà Nội. Giá, tiền cọc và giao nhận được xác nhận trước khi thuê.</p>
+			<p class="nt-home-mag__lead">Cho thuê xe máy Hà Nội theo ngày, tuần hoặc tháng: xe số, xe ga Honda Vision, xe ga 50cc và xe điện. Nhận xe tại <strong><?php echo esc_html( nt_address() ); ?></strong>, mở cửa <?php echo esc_html( nt_hours_range() ); ?>.</p>
+				<p>Chọn đúng dòng xe, xem giá thuê và tiền cọc trong bảng dưới đây, rồi xác nhận xe còn sẵn trước khi đặt. Giao nhận tại địa chỉ khác cần thỏa thuận về điều kiện và phí.</p>
+				<nav class="nt-home-mag__decision-links" aria-label="Thông tin đặt thuê xe">
+					<a href="#bang-gia-tham-khao">Xem giá và tiền cọc</a>
+					<a href="#nt-home-rental-process">Thủ tục nhận xe</a>
+					<a href="#nt-home-rental-faq">Câu hỏi thường gặp</a>
+					<a href="<?php echo esc_url( nt_zalo_url() ); ?>">Nhắn Zalo xác nhận xe</a>
+				</nav>
 			<?php
 			nt_cta_buttons(
 				array(
@@ -123,6 +131,13 @@ $nt_hero_image_attrs = array(
 	</div>
 </section>
 
+<?php
+// Answer rental decisions before editorial discovery, preserving the existing single table/calculator.
+get_template_part( 'template-parts/home/prices' );
+get_template_part( 'template-parts/home/products' );
+get_template_part( 'template-parts/home/rental-decisions' );
+?>
+
 <?php if ( $nt_featured->have_posts() ) : ?>
 <section class="nt-section nt-home-mag__featured" aria-labelledby="nt-home-featured-title">
 	<div class="nt-container">
@@ -166,12 +181,6 @@ $nt_hero_image_attrs = array(
 <?php endif; ?>
 
 <?php
-// A live WooCommerce catalogue, NOT hardcoded product tiles or duplicate legacy shortcodes.
-get_template_part( 'template-parts/home/products' );
-
-// Retain exactly one authoritative price table and Smart Core's live estimate hook.
-get_template_part( 'template-parts/home/prices' );
-
 // Uploaded visual assets; optional and non-destructive if an attachment is later removed.
 $nt_service_visuals     = array(
 	4987 => 'Chọn xe và tìm hiểu điều kiện thuê',

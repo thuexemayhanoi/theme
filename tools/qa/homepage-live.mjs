@@ -5,6 +5,8 @@ import AxeBuilder from '@axe-core/playwright';
 import { assertPreservedLinks, verifyLiveTermAliases } from './homepage-legacy-parity.mjs';
 
 const baseline = JSON.parse(readFileSync('reports/homepage-baseline-2026-10-21.json', 'utf8'));
+// Explicit, owner-authorized homepage copy update; preserve the archived navigation/SEO before snapshot.
+const expectedSeo = JSON.parse(readFileSync('reports/homepage-seo-expectations-2026-10-24.json', 'utf8'));
 const out = 'reports/homepage-live';
 mkdirSync(out, { recursive: true });
 const proof = { started: new Date().toISOString(), commit: process.env.GITHUB_SHA, engine: 'Chromium emulation; native Safari untested', devices: [], errors: [] };
@@ -58,8 +60,8 @@ try {
       oldScript: !!document.querySelector('#nt-smart-rental-js'),
       unusedWishlist: !!document.querySelector('#yith-wcwl-add-to-wishlist-js'),
     }));
-    assert.equal(meta.title, baseline.title);
-    assert.equal(meta.description, baseline.description);
+    assert.equal(meta.title, expectedSeo.title);
+    assert.equal(meta.description, expectedSeo.description);
     assert.deepEqual(meta.canonical, [baseline.url]);
     assert.deepEqual(meta.h1, [baseline.h1]);
     assert.equal(meta.main, 1);
