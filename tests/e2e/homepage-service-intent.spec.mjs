@@ -3,6 +3,8 @@ import { load } from 'cheerio';
 import { noHorizontalScroll, overflowOffenders, expectReadable } from './helpers.mjs';
 import { NAP } from '../../tools/qa/lib/assist-cases.mjs';
 
+const SIMS = (process.env.NT_SIMS ?? 'on') === 'on';
+
 // This spec checks the customer journey and initial HTML, not keyword density or an invented SEO score.
 for (const mode of ['light', 'dark']) {
 	for (const width of [360, 390, 768, 1440]) {
@@ -77,14 +79,21 @@ for (const mode of ['light', 'dark']) {
 			}
 
 			// Existing navigation and the protected features keep a single instance and their approved destinations.
-			await expect(page.locator('#nt-native-quickcall')).toHaveCount(1);
-			await expect(page.locator('#nt-native-assistant')).toHaveCount(1);
-			await expect(page.locator('[data-nt-qc-launch]')).toHaveCount(1);
-			await expect(page.locator('#nt-assist-dialog')).toHaveCount(1);
-			await expect(page.locator('.nt-qc__link--call')).toHaveAttribute('href', NAP.tel);
-			await expect(page.locator('.nt-qc__link--zalo')).toHaveAttribute('href', NAP.zalo);
-			await expect(page.locator('.nt-qc__link--maps')).toHaveAttribute('href', NAP.quickCallMaps);
-			await expect(page.locator('#nt-assist-dialog')).toBeHidden();
+			if (SIMS) {
+				await expect(page.locator('#moto-quickcall-sim')).toHaveCount(1);
+				await expect(page.locator('#motoai-chat-bubble-sim')).toHaveCount(1);
+				await expect(page.locator('#nt-native-quickcall')).toHaveCount(0);
+				await expect(page.locator('#nt-native-assistant')).toHaveCount(0);
+			} else {
+				await expect(page.locator('#nt-native-quickcall')).toHaveCount(1);
+				await expect(page.locator('#nt-native-assistant')).toHaveCount(1);
+				await expect(page.locator('[data-nt-qc-launch]')).toHaveCount(1);
+				await expect(page.locator('#nt-assist-dialog')).toHaveCount(1);
+				await expect(page.locator('.nt-qc__link--call')).toHaveAttribute('href', NAP.tel);
+				await expect(page.locator('.nt-qc__link--zalo')).toHaveAttribute('href', NAP.zalo);
+				await expect(page.locator('.nt-qc__link--maps')).toHaveAttribute('href', NAP.quickCallMaps);
+				await expect(page.locator('#nt-assist-dialog')).toBeHidden();
+			}
 
 			await noHorizontalScroll(page);
 			expect(await overflowOffenders(page)).toEqual([]);
